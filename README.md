@@ -343,4 +343,3 @@ MIT. See [LICENSE.md](LICENSE.md).
 ---
 
 **Ready to start? Fill out your business context, run `/daily-plan`, and see what an AI copilot that actually knows your company feels like.**
-# Lorum-PM-Workshop
