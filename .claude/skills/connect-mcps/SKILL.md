@@ -8,7 +8,7 @@ modifies-workspace: true
 
 # `/connect-mcps` - MCP Integration & Connection Manager
 
-Connect Model Context Protocol (MCP) servers to your PM OS workspace for real-time data access from your tools.
+Connect Model Context Protocol (MCP) servers to your PM Jarvis workspace for real-time data access from your tools.
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ Tell me which tool to connect (e.g., "connect to Amplitude") and I will guide yo
 2. I search for official MCP servers (remote first, then local)
 3. I guide you through credentials and authentication
 4. I test the connection and discover available tools
-5. I update your PM OS skills and CLAUDE.md routing automatically
+5. I update your PM Jarvis skills and CLAUDE.md routing automatically
 
 **Example:** `/connect-mcps connect to linear`
 
@@ -56,7 +56,7 @@ When you run `/connect-mcps connect to [tool name]`, I will:
 3. **If no remote server** - Research manual setup (OAuth, API tokens)
 4. **Guide credential entry** - Prompt you for required credentials
 5. **Test connection** - Verify the connection works and discover available tools
-6. **Map to skills** - Automatically determine which PM OS skills benefit from this MCP
+6. **Map to skills** - Automatically determine which PM Jarvis skills benefit from this MCP
 7. **Update workspace** - Add integration instructions to relevant skills and update CLAUDE.md registry
 8. **Enable intelligent routing** - Your natural language queries will automatically route to the right MCP
 
@@ -395,7 +395,7 @@ This ensures MCP integration info appears early but doesn't interrupt the skill'
 User: /connect-mcps connect to figma
 
 Me:
-Let me help you connect Figma to your PM OS workspace.
+Let me help you connect Figma to your PM Jarvis workspace.
 
 [Searches: "Figma official MCP server"]
 [Finds: https://developers.figma.com/docs/figma-mcp-server/]
@@ -436,7 +436,7 @@ Full documentation: https://developers.figma.com/docs/figma-mcp-server/remote-se
 User: /connect-mcps connect to amplitude
 
 Me:
-Let me help you connect Amplitude to your PM OS workspace.
+Let me help you connect Amplitude to your PM Jarvis workspace.
 
 [Searches: "Amplitude MCP server documentation 2026"]
 [Finds: GitHub repo, NPM package, setup guide]
@@ -467,7 +467,7 @@ Testing connection... ✓ Connected successfully!
 
 **Category:** Analytics
 
-**Integrating with PM OS skills...**
+**Integrating with PM Jarvis skills...**
 ✓ feature-metrics updated
 ✓ impact-sizing updated
 ✓ retention-analysis updated
@@ -501,7 +501,7 @@ Full log: outputs/mcp-integration-logs/2026-01-30-amplitude.md
 User: /connect-mcps connect to linear
 
 Me:
-Let me help you connect Linear to your PM OS workspace.
+Let me help you connect Linear to your PM Jarvis workspace.
 
 [Searches: "Linear MCP server documentation 2026"]
 
@@ -531,7 +531,7 @@ Testing connection... ✓ Connected successfully!
 
 **Category:** Project Management
 
-**Integrating with PM OS skills...**
+**Integrating with PM Jarvis skills...**
 ✓ create-tickets updated
 ✓ meeting-notes updated
 ✓ status-update updated
@@ -784,7 +784,7 @@ The tool appears to handle:
 - A/B testing
 - Analytics
 
-Which PM OS skills should integrate with this MCP?
+Which PM Jarvis skills should integrate with this MCP?
 A) Analytics skills (metrics, retention, experiments)
 B) Product skills (PRD, decisions)
 C) Both A and B

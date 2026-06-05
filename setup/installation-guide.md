@@ -1,12 +1,12 @@
 # Installation Guide
 
-Get your PM Operating System up and running in 15 minutes.
+Get your PM Jarvis up and running in 15 minutes.
 
 ## What You'll Install
 
 1. **Claude Code** - Your AI coding assistant in the terminal
 2. **Cursor** - AI-powered code editor (optional but recommended)
-3. **This Repository** - Your PM OS files
+3. **This Repository** - Your PM Jarvis files
 
 ---
 
@@ -50,13 +50,13 @@ source ~/.zshrc
 
 ---
 
-## Step 2: Download PM Operating System
+## Step 2: Download PM Jarvis
 
 1. Download the zip file from your purchase
-2. Extract to a folder called `pm-operating-system`
+2. Extract to a folder called `pm-jarvis`
 3. Open terminal and navigate to that folder:
 ```bash
-cd ~/Downloads/pm-operating-system
+cd ~/Downloads/pm-jarvis
 ```
 
 ---
@@ -89,11 +89,11 @@ Let's verify everything works:
 
 ### Test 1: Claude Code Basics
 ```bash
-cd pm-operating-system
+cd pm-jarvis
 claude "Read CLAUDE.md and explain what this system does"
 ```
 
-You should see Claude read the master context file and explain the PM OS.
+You should see Claude read the master context file and explain the PM Jarvis.
 
 ### Test 2: Use a Slash Command
 ```bash
@@ -142,13 +142,13 @@ Fill out these files to personalize the system for your company and preferences:
 ## Step 7: Customize Your Setup
 
 ### How Claude Code Uses Your Context
-Claude Code automatically reads `CLAUDE.md` when you launch it in the PM OS directory. No need to tell it manually. Just start Claude Code in the project folder and it will understand the full system.
+Claude Code automatically reads `CLAUDE.md` when you launch it in the PM Jarvis directory. No need to tell it manually. Just start Claude Code in the project folder and it will understand the full system.
 
 ### Create a Shortcut (Optional)
 Add this to your `.bashrc` or `.zshrc`:
 
 ```bash
-alias pm="cd ~/path/to/pm-operating-system && claude"
+alias pm="cd ~/path/to/pm-jarvis && claude"
 ```
 
 Now you can just type `pm` to start a PM session!
@@ -175,7 +175,7 @@ Now you can just type `pm` to start a PM session!
 - Add to shell config for persistence
 
 ### Claude doesn't read files
-- Check you're in the pm-operating-system directory: `pwd`
+- Check you're in the pm-jarvis directory: `pwd`
 - Try absolute paths: `claude "Read /full/path/to/CLAUDE.md"`
 
 ### Rate limits
@@ -188,7 +188,7 @@ Now you can just type `pm` to start a PM session!
 ## File Structure Reminder
 
 ```
-pm-operating-system/
+pm-jarvis/
 ├── CLAUDE.md                 ← Master context (read this first!)
 ├── .claude/skills/           ← 73 slash command skills
 ├── setup/                    ← You are here

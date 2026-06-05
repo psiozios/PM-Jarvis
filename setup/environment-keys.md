@@ -1,10 +1,10 @@
 # Environment Keys Setup
 
-Configure API keys for the tools you'll use with your PM Operating System.
+Configure API keys for the tools you'll use with your PM Jarvis.
 
 ## Why You Need This
 
-The PM OS can integrate with various services to supercharge your workflow:
+The PM Jarvis can integrate with various services to supercharge your workflow:
 - **OpenAI** - For testing prompts across GPT models
 - **Google Gemini** - Alternative LLM for comparison
 - **MCP Servers** - Connect to Slack, Google Drive, Reddit, etc.
@@ -131,7 +131,7 @@ MCPs (Model Context Protocols) let Claude access external tools. Use the `/conne
 
 ### Store MCP Keys Securely
 
-Create a `.env` file in your pm-operating-system folder:
+Create a `.env` file in your pm-jarvis folder:
 
 ```bash
 # .env (DO NOT COMMIT TO GIT!)
@@ -169,7 +169,7 @@ source .env
 
 Create a **keys-template.txt** file (NOT committed):
 ```
-# API Keys for PM OS
+# API Keys for PM Jarvis
 # Last updated: [date]
 
 ANTHROPIC_API_KEY=sk-ant-api03-...
@@ -194,7 +194,7 @@ Store this file in a password manager like 1Password, LastPass, or Bitwarden.
 ## Rate Limits & Costs
 
 ### Anthropic
-- **Claude Pro** ($20/mo) or **Claude Max** ($100-200/mo) - Recommended for PM OS usage
+- **Claude Pro** ($20/mo) or **Claude Max** ($100-200/mo) - Recommended for PM Jarvis usage
 - **Pay-as-you-go API**: Usage-based pricing (check console.anthropic.com/settings/billing for current rates)
 - Check: console.anthropic.com/settings/billing
 

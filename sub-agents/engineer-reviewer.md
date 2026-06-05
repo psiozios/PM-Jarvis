@@ -537,7 +537,7 @@ Use Firebase Cloud Messaging + Firestore instead of building custom:
 ### In Claude Code
 
 ```bash
-cd ~/pm-operating-system
+cd ~/pm-jarvis
 claude "Read sub-agents/engineer-reviewer.md
 
 Then review this PRD from an engineering perspective:

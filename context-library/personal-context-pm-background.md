@@ -64,7 +64,7 @@
 ## Your Context
 
 **Why you're using this system:**
-[What you hope to get out of PM OS - time savings, better quality, etc.]
+[What you hope to get out of PM Jarvis - time savings, better quality, etc.]
 
 **What you want AI to help with most:**
 1. [Top use case]

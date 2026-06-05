@@ -1,4 +1,4 @@
-# PM Workshop
+# PM Jarvis
 
 Your AI-powered copilot for modern product management. Built for Claude Code.
 
@@ -6,7 +6,7 @@ Your AI-powered copilot for modern product management. Built for Claude Code.
 
 Most PMs use AI the same way they use Google: one-off questions, zero context. This system works differently.
 
-- **Context over prompting.** AI is only as good as the context you give it. PM Workshop organizes your company knowledge, writing styles, stakeholder profiles, and past decisions so every output sounds like it came from someone who actually works there.
+- **Context over prompting.** AI is only as good as the context you give it. PM Jarvis organizes your company knowledge, writing styles, stakeholder profiles, and past decisions so every output sounds like it came from someone who actually works there.
 - **Workflows, not chat.** 73 slash commands cover the full PM loop: strategy, research, PRDs, metrics, meetings, launches, prototyping, design, code, knowledge management, and retrospectives. Each one builds on the others.
 - **Ship the draft, then iterate.** Documents are living artifacts. A 1-page PRD that ships Monday beats a 10-page spec that ships never.
 
@@ -33,7 +33,7 @@ claude --version
 ```bash
 # Clone this repository
 git clone <repo-url>
-cd pm-workshop
+cd pm-jarvis
 
 # Launch Claude Code in this directory
 claude
@@ -93,7 +93,7 @@ All skills work without MCPs by falling back to your context library files. You 
 ## Directory Structure
 
 ```
-pm-workshop/
+pm-jarvis/
 ├── README.md                       # You are here
 ├── CLAUDE.md                       # Lean operating system (~120 lines)
 ├── LICENSE.md                      # MIT License
@@ -346,7 +346,7 @@ Monday `/weekly-plan` → daily workflow → Friday `/weekly-review` → `/statu
 
 ## How Is This Different From Regular AI Tools?
 
-| Regular ChatGPT/Claude | PM Workshop |
+| Regular ChatGPT/Claude | PM Jarvis |
 |------------------------|-------------|
 | Forgets your company context | Always knows your business, team, and stakeholders |
 | Generic output | Matches your writing style automatically |

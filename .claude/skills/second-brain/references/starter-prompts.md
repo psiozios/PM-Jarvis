@@ -176,7 +176,7 @@ That's the whole system. Sources go in. Wiki gets compiled. You query it. Good a
 
 ---
 
-## Integration With Other PM OS Skills
+## Integration With Other PM Jarvis Skills
 
 **These skills write to the brain** (they'll ask "File to Second Brain?" at the end of their runs):
 

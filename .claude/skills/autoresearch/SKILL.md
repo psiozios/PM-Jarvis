@@ -7,7 +7,7 @@ user-invocable: true
 
 # /autoresearch - Autonomous Experiment Loops
 
-Inspired by [Karpathy's autoresearch](https://github.com/karpathy/autoresearch), adapted for PM Workshop workflows.
+Inspired by [Karpathy's autoresearch](https://github.com/karpathy/autoresearch), adapted for PM Jarvis workflows.
 
 The job is simple: establish a baseline, run controlled experiments, keep what improves the target metric, discard what does not, and repeat.
 

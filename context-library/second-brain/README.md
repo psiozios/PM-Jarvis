@@ -1,6 +1,6 @@
 # Second Brain
 
-This folder is the persistent, compounding knowledge layer of the PM OS. It's a collection of **focus-area wikis** maintained by the LLM and owned by you.
+This folder is the persistent, compounding knowledge layer of the PM Jarvis. It's a collection of **focus-area wikis** maintained by the LLM and owned by you.
 
 Inspired by Andrej Karpathy's LLM Wiki pattern, adapted for PM work by Aakash Gupta, integrated into this workspace by the `/second-brain` skill.
 
@@ -22,7 +22,7 @@ context-library/second-brain/
 
 ## Focus Areas
 
-Focus areas are created on demand via `/second-brain init <slug>`. The PM OS has six PM-tuned defaults:
+Focus areas are created on demand via `/second-brain init <slug>`. The PM Jarvis has six PM-tuned defaults:
 
 | Focus area | What goes in it |
 |---|---|
@@ -53,7 +53,7 @@ Or just run `/second-brain init` to bootstrap a focus area and get the starter p
 - `wiki/index.md` gets updated on every ingest.
 - `wiki/log.md` is append-only. Format: `## [YYYY-MM-DD] action | description`.
 
-## Integration With the Rest of PM OS
+## Integration With the Rest of PM Jarvis
 
 Seven skills **write** to the brain (they offer "File to Second Brain?" at the end of their runs):
 `/meeting-notes`, `/decision-doc`, `/user-research-synthesis`, `/voice-of-customer`, `/competitor-analysis`, `/weekly-review`, `/stakeholder-tactics --map`

@@ -378,4 +378,4 @@ If <4/6 criteria met → Pause, iterate, retest
 
 ---
 
-*PRD Version 1.0 - Created using PM Operating System framework*
+*PRD Version 1.0 - Created using PM Jarvis framework*

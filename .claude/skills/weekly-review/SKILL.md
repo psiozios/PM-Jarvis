@@ -42,7 +42,7 @@ End-of-week synthesis reviewing what you accomplished, what you learned, and wha
 - **GitHub MCP** - Code activity (if relevant to your role)
 - **Slack MCP** - Key conversations and decisions
 
-**Fallback:** File-based analysis of PM OS workspace + manual input for completions.
+**Fallback:** File-based analysis of PM Jarvis workspace + manual input for completions.
 
 ---
 

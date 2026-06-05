@@ -1,10 +1,10 @@
 # First Session Checklist
 
-Verify your PM Operating System is working perfectly.
+Verify your PM Jarvis is working perfectly.
 
 ## Overview
 
-This checklist walks you through testing every major component of your PM OS. By the end, you'll have:
+This checklist walks you through testing every major component of your PM Jarvis. By the end, you'll have:
 - ✅ Verified Claude Code works
 - ✅ Uploaded your existing work documents
 - ✅ Customized your context
@@ -23,7 +23,7 @@ Before starting, verify:
 ```bash
 # 1. You're in the right directory
 pwd
-# Should show: /path/to/pm-operating-system
+# Should show: /path/to/pm-jarvis
 
 # 2. Claude is installed
 claude --version
@@ -44,7 +44,7 @@ All good? Let's go.
 
 ## Setup Step 1: Upload Your Existing Work Documents
 
-**What we're doing:** Importing your existing context into PM OS
+**What we're doing:** Importing your existing context into PM Jarvis
 
 Before testing features, let's get your real work documents into the system:
 
@@ -92,7 +92,7 @@ Please read each one and organize them into the appropriate folders in context-l
 
 ## Setup Step 2: Fill Out Context Templates
 
-**What we're doing:** Customizing PM OS for your company
+**What we're doing:** Customizing PM Jarvis for your company
 
 ```bash
 # First, let's see what context files exist
@@ -124,7 +124,7 @@ Open `context-library/business-info-template.md` in your editor and fill it out 
 **What we're testing:** Claude Code can read files and respond
 
 ```bash
-claude "Read CLAUDE.md and summarize what this PM Operating System does in 2 sentences"
+claude "Read CLAUDE.md and summarize what this PM Jarvis does in 2 sentences"
 ```
 
 **Expected result:**
@@ -133,7 +133,7 @@ claude "Read CLAUDE.md and summarize what this PM Operating System does in 2 sen
 - No errors
 
 **If it fails:**
-- Check you're in the pm-operating-system directory
+- Check you're in the pm-jarvis directory
 - Verify CLAUDE.md exists: `ls -la CLAUDE.md`
 - Try with absolute path: `claude "Read /full/path/to/CLAUDE.md"`
 
@@ -372,7 +372,7 @@ Go through this final checklist:
 
 **Core Functionality:**
 - [ ] Claude Code is installed and working
-- [ ] Can read markdown files from the PM OS
+- [ ] Can read markdown files from the PM Jarvis
 - [ ] Can execute skills (slash commands)
 - [ ] Can create new files
 - [ ] Can provide different perspectives (sub-agents)
@@ -392,7 +392,7 @@ Go through this final checklist:
 
 **You Feel Confident:**
 - [ ] You can start a Claude session
-- [ ] You know how to reference PM OS files
+- [ ] You know how to reference PM Jarvis files
 - [ ] You can create your own workflows
 - [ ] You know where to find help
 
@@ -402,7 +402,7 @@ Go through this final checklist:
 
 ### If Everything Passed ✅
 
-**You're ready to use the PM OS for real work!**
+**You're ready to use the PM Jarvis for real work!**
 
 Start with:
 1. **Upload more documents** - Add more PRDs, research, strategy docs to `context-library/`
@@ -434,7 +434,7 @@ Save these for future reference:
 
 ```bash
 # Start a PM session
-cd pm-operating-system
+cd pm-jarvis
 claude "Read CLAUDE.md, ready for PM work"
 
 # Process meeting notes
@@ -454,7 +454,7 @@ claude "/status-update - Create my weekly update covering: [what you did]"
 
 ## Create Your Own Checklist
 
-As you use the PM OS, create a personal checklist for your most common tasks:
+As you use the PM Jarvis, create a personal checklist for your most common tasks:
 
 **My Weekly PM Checklist:**
 - [ ] Process all meeting notes from this week
@@ -463,7 +463,7 @@ As you use the PM OS, create a personal checklist for your most common tasks:
 - [ ] Competitive intelligence check
 - [ ] Plan next week's priorities
 
-Customize the PM OS to match your actual workflow!
+Customize the PM Jarvis to match your actual workflow!
 
 ---
 
@@ -479,7 +479,7 @@ Customize the PM OS to match your actual workflow!
 
 ## Congratulations!
 
-You've successfully set up and tested your PM Operating System. You now have:
+You've successfully set up and tested your PM Jarvis. You now have:
 - ✅ An AI assistant that understands PM work
 - ✅ Ready-to-use commands for common tasks
 - ✅ Templates and examples to learn from

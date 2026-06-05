@@ -103,7 +103,7 @@ Inspired by personal operating system patterns but tailored specifically for Pro
 
 **Fallback Strategy:**
 If no integrations available, I'll:
-1. Use file-based data (meeting notes, task lists in PM OS)
+1. Use file-based data (meeting notes, task lists in PM Jarvis)
 2. Ask focused questions (5-6 quick inputs from you)
 3. Generate plan with placeholders you can fill in
 
