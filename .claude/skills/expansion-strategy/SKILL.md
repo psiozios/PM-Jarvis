@@ -558,7 +558,7 @@ Median days from signup to first upgrade
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Expansion Strategy
 
@@ -747,7 +747,7 @@ Before delivering the expansion strategy, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `retention-analysis` - Retention enables expansion (retained users more likely to expand)
 - `activation-analysis` - Activation precedes expansion (activate before offering tiers)
@@ -760,3 +760,11 @@ Before delivering the expansion strategy, verify:
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's expansion and monetization frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-expansion
+
+## When to Use
+
+- Upsell, cross-sell, and account growth tactics. Framework for revenue expansion.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

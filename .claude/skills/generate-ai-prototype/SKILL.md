@@ -525,3 +525,9 @@ If any check fails, fix it before delivering. The prompt should work on the firs
 ---
 
 Remember: A 5-minute prototype can save 2 weeks of engineering waste. Invest in prototyping before building.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

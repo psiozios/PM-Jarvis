@@ -366,7 +366,7 @@ Before delivering the audit, verify:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/competitor-analysis` -- Gather competitive context before auditing
@@ -385,9 +385,15 @@ Before delivering the audit, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/design-direction` -- Set the target aesthetic after auditing current state
 - `/prototype-feedback --design` -- For in-progress prototypes, not shipped UIs
 - `/competitor-analysis` -- Broader competitive intelligence beyond UI
 - `/prototype` -- Build the improved version
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

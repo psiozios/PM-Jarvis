@@ -270,3 +270,23 @@ Action types:
 - [ ] **What went well is documented:** Doesn't just focus on failures
 - [ ] **All actions are assigned and dated:** No "we should improve X" without an owner
 - [ ] **Output saved:** `outputs/post-mortems/post-mortem-[incident]-[date].md`
+
+## When to Use
+
+- Run a structured post-mortem after an incident, failed launch, or missed goal.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

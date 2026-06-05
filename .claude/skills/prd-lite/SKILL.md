@@ -101,7 +101,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 1. [Risk] — Mitigation: [one sentence]
 2. [Risk] — Mitigation: [one sentence]
 
-## Recommended Next Steps
+## Cross-Skill Links
 
 - [ ] [Validate assumption: how and by when]
 - [ ] [If green: escalate to /prd-draft]
@@ -140,7 +140,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 
 ---
 
-## Output Integration
+### Output Routing
 
 **Files:** `outputs/prds/prd-lite-[feature]-[date].md`
 
@@ -167,3 +167,17 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 - [ ] **Next steps are clear:** Specific action with owner, not "follow up"
 - [ ] **Decision ask is explicit:** Does this need approval, more research, or an estimate?
 - [ ] **Output saved:** `outputs/prds/prd-lite-[feature]-[date].md`
+
+## When to Use
+
+- Generate lightweight PRD Lite feature proposals — decision-grade prioritization docs, not engineering-ready specs.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

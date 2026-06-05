@@ -262,3 +262,23 @@ Tracking Plan QA Checklist
 - [ ] **Funnels derivable:** The events defined make the funnels you need buildable
 - [ ] **QA checklist included:** Engineering knows what to validate before launch
 - [ ] **Output saved:** `outputs/analyses/tracking-plan-[feature]-[date].md`
+
+## When to Use
+
+- Design tracking plans for product features.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

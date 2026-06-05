@@ -573,7 +573,7 @@ When user runs `/daily-plan tomorrow`:
 
 ---
 
-## Integration Setup Guides
+## Cross-Skill Links
 
 ### Setup Path 1: MCP Servers (Recommended)
 
@@ -872,7 +872,7 @@ Total time: 2 minutes
 
 ---
 
-## Integration with Other Skills
+### Integration
 
 **Before `/daily-plan`:**
 - `/weekly-plan` - Sets weekly priorities that inform today's focus
@@ -914,7 +914,7 @@ Total time: 2 minutes
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/weekly-plan` - Set weekly priorities
@@ -931,7 +931,7 @@ Total time: 2 minutes
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 When today's calendar includes meetings or work on specific topics (a customer, a competitor, a stakeholder, a decision), query the second brain for context before the day starts. The output of `/daily-plan` should include a **"What I should know today"** section pulling:
 
@@ -941,3 +941,17 @@ When today's calendar includes meetings or work on specific topics (a customer, 
 - **Gap flags** — if the brain has nothing on a meeting topic, note it so the PM arrives expecting to learn rather than present
 
 Five minutes of brain-assisted prep at 8am beats forty minutes scrambling between meetings. If the brain is empty, fall back to `context-library/meetings/` and `stakeholder-template.md` as before.
+
+## When to Use
+
+- Generate PM daily plan with context
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

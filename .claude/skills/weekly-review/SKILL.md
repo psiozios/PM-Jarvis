@@ -638,7 +638,7 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/weekly-review`:**
 - `/daily-plan` - Ran throughout the week (provides daily context)
@@ -688,7 +688,7 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/daily-plan` - Daily execution throughout week
@@ -720,7 +720,7 @@ Before delivering the weekly review, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before reviewing:** optionally query the `domain-knowledge` focus area for patterns from prior weekly reviews (recurring blockers, underestimated task types, times of day you do best work). Reference them so this week's review compares against the trend, not just last week.
 
@@ -738,3 +738,17 @@ For stakeholder patterns specifically, also ingest into `stakeholders`. For deci
 Invoke `/second-brain ingest` with the review as the source. If `domain-knowledge` doesn't exist yet, offer `/second-brain init domain-knowledge` first.
 
 Weekly reviews without accumulation are confessional journaling. Weekly reviews that feed the brain become your personal operating manual — one that gets sharper every Friday.
+
+## When to Use
+
+- Review week's progress, meetings, learnings
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

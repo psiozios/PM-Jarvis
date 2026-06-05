@@ -416,7 +416,7 @@ Ask yourself weekly:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/strategy-sprint` - Leverage strategy work
 - `/prd-draft` - Leverage through great PRDs
@@ -518,3 +518,11 @@ Before delivering the prioritization output, verify:
 - [ ] **Actionable recommendations:** At least 2-3 specific overhead tasks are flagged for elimination or delegation, with a suggested alternative (who to delegate to, or why it can be skipped).
 - [ ] **Calendar blocking suggested:** Specific time blocks are recommended for Leverage work (e.g., "Block Monday 9-12 for PRD writing").
 - [ ] **Strategy alignment checked:** Leverage tasks are validated against current strategic priorities from `context-library/strategy/`. If a Leverage task does not connect to strategy, flag it.
+
+## When to Use
+
+- Classify PM tasks using LNO Framework (Leverage/Neutral/Overhead) to focus on high-impact work.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

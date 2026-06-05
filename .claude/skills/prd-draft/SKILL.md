@@ -648,7 +648,7 @@ Great work! Your PRD is ready for review.
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -990,7 +990,7 @@ If we [build X], then [users will Y], because [underlying insight].
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before drafting, query the second brain for the **Background / Context** section. A good PRD starts with evidence, not assumptions. Pull from:
 
@@ -1004,3 +1004,9 @@ Equivalent of `/second-brain query "background context for <feature>" --focus=<e
 If the brain is thin on this topic, flag it at the top of the PRD ("evidence gap: we don't yet have wiki pages for X, Y"). That's a research task, not a blocker — but it should be visible.
 
 If `context-library/second-brain/` isn't initialized, proceed without — this hook is a force multiplier, not a prerequisite.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

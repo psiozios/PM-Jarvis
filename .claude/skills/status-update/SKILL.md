@@ -811,7 +811,7 @@ Given the extra time, we could:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 

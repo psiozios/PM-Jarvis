@@ -367,7 +367,7 @@ Before you launch an experiment, verify:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/experiment-decision` - Decide when to A/B test vs ship
 - `/metrics-framework` - Understand leading vs lagging metrics
@@ -426,3 +426,17 @@ Before presenting output to the PM, verify:
 - [ ] **Metric sensitivity analysis included:** The output states whether the expected change is detectable given current traffic, variance, and experiment duration
 - [ ] **Guardrail metrics identified:** At least 3 guardrail metrics are defined with acceptable ranges to prevent unintended harm
 - [ ] **No vanity metrics without justification:** If any metric could be considered a vanity metric (e.g., page views, total signups), the output explains why it is valid for this specific experiment
+
+## When to Use
+
+- STEDII framework for selecting trustworthy experiment metrics. Ensures metric validity and reliability.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

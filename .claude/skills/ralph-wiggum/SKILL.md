@@ -305,7 +305,7 @@ Use these consistently:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before Ralph:**
 - `/prd-draft` -- Write the PRD that Ralph will review
@@ -341,7 +341,7 @@ Before presenting the review, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Write the document to review
@@ -353,3 +353,9 @@ Before presenting the review, verify:
 - `/impact-sizing` - Redo sizing if challenged
 - `/feature-metrics` - Tighten metrics if flagged
 - `/interview-guide` - Plan research to fill gaps Ralph found
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

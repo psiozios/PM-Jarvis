@@ -476,7 +476,7 @@ Use this with your team:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Activation Analysis
 
@@ -517,7 +517,7 @@ After defining Setup → Aha → Habit, ask:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `user-research-synthesis` - Understand user struggles in onboarding, synthesis of feedback
 - `experiment-decision` - Test activation improvements and measure impact
@@ -649,3 +649,11 @@ Step 5: Hypothesis ranking
 ```
 
 **Output:** Rapid triage summary with top 3 hypotheses ranked by probability. Follow with full `/activation-analysis` if the issue is systemic, not just a regression.
+
+## When to Use
+
+- Analyze user activation using Setup → Aha → Habit framework. Identifies activation bottlenecks.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

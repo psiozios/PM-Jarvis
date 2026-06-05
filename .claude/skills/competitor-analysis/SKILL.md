@@ -567,7 +567,7 @@ I can help you set up:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -720,7 +720,7 @@ If any check fails, fix it before delivering. The best competitive analysis driv
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before analyzing:** query the `competitive-intelligence` focus area. A fresh competitor-analysis run should **build on** what's in the brain, not restart from zero. Pull the current page for each competitor (positioning, pricing, ICP, recent moves, strengths, weaknesses) and treat this run as an update, not a first draft.
 
@@ -737,3 +737,11 @@ If yes, ingest into `competitive-intelligence`:
 Invoke `/second-brain ingest` with the analysis file as the source. If `competitive-intelligence` doesn't exist yet, offer `/second-brain init competitive-intelligence` first.
 
 Competitive intel ages fast. The brain keeps it current by treating every analysis as an update to the canonical view.
+
+## When to Use
+
+- Deep competitive analysis + ongoing monitoring.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

@@ -301,7 +301,7 @@ For slides with complex or sensitive content:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -357,3 +357,11 @@ Before delivering the deck outline, verify:
 - [ ] **Likely Q&A prepared:** 5+ likely questions with suggested answers
 - [ ] **Appendix flagged:** Topics that need backup slides identified
 - [ ] **Output file saved:** Saved to `outputs/board-decks/[deck-type]-[quarter]-[date].md`
+
+## When to Use
+
+- Prepare executive and board-level presentations.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

@@ -529,7 +529,7 @@ I'll remind you:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -659,7 +659,7 @@ Before presenting output to the PM, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before synthesizing:** query the `customer-insights` focus area for existing themes. Your new round of interviews should confirm, extend, or contradict what's already there — not start from scratch. Surface prior themes with `[Source:]` citations so the new synthesis shows how understanding is evolving.
 

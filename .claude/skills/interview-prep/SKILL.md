@@ -680,3 +680,9 @@ Before delivering the prep plan, verify:
 ---
 
 Remember: Great preparation beats natural talent. Put in the 10-15 hours of structured prep, and you'll walk in confident and ready to nail the interview.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

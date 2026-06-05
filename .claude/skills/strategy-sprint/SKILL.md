@@ -332,7 +332,7 @@ Help me work through the appropriate framework step by step.
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/prd-draft` - Turn strategy into PRDs
 - `/competitor-analysis` - Research competitors (includes SWOT, Porter's Five Forces, PESTEL, Ansoff Matrix)
@@ -364,7 +364,7 @@ Before delivering the strategy document, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Strategy is evidence-heavy. Before writing, query the second brain for the evidence base:
 
@@ -379,3 +379,11 @@ For 1-week and 1-month tiers especially, treat the brain as the **raw material**
 At the end of the sprint, offer to file the final strategy doc back into `domain-knowledge` so next quarter's sprint starts one step ahead.
 
 If the brain isn't initialized, the skill falls back to `context-library/strategy/` and `context-library/research/` as before. The brain makes this skill sharper; it doesn't gate it.
+
+## When to Use
+
+- Create product strategy in 1 day, 1 week, or 1 month timeframes. Progressive strategy development framework.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

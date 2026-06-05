@@ -187,3 +187,15 @@ Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 - [ ] **Concise** - docs are shorter than the code they describe
 - [ ] **No aspirational documentation** - only documents what currently exists
 - [ ] **Summary saved:** `outputs/analyses/docs-update-[date].md`
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

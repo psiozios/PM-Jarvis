@@ -656,7 +656,7 @@ For products with multiple value streams (e.g., separate features for creation, 
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -688,7 +688,7 @@ After building your framework:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/define-north-star` - Choose your North Star (lagging metric)
 - `/activation-analysis` - Find leading activation indicators
@@ -717,3 +717,11 @@ Before delivering the metrics framework, verify:
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's metrics frameworks. Read: https://www.news.aakashg.com/p/become-an-ab-testing-expert-advanced
+
+## When to Use
+
+- Set up leading vs lagging indicators for product decisions. Framework for metric selection and tracking.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

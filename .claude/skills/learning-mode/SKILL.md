@@ -132,3 +132,15 @@ Technical PMs commonly ask about:
 - [ ] **80/20 focus maintained** - practical understanding over academic completeness
 - [ ] **Jargon explained** - no undefined technical terms
 - [ ] **Peer tone** - conversational, not condescending
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

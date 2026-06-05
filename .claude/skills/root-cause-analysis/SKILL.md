@@ -243,3 +243,23 @@ Before concluding, answer:
 - [ ] **Prevention addressed:** Fix and process improvement documented with owners
 - [ ] **Validation defined:** Clear signal that confirms the fix worked
 - [ ] **Output saved:** `outputs/analyses/rca-[issue]-[date].md`
+
+## When to Use
+
+- Structured problem investigation for PMs.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

@@ -255,3 +255,23 @@ Define what "done" looks like before you flip the switch.
 - [ ] **Communication timeline starts 90 days out:** Not 2 weeks notice for significant changes
 - [ ] **Go/No-go criteria defined:** Migration threshold set before communications begin
 - [ ] **Output saved:** `outputs/analyses/deprecation-plan-[feature]-[date].md`
+
+## When to Use
+
+- Plan and execute feature or product deprecations.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

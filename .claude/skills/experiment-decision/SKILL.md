@@ -339,7 +339,7 @@ Before delivering the experiment decision, verify:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/experiment-metrics` - Choose the right metrics to measure
 - `/activation-analysis` - Test activation improvements
@@ -424,3 +424,11 @@ For each experiment, answer:
 7. Defaults (pre-select the better option)
 8. Reduce commitment (let them try before they fully commit)
 ```
+
+## When to Use
+
+- Decide when to A/B test vs just ship. Framework for experiment planning and prioritization.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

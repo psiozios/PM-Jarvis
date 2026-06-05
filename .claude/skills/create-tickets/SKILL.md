@@ -301,7 +301,7 @@ Body:
   - Rollback plan: [How to revert if needed]
 ```
 
-## Integration Examples
+## Cross-Skill Links
 
 ### Linear MCP
 ```python

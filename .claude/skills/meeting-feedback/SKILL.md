@@ -490,7 +490,7 @@ If not, what changes would justify the cost?
 ❌ Only noting problems
 ✅ Also capture what worked well (repeat it)
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before meeting:**
 - `/meeting-agenda` - Create structured agenda

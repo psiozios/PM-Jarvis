@@ -208,7 +208,7 @@ If you only have one source (e.g., just NPS verbatims or just support tickets), 
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 **Files:** `outputs/research-synthesis/voc-report-[period]-[date].md`
 - After finalizing: Move to `context-library/research/` for longitudinal tracking
@@ -235,7 +235,7 @@ If you only have one source (e.g., just NPS verbatims or just support tickets), 
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before aggregating:** query the `customer-insights` focus area for prior VoC themes. The goal is to compare this period against the baseline — what's new, what's persistent, what's faded. Pull prior theme counts and sentiment.
 
@@ -251,3 +251,17 @@ If yes, ingest into `customer-insights`:
 Invoke `/second-brain ingest` with the VoC report as the source. Competitor mentions get a second ingest into `competitive-intelligence`.
 
 VoC is inherently comparative — a report without a baseline is half a report. The brain is the baseline.
+
+## When to Use
+
+- Aggregate customer feedback into Voice of Customer (VoC) reports.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

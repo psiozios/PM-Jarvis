@@ -1,3 +1,8 @@
+<!-- TEMPLATE: Customize this file with your company's customer-facing writing conventions.
+     The structure and examples below are starting points. Replace placeholder values
+     in [brackets] with your real preferences, add your own rules, and delete any
+     sections that don't apply. -->
+
 # Customer-Facing Writing Style
 
 Use for product marketing, help docs, customer communications.

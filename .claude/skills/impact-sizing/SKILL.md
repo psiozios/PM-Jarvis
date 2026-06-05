@@ -226,7 +226,7 @@ Feature: [Name]
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -359,3 +359,9 @@ Before presenting output to the PM, verify:
 - [ ] **Impact tied to strategic goal:** The recommendation section explicitly references a strategic goal or OKR from `context-library/strategy/`
 - [ ] **Sensitivity analysis included:** Output shows best-case, worst-case, and expected-case scenarios with the key variable that drives the range
 - [ ] **Market sizing (if requested):** TAM/SAM/SOM provided with method (top-down or bottom-up), explicit assumptions, and confidence levels for each level
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

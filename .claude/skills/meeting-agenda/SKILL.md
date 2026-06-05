@@ -653,7 +653,7 @@ Meeting focuses on discussing concerns, not rehashing basics.
 6. **Cancel if not needed:** If async would work, cancel meeting
 7. **No-laptop rule:** (for some meetings) Full attention
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **After the meeting:**
 - `/meeting-notes` - Document outcomes and action items
@@ -833,7 +833,7 @@ Topics to rotate: feedback on recent work / skills developing / growth goals / e
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before composing the agenda, run the equivalent of `/second-brain prep "<meeting topic or attendee>"`. The prep briefing gives you:
 

@@ -281,3 +281,23 @@ Before delivering the meeting cleanup, verify:
 - [ ] **File saved correctly** -- output saved to `outputs/meeting-notes/cleanup-[date].md`
 
 If any check fails, revise before delivering.
+
+## When to Use
+
+- Batch process multiple meetings from a single day. Consolidates action items and insights across meetings.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

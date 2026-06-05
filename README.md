@@ -39,13 +39,23 @@ cd pm-workshop
 claude
 ```
 
-### 3. Initialize Your Context
-In your first Claude Code session, Claude will read the `CLAUDE.md` file and understand how to work with you. Fill out your context templates:
+### 3. Install the Memory Hook
+```bash
+# Copy the settings template to enable persistent memory
+cp config/settings-template.json .claude/settings.json
+```
+
+This wires up a hook that injects your memory index each session. See `hooks/README.md` for details.
+
+### 4. Configure Your Workspace
+Fill out these files to personalize the system:
+- `config/house-style.md` with your writing voice rules (word choice, punctuation, tone)
+- `config/persona.md` with your preferred interaction style (directness, challenge level)
 - `context-library/business-info-template.md` with your product details
 - `context-library/stakeholder-template.md` with key stakeholder profiles
 - `context-library/writing-style-*.md` with your preferred styles per audience
 
-### 4. Try Your First Command
+### 5. Try Your First Command
 ```
 /daily-plan        # Get a prioritized plan for today
 /prd-draft         # Draft a PRD with your company context
@@ -85,11 +95,31 @@ All skills work without MCPs by falling back to your context library files. You 
 ```
 pm-workshop/
 ├── README.md                       # You are here
-├── CLAUDE.md                       # Master instructions for Claude
+├── CLAUDE.md                       # Lean operating system (~120 lines)
 ├── LICENSE.md                      # MIT License
 │
 ├── .claude/
 │   └── skills/                     # 73 registered slash commands
+│
+├── config/                         # User-configurable settings
+│   ├── house-style.md              # Writing voice rules (configure me)
+│   ├── persona.md                  # Interaction style (configure me)
+│   └── settings-template.json      # Hook wiring (copy to .claude/settings.json)
+│
+├── hooks/                          # Claude Code hook scripts
+│   └── user-prompt-submit.sh       # Memory injection hook
+│
+├── memory/                         # Persistent cross-session memory
+│   ├── MEMORY.md                   # Index (injected per-turn via hook)
+│   └── README.md                   # Memory system documentation
+│
+├── references/                     # On-demand reference files
+│   ├── protocols/                  # Global protocols (context acquisition, knowledge capture)
+│   ├── skill-chains.md             # Multi-skill workflow sequences
+│   ├── mcp-routing.md              # Tool routing rules
+│   ├── file-creation-rules.md      # Output directory taxonomy
+│   ├── sub-agents.md               # Sub-agent roster
+│   └── capabilities.md             # Parallel execution, plan mode, etc.
 │
 ├── setup/                          # Installation and configuration guides
 ├── advanced/                       # Advanced workflows and automation
@@ -99,12 +129,12 @@ pm-workshop/
 │   ├── strategy/                   # Strategy docs + frameworks
 │   ├── prds/                       # Your PRDs (reference)
 │   ├── research/                   # User research, competitive analysis
-│   ├── second-brain/               # LLM-maintained wikis (Karpathy pattern)
+│   ├── second-brain/               # LLM-maintained wikis (6 focus areas scaffolded)
 │   ├── decisions/                  # Decision logs
 │   ├── launches/                   # Launch plans, release notes
 │   ├── metrics/                    # Analytics reports, A/B tests
 │   ├── meetings/                   # Meeting notes
-│   └── example-prds/              # Real PRD examples
+│   └── example-prds/              # Reference PRD examples
 │
 ├── templates/                      # Empty templates (7 templates)
 │   └── knowledge/                  # PM knowledge assets (survey questions,

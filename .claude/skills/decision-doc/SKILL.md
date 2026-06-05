@@ -968,7 +968,7 @@ Hybrid options:
 
 ---
 
-## Second Brain Integration
+## Cross-Skill Links
 
 **Before framing the decision:** query the `decisions` focus area for related past decisions. Don't re-litigate a debate that was already settled — reference it. Run equivalent of `/second-brain query "past decisions about <topic>" --focus=decisions` and surface any matches with `[Source:]` citations.
 

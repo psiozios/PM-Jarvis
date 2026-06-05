@@ -95,10 +95,8 @@ Output: Returns the edited document in the same format, with a brief change summ
 **Method:**
 - Vary sentence length (short punchy sentences next to complex ones)
 - Replace vague words with specific ones: "big" → "3x," "soon" → "by March 15," "users" → "enterprise buyers with 100+ seats"
-- Remove em dashes (per CLAUDE.md style rules), replace with commas, periods, or parentheses
-- Use contractions naturally (we're, it's, don't)
+- Apply house-style rules from `config/house-style.md` (punctuation, word choice, tone)
 - Start paragraphs with the point, not context-setting
-- Kill the word "leverage" and its cousins
 
 ### `--strengthen`
 **Goal:** Make arguments airtight.
@@ -158,14 +156,11 @@ After editing, I'll provide:
 
 ---
 
-## Voice Rules (from CLAUDE.md)
+## Voice Rules
 
 Always apply these regardless of mode:
-- Never use em dashes — use commas, periods, or parentheses
-- No "leverage," "utilize," "unlock," "harness," "streamline," "robust," "cutting-edge," "delve"
-- Contractions are good: we're, it's, don't, can't
-- Vary sentence length — mix short and long
-- Start sentences with "And" or "But" occasionally — sounds human
+- Read and apply rules from `config/house-style.md` (punctuation, word avoidance, tone)
+- Vary sentence length for natural rhythm
 - Specific over vague: real numbers, real names, real outcomes
 
 ---
@@ -176,4 +171,24 @@ Always apply these regardless of mode:
 - [ ] **Nothing lost:** No meaningful content was removed, only improved
 - [ ] **Mode applied correctly:** The specific edit mode was executed, not just a general cleanup
 - [ ] **Change summary included:** PM knows exactly what was changed and why
-- [ ] **Style rules applied:** No em dashes, no banned words, contractions used naturally
+- [ ] **Style rules applied:** House-style rules from `config/house-style.md` followed
+
+## When to Use
+
+- Edit and improve any PM document.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

@@ -581,7 +581,7 @@ Before presenting output to the PM, verify:
 
 - [ ] **Tone matches recipient and context:** The message tone (direct, friendly, formal, urgent, tactful) is appropriate for the recipient's seniority, relationship, and the topic sensitivity
 - [ ] **Message has clear ask or action item:** The message contains a specific request, decision needed, or next step (not just information with no call to action)
-- [ ] **No corporate jargon or banned words:** The message does not contain "delve," "leverage," "utilize," "unlock," "harness," "synergize," or other banned words from the writing style guide
+- [ ] **No corporate jargon:** The message avoids jargon and follows any word-choice rules from `config/house-style.md`
 - [ ] **Length appropriate for Slack:** The main message is 5 sentences or fewer; any additional detail is suggested as a thread reply or linked document
 - [ ] **Stakeholder communication style referenced:** If the recipient has a profile in `context-library/stakeholder-template.md`, their communication preferences (detail level, format, priorities) are reflected in the message
 
@@ -627,3 +627,9 @@ Rewrite an existing message for a different audience — turn a technical update
 Paste the original message + tell me: who wrote it, who it was for, and who the new audience is.
 I'll rewrite it in the right voice, length, and level of detail for the new reader.
 ```
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

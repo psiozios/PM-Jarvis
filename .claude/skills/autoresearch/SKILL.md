@@ -314,3 +314,23 @@ Save final synthesis to:
 - [ ] Best-known state preserved at the end
 - [ ] Final synthesis saved to `outputs/analyses/`
 - [ ] Natural next-step hypotheses provided
+
+## When to Use
+
+- Autonomous iterative experimentation loop inspired by Karpathy's autoresearch.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

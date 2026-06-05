@@ -416,7 +416,7 @@ The index-based approach holds up to ~100 raw sources and a few hundred wiki pag
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - **Writes to the brain:** `/meeting-notes`, `/decision-doc`, `/user-research-synthesis`, `/voice-of-customer`, `/competitor-analysis`, `/weekly-review`, `/stakeholder-tactics`
 - **Reads from the brain:** `/prd-draft`, `/daily-plan`, `/meeting-agenda`, `/strategy-sprint`, `/write-prod-strategy`, `/decision-doc`
@@ -429,3 +429,9 @@ The index-based approach holds up to ~100 raw sources and a few hundred wiki pag
 Full operational prompt library — copy-paste versions of every mode plus PM-specific queries — lives at:
 
 `.claude/skills/second-brain/references/starter-prompts.md`
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

@@ -307,8 +307,28 @@ Example: "Conversational, confident, not hype-y. No buzzwords. Contractions are 
 
 - [ ] **Leads with benefit, not feature:** "Now you can [outcome]" not "We built [feature]"
 - [ ] **Channel-appropriate length:** Not a blog post in an email slot
-- [ ] **Voice rules applied:** No em dashes, no "leverage/utilize/unlock," contractions used naturally
+- [ ] **House style applied:** Rules from `config/house-style.md` are followed
 - [ ] **CTA is specific:** "Start your free export" not "Learn more"
 - [ ] **Real customer language borrowed:** User research quotes inform the copy where possible
 - [ ] **Measurable outcomes included:** Numbers beat adjectives
 - [ ] **Output saved:** `outputs/content/[type]-[feature]-[date].md`
+
+## When to Use
+
+- Create product-led content assets.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

@@ -175,7 +175,7 @@ Before escalating to roadmap:
 
 ---
 
-## Recommended Next Steps
+## Cross-Skill Links
 
 1. [Highest-scoring cluster] → `/prd-lite` to scope
 2. [Second cluster] → `/impact-sizing` to quantify before committing
@@ -193,3 +193,17 @@ Before escalating to roadmap:
 - [ ] **Already-in-flight items flagged:** No recommending what's already being built
 - [ ] **Declined requests explained:** Clear reasoning, not just "not prioritized"
 - [ ] **Output saved:** `outputs/analyses/feature-requests-[area]-[date].md`
+
+## When to Use
+
+- Synthesize and prioritize feature requests from multiple sources.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

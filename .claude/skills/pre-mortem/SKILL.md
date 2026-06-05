@@ -317,7 +317,7 @@ If you're doing this solo, use these prompts to force honest thinking:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -353,3 +353,17 @@ Before delivering the pre-mortem output, verify:
 - [ ] **Owners assigned:** Every Immediate mitigation has a name, not just "the team"
 - [ ] **Go/no-go recommendation made:** Clear statement on whether to proceed, with conditions if needed
 - [ ] **Output file saved:** Saved to `outputs/pre-mortems/pre-mortem-[initiative]-[date].md`
+
+## When to Use
+
+- Run a structured pre-mortem session before a launch, major decision, or project kickoff.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

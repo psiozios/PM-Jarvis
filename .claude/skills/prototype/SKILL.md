@@ -557,7 +557,7 @@ If any are missing, ask before generating.
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/prd-draft` - Define requirements (most important input)
@@ -594,7 +594,7 @@ Before presenting the prototype or prompt, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Clear requirements
@@ -609,3 +609,9 @@ Before presenting the prototype or prompt, verify:
 **Parallel use:**
 - `/user-interview` - Test with real users
 - `/ralph-wiggum` - Challenge the solution approach
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

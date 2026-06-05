@@ -196,7 +196,7 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 **Files:** `outputs/analyses/sprint-[number]-plan-[date].md`
 
@@ -217,3 +217,17 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 - [ ] **Dependencies flagged:** Each dependency has an owner and expected resolution date
 - [ ] **For grooming: AC added:** Every reviewed ticket has testable acceptance criteria
 - [ ] **Output saved:** `outputs/analyses/sprint-[number]-plan-[date].md`
+
+## When to Use
+
+- Sprint planning and backlog grooming.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

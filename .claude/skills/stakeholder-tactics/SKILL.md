@@ -254,7 +254,7 @@ Run `/meeting-notes` and update `context-library/stakeholder-template.md` with a
 
 ---
 
-## Second Brain Integration
+## Cross-Skill Links
 
 The `stakeholders` focus area of the second brain is now the **canonical store** for stakeholder profiles, replacing a parallel local store. `/stakeholder-tactics --map` reads from and writes to `context-library/second-brain/stakeholders/wiki/`.
 
@@ -274,3 +274,17 @@ If yes, ingest into `stakeholders`:
 Invoke `/second-brain ingest` with the output as the source. If `stakeholders` doesn't exist yet, offer `/second-brain init stakeholders` first.
 
 Stakeholder memory is the hardest PM knowledge to keep because it lives in dozens of meetings. The brain is where that memory actually sticks.
+
+## When to Use
+
+- Navigate stakeholder dynamics with confidence.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

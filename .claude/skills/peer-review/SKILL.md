@@ -180,3 +180,15 @@ Statistics, detailed evaluations, and prioritized action plan.
 - [ ] **Action plan only includes real issues** - false positives excluded from fix list
 - [ ] **Tone is fair** - credit given for good catches, context given for misses
 - [ ] **Output saved:** `outputs/analyses/peer-review-[scope]-[date].md`
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

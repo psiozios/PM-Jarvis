@@ -356,7 +356,7 @@ Before delivering the design direction, verify:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/prd-draft` -- Define the feature first, then set its visual tone
@@ -374,9 +374,15 @@ Before delivering the design direction, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/design-audit` -- Audit existing UIs before setting a new direction
 - `/generate-ai-prototype` -- Generate tool-specific prompts with taste parameters
 - `/prototype` -- Build prototypes in the chosen style
 - `/prototype-feedback` -- Evaluate results against the direction
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

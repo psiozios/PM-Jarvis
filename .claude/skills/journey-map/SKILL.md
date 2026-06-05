@@ -476,7 +476,7 @@ Revenue:  [MRR/ARR progression over time]
 ❌ One-time exercise (never referenced again)
 ✅ Living document, updated quarterly
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Feeds into:**
 - `/prd-draft` - Inform feature specs with journey insights

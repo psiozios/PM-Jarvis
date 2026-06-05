@@ -524,3 +524,17 @@ Before delivering the final research synthesis, verify:
 5. Build this into regular cadence
 
 **Goal:** User insights inform every product decision.
+
+## When to Use
+
+- Systematically process user interviews to extract actionable insights.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

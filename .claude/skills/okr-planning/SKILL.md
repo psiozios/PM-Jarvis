@@ -343,7 +343,7 @@ Even while chasing the Objectives, we won't sacrifice:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -381,3 +381,17 @@ Before delivering OKRs, verify:
 - [ ] **Guardrail metrics defined:** What we won't sacrifice while chasing OKRs
 - [ ] **Check-in cadence set:** Weekly, monthly, and quarterly rhythms defined
 - [ ] **Output file saved:** Saved to `outputs/okrs/okrs-[quarter]-[date].md`
+
+## When to Use
+
+- Create and align quarterly OKRs with product strategy and North Star.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

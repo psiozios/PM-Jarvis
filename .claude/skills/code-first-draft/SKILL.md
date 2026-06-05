@@ -334,7 +334,7 @@ Generate tests using the detected testing framework. If no testing framework is 
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/prd-draft` - Define feature
@@ -369,3 +369,17 @@ Before delivering the first draft, verify:
 - [ ] **Completeness enforced** -- No `// TODO` placeholder comments, no `...` ellipsis abbreviations, no "add your logic here" stubs, no partial implementations. Every function body is complete. If token limits are hit, pause at a natural breakpoint and continue in the next turn rather than compressing or abbreviating code.
 
 If any check fails, fix it before delivering. A first draft with failing tests or missing accessibility is not ready to share.
+
+## When to Use
+
+- Initial feature implementation
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

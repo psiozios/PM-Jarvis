@@ -431,7 +431,7 @@ quarter: Q[X] YYYY
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/weekly-plan`:**
 - `/weekly-review` - Review last week first (if Friday planning)
@@ -448,7 +448,7 @@ quarter: Q[X] YYYY
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/weekly-review` - Reflect on last week
@@ -474,3 +474,17 @@ Before presenting output to the PM, verify:
 - [ ] **LNO classification applied:** Key tasks are tagged as Leverage, Neutral, or Overhead to ensure the week is weighted toward high-leverage work
 - [ ] **Dependencies and blockers identified:** Each priority lists what it depends on (people, decisions, deliverables) and any known blockers with mitigation plans
 - [ ] **Carry-over items from last week addressed:** If `outputs/weekly-reviews/` or `outputs/weekly-plans/` contain incomplete items from last week, they are explicitly acknowledged as carried over, deferred, or dropped with reasoning
+
+## When to Use
+
+- Set next week's priorities
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

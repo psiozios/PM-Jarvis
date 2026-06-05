@@ -349,7 +349,7 @@ WARNING: Any delay in this chain delays launch by the same amount.
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/launch-checklist`:**
 - `/prd-draft` - Define what's launching
@@ -367,7 +367,7 @@ WARNING: Any delay in this chain delays launch by the same amount.
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Create PRD
@@ -466,3 +466,17 @@ What existing functionality might this break?
 
 All P0 scenarios pass before launch. P1 scenarios pass or have documented workarounds.
 ```
+
+## When to Use
+
+- Comprehensive product launch planning
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

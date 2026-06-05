@@ -320,7 +320,7 @@ List the 3-5 most critical assumptions in this canvas that, if wrong, would inva
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -356,3 +356,17 @@ Before delivering a canvas, verify:
 - [ ] **Revenue is specific:** A real pricing model, not "TBD" or "freemium/enterprise depending on the customer"
 - [ ] **Critique mode (if used): Every block rated:** 🟢/🟡/🔴 with specific reasoning, not just "this is weak"
 - [ ] **Output file saved:** Canvas saved to `outputs/business-canvases/[bmc|lean]-canvas-[date].md`
+
+## When to Use
+
+- Build and analyze a Business Model Canvas or Lean Canvas.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

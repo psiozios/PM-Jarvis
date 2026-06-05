@@ -1,3 +1,8 @@
+<!-- TEMPLATE: Customize this file with your company's technical writing conventions.
+     The structure and examples below are starting points. Replace placeholder values
+     in [brackets] with your real preferences, add your own rules, and delete any
+     sections that don't apply. -->
+
 # Technical Writing Style
 
 Use this when writing for engineers, technical documentation, or API docs.

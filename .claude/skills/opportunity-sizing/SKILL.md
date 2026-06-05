@@ -235,3 +235,23 @@ Does this opportunity align with where we're going?
 - [ ] **Competitive landscape honest:** Doesn't pretend the space is empty
 - [ ] **Recommendation made:** Not just "more research needed" unless that's genuinely the answer
 - [ ] **Output saved:** `outputs/analyses/opportunity-[name]-[date].md`
+
+## When to Use
+
+- Evaluate the strategic size of a market or product opportunity before committing to build.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

@@ -565,3 +565,17 @@ If a design direction file exists at `outputs/prototypes/[feature]-design-direct
 ### Accessibility flags
 - [Any contrast, keyboard, or screen reader issues]
 ```
+
+## When to Use
+
+- Build → review → iterate prototype workflow. Structured feedback collection and iteration.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

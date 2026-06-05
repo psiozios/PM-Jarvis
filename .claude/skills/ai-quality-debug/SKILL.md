@@ -305,3 +305,23 @@ AI features need different launch criteria than traditional features. Use this c
 - [ ] **Go/no-go is binary:** Clear recommendation, not "we should keep monitoring"
 - [ ] **Monitoring plan defined:** Ongoing visibility after launch, not just at launch
 - [ ] **Output saved:** `outputs/analyses/ai-quality-[feature]-[date].md`
+
+## When to Use
+
+- Evaluate and debug AI/ML feature quality from a PM perspective.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

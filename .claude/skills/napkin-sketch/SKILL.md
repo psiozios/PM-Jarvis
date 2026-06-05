@@ -544,7 +544,7 @@ Common UI:
 ⚙️ 🔔 👤 📊 🗑️ ✏️ 🔍 + × ⋮ ☰
 ```
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Feeds into:**
 - `/prd-draft` - Include wireframes in PRDs
@@ -598,3 +598,9 @@ If any check fails, fix it before delivering. A 5-minute wireframe should save h
 ---
 
 Remember: Wireframes are thinking tools, not art. Good enough to communicate is perfect. The best wireframe is the one you can draw in 5 minutes.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

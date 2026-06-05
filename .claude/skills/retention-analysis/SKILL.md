@@ -518,7 +518,7 @@ Use this with your data:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Retention Analysis
 
@@ -673,7 +673,7 @@ Before delivering the retention analysis, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `activation-analysis` - Improve activation to boost retention (activation -> retention pipeline)
 - `metrics-framework` - Leading indicators of retention (D7, L28, feature adoption)
@@ -686,3 +686,11 @@ Before delivering the retention analysis, verify:
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's retention frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-activation (habit formation section)
+
+## When to Use
+
+- Cohort analysis and retention optimization framework. Identifies retention drivers and churn factors.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

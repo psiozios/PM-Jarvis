@@ -451,7 +451,7 @@ Wrap up, ask for referrals
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -574,3 +574,9 @@ Good candidates ask about: team structure and culture, how decisions get made, w
 | Stakeholder influence | Cross-functional examples, political savvy | |
 | Learning orientation | Self-awareness, what they'd do differently | |
 | Culture fit | Curiosity, team orientation, values alignment | |
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

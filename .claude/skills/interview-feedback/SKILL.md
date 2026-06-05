@@ -609,7 +609,7 @@ After every interview debrief:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before interview:**
 - `/interview-prep` - Preparation checklist

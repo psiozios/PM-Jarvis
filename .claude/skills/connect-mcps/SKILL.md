@@ -1259,3 +1259,9 @@ Before confirming an MCP connection is complete, verify:
 - [ ] **PM knows how to use it** -- Example natural language queries provided so the PM can start using the MCP immediately
 
 If any check fails, fix it before declaring success. A half-connected MCP causes confusion when skills try to use it.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

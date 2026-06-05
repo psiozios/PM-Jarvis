@@ -972,7 +972,7 @@ addressed stakeholder concerns and shortened the approval conversation.
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -1029,7 +1029,7 @@ Before presenting the meeting notes, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before generating the meeting notes, check `context-library/second-brain/` for prior context on the topic and attendees (focus areas: `stakeholders`, plus whatever topic domain — `product-knowledge`, `competitive-intelligence`, etc.). Pull any relevant past decisions or discussions so the new notes build on what's already known rather than rehashing.
 

@@ -242,3 +242,23 @@ Walk-away profile: [Describe the deals we typically lose]
 - [ ] **Landmines are non-obvious:** Questions that sound natural, not like attacks
 - [ ] **Walk-away criteria defined:** Saves everyone time when the fit is wrong
 - [ ] **Output saved:** `outputs/analyses/battlecard-vs-[competitor]-[date].md`
+
+## When to Use
+
+- Create competitive battle cards for the sales team.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md

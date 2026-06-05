@@ -743,7 +743,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/prd-review-panel`:**
 - `/prd-draft` - Create the initial PRD
@@ -784,7 +784,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Create the PRD
@@ -811,3 +811,17 @@ Before presenting output to the PM, verify:
 - [ ] **Conflicting perspectives between reviewers explicitly flagged:** Any disagreements between agents (e.g., Engineering wants simplicity while Design wants richness) are called out in the "Conflicting Perspectives" section with both positions stated
 - [ ] **Synthesis section prioritizes feedback items:** The TL;DR and summary sections rank issues by severity (Critical Blockers > Important Gaps > Enhancements) with a clear recommended next step
 - [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
+
+## When to Use
+
+- Multi-agent PRD review (7 perspectives)
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

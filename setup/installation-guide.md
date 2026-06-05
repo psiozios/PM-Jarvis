@@ -111,10 +111,38 @@ Claude should generate a one-pager document.
 
 ---
 
-## Step 5: Customize Your Setup
+## Step 5: Install the Memory Hook
+
+The memory system uses a Claude Code hook to inject your memory index into every conversation. This gives Claude cross-session context without loading full memory files each turn.
+
+```bash
+cp config/settings-template.json .claude/settings.json
+```
+
+This wires up a `UserPromptSubmit` hook that reads `memory/MEMORY.md` and injects it as context. See `hooks/README.md` for details on how tiered injection works.
+
+If you already have a `.claude/settings.json` with other settings, merge the `hooks` section from `config/settings-template.json` into your existing file manually.
+
+---
+
+## Step 6: Configure Your Workspace
+
+Fill out these files to personalize the system for your company and preferences:
+
+| File | Purpose |
+|------|---------|
+| `config/house-style.md` | Writing voice rules (word choice, punctuation, tone) |
+| `config/persona.md` | Interaction style (directness, challenge level, verbosity) |
+| `context-library/business-info-template.md` | Your product, market, and company details |
+| `context-library/stakeholder-template.md` | Key people, their priorities, communication preferences |
+| `context-library/writing-style-*.md` | Audience-specific writing conventions |
+
+---
+
+## Step 7: Customize Your Setup
 
 ### How Claude Code Uses Your Context
-Claude Code automatically reads `CLAUDE.md` when you launch it in the PM OS directory -- no need to tell it manually. Just start Claude Code in the project folder and it will understand the full system.
+Claude Code automatically reads `CLAUDE.md` when you launch it in the PM OS directory. No need to tell it manually. Just start Claude Code in the project folder and it will understand the full system.
 
 ### Create a Shortcut (Optional)
 Add this to your `.bashrc` or `.zshrc`:
@@ -162,7 +190,7 @@ Now you can just type `pm` to start a PM session!
 ```
 pm-operating-system/
 ├── CLAUDE.md                 ← Master context (read this first!)
-├── .claude/skills/           ← 41 slash command skills
+├── .claude/skills/           ← 73 slash command skills
 ├── setup/                    ← You are here
 ├── context-library/          ← Fill these out for your situation
 ├── sub-agents/               ← Different reviewer perspectives

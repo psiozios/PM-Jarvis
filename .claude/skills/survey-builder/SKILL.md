@@ -326,7 +326,7 @@ Based on results:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -364,3 +364,17 @@ Before delivering a survey design, verify:
 - [ ] **Follow-up text field included:** Survey ends with an open-text question for qualitative depth
 - [ ] **Past surveys checked:** Confirmed we're not re-running a survey we already have results for
 - [ ] **Output file saved:** Survey saved to `outputs/surveys/survey-[type]-[topic]-[date].md`
+
+## When to Use
+
+- Design product surveys using validated PM research methodologies.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes

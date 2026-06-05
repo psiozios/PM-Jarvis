@@ -551,7 +551,7 @@ Without guardrails, teams will find ways to game the North Star that hurt the bu
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -584,7 +584,7 @@ After defining North Star:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/activation-analysis` - Find your activation metric
 - `/feature-metrics` - Choose experiment metrics that ladder to North Star
@@ -612,3 +612,11 @@ Before delivering the North Star analysis, verify:
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's North Star Metric framework. Read the full article: https://www.news.aakashg.com/p/do-you-really-need-a-north-star-metric
+
+## When to Use
+
+- Identify and validate your North Star Metric. Aligns product strategy with key business metric.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

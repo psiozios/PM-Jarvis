@@ -5,3 +5,10 @@
 node_modules/
 __pycache__/
 .claude/settings.local.json
+.claude/settings.json
+
+# Memory (personal entries are user-specific; index and docs ship with the repo)
+memory/*.md
+!memory/MEMORY.md
+!memory/README.md
+!memory/_example-entry.md

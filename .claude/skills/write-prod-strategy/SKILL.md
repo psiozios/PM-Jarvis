@@ -668,7 +668,7 @@ What we're NOT doing (and why):
 ❌ Feature roadmap masquerading as strategy
 ✅ Outcome-driven pillars with example initiatives
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -701,7 +701,7 @@ After writing strategy:
 
 ---
 
-## Integration with Other Skills
+### Integration
 
 **Inputs:**
 - `/define-north-star` - Component 1: Objective
@@ -754,7 +754,7 @@ Remember: A good strategy is a clear "no" to many things and a committed "yes" t
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 A product strategy is only as credible as the evidence behind it. Before writing, query the second brain across every focus area:
 

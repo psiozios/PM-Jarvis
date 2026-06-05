@@ -282,7 +282,7 @@ Translate loss reasons into product requirements:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -336,3 +336,11 @@ Before delivering the win/loss analysis, verify:
 - [ ] **Roadmap implications are actionable:** Not "improve X" but "build Y feature" or "reposition Z capability"
 - [ ] **Next steps have owners:** Actions assigned with names, not just "sales team should..."
 - [ ] **Output file saved:** Saved to `outputs/win-loss/win-loss-analysis-[date].md`
+
+## When to Use
+
+- Synthesize sales win/loss data into product and positioning insights.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.

@@ -58,8 +58,8 @@ All 73 skills compiled into a single document.
 - [/pre-mortem](#pre-mortem)
 - [/pricing-analysis](#pricing-analysis)
 - [/prioritize](#prioritize)
-- [/prototype-feedback](#prototype-feedback)
 - [/prototype](#prototype)
+- [/prototype-feedback](#prototype-feedback)
 - [/ralph-wiggum](#ralph-wiggum)
 - [/retention-analysis](#retention-analysis)
 - [/root-cause-analysis](#root-cause-analysis)
@@ -82,7 +82,7 @@ All 73 skills compiled into a single document.
 
 ---
 
-## activation-analysis
+<a id="activation-analysis"></a>
 
 ---
 name: activation-analysis
@@ -562,7 +562,7 @@ Use this with your team:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Activation Analysis
 
@@ -603,7 +603,7 @@ After defining Setup → Aha → Habit, ask:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `user-research-synthesis` - Understand user struggles in onboarding, synthesis of feedback
 - `experiment-decision` - Test activation improvements and measure impact
@@ -736,10 +736,18 @@ Step 5: Hypothesis ranking
 
 **Output:** Rapid triage summary with top 3 hypotheses ranked by probability. Follow with full `/activation-analysis` if the issue is systemic, not just a regression.
 
+## When to Use
+
+- Analyze user activation using Setup → Aha → Habit framework. Identifies activation bottlenecks.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## ai-quality-debug
+<a id="ai-quality-debug"></a>
 
 ---
 name: ai-quality-debug
@@ -1049,10 +1057,30 @@ AI features need different launch criteria than traditional features. Use this c
 - [ ] **Monitoring plan defined:** Ongoing visibility after launch, not just at launch
 - [ ] **Output saved:** `outputs/analyses/ai-quality-[feature]-[date].md`
 
+## When to Use
+
+- Evaluate and debug AI/ML feature quality from a PM perspective.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## analytics-instrumentation
+<a id="analytics-instrumentation"></a>
 
 ---
 name: analytics-instrumentation
@@ -1319,10 +1347,30 @@ Tracking Plan QA Checklist
 - [ ] **QA checklist included:** Engineering knows what to validate before launch
 - [ ] **Output saved:** `outputs/analyses/tracking-plan-[feature]-[date].md`
 
+## When to Use
+
+- Design tracking plans for product features.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## autoresearch
+<a id="autoresearch"></a>
 
 ---
 name: autoresearch
@@ -1641,10 +1689,30 @@ Save final synthesis to:
 - [ ] Final synthesis saved to `outputs/analyses/`
 - [ ] Natural next-step hypotheses provided
 
+## When to Use
+
+- Autonomous iterative experimentation loop inspired by Karpathy's autoresearch.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## board-deck
+<a id="board-deck"></a>
 
 ---
 name: board-deck
@@ -1949,7 +2017,7 @@ For slides with complex or sensitive content:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -2006,10 +2074,18 @@ Before delivering the deck outline, verify:
 - [ ] **Appendix flagged:** Topics that need backup slides identified
 - [ ] **Output file saved:** Saved to `outputs/board-decks/[deck-type]-[quarter]-[date].md`
 
+## When to Use
+
+- Prepare executive and board-level presentations.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## business-model-canvas
+<a id="business-model-canvas"></a>
 
 ---
 name: business-model-canvas
@@ -2333,7 +2409,7 @@ List the 3-5 most critical assumptions in this canvas that, if wrong, would inva
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -2370,10 +2446,24 @@ Before delivering a canvas, verify:
 - [ ] **Critique mode (if used): Every block rated:** 🟢/🟡/🔴 with specific reasoning, not just "this is weak"
 - [ ] **Output file saved:** Canvas saved to `outputs/business-canvases/[bmc|lean]-canvas-[date].md`
 
+## When to Use
+
+- Build and analyze a Business Model Canvas or Lean Canvas.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## code-first-draft
+<a id="code-first-draft"></a>
 
 ---
 name: code-first-draft
@@ -2711,7 +2801,7 @@ Generate tests using the detected testing framework. If no testing framework is 
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/prd-draft` - Define feature
@@ -2747,10 +2837,24 @@ Before delivering the first draft, verify:
 
 If any check fails, fix it before delivering. A first draft with failing tests or missing accessibility is not ready to share.
 
+## When to Use
+
+- Initial feature implementation
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## code-review
+<a id="code-review"></a>
 
 ---
 name: code-review
@@ -2960,10 +3064,22 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 - [ ] **Recommendation is clear** - PASS, PASS WITH NOTES, or FAIL with rationale
 - [ ] **Output saved:** `outputs/analyses/code-review-[scope]-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## competitor-analysis
+<a id="competitor-analysis"></a>
 
 ---
 name: competitor-analysis
@@ -3534,7 +3650,7 @@ I can help you set up:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -3687,7 +3803,7 @@ If any check fails, fix it before delivering. The best competitive analysis driv
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before analyzing:** query the `competitive-intelligence` focus area. A fresh competitor-analysis run should **build on** what's in the brain, not restart from zero. Pull the current page for each competitor (positioning, pricing, ICP, recent moves, strengths, weaknesses) and treat this run as an update, not a first draft.
 
@@ -3705,10 +3821,18 @@ Invoke `/second-brain ingest` with the analysis file as the source. If `competit
 
 Competitive intel ages fast. The brain keeps it current by treating every analysis as an update to the canonical view.
 
+## When to Use
+
+- Deep competitive analysis + ongoing monitoring.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## connect-mcps
+<a id="connect-mcps"></a>
 
 ---
 name: connect-mcps
@@ -4972,10 +5096,16 @@ Before confirming an MCP connection is complete, verify:
 
 If any check fails, fix it before declaring success. A half-connected MCP causes confusion when skills try to use it.
 
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## content-marketing
+<a id="content-marketing"></a>
 
 ---
 name: content-marketing
@@ -5286,16 +5416,36 @@ Example: "Conversational, confident, not hype-y. No buzzwords. Contractions are 
 
 - [ ] **Leads with benefit, not feature:** "Now you can [outcome]" not "We built [feature]"
 - [ ] **Channel-appropriate length:** Not a blog post in an email slot
-- [ ] **Voice rules applied:** No em dashes, no "leverage/utilize/unlock," contractions used naturally
+- [ ] **House style applied:** Rules from `config/house-style.md` are followed
 - [ ] **CTA is specific:** "Start your free export" not "Learn more"
 - [ ] **Real customer language borrowed:** User research quotes inform the copy where possible
 - [ ] **Measurable outcomes included:** Numbers beat adjectives
 - [ ] **Output saved:** `outputs/content/[type]-[feature]-[date].md`
 
+## When to Use
+
+- Create product-led content assets.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## create-tickets
+<a id="create-tickets"></a>
 
 ---
 name: create-tickets
@@ -5600,7 +5750,7 @@ Body:
   - Rollback plan: [How to revert if needed]
 ```
 
-## Integration Examples
+## Cross-Skill Links
 
 ### Linear MCP
 ```python
@@ -5870,7 +6020,7 @@ So that [outcome or benefit].
 
 ---
 
-## cto-consult
+<a id="cto-consult"></a>
 
 ---
 name: cto-consult
@@ -6116,10 +6266,22 @@ After Phase 1, report back:
 - [ ] **Scope explicitly defined** - what's IN and what's OUT for each phase
 - [ ] **Output saved:** `outputs/analyses/cto-consult-[project]-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## daily-plan
+<a id="daily-plan"></a>
 
 ---
 name: daily-plan
@@ -6696,7 +6858,7 @@ When user runs `/daily-plan tomorrow`:
 
 ---
 
-## Integration Setup Guides
+## Cross-Skill Links
 
 ### Setup Path 1: MCP Servers (Recommended)
 
@@ -6995,7 +7157,7 @@ Total time: 2 minutes
 
 ---
 
-## Integration with Other Skills
+### Integration
 
 **Before `/daily-plan`:**
 - `/weekly-plan` - Sets weekly priorities that inform today's focus
@@ -7037,7 +7199,7 @@ Total time: 2 minutes
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/weekly-plan` - Set weekly priorities
@@ -7054,7 +7216,7 @@ Total time: 2 minutes
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 When today's calendar includes meetings or work on specific topics (a customer, a competitor, a stakeholder, a decision), query the second brain for context before the day starts. The output of `/daily-plan` should include a **"What I should know today"** section pulling:
 
@@ -7065,10 +7227,24 @@ When today's calendar includes meetings or work on specific topics (a customer, 
 
 Five minutes of brain-assisted prep at 8am beats forty minutes scrambling between meetings. If the brain is empty, fall back to `context-library/meetings/` and `stakeholder-template.md` as before.
 
+## When to Use
+
+- Generate PM daily plan with context
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## decision-doc
+<a id="decision-doc"></a>
 
 ---
 name: decision-doc
@@ -8040,7 +8216,7 @@ Hybrid options:
 
 ---
 
-## Second Brain Integration
+## Cross-Skill Links
 
 **Before framing the decision:** query the `decisions` focus area for related past decisions. Don't re-litigate a debate that was already settled — reference it. Run equivalent of `/second-brain query "past decisions about <topic>" --focus=decisions` and surface any matches with `[Source:]` citations.
 
@@ -8062,7 +8238,7 @@ The brain is where decisions go to be remembered. The outputs folder is where th
 
 ---
 
-## define-north-star
+<a id="define-north-star"></a>
 
 ---
 name: define-north-star
@@ -8617,7 +8793,7 @@ Without guardrails, teams will find ways to game the North Star that hurt the bu
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -8650,7 +8826,7 @@ After defining North Star:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/activation-analysis` - Find your activation metric
 - `/feature-metrics` - Choose experiment metrics that ladder to North Star
@@ -8679,10 +8855,18 @@ Before delivering the North Star analysis, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's North Star Metric framework. Read the full article: https://www.news.aakashg.com/p/do-you-really-need-a-north-star-metric
 
+## When to Use
+
+- Identify and validate your North Star Metric. Aligns product strategy with key business metric.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## deprecation-plan
+<a id="deprecation-plan"></a>
 
 ---
 name: deprecation-plan
@@ -8942,10 +9126,30 @@ Define what "done" looks like before you flip the switch.
 - [ ] **Go/No-go criteria defined:** Migration threshold set before communications begin
 - [ ] **Output saved:** `outputs/analyses/deprecation-plan-[feature]-[date].md`
 
+## When to Use
+
+- Plan and execute feature or product deprecations.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## design-audit
+<a id="design-audit"></a>
 
 ---
 name: design-audit
@@ -9315,7 +9519,7 @@ Before delivering the audit, verify:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/competitor-analysis` -- Gather competitive context before auditing
@@ -9334,17 +9538,23 @@ Before delivering the audit, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/design-direction` -- Set the target aesthetic after auditing current state
 - `/prototype-feedback --design` -- For in-progress prototypes, not shipped UIs
 - `/competitor-analysis` -- Broader competitive intelligence beyond UI
 - `/prototype` -- Build the improved version
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## design-direction
+<a id="design-direction"></a>
 
 ---
 name: design-direction
@@ -9704,7 +9914,7 @@ Before delivering the design direction, verify:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before:**
 - `/prd-draft` -- Define the feature first, then set its visual tone
@@ -9722,17 +9932,23 @@ Before delivering the design direction, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/design-audit` -- Audit existing UIs before setting a new direction
 - `/generate-ai-prototype` -- Generate tool-specific prompts with taste parameters
 - `/prototype` -- Build prototypes in the chosen style
 - `/prototype-feedback` -- Evaluate results against the direction
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## editing-assistant
+<a id="editing-assistant"></a>
 
 ---
 name: editing-assistant
@@ -9831,10 +10047,8 @@ Output: Returns the edited document in the same format, with a brief change summ
 **Method:**
 - Vary sentence length (short punchy sentences next to complex ones)
 - Replace vague words with specific ones: "big" → "3x," "soon" → "by March 15," "users" → "enterprise buyers with 100+ seats"
-- Remove em dashes (per CLAUDE.md style rules), replace with commas, periods, or parentheses
-- Use contractions naturally (we're, it's, don't)
+- Apply house-style rules from `config/house-style.md` (punctuation, word choice, tone)
 - Start paragraphs with the point, not context-setting
-- Kill the word "leverage" and its cousins
 
 ### `--strengthen`
 **Goal:** Make arguments airtight.
@@ -9894,14 +10108,11 @@ After editing, I'll provide:
 
 ---
 
-## Voice Rules (from CLAUDE.md)
+## Voice Rules
 
 Always apply these regardless of mode:
-- Never use em dashes — use commas, periods, or parentheses
-- No "leverage," "utilize," "unlock," "harness," "streamline," "robust," "cutting-edge," "delve"
-- Contractions are good: we're, it's, don't, can't
-- Vary sentence length — mix short and long
-- Start sentences with "And" or "But" occasionally — sounds human
+- Read and apply rules from `config/house-style.md` (punctuation, word avoidance, tone)
+- Vary sentence length for natural rhythm
 - Specific over vague: real numbers, real names, real outcomes
 
 ---
@@ -9912,12 +10123,32 @@ Always apply these regardless of mode:
 - [ ] **Nothing lost:** No meaningful content was removed, only improved
 - [ ] **Mode applied correctly:** The specific edit mode was executed, not just a general cleanup
 - [ ] **Change summary included:** PM knows exactly what was changed and why
-- [ ] **Style rules applied:** No em dashes, no banned words, contractions used naturally
+- [ ] **Style rules applied:** House-style rules from `config/house-style.md` followed
+
+## When to Use
+
+- Edit and improve any PM document.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
 
 
 ---
 
-## execution-plan
+<a id="execution-plan"></a>
 
 ---
 name: execution-plan
@@ -10128,10 +10359,22 @@ Decisions that must be made before or during implementation:
 - [ ] **Progress tracking works** - emoji statuses are correctly set
 - [ ] **Output saved:** `outputs/plans/plan-[project]-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## expansion-strategy
+<a id="expansion-strategy"></a>
 
 ---
 name: expansion-strategy
@@ -10693,7 +10936,7 @@ Median days from signup to first upgrade
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Expansion Strategy
 
@@ -10882,7 +11125,7 @@ Before delivering the expansion strategy, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `retention-analysis` - Retention enables expansion (retained users more likely to expand)
 - `activation-analysis` - Activation precedes expansion (activate before offering tiers)
@@ -10896,10 +11139,18 @@ Before delivering the expansion strategy, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's expansion and monetization frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-expansion
 
+## When to Use
+
+- Upsell, cross-sell, and account growth tactics. Framework for revenue expansion.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## experiment-decision
+<a id="experiment-decision"></a>
 
 ---
 name: experiment-decision
@@ -11242,7 +11493,7 @@ Before delivering the experiment decision, verify:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/experiment-metrics` - Choose the right metrics to measure
 - `/activation-analysis` - Test activation improvements
@@ -11328,10 +11579,18 @@ For each experiment, answer:
 8. Reduce commitment (let them try before they fully commit)
 ```
 
+## When to Use
+
+- Decide when to A/B test vs just ship. Framework for experiment planning and prioritization.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## experiment-metrics
+<a id="experiment-metrics"></a>
 
 ---
 name: experiment-metrics
@@ -11702,7 +11961,7 @@ Before you launch an experiment, verify:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/experiment-decision` - Decide when to A/B test vs ship
 - `/metrics-framework` - Understand leading vs lagging metrics
@@ -11762,10 +12021,24 @@ Before presenting output to the PM, verify:
 - [ ] **Guardrail metrics identified:** At least 3 guardrail metrics are defined with acceptable ranges to prevent unintended harm
 - [ ] **No vanity metrics without justification:** If any metric could be considered a vanity metric (e.g., page views, total signups), the output explains why it is valid for this specific experiment
 
+## When to Use
+
+- STEDII framework for selecting trustworthy experiment metrics. Ensures metric validity and reliability.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## explore-codebase
+<a id="explore-codebase"></a>
 
 ---
 name: explore-codebase
@@ -11963,10 +12236,22 @@ Write a clear summary that someone could use to start implementing.
 - [ ] **Complexity honestly assessed** - not under- or over-estimated
 - [ ] **Output saved:** `outputs/analyses/explore-[topic]-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## feature-metrics
+<a id="feature-metrics"></a>
 
 ---
 name: feature-metrics
@@ -12187,7 +12472,7 @@ If any of these occur, immediately rollback:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -12243,10 +12528,16 @@ Before presenting output to the PM, verify:
 - [ ] **Data source identified for each metric:** Every metric names where the data comes from (e.g., "Amplitude event: task_created" or "database query on users table")
 - [ ] **Metric sensitivity estimated:** The output addresses whether the expected feature impact is large enough for the metric to detect, given current variance and traffic
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## feature-request-analysis
+<a id="feature-request-analysis"></a>
 
 ---
 name: feature-request-analysis
@@ -12425,7 +12716,7 @@ Before escalating to roadmap:
 
 ---
 
-## Recommended Next Steps
+## Cross-Skill Links
 
 1. [Highest-scoring cluster] → `/prd-lite` to scope
 2. [Second cluster] → `/impact-sizing` to quantify before committing
@@ -12444,10 +12735,24 @@ Before escalating to roadmap:
 - [ ] **Declined requests explained:** Clear reasoning, not just "not prioritized"
 - [ ] **Output saved:** `outputs/analyses/feature-requests-[area]-[date].md`
 
+## When to Use
+
+- Synthesize and prioritize feature requests from multiple sources.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## feature-results
+<a id="feature-results"></a>
 
 ---
 name: feature-results
@@ -12878,10 +13183,22 @@ I'll revise the specific section — not rewrite the whole doc.
 - Executive review feedback — strengthen the so-what or simplify for leadership audience
 - Missed a metric — add a guardrail or secondary metric that wasn't initially tracked
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## generate-ai-prototype
+<a id="generate-ai-prototype"></a>
 
 ---
 name: generate-ai-prototype
@@ -13411,10 +13728,16 @@ If any check fails, fix it before delivering. The prompt should work on the firs
 
 Remember: A 5-minute prototype can save 2 weeks of engineering waste. Invest in prototyping before building.
 
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## impact-sizing
+<a id="impact-sizing"></a>
 
 ---
 name: impact-sizing
@@ -13644,7 +13967,7 @@ Feature: [Name]
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -13778,10 +14101,16 @@ Before presenting output to the PM, verify:
 - [ ] **Sensitivity analysis included:** Output shows best-case, worst-case, and expected-case scenarios with the key variable that drives the range
 - [ ] **Market sizing (if requested):** TAM/SAM/SOM provided with method (top-down or bottom-up), explicit assumptions, and confidence levels for each level
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## interview-feedback
+<a id="interview-feedback"></a>
 
 ---
 name: interview-feedback
@@ -14394,7 +14723,7 @@ After every interview debrief:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before interview:**
 - `/interview-prep` - Preparation checklist
@@ -14444,7 +14773,7 @@ Remember: Every interview is data. Even rejections teach you something. Capture 
 
 ---
 
-## interview-guide
+<a id="interview-guide"></a>
 
 ---
 name: interview-guide
@@ -14899,7 +15228,7 @@ Wrap up, ask for referrals
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -15023,10 +15352,16 @@ Good candidates ask about: team structure and culture, how decisions get made, w
 | Learning orientation | Self-awareness, what they'd do differently | |
 | Culture fit | Curiosity, team orientation, values alignment | |
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## interview-prep
+<a id="interview-prep"></a>
 
 ---
 name: interview-prep
@@ -15711,10 +16046,16 @@ Before delivering the prep plan, verify:
 
 Remember: Great preparation beats natural talent. Put in the 10-15 hours of structured prep, and you'll walk in confident and ready to nail the interview.
 
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## journey-map
+<a id="journey-map"></a>
 
 ---
 name: journey-map
@@ -16194,7 +16535,7 @@ Revenue:  [MRR/ARR progression over time]
 ❌ One-time exercise (never referenced again)
 ✅ Living document, updated quarterly
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Feeds into:**
 - `/prd-draft` - Inform feature specs with journey insights
@@ -16276,7 +16617,7 @@ Before presenting output to the PM, verify:
 
 ---
 
-## launch-checklist
+<a id="launch-checklist"></a>
 
 ---
 name: launch-checklist
@@ -16629,7 +16970,7 @@ WARNING: Any delay in this chain delays launch by the same amount.
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/launch-checklist`:**
 - `/prd-draft` - Define what's launching
@@ -16647,7 +16988,7 @@ WARNING: Any delay in this chain delays launch by the same amount.
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Create PRD
@@ -16747,10 +17088,24 @@ What existing functionality might this break?
 All P0 scenarios pass before launch. P1 scenarios pass or have documented workarounds.
 ```
 
+## When to Use
+
+- Comprehensive product launch planning
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## learning-mode
+<a id="learning-mode"></a>
 
 ---
 name: learning-mode
@@ -16887,10 +17242,22 @@ Technical PMs commonly ask about:
 - [ ] **Jargon explained** - no undefined technical terms
 - [ ] **Peer tone** - conversational, not condescending
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## meeting-agenda
+<a id="meeting-agenda"></a>
 
 ---
 name: meeting-agenda
@@ -17547,7 +17914,7 @@ Meeting focuses on discussing concerns, not rehashing basics.
 6. **Cancel if not needed:** If async would work, cancel meeting
 7. **No-laptop rule:** (for some meetings) Full attention
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **After the meeting:**
 - `/meeting-notes` - Document outcomes and action items
@@ -17727,7 +18094,7 @@ Topics to rotate: feedback on recent work / skills developing / growth goals / e
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before composing the agenda, run the equivalent of `/second-brain prep "<meeting topic or attendee>"`. The prep briefing gives you:
 
@@ -17748,7 +18115,7 @@ If the brain isn't initialized, fall back to the existing `context-library/meeti
 
 ---
 
-## meeting-cleanup
+<a id="meeting-cleanup"></a>
 
 ---
 name: meeting-cleanup
@@ -18034,10 +18401,30 @@ Before delivering the meeting cleanup, verify:
 
 If any check fails, revise before delivering.
 
+## When to Use
+
+- Batch process multiple meetings from a single day. Consolidates action items and insights across meetings.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## meeting-feedback
+<a id="meeting-feedback"></a>
 
 ---
 name: meeting-feedback
@@ -18531,7 +18918,7 @@ If not, what changes would justify the cost?
 ❌ Only noting problems
 ✅ Also capture what worked well (repeat it)
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before meeting:**
 - `/meeting-agenda` - Create structured agenda
@@ -18683,7 +19070,7 @@ When the PM uses `/meeting-feedback`, I automatically:
 
 ---
 
-## meeting-notes
+<a id="meeting-notes"></a>
 
 ---
 name: meeting-notes
@@ -19659,7 +20046,7 @@ addressed stakeholder concerns and shortened the approval conversation.
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -19716,7 +20103,7 @@ Before presenting the meeting notes, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before generating the meeting notes, check `context-library/second-brain/` for prior context on the topic and attendees (focus areas: `stakeholders`, plus whatever topic domain — `product-knowledge`, `competitive-intelligence`, etc.). Pull any relevant past decisions or discussions so the new notes build on what's already known rather than rehashing.
 
@@ -19734,7 +20121,7 @@ Don't file the whole transcript — file the **claims that should survive next m
 
 ---
 
-## metrics-framework
+<a id="metrics-framework"></a>
 
 ---
 name: metrics-framework
@@ -20394,7 +20781,7 @@ For products with multiple value streams (e.g., separate features for creation, 
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -20426,7 +20813,7 @@ After building your framework:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `/define-north-star` - Choose your North Star (lagging metric)
 - `/activation-analysis` - Find leading activation indicators
@@ -20456,10 +20843,18 @@ Before delivering the metrics framework, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's metrics frameworks. Read: https://www.news.aakashg.com/p/become-an-ab-testing-expert-advanced
 
+## When to Use
+
+- Set up leading vs lagging indicators for product decisions. Framework for metric selection and tracking.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## napkin-sketch
+<a id="napkin-sketch"></a>
 
 ---
 name: napkin-sketch
@@ -21007,7 +21402,7 @@ Common UI:
 ⚙️ 🔔 👤 📊 🗑️ ✏️ 🔍 + × ⋮ ☰
 ```
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Feeds into:**
 - `/prd-draft` - Include wireframes in PRDs
@@ -21062,10 +21457,16 @@ If any check fails, fix it before delivering. A 5-minute wireframe should save h
 
 Remember: Wireframes are thinking tools, not art. Good enough to communicate is perfect. The best wireframe is the one you can draw in 5 minutes.
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## okr-planning
+<a id="okr-planning"></a>
 
 ---
 name: okr-planning
@@ -21412,7 +21813,7 @@ Even while chasing the Objectives, we won't sacrifice:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -21451,10 +21852,24 @@ Before delivering OKRs, verify:
 - [ ] **Check-in cadence set:** Weekly, monthly, and quarterly rhythms defined
 - [ ] **Output file saved:** Saved to `outputs/okrs/okrs-[quarter]-[date].md`
 
+## When to Use
+
+- Create and align quarterly OKRs with product strategy and North Star.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## opportunity-sizing
+<a id="opportunity-sizing"></a>
 
 ---
 name: opportunity-sizing
@@ -21694,10 +22109,30 @@ Does this opportunity align with where we're going?
 - [ ] **Recommendation made:** Not just "more research needed" unless that's genuinely the answer
 - [ ] **Output saved:** `outputs/analyses/opportunity-[name]-[date].md`
 
+## When to Use
+
+- Evaluate the strategic size of a market or product opportunity before committing to build.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## peer-review
+<a id="peer-review"></a>
 
 ---
 name: peer-review
@@ -21882,10 +22317,22 @@ Statistics, detailed evaluations, and prioritized action plan.
 - [ ] **Tone is fair** - credit given for good catches, context given for misses
 - [ ] **Output saved:** `outputs/analyses/peer-review-[scope]-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## post-mortem
+<a id="post-mortem"></a>
 
 ---
 name: post-mortem
@@ -22160,10 +22607,30 @@ Action types:
 - [ ] **All actions are assigned and dated:** No "we should improve X" without an owner
 - [ ] **Output saved:** `outputs/post-mortems/post-mortem-[incident]-[date].md`
 
+## When to Use
+
+- Run a structured post-mortem after an incident, failed launch, or missed goal.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## prd-draft
+<a id="prd-draft"></a>
 
 ---
 name: prd-draft
@@ -22815,7 +23282,7 @@ Great work! Your PRD is ready for review.
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -23157,7 +23624,7 @@ If we [build X], then [users will Y], because [underlying insight].
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Before drafting, query the second brain for the **Background / Context** section. A good PRD starts with evidence, not assumptions. Pull from:
 
@@ -23172,10 +23639,16 @@ If the brain is thin on this topic, flag it at the top of the PRD ("evidence gap
 
 If `context-library/second-brain/` isn't initialized, proceed without — this hook is a force multiplier, not a prerequisite.
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## prd-lite
+<a id="prd-lite"></a>
 
 ---
 name: prd-lite
@@ -23280,7 +23753,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 1. [Risk] — Mitigation: [one sentence]
 2. [Risk] — Mitigation: [one sentence]
 
-## Recommended Next Steps
+## Cross-Skill Links
 
 - [ ] [Validate assumption: how and by when]
 - [ ] [If green: escalate to /prd-draft]
@@ -23319,7 +23792,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 
 ---
 
-## Output Integration
+### Output Routing
 
 **Files:** `outputs/prds/prd-lite-[feature]-[date].md`
 
@@ -23347,10 +23820,24 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 - [ ] **Decision ask is explicit:** Does this need approval, more research, or an estimate?
 - [ ] **Output saved:** `outputs/prds/prd-lite-[feature]-[date].md`
 
+## When to Use
+
+- Generate lightweight PRD Lite feature proposals — decision-grade prioritization docs, not engineering-ready specs.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## prd-review-panel
+<a id="prd-review-panel"></a>
 
 ---
 name: prd-review-panel
@@ -24097,7 +24584,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/prd-review-panel`:**
 - `/prd-draft` - Create the initial PRD
@@ -24138,7 +24625,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Create the PRD
@@ -24166,10 +24653,24 @@ Before presenting output to the PM, verify:
 - [ ] **Synthesis section prioritizes feedback items:** The TL;DR and summary sections rank issues by severity (Critical Blockers > Important Gaps > Enhancements) with a clear recommended next step
 - [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
 
+## When to Use
+
+- Multi-agent PRD review (7 perspectives)
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## pre-mortem
+<a id="pre-mortem"></a>
 
 ---
 name: pre-mortem
@@ -24490,7 +24991,7 @@ If you're doing this solo, use these prompts to force honest thinking:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -24527,10 +25028,24 @@ Before delivering the pre-mortem output, verify:
 - [ ] **Go/no-go recommendation made:** Clear statement on whether to proceed, with conditions if needed
 - [ ] **Output file saved:** Saved to `outputs/pre-mortems/pre-mortem-[initiative]-[date].md`
 
+## When to Use
+
+- Run a structured pre-mortem session before a launch, major decision, or project kickoff.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## pricing-analysis
+<a id="pricing-analysis"></a>
 
 ---
 name: pricing-analysis
@@ -24812,10 +25327,30 @@ Value-based (price to outcome, not feature set)
 - [ ] **Next validation step named:** Experiment, survey, or sales test to confirm
 - [ ] **Output saved:** `outputs/analyses/pricing-[product]-[date].md`
 
+## When to Use
+
+- Design and analyze pricing strategy for products and features.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## prioritize
+<a id="prioritize"></a>
 
 ---
 name: prioritize
@@ -25235,7 +25770,7 @@ Ask yourself weekly:
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/strategy-sprint` - Leverage strategy work
 - `/prd-draft` - Leverage through great PRDs
@@ -25338,10 +25873,641 @@ Before delivering the prioritization output, verify:
 - [ ] **Calendar blocking suggested:** Specific time blocks are recommended for Leverage work (e.g., "Block Monday 9-12 for PRD writing").
 - [ ] **Strategy alignment checked:** Leverage tasks are validated against current strategic priorities from `context-library/strategy/`. If a Leverage task does not connect to strategy, flag it.
 
+## When to Use
+
+- Classify PM tasks using LNO Framework (Leverage/Neutral/Overhead) to focus on high-impact work.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## prototype-feedback
+<a id="prototype"></a>
+
+---
+name: prototype
+description: Advanced prototyping (Artifacts/Figma/Lovable/v0/Bolt)
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** A PRD, feature description, or napkin sketch you want turned into a prototype.
+
+```
+/prototype                              → I'll check your latest PRD and ask what type
+/prototype lovable                      → Generate a Lovable.dev prompt from your PRD
+/prototype v0                           → Generate a v0.dev prompt
+/prototype bolt                         → Generate a Bolt.new prompt
+/prototype artifacts                    → Build HTML/React right here
+/prototype figma                        → Create a Figma design handoff spec
+/prototype [paste feature description]  → I'll recommend the right prototype type
+```
+
+**What you get:** A ready-to-use prototype prompt or interactive prototype, matched to your PRD requirements, with all edge cases and states covered.
+
+**Time:** 5-15 minutes depending on complexity.
+
+---
+
+# /prototype - Advanced Prototyping
+
+When the PM types `/prototype`, help them build interactive prototypes that bring PRD requirements to life. Choose the right tool for the job, generate detailed specs, and connect to the feedback loop.
+
+**The $1-$10-$100 Rule:**
+- $1: PM creates napkin sketch or prototype prompt --> catches issues early
+- $10: Designer reworks based on feedback --> moderate cost
+- $100: Engineering builds wrong thing --> expensive waste
+
+Prototyping is the cheapest way to validate your solution before committing engineering time.
+
+---
+
+## Context Routing Logic (Internal - for Claude)
+
+**Automatic Context Checks:**
+When this skill is invoked, immediately check:
+
+| Source | Files/Folders | Search Terms | What to Extract |
+|--------|---------------|--------------|-----------------|
+| Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | feature name | Requirements, user flows, success metrics, edge cases |
+| Previous Prototypes | `outputs/prototypes/*.md` | feature name | Previous versions, iteration history, feedback received |
+| User Research | `context-library/research/*.md` | user pain, problem | User quotes, pain points, workflows to design for |
+| Napkin Sketches | `outputs/prototypes/*-napkin*.md` | feature name | ASCII wireframes to convert to prototype |
+| Stakeholder Profiles | Stakeholder templates | design reviewers | Who will review this and what they care about |
+| Business Info | `context-library/business-info-template.md` | brand, product | Brand guidelines, product context, existing UI patterns |
+| Competitor Analysis | `context-library/research/competitive-*.md` | feature name | Competitor implementations for reference |
+| Design Direction | `outputs/prototypes/*-design-direction.md` | feature name | Variance, motion, density parameters, style preset, anti-patterns |
+
+**Context Priority:**
+1. PRD requirements and user flows FIRST (what to build)
+2. User research and pain points SECOND (who we're building for)
+3. Previous prototypes and napkin sketches THIRD (what we've already explored)
+4. Brand and competitor context FOURTH (how it should look/feel)
+
+**Cross-Skill Links:**
+- If no PRD exists --> suggest `/prd-draft` first ("Prototype without requirements = guessing")
+- If no user research --> suggest `/interview-guide` ("Who are you designing for?")
+- If no design direction exists --> suggest `/design-direction` ("Set the visual tone before building. What should this feel like?")
+- After prototype is built --> suggest `/prototype-feedback` for structured review
+- If prototype needs AI behavior --> link to `/generate-ai-prototype` for prompt generation
+- If starting from scratch visually --> suggest `/napkin-sketch` first for quick layout
+
+---
+
+## When to Use
+
+- **After PRD draft:** Visualize the solution before engineering review
+- **Before stakeholder review:** Show, don't tell -- prototypes beat slide decks
+- **During design exploration:** Test 2-3 approaches quickly
+- **For user testing:** Give users something to interact with
+- **Before XFN kickoff:** Align on the "what" with a tangible artifact
+
+## When NOT to Use
+
+- You don't have requirements yet (do `/prd-draft` first)
+- You're exploring the problem space, not the solution (do research first)
+- The feature is purely backend/API (no UI to prototype)
+
+---
+
+## Workflow
+
+### Step 1: Understand Requirements
+
+When the PM types `/prototype`, start by gathering context:
+
+```
+Let's build a prototype. First, let me check what we're working with...
+```
+
+**Silently check:**
+1. Read most recent PRDs in `outputs/prds/` and `context-library/prds/`
+2. Check `outputs/prototypes/` for previous versions
+3. Read any napkin sketches from `/napkin-sketch`
+4. Check user research for UX-relevant insights
+
+**Then present what you found:**
+
+```
+Here's what I know about this feature:
+
+**From PRD:** [Summary of requirements, user flow, key interactions]
+**User Research:** [Relevant pain points, quotes, user expectations]
+**Previous Prototypes:** [Any existing versions and what feedback they got]
+**Napkin Sketch:** [If one exists, reference it]
+
+A few questions before we prototype:
+1. [Only ask what's genuinely missing -- skip if PRD covers it]
+2. What's the primary user flow to prototype? (If multiple, which is highest priority?)
+3. Who will review this? (Stakeholder context affects fidelity level)
+```
+
+**If no PRD exists:**
+```
+I don't see a PRD for this feature yet. Prototyping without requirements
+is risky -- we might build the wrong thing beautifully.
+
+Options:
+1. Run `/prd-draft` first (recommended -- 15 min)
+2. Give me a quick verbal brief and we'll prototype from that
+3. We're just exploring -- build something rough and iterate
+
+Which works for you?
+```
+
+---
+
+### Step 2: Choose Prototype Type
+
+Based on the requirements and context, recommend the right tool:
+
+| Prototype Type | Best For | Fidelity | Time to Build | Shareable? |
+|---------------|----------|----------|---------------|------------|
+| **v0.dev** | UI components, pages, forms | High | 2-5 min | Yes (deployed URL) |
+| **Lovable.dev** | Full-stack apps with data, auth, multi-page | Very High | 5-15 min | Yes (deployed URL) |
+| **Bolt.new** | Quick full-stack, rapid iteration | High | 3-8 min | Yes (deployed URL) |
+| **Claude Artifacts** | Simple interactions, quick validation | Medium | 2-5 min | In Claude only |
+| **Figma Handoff** | Design-system work, high-fi specs | Spec only | 10-15 min | Figma file |
+| **HTML/CSS Static** | Email templates, simple landing pages | Medium | 5-10 min | HTML file |
+
+**Decision logic:**
+
+```
+IF feature is a single UI component or page
+  → Recommend v0.dev ("Fast, high-quality, shareable URL")
+
+IF feature is multi-page with data models or auth
+  → Recommend Lovable.dev ("Full app, Supabase backend, deployed")
+
+IF feature needs rapid iteration and you want to move fast
+  → Recommend Bolt.new ("Quick to spin up, easy to modify")
+
+IF feature is simple interaction or quick concept test
+  → Recommend Claude Artifacts ("Build it right here, test immediately")
+
+IF team uses Figma and needs design-system alignment
+  → Recommend Figma Handoff ("Spec for your designer to build in Figma")
+
+IF feature is static content (email, landing page, docs)
+  → Recommend HTML/CSS ("Simple, no framework needed")
+```
+
+**Present the recommendation:**
+
+```
+Based on your requirements, I'd recommend **[Type]** because [reason].
+
+But here are your options:
+1. **v0.dev** - [Why it fits or doesn't]
+2. **Lovable.dev** - [Why it fits or doesn't]
+3. **Bolt.new** - [Why it fits or doesn't]
+4. **Claude Artifacts** - [Why it fits or doesn't]
+5. **Figma Handoff** - [Why it fits or doesn't]
+
+Which would you like?
+```
+
+---
+
+### Step 3: Generate Prototype
+
+#### For v0.dev Prompts
+
+Generate a detailed prompt the PM can paste into v0.dev.
+
+**v0.dev Prompt Template:**
+
+```markdown
+# v0.dev Prototype Prompt: [Feature Name]
+
+## Paste this into v0.dev:
+
+---
+
+Create a [component/page type] for [product context].
+
+**User Goal:** [What the user is trying to accomplish]
+
+**Layout:**
+- [Header/nav description]
+- [Main content area]
+- [Sidebar/secondary content]
+- [Footer/actions]
+
+**Key Components:**
+1. [Component 1] - [Behavior: what happens on click/hover/input]
+2. [Component 2] - [Behavior]
+3. [Component 3] - [Behavior]
+
+**Data to Display:**
+- [Field 1]: [Sample data]
+- [Field 2]: [Sample data]
+- [List/table]: [Sample items]
+
+**Interactions:**
+- When user [action], [result]
+- When user [action], [result]
+- When user [action], [result]
+
+**States to Handle:**
+- Default: [What the user sees first]
+- Empty state: [What to show when no data]
+- Loading state: [Skeleton/spinner/placeholder]
+- Error state: [What to show on failure]
+- Success state: [Confirmation/feedback]
+
+**Style:**
+- [Modern/minimal/playful/enterprise]
+- Color palette: [Primary, secondary, accent] or [brand colors from business-info]
+- Typography: [Clean sans-serif / specific font]
+- Spacing: [Generous/compact]
+
+**Responsive:**
+- Desktop: [Layout description]
+- Mobile: [How it adapts]
+
+**Do NOT include:** [Things to exclude -- e.g., auth flows, payment, admin panel]
+
+---
+```
+
+Save to: `outputs/prototypes/[feature-name]-v0-prompt.md`
+
+---
+
+#### For Lovable.dev Prompts
+
+Generate a comprehensive prompt for Lovable.dev that produces a deployable app.
+
+**Lovable.dev Prompt Template:**
+
+```markdown
+# Lovable.dev Prototype Prompt: [Feature Name]
+
+## Paste this into Lovable.dev:
+
+---
+
+Build a [app type] for [product context].
+
+**Overview:**
+[2-3 sentence description of what this app does and who it's for]
+
+**Pages/Views:**
+
+1. **[Page Name]** (route: /path)
+   - Purpose: [What this page does]
+   - Components:
+     - [Component]: [Behavior]
+     - [Component]: [Behavior]
+   - Data needed: [What data this page displays/collects]
+
+2. **[Page Name]** (route: /path)
+   - Purpose: [What this page does]
+   - Components: [...]
+   - Data needed: [...]
+
+**Data Model:**
+- [Entity 1]: [Fields: name, type, description]
+- [Entity 2]: [Fields]
+- [Relationships between entities]
+
+**User Flows:**
+1. [Flow name]: [Step 1] → [Step 2] → [Step 3] → [Outcome]
+2. [Flow name]: [Step 1] → [Step 2] → [Decision] → [Branch A / Branch B]
+
+**Authentication:** [None / Email login / OAuth / Magic link]
+
+**Sample Data:**
+[Provide 3-5 realistic data entries so the prototype looks real, not empty]
+
+**Key Interactions:**
+- [User action] → [System response]
+- [User action] → [System response]
+- [Edge case] → [How to handle]
+
+**Style & Branding:**
+- Feel: [Professional/playful/minimal/data-heavy]
+- Colors: [Palette]
+- Inspiration: [Reference apps or screenshots if available]
+
+**States:**
+- Empty state: [What to show]
+- Loading: [Behavior]
+- Error: [Message and recovery]
+- Success: [Confirmation]
+
+**Out of Scope:**
+- [What NOT to build -- keep the prototype focused]
+
+---
+```
+
+Save to: `outputs/prototypes/[feature-name]-lovable-prompt.md`
+
+---
+
+#### For Bolt.new Prompts
+
+**Bolt.new Prompt Template:**
+
+```markdown
+# Bolt.new Prototype Prompt: [Feature Name]
+
+## Paste this into Bolt.new:
+
+---
+
+Build a [app type] using [React/Next.js/vanilla].
+
+**What it does:**
+[Clear, concise description]
+
+**Main screen:**
+- [Layout description]
+- [Key interactive elements]
+- [Data display]
+
+**Interactions:**
+- [Action] → [Result]
+- [Action] → [Result]
+
+**Sample data:**
+[Provide inline JSON or describe sample entries]
+
+**Style:** [Minimal/modern] with [Tailwind/custom CSS]
+
+**Important:** Keep it simple. This is a prototype, not production code.
+
+---
+```
+
+Save to: `outputs/prototypes/[feature-name]-bolt-prompt.md`
+
+---
+
+#### For Claude Artifacts (HTML/React)
+
+Build the prototype directly in the conversation.
+
+**Approach:**
+1. Create a single-file React component or HTML/CSS/JS
+2. Include all states (default, empty, loading, error, success)
+3. Use realistic sample data
+4. Make interactions functional (clicks, form inputs, transitions)
+5. Keep it self-contained (no external dependencies beyond React/Tailwind)
+
+**Structure:**
+```
+- Header/navigation
+- Main content area with primary user flow
+- Interactive elements that respond to user input
+- State transitions (show how the UI changes)
+- Footer/secondary actions
+```
+
+Save the code to: `outputs/prototypes/[feature-name]-artifacts-v[N].md`
+
+---
+
+#### For Figma Handoff Specs
+
+Generate a detailed design spec that a designer can implement in Figma.
+
+**Figma Handoff Template:**
+
+```markdown
+# Figma Design Spec: [Feature Name]
+
+## Overview
+[What this feature does and how it fits into the product]
+
+## User Flow
+[Step 1] → [Step 2] → [Decision Point] → [Outcomes]
+
+## Screens/Components Needed
+
+### Screen 1: [Name]
+**Layout:** [Description with rough dimensions]
+**Components:**
+| Component | Type | Behavior | States |
+|-----------|------|----------|--------|
+| [Name] | [Button/Input/Card/etc.] | [What it does] | [Default, Hover, Active, Disabled] |
+
+**Spacing:** [Grid system, margins, padding]
+**Typography:** [Heading sizes, body text, labels]
+**Colors:** [Which colors from palette]
+
+### Screen 2: [Name]
+[Repeat structure]
+
+## Component States
+- Default
+- Hover
+- Active/Pressed
+- Disabled
+- Loading
+- Error
+- Success
+
+## Responsive Behavior
+- Desktop (1440px): [Layout]
+- Tablet (768px): [Adaptations]
+- Mobile (375px): [Adaptations]
+
+## Accessibility
+- Focus states for keyboard nav
+- Color contrast requirements
+- Screen reader labels
+
+## Design Tokens to Use
+[Reference existing design system tokens if known]
+
+## References
+- [Competitor screenshot/URL]
+- [Existing product patterns to follow]
+- [Napkin sketch from /napkin-sketch]
+```
+
+Save to: `outputs/prototypes/[feature-name]-figma-handoff.md`
+
+---
+
+### Step 3b: Requirements Verification
+
+After generating the prototype prompt, include a checklist showing PRD requirement coverage. This ensures the prototype is traceable to the PRD and the PM knows what's covered vs what's not.
+
+```
+**Requirements Verified:**
+- [x] [Requirement from PRD that IS covered by this prototype]
+- [x] [Another covered requirement]
+- [ ] [Requirement NOT covered -- explain why: out of scope for this prototype / deferred to iteration 2]
+```
+
+**How to build this checklist:**
+1. Pull all requirements from the PRD (user flows, interactions, edge cases, success criteria)
+2. For each requirement, check if the prototype prompt explicitly addresses it
+3. Mark covered requirements with `[x]` and a brief note on how it's addressed
+4. Mark uncovered requirements with `[ ]` and state the reason (out of scope, deferred, not prototypable, etc.)
+5. If no PRD exists (PM chose to prototype from a verbal brief), note: "No PRD to verify against -- requirements based on verbal brief"
+
+This checklist goes at the end of the prototype output, before the "Next steps" section.
+
+---
+
+### Step 4: Connect to Feedback Loop
+
+After generating the prototype, offer next steps:
+
+```
+Prototype ready! Saved to outputs/prototypes/[filename].
+
+**Next steps:**
+1. **Test it:** [Instructions specific to type -- paste into v0, open in Lovable, etc.]
+2. **Get feedback:** Run `/prototype-feedback` for structured review
+3. **Iterate:** Come back with feedback and I'll generate v2
+4. **Share:** [How to share with stakeholders]
+
+**Want me to also:**
+- Generate a second option with a different approach?
+- Create a `/napkin-sketch` for a different screen in this flow?
+- Draft talking points for presenting this prototype?
+- Run `/generate-ai-prototype` for AI-specific behavior prompts?
+```
+
+---
+
+## Iteration Workflow
+
+When the PM comes back with feedback:
+
+1. **Read previous prototype:** Check `outputs/prototypes/[feature]-*` for history
+2. **Understand feedback:** What worked? What didn't? What changed?
+3. **Generate updated version:** Increment version number
+4. **Track changes:** Note what changed between versions
+
+**Version naming:** `[feature-name]-[type]-v[N].md`
+- v1: Initial prototype
+- v2: After first round of feedback
+- v3: After stakeholder review
+- vFinal: Approved for engineering handoff
+
+---
+
+## Prototype Requirements Checklist
+
+Before generating any prototype, ensure you have:
+
+- [ ] **Primary user flow defined** (what does the user do, step by step?)
+- [ ] **Key data to display** (what content appears on screen?)
+- [ ] **Main interactions** (what can the user click/tap/input?)
+- [ ] **Success state** (what does "done" look like?)
+- [ ] **Error handling** (what happens when things go wrong?)
+- [ ] **Empty state** (what shows when there's no data?)
+
+If any are missing, ask before generating.
+
+---
+
+## Anti-Patterns to Avoid
+
+**Prototyping without requirements:**
+- "Make it look good" is not a requirement. Start with `/prd-draft`.
+- At minimum, you need: user goal, key interactions, and success criteria.
+
+**Over-engineering a throwaway prototype:**
+- Prototypes are disposable. Don't add auth, payment, or admin panels.
+- Focus on the ONE flow that needs validation.
+
+**Prototyping the wrong thing:**
+- Prototype the risky/uncertain parts, not the obvious ones.
+- If everyone agrees on how login should work, don't prototype login.
+
+**Skipping states:**
+- Empty, loading, and error states reveal 80% of UX problems.
+- Always include them.
+
+**Not using real-ish data:**
+- "Lorem ipsum" and "Test User" make prototypes feel fake.
+- Use realistic names, numbers, and content.
+
+**Building the whole app:**
+- Prototype the critical path. Leave everything else out.
+- If the prototype has more than 3-4 screens, you're building too much.
+
+**Not connecting to feedback:**
+- A prototype without feedback is wasted effort.
+- Always run `/prototype-feedback` after sharing.
+
+---
+
+## Cross-Skill Links
+
+**Before:**
+- `/prd-draft` - Define requirements (most important input)
+- `/napkin-sketch` - Quick ASCII wireframe to establish layout
+- `/generate-ai-prototype` - Generate AI-specific prompt behavior
+
+**After:**
+- `/prototype-feedback` - Structured review and iteration loop
+- `/prd-draft` - Update PRD based on prototype learnings
+- `/create-tickets` - Turn approved prototype into engineering tasks
+
+**Related:**
+- `/prd-review-panel` - Validate with Designer sub-agent
+- `/user-interview` - Test prototype with real users
+- `/ralph-wiggum` - Challenge whether this is the right solution
+
+---
+
+## Output Quality Self-Check
+
+Before presenting the prototype or prompt, verify:
+
+- [ ] Prototype matches PRD requirements (if PRD exists) -- no missing features, no added scope
+- [ ] All user-facing states included (default, empty, loading, error, success)
+- [ ] Sample data is realistic, not placeholder text
+- [ ] Primary user flow is complete from start to finish
+- [ ] Prompt is specific enough that two different AI tools would produce similar results
+- [ ] Edge cases from user research are addressed (if research exists)
+- [ ] File saved with correct naming convention: `[feature-name]-[type]-v[N].md`
+- [ ] Requirements verification checklist included (PRD requirements mapped to prototype coverage with reasons for any gaps)
+- [ ] Next steps are clear (how to test, how to iterate, how to get feedback)
+- [ ] Design direction applied -- If a design direction file exists, parameters and anti-patterns are reflected in the prototype prompt
+- [ ] Completeness enforced -- No placeholder text, no TODO stubs, no abbreviated implementations. All states (loading, error, empty, success) are fully realized, not commented out.
+
+---
+
+### Related Skills
+
+**Before this:**
+- `/prd-draft` - Clear requirements
+- `/napkin-sketch` - Quick wireframe first
+- `/generate-ai-prototype` - AI behavior prompts
+
+**After this:**
+- `/prototype-feedback` - Structured review loop
+- `/create-tickets` - Engineering handoff
+- `/feature-results` - Measure impact post-launch
+
+**Parallel use:**
+- `/user-interview` - Test with real users
+- `/ralph-wiggum` - Challenge the solution approach
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="prototype-feedback"></a>
 
 ---
 name: prototype-feedback
@@ -25911,627 +27077,24 @@ If a design direction file exists at `outputs/prototypes/[feature]-design-direct
 - [Any contrast, keyboard, or screen reader issues]
 ```
 
-
----
-
-## prototype
-
----
-name: prototype
-description: Advanced prototyping (Artifacts/Figma/Lovable/v0/Bolt)
-disable-model-invocation: false
-user-invocable: true
----
-
-## Quick Start
-
-**What to provide:** A PRD, feature description, or napkin sketch you want turned into a prototype.
-
-```
-/prototype                              → I'll check your latest PRD and ask what type
-/prototype lovable                      → Generate a Lovable.dev prompt from your PRD
-/prototype v0                           → Generate a v0.dev prompt
-/prototype bolt                         → Generate a Bolt.new prompt
-/prototype artifacts                    → Build HTML/React right here
-/prototype figma                        → Create a Figma design handoff spec
-/prototype [paste feature description]  → I'll recommend the right prototype type
-```
-
-**What you get:** A ready-to-use prototype prompt or interactive prototype, matched to your PRD requirements, with all edge cases and states covered.
-
-**Time:** 5-15 minutes depending on complexity.
-
----
-
-# /prototype - Advanced Prototyping
-
-When the PM types `/prototype`, help them build interactive prototypes that bring PRD requirements to life. Choose the right tool for the job, generate detailed specs, and connect to the feedback loop.
-
-**The $1-$10-$100 Rule:**
-- $1: PM creates napkin sketch or prototype prompt --> catches issues early
-- $10: Designer reworks based on feedback --> moderate cost
-- $100: Engineering builds wrong thing --> expensive waste
-
-Prototyping is the cheapest way to validate your solution before committing engineering time.
-
----
-
-## Context Routing Logic (Internal - for Claude)
-
-**Automatic Context Checks:**
-When this skill is invoked, immediately check:
-
-| Source | Files/Folders | Search Terms | What to Extract |
-|--------|---------------|--------------|-----------------|
-| Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | feature name | Requirements, user flows, success metrics, edge cases |
-| Previous Prototypes | `outputs/prototypes/*.md` | feature name | Previous versions, iteration history, feedback received |
-| User Research | `context-library/research/*.md` | user pain, problem | User quotes, pain points, workflows to design for |
-| Napkin Sketches | `outputs/prototypes/*-napkin*.md` | feature name | ASCII wireframes to convert to prototype |
-| Stakeholder Profiles | Stakeholder templates | design reviewers | Who will review this and what they care about |
-| Business Info | `context-library/business-info-template.md` | brand, product | Brand guidelines, product context, existing UI patterns |
-| Competitor Analysis | `context-library/research/competitive-*.md` | feature name | Competitor implementations for reference |
-| Design Direction | `outputs/prototypes/*-design-direction.md` | feature name | Variance, motion, density parameters, style preset, anti-patterns |
-
-**Context Priority:**
-1. PRD requirements and user flows FIRST (what to build)
-2. User research and pain points SECOND (who we're building for)
-3. Previous prototypes and napkin sketches THIRD (what we've already explored)
-4. Brand and competitor context FOURTH (how it should look/feel)
-
-**Cross-Skill Links:**
-- If no PRD exists --> suggest `/prd-draft` first ("Prototype without requirements = guessing")
-- If no user research --> suggest `/interview-guide` ("Who are you designing for?")
-- If no design direction exists --> suggest `/design-direction` ("Set the visual tone before building. What should this feel like?")
-- After prototype is built --> suggest `/prototype-feedback` for structured review
-- If prototype needs AI behavior --> link to `/generate-ai-prototype` for prompt generation
-- If starting from scratch visually --> suggest `/napkin-sketch` first for quick layout
-
----
-
 ## When to Use
 
-- **After PRD draft:** Visualize the solution before engineering review
-- **Before stakeholder review:** Show, don't tell -- prototypes beat slide decks
-- **During design exploration:** Test 2-3 approaches quickly
-- **For user testing:** Give users something to interact with
-- **Before XFN kickoff:** Align on the "what" with a tangible artifact
+- Build → review → iterate prototype workflow. Structured feedback collection and iteration.
 
 ## When NOT to Use
 
-- You don't have requirements yet (do `/prd-draft` first)
-- You're exploring the problem space, not the solution (do research first)
-- The feature is purely backend/API (no UI to prototype)
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## Workflow
-
-### Step 1: Understand Requirements
-
-When the PM types `/prototype`, start by gathering context:
-
-```
-Let's build a prototype. First, let me check what we're working with...
-```
-
-**Silently check:**
-1. Read most recent PRDs in `outputs/prds/` and `context-library/prds/`
-2. Check `outputs/prototypes/` for previous versions
-3. Read any napkin sketches from `/napkin-sketch`
-4. Check user research for UX-relevant insights
-
-**Then present what you found:**
-
-```
-Here's what I know about this feature:
-
-**From PRD:** [Summary of requirements, user flow, key interactions]
-**User Research:** [Relevant pain points, quotes, user expectations]
-**Previous Prototypes:** [Any existing versions and what feedback they got]
-**Napkin Sketch:** [If one exists, reference it]
-
-A few questions before we prototype:
-1. [Only ask what's genuinely missing -- skip if PRD covers it]
-2. What's the primary user flow to prototype? (If multiple, which is highest priority?)
-3. Who will review this? (Stakeholder context affects fidelity level)
-```
-
-**If no PRD exists:**
-```
-I don't see a PRD for this feature yet. Prototyping without requirements
-is risky -- we might build the wrong thing beautifully.
-
-Options:
-1. Run `/prd-draft` first (recommended -- 15 min)
-2. Give me a quick verbal brief and we'll prototype from that
-3. We're just exploring -- build something rough and iterate
-
-Which works for you?
-```
-
----
-
-### Step 2: Choose Prototype Type
-
-Based on the requirements and context, recommend the right tool:
-
-| Prototype Type | Best For | Fidelity | Time to Build | Shareable? |
-|---------------|----------|----------|---------------|------------|
-| **v0.dev** | UI components, pages, forms | High | 2-5 min | Yes (deployed URL) |
-| **Lovable.dev** | Full-stack apps with data, auth, multi-page | Very High | 5-15 min | Yes (deployed URL) |
-| **Bolt.new** | Quick full-stack, rapid iteration | High | 3-8 min | Yes (deployed URL) |
-| **Claude Artifacts** | Simple interactions, quick validation | Medium | 2-5 min | In Claude only |
-| **Figma Handoff** | Design-system work, high-fi specs | Spec only | 10-15 min | Figma file |
-| **HTML/CSS Static** | Email templates, simple landing pages | Medium | 5-10 min | HTML file |
-
-**Decision logic:**
-
-```
-IF feature is a single UI component or page
-  → Recommend v0.dev ("Fast, high-quality, shareable URL")
-
-IF feature is multi-page with data models or auth
-  → Recommend Lovable.dev ("Full app, Supabase backend, deployed")
-
-IF feature needs rapid iteration and you want to move fast
-  → Recommend Bolt.new ("Quick to spin up, easy to modify")
-
-IF feature is simple interaction or quick concept test
-  → Recommend Claude Artifacts ("Build it right here, test immediately")
-
-IF team uses Figma and needs design-system alignment
-  → Recommend Figma Handoff ("Spec for your designer to build in Figma")
-
-IF feature is static content (email, landing page, docs)
-  → Recommend HTML/CSS ("Simple, no framework needed")
-```
-
-**Present the recommendation:**
-
-```
-Based on your requirements, I'd recommend **[Type]** because [reason].
-
-But here are your options:
-1. **v0.dev** - [Why it fits or doesn't]
-2. **Lovable.dev** - [Why it fits or doesn't]
-3. **Bolt.new** - [Why it fits or doesn't]
-4. **Claude Artifacts** - [Why it fits or doesn't]
-5. **Figma Handoff** - [Why it fits or doesn't]
-
-Which would you like?
-```
-
----
-
-### Step 3: Generate Prototype
-
-#### For v0.dev Prompts
-
-Generate a detailed prompt the PM can paste into v0.dev.
-
-**v0.dev Prompt Template:**
-
-```markdown
-# v0.dev Prototype Prompt: [Feature Name]
-
-## Paste this into v0.dev:
-
----
-
-Create a [component/page type] for [product context].
-
-**User Goal:** [What the user is trying to accomplish]
-
-**Layout:**
-- [Header/nav description]
-- [Main content area]
-- [Sidebar/secondary content]
-- [Footer/actions]
-
-**Key Components:**
-1. [Component 1] - [Behavior: what happens on click/hover/input]
-2. [Component 2] - [Behavior]
-3. [Component 3] - [Behavior]
-
-**Data to Display:**
-- [Field 1]: [Sample data]
-- [Field 2]: [Sample data]
-- [List/table]: [Sample items]
-
-**Interactions:**
-- When user [action], [result]
-- When user [action], [result]
-- When user [action], [result]
-
-**States to Handle:**
-- Default: [What the user sees first]
-- Empty state: [What to show when no data]
-- Loading state: [Skeleton/spinner/placeholder]
-- Error state: [What to show on failure]
-- Success state: [Confirmation/feedback]
-
-**Style:**
-- [Modern/minimal/playful/enterprise]
-- Color palette: [Primary, secondary, accent] or [brand colors from business-info]
-- Typography: [Clean sans-serif / specific font]
-- Spacing: [Generous/compact]
-
-**Responsive:**
-- Desktop: [Layout description]
-- Mobile: [How it adapts]
-
-**Do NOT include:** [Things to exclude -- e.g., auth flows, payment, admin panel]
-
----
-```
-
-Save to: `outputs/prototypes/[feature-name]-v0-prompt.md`
-
----
-
-#### For Lovable.dev Prompts
-
-Generate a comprehensive prompt for Lovable.dev that produces a deployable app.
-
-**Lovable.dev Prompt Template:**
-
-```markdown
-# Lovable.dev Prototype Prompt: [Feature Name]
-
-## Paste this into Lovable.dev:
-
----
-
-Build a [app type] for [product context].
-
-**Overview:**
-[2-3 sentence description of what this app does and who it's for]
-
-**Pages/Views:**
-
-1. **[Page Name]** (route: /path)
-   - Purpose: [What this page does]
-   - Components:
-     - [Component]: [Behavior]
-     - [Component]: [Behavior]
-   - Data needed: [What data this page displays/collects]
-
-2. **[Page Name]** (route: /path)
-   - Purpose: [What this page does]
-   - Components: [...]
-   - Data needed: [...]
-
-**Data Model:**
-- [Entity 1]: [Fields: name, type, description]
-- [Entity 2]: [Fields]
-- [Relationships between entities]
-
-**User Flows:**
-1. [Flow name]: [Step 1] → [Step 2] → [Step 3] → [Outcome]
-2. [Flow name]: [Step 1] → [Step 2] → [Decision] → [Branch A / Branch B]
-
-**Authentication:** [None / Email login / OAuth / Magic link]
-
-**Sample Data:**
-[Provide 3-5 realistic data entries so the prototype looks real, not empty]
-
-**Key Interactions:**
-- [User action] → [System response]
-- [User action] → [System response]
-- [Edge case] → [How to handle]
-
-**Style & Branding:**
-- Feel: [Professional/playful/minimal/data-heavy]
-- Colors: [Palette]
-- Inspiration: [Reference apps or screenshots if available]
-
-**States:**
-- Empty state: [What to show]
-- Loading: [Behavior]
-- Error: [Message and recovery]
-- Success: [Confirmation]
-
-**Out of Scope:**
-- [What NOT to build -- keep the prototype focused]
-
----
-```
-
-Save to: `outputs/prototypes/[feature-name]-lovable-prompt.md`
-
----
-
-#### For Bolt.new Prompts
-
-**Bolt.new Prompt Template:**
-
-```markdown
-# Bolt.new Prototype Prompt: [Feature Name]
-
-## Paste this into Bolt.new:
-
----
-
-Build a [app type] using [React/Next.js/vanilla].
-
-**What it does:**
-[Clear, concise description]
-
-**Main screen:**
-- [Layout description]
-- [Key interactive elements]
-- [Data display]
-
-**Interactions:**
-- [Action] → [Result]
-- [Action] → [Result]
-
-**Sample data:**
-[Provide inline JSON or describe sample entries]
-
-**Style:** [Minimal/modern] with [Tailwind/custom CSS]
-
-**Important:** Keep it simple. This is a prototype, not production code.
-
----
-```
-
-Save to: `outputs/prototypes/[feature-name]-bolt-prompt.md`
-
----
-
-#### For Claude Artifacts (HTML/React)
-
-Build the prototype directly in the conversation.
-
-**Approach:**
-1. Create a single-file React component or HTML/CSS/JS
-2. Include all states (default, empty, loading, error, success)
-3. Use realistic sample data
-4. Make interactions functional (clicks, form inputs, transitions)
-5. Keep it self-contained (no external dependencies beyond React/Tailwind)
-
-**Structure:**
-```
-- Header/navigation
-- Main content area with primary user flow
-- Interactive elements that respond to user input
-- State transitions (show how the UI changes)
-- Footer/secondary actions
-```
-
-Save the code to: `outputs/prototypes/[feature-name]-artifacts-v[N].md`
-
----
-
-#### For Figma Handoff Specs
-
-Generate a detailed design spec that a designer can implement in Figma.
-
-**Figma Handoff Template:**
-
-```markdown
-# Figma Design Spec: [Feature Name]
-
-## Overview
-[What this feature does and how it fits into the product]
-
-## User Flow
-[Step 1] → [Step 2] → [Decision Point] → [Outcomes]
-
-## Screens/Components Needed
-
-### Screen 1: [Name]
-**Layout:** [Description with rough dimensions]
-**Components:**
-| Component | Type | Behavior | States |
-|-----------|------|----------|--------|
-| [Name] | [Button/Input/Card/etc.] | [What it does] | [Default, Hover, Active, Disabled] |
-
-**Spacing:** [Grid system, margins, padding]
-**Typography:** [Heading sizes, body text, labels]
-**Colors:** [Which colors from palette]
-
-### Screen 2: [Name]
-[Repeat structure]
-
-## Component States
-- Default
-- Hover
-- Active/Pressed
-- Disabled
-- Loading
-- Error
-- Success
-
-## Responsive Behavior
-- Desktop (1440px): [Layout]
-- Tablet (768px): [Adaptations]
-- Mobile (375px): [Adaptations]
-
-## Accessibility
-- Focus states for keyboard nav
-- Color contrast requirements
-- Screen reader labels
-
-## Design Tokens to Use
-[Reference existing design system tokens if known]
-
-## References
-- [Competitor screenshot/URL]
-- [Existing product patterns to follow]
-- [Napkin sketch from /napkin-sketch]
-```
-
-Save to: `outputs/prototypes/[feature-name]-figma-handoff.md`
-
----
-
-### Step 3b: Requirements Verification
-
-After generating the prototype prompt, include a checklist showing PRD requirement coverage. This ensures the prototype is traceable to the PRD and the PM knows what's covered vs what's not.
-
-```
-**Requirements Verified:**
-- [x] [Requirement from PRD that IS covered by this prototype]
-- [x] [Another covered requirement]
-- [ ] [Requirement NOT covered -- explain why: out of scope for this prototype / deferred to iteration 2]
-```
-
-**How to build this checklist:**
-1. Pull all requirements from the PRD (user flows, interactions, edge cases, success criteria)
-2. For each requirement, check if the prototype prompt explicitly addresses it
-3. Mark covered requirements with `[x]` and a brief note on how it's addressed
-4. Mark uncovered requirements with `[ ]` and state the reason (out of scope, deferred, not prototypable, etc.)
-5. If no PRD exists (PM chose to prototype from a verbal brief), note: "No PRD to verify against -- requirements based on verbal brief"
-
-This checklist goes at the end of the prototype output, before the "Next steps" section.
-
----
-
-### Step 4: Connect to Feedback Loop
-
-After generating the prototype, offer next steps:
-
-```
-Prototype ready! Saved to outputs/prototypes/[filename].
-
-**Next steps:**
-1. **Test it:** [Instructions specific to type -- paste into v0, open in Lovable, etc.]
-2. **Get feedback:** Run `/prototype-feedback` for structured review
-3. **Iterate:** Come back with feedback and I'll generate v2
-4. **Share:** [How to share with stakeholders]
-
-**Want me to also:**
-- Generate a second option with a different approach?
-- Create a `/napkin-sketch` for a different screen in this flow?
-- Draft talking points for presenting this prototype?
-- Run `/generate-ai-prototype` for AI-specific behavior prompts?
-```
-
----
-
-## Iteration Workflow
-
-When the PM comes back with feedback:
-
-1. **Read previous prototype:** Check `outputs/prototypes/[feature]-*` for history
-2. **Understand feedback:** What worked? What didn't? What changed?
-3. **Generate updated version:** Increment version number
-4. **Track changes:** Note what changed between versions
-
-**Version naming:** `[feature-name]-[type]-v[N].md`
-- v1: Initial prototype
-- v2: After first round of feedback
-- v3: After stakeholder review
-- vFinal: Approved for engineering handoff
-
----
-
-## Prototype Requirements Checklist
-
-Before generating any prototype, ensure you have:
-
-- [ ] **Primary user flow defined** (what does the user do, step by step?)
-- [ ] **Key data to display** (what content appears on screen?)
-- [ ] **Main interactions** (what can the user click/tap/input?)
-- [ ] **Success state** (what does "done" look like?)
-- [ ] **Error handling** (what happens when things go wrong?)
-- [ ] **Empty state** (what shows when there's no data?)
-
-If any are missing, ask before generating.
-
----
-
-## Anti-Patterns to Avoid
-
-**Prototyping without requirements:**
-- "Make it look good" is not a requirement. Start with `/prd-draft`.
-- At minimum, you need: user goal, key interactions, and success criteria.
-
-**Over-engineering a throwaway prototype:**
-- Prototypes are disposable. Don't add auth, payment, or admin panels.
-- Focus on the ONE flow that needs validation.
-
-**Prototyping the wrong thing:**
-- Prototype the risky/uncertain parts, not the obvious ones.
-- If everyone agrees on how login should work, don't prototype login.
-
-**Skipping states:**
-- Empty, loading, and error states reveal 80% of UX problems.
-- Always include them.
-
-**Not using real-ish data:**
-- "Lorem ipsum" and "Test User" make prototypes feel fake.
-- Use realistic names, numbers, and content.
-
-**Building the whole app:**
-- Prototype the critical path. Leave everything else out.
-- If the prototype has more than 3-4 screens, you're building too much.
-
-**Not connecting to feedback:**
-- A prototype without feedback is wasted effort.
-- Always run `/prototype-feedback` after sharing.
-
----
-
-## Integration with Other Skills
-
-**Before:**
-- `/prd-draft` - Define requirements (most important input)
-- `/napkin-sketch` - Quick ASCII wireframe to establish layout
-- `/generate-ai-prototype` - Generate AI-specific prompt behavior
-
-**After:**
-- `/prototype-feedback` - Structured review and iteration loop
-- `/prd-draft` - Update PRD based on prototype learnings
-- `/create-tickets` - Turn approved prototype into engineering tasks
-
-**Related:**
-- `/prd-review-panel` - Validate with Designer sub-agent
-- `/user-interview` - Test prototype with real users
-- `/ralph-wiggum` - Challenge whether this is the right solution
-
----
-
-## Output Quality Self-Check
-
-Before presenting the prototype or prompt, verify:
-
-- [ ] Prototype matches PRD requirements (if PRD exists) -- no missing features, no added scope
-- [ ] All user-facing states included (default, empty, loading, error, success)
-- [ ] Sample data is realistic, not placeholder text
-- [ ] Primary user flow is complete from start to finish
-- [ ] Prompt is specific enough that two different AI tools would produce similar results
-- [ ] Edge cases from user research are addressed (if research exists)
-- [ ] File saved with correct naming convention: `[feature-name]-[type]-v[N].md`
-- [ ] Requirements verification checklist included (PRD requirements mapped to prototype coverage with reasons for any gaps)
-- [ ] Next steps are clear (how to test, how to iterate, how to get feedback)
-- [ ] Design direction applied -- If a design direction file exists, parameters and anti-patterns are reflected in the prototype prompt
-- [ ] Completeness enforced -- No placeholder text, no TODO stubs, no abbreviated implementations. All states (loading, error, empty, success) are fully realized, not commented out.
-
----
-
-## Related Skills
-
-**Before this:**
-- `/prd-draft` - Clear requirements
-- `/napkin-sketch` - Quick wireframe first
-- `/generate-ai-prototype` - AI behavior prompts
-
-**After this:**
-- `/prototype-feedback` - Structured review loop
-- `/create-tickets` - Engineering handoff
-- `/feature-results` - Measure impact post-launch
-
-**Parallel use:**
-- `/user-interview` - Test with real users
-- `/ralph-wiggum` - Challenge the solution approach
-
-
----
-
-## ralph-wiggum
+<a id="ralph-wiggum"></a>
 
 ---
 name: ralph-wiggum
@@ -26840,7 +27403,7 @@ Use these consistently:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before Ralph:**
 - `/prd-draft` -- Write the PRD that Ralph will review
@@ -26876,7 +27439,7 @@ Before presenting the review, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/prd-draft` - Write the document to review
@@ -26889,10 +27452,16 @@ Before presenting the review, verify:
 - `/feature-metrics` - Tighten metrics if flagged
 - `/interview-guide` - Plan research to fill gaps Ralph found
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## retention-analysis
+<a id="retention-analysis"></a>
 
 ---
 name: retention-analysis
@@ -27414,7 +27983,7 @@ Use this with your data:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where to Save Your Retention Analysis
 
@@ -27569,7 +28138,7 @@ Before delivering the retention analysis, verify:
 
 ---
 
-## Related Skills
+### Related Skills
 
 - `activation-analysis` - Improve activation to boost retention (activation -> retention pipeline)
 - `metrics-framework` - Leading indicators of retention (D7, L28, feature adoption)
@@ -27583,10 +28152,18 @@ Before delivering the retention analysis, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's retention frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-activation (habit formation section)
 
+## When to Use
+
+- Cohort analysis and retention optimization framework. Identifies retention drivers and churn factors.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## root-cause-analysis
+<a id="root-cause-analysis"></a>
 
 ---
 name: root-cause-analysis
@@ -27834,10 +28411,30 @@ Before concluding, answer:
 - [ ] **Validation defined:** Clear signal that confirms the fix worked
 - [ ] **Output saved:** `outputs/analyses/rca-[issue]-[date].md`
 
+## When to Use
+
+- Structured problem investigation for PMs.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## sales-battlecard
+<a id="sales-battlecard"></a>
 
 ---
 name: sales-battlecard
@@ -28084,10 +28681,30 @@ Walk-away profile: [Describe the deals we typically lose]
 - [ ] **Walk-away criteria defined:** Saves everyone time when the fit is wrong
 - [ ] **Output saved:** `outputs/analyses/battlecard-vs-[competitor]-[date].md`
 
+## When to Use
+
+- Create competitive battle cards for the sales team.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## second-brain
+<a id="second-brain"></a>
 
 ---
 name: second-brain
@@ -28507,7 +29124,7 @@ The index-based approach holds up to ~100 raw sources and a few hundred wiki pag
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - **Writes to the brain:** `/meeting-notes`, `/decision-doc`, `/user-research-synthesis`, `/voice-of-customer`, `/competitor-analysis`, `/weekly-review`, `/stakeholder-tactics`
 - **Reads from the brain:** `/prd-draft`, `/daily-plan`, `/meeting-agenda`, `/strategy-sprint`, `/write-prod-strategy`, `/decision-doc`
@@ -28521,10 +29138,16 @@ Full operational prompt library — copy-paste versions of every mode plus PM-sp
 
 `.claude/skills/second-brain/references/starter-prompts.md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## slack-message
+<a id="slack-message"></a>
 
 ---
 name: slack-message
@@ -29109,7 +29732,7 @@ Before presenting output to the PM, verify:
 
 - [ ] **Tone matches recipient and context:** The message tone (direct, friendly, formal, urgent, tactful) is appropriate for the recipient's seniority, relationship, and the topic sensitivity
 - [ ] **Message has clear ask or action item:** The message contains a specific request, decision needed, or next step (not just information with no call to action)
-- [ ] **No corporate jargon or banned words:** The message does not contain "delve," "leverage," "utilize," "unlock," "harness," "synergize," or other banned words from the writing style guide
+- [ ] **No corporate jargon:** The message avoids jargon and follows any word-choice rules from `config/house-style.md`
 - [ ] **Length appropriate for Slack:** The main message is 5 sentences or fewer; any additional detail is suggested as a thread reply or linked document
 - [ ] **Stakeholder communication style referenced:** If the recipient has a profile in `context-library/stakeholder-template.md`, their communication preferences (detail level, format, priorities) are reflected in the message
 
@@ -29156,10 +29779,16 @@ Paste the original message + tell me: who wrote it, who it was for, and who the 
 I'll rewrite it in the right voice, length, and level of detail for the new reader.
 ```
 
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## sprint-planning
+<a id="sprint-planning"></a>
 
 ---
 name: sprint-planning
@@ -29359,7 +29988,7 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 **Files:** `outputs/analyses/sprint-[number]-plan-[date].md`
 
@@ -29381,10 +30010,24 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 - [ ] **For grooming: AC added:** Every reviewed ticket has testable acceptance criteria
 - [ ] **Output saved:** `outputs/analyses/sprint-[number]-plan-[date].md`
 
+## When to Use
+
+- Sprint planning and backlog grooming.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## stakeholder-tactics
+<a id="stakeholder-tactics"></a>
 
 ---
 name: stakeholder-tactics
@@ -29642,7 +30285,7 @@ Run `/meeting-notes` and update `context-library/stakeholder-template.md` with a
 
 ---
 
-## Second Brain Integration
+## Cross-Skill Links
 
 The `stakeholders` focus area of the second brain is now the **canonical store** for stakeholder profiles, replacing a parallel local store. `/stakeholder-tactics --map` reads from and writes to `context-library/second-brain/stakeholders/wiki/`.
 
@@ -29663,10 +30306,24 @@ Invoke `/second-brain ingest` with the output as the source. If `stakeholders` d
 
 Stakeholder memory is the hardest PM knowledge to keep because it lives in dozens of meetings. The brain is where that memory actually sticks.
 
+## When to Use
+
+- Navigate stakeholder dynamics with confidence.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## status-update
+<a id="status-update"></a>
 
 ---
 name: status-update
@@ -30481,7 +31138,7 @@ Given the extra time, we could:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -30581,7 +31238,7 @@ Not: "D7 activation rate: 47% (up from 36%)"
 
 ---
 
-## strategy-sprint
+<a id="strategy-sprint"></a>
 
 ---
 name: strategy-sprint
@@ -30917,7 +31574,7 @@ Help me work through the appropriate framework step by step.
 
 ---
 
-## Related Skills
+## Cross-Skill Links
 
 - `/prd-draft` - Turn strategy into PRDs
 - `/competitor-analysis` - Research competitors (includes SWOT, Porter's Five Forces, PESTEL, Ansoff Matrix)
@@ -30949,7 +31606,7 @@ Before delivering the strategy document, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 Strategy is evidence-heavy. Before writing, query the second brain for the evidence base:
 
@@ -30965,10 +31622,18 @@ At the end of the sprint, offer to file the final strategy doc back into `domain
 
 If the brain isn't initialized, the skill falls back to `context-library/strategy/` and `context-library/research/` as before. The brain makes this skill sharper; it doesn't gate it.
 
+## When to Use
+
+- Create product strategy in 1 day, 1 week, or 1 month timeframes. Progressive strategy development framework.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## survey-builder
+<a id="survey-builder"></a>
 
 ---
 name: survey-builder
@@ -31298,7 +31963,7 @@ Based on results:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -31337,10 +32002,24 @@ Before delivering a survey design, verify:
 - [ ] **Past surveys checked:** Confirmed we're not re-running a survey we already have results for
 - [ ] **Output file saved:** Survey saved to `outputs/surveys/survey-[type]-[topic]-[date].md`
 
+## When to Use
+
+- Design product surveys using validated PM research methodologies.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## update-docs
+<a id="update-docs"></a>
 
 ---
 name: update-docs
@@ -31532,10 +32211,22 @@ Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 - [ ] **No aspirational documentation** - only documents what currently exists
 - [ ] **Summary saved:** `outputs/analyses/docs-update-[date].md`
 
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## user-interview
+<a id="user-interview"></a>
 
 ---
 name: user-interview
@@ -32064,10 +32755,24 @@ Before delivering the final research synthesis, verify:
 
 **Goal:** User insights inform every product decision.
 
+## When to Use
+
+- Systematically process user interviews to extract actionable insights.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Cross-Skill Links
+
+**Before:** Check relevant context files and run any prerequisite skills
+**After:** See `references/skill-chains.md` for recommended next steps
+**Related:** See skill category peers in CLAUDE.md
+
 
 ---
 
-## user-research-synthesis
+<a id="user-research-synthesis"></a>
 
 ---
 name: user-research-synthesis
@@ -32600,7 +33305,7 @@ I'll remind you:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -32730,7 +33435,7 @@ Before presenting output to the PM, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before synthesizing:** query the `customer-insights` focus area for existing themes. Your new round of interviews should confirm, extend, or contradict what's already there — not start from scratch. Surface prior themes with `[Source:]` citations so the new synthesis shows how understanding is evolving.
 
@@ -32750,7 +33455,7 @@ One research round is a snapshot. The brain is how snapshots compound into a pic
 
 ---
 
-## voice-of-customer
+<a id="voice-of-customer"></a>
 
 ---
 name: voice-of-customer
@@ -32962,7 +33667,7 @@ If you only have one source (e.g., just NPS verbatims or just support tickets), 
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 **Files:** `outputs/research-synthesis/voc-report-[period]-[date].md`
 - After finalizing: Move to `context-library/research/` for longitudinal tracking
@@ -32989,7 +33694,7 @@ If you only have one source (e.g., just NPS verbatims or just support tickets), 
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before aggregating:** query the `customer-insights` focus area for prior VoC themes. The goal is to compare this period against the baseline — what's new, what's persistent, what's faded. Pull prior theme counts and sentiment.
 
@@ -33006,10 +33711,24 @@ Invoke `/second-brain ingest` with the VoC report as the source. Competitor ment
 
 VoC is inherently comparative — a report without a baseline is half a report. The brain is the baseline.
 
+## When to Use
+
+- Aggregate customer feedback into Voice of Customer (VoC) reports.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## weekly-plan
+<a id="weekly-plan"></a>
 
 ---
 name: weekly-plan
@@ -33444,7 +34163,7 @@ quarter: Q[X] YYYY
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/weekly-plan`:**
 - `/weekly-review` - Review last week first (if Friday planning)
@@ -33461,7 +34180,7 @@ quarter: Q[X] YYYY
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/weekly-review` - Reflect on last week
@@ -33488,10 +34207,24 @@ Before presenting output to the PM, verify:
 - [ ] **Dependencies and blockers identified:** Each priority lists what it depends on (people, decisions, deliverables) and any known blockers with mitigation plans
 - [ ] **Carry-over items from last week addressed:** If `outputs/weekly-reviews/` or `outputs/weekly-plans/` contain incomplete items from last week, they are explicitly acknowledged as carried over, deferred, or dropped with reasoning
 
+## When to Use
+
+- Set next week's priorities
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## weekly-review
+<a id="weekly-review"></a>
 
 ---
 name: weekly-review
@@ -34133,7 +34866,7 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-## Integration with Other Skills
+## Cross-Skill Links
 
 **Before `/weekly-review`:**
 - `/daily-plan` - Ran throughout the week (provides daily context)
@@ -34183,7 +34916,7 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-## Related Skills
+### Related Skills
 
 **Before this:**
 - `/daily-plan` - Daily execution throughout week
@@ -34215,7 +34948,7 @@ Before delivering the weekly review, verify:
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 **Before reviewing:** optionally query the `domain-knowledge` focus area for patterns from prior weekly reviews (recurring blockers, underestimated task types, times of day you do best work). Reference them so this week's review compares against the trend, not just last week.
 
@@ -34234,10 +34967,24 @@ Invoke `/second-brain ingest` with the review as the source. If `domain-knowledg
 
 Weekly reviews without accumulation are confessional journaling. Weekly reviews that feed the brain become your personal operating manual — one that gets sharper every Friday.
 
+## When to Use
+
+- Review week's progress, meetings, learnings
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+## Common Mistakes
+
+- Skipping context: not reading relevant workspace files before generating output
+- Generic output: producing content that could apply to any company instead of using specific context from your workspace
+- Missing the handoff: not offering the logical next skill when this one completes
+
 
 ---
 
-## win-loss-analysis
+<a id="win-loss-analysis"></a>
 
 ---
 name: win-loss-analysis
@@ -34523,7 +35270,7 @@ Translate loss reasons into product requirements:
 
 ---
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -34578,10 +35325,18 @@ Before delivering the win/loss analysis, verify:
 - [ ] **Next steps have owners:** Actions assigned with names, not just "sales team should..."
 - [ ] **Output file saved:** Saved to `outputs/win-loss/win-loss-analysis-[date].md`
 
+## When to Use
+
+- Synthesize sales win/loss data into product and positioning insights.
+
+## When NOT to Use
+
+- When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
 
 ---
 
-## write-prod-strategy
+<a id="write-prod-strategy"></a>
 
 ---
 name: write-prod-strategy
@@ -35253,7 +36008,7 @@ What we're NOT doing (and why):
 ❌ Feature roadmap masquerading as strategy
 ✅ Outcome-driven pillars with example initiatives
 
-## Output Integration
+## Cross-Skill Links
 
 ### Where Files Go
 
@@ -35286,7 +36041,7 @@ After writing strategy:
 
 ---
 
-## Integration with Other Skills
+### Integration
 
 **Inputs:**
 - `/define-north-star` - Component 1: Objective
@@ -35339,7 +36094,7 @@ Remember: A good strategy is a clear "no" to many things and a committed "yes" t
 
 ---
 
-## Second Brain Integration
+### Second Brain
 
 A product strategy is only as credible as the evidence behind it. Before writing, query the second brain across every focus area:
 
