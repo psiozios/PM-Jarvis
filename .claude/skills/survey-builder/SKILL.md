@@ -365,6 +365,20 @@ Before delivering a survey design, verify:
 - [ ] **Past surveys checked:** Confirmed we're not re-running a survey we already have results for
 - [ ] **Output file saved:** Survey saved to `outputs/surveys/survey-[type]-[topic]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Design product surveys using validated PM research methodologies.

@@ -400,6 +400,20 @@ If any check fails, fix it before delivering. A launch checklist with missing ow
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --testplan (Feature Test Plan)
 
 Use `/launch-checklist --testplan` to create a structured test plan for a feature before launch. Covers functional, edge case, regression, performance, and accessibility testing.

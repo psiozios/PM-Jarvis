@@ -252,6 +252,20 @@ Invoke `/second-brain ingest` with the VoC report as the source. Competitor ment
 
 VoC is inherently comparative — a report without a baseline is half a report. The brain is the baseline.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Aggregate customer feedback into Voice of Customer (VoC) reports.

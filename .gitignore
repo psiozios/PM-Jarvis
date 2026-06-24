@@ -7,8 +7,11 @@ __pycache__/
 .claude/settings.local.json
 .claude/settings.json
 
-# Memory (personal entries are user-specific; index and docs ship with the repo)
+# Memory (personal entries are user-specific; index, docs, and placeholders ship with the repo)
 memory/*.md
 !memory/MEMORY.md
 !memory/README.md
-!memory/_example-entry.md
+!memory/user_example.md
+!memory/feedback_example.md
+!memory/project_example.md
+!memory/reference_example.md

@@ -605,6 +605,20 @@ Before delivering the activation analysis, verify:
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --debug (Rapid Activation Drop Investigation)
 
 Use `/activation-analysis --debug` when activation just dropped and you need answers fast. This is triage, not a full analysis.

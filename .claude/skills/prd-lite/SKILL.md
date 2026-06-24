@@ -12,6 +12,8 @@ A PRD Lite is a decision doc, not a spec. It's what you write when you need alig
 **Use PRD Lite when:** You're pitching a feature, asking for prioritization, or proposing something that hasn't been fully scoped yet.
 **Use /prd-draft when:** Engineering is ready to build, you need full spec, or the feature is already prioritized.
 
+**Commitment gate:** A PRD Lite is a proposal, not a commitment — but if it graduates directly into scoped work, run the five checks in `references/protocols/commitment-gate.md` first.
+
 ## Quick Start
 
 ```
@@ -167,6 +169,20 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 - [ ] **Next steps are clear:** Specific action with owner, not "follow up"
 - [ ] **Decision ask is explicit:** Does this need approval, more research, or an estimate?
 - [ ] **Output saved:** `outputs/prds/prd-lite-[feature]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 

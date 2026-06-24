@@ -4,23 +4,40 @@ This directory contains hook scripts that extend Claude Code's behavior.
 
 ## Available Hooks
 
-### user-prompt-submit.sh
+### inject_memory.py
 
-**Purpose:** Injects the memory index into every conversation turn so the assistant is aware of persistent facts and preferences.
+**Purpose:** Injects only the *universal* tier of the memory index into every conversation turn so the assistant is aware of persistent facts and preferences without growing per-turn cost.
 
 **How it works:**
-1. On every user message, the hook checks if `memory/MEMORY.md` exists
-2. If yes, it outputs the index contents wrapped in `<memory-context>` tags
-3. Claude sees the index and can read individual memory files on demand
+1. On every user message, the hook reads `memory/MEMORY.md`
+2. It filters index lines by filename prefix: only `user_` and `feedback_` entries are universal
+3. It outputs matching entries wrapped in `<memory-context>` tags
+4. Claude sees the universal entries and can read individual memory files (any tier) on demand
 
 **Tiering design:**
 
-| Tier | What's injected | When | Cost |
-|------|----------------|------|------|
-| Universal (Tier 1) | `MEMORY.md` index | Every turn | Flat: O(entries x ~150 chars) |
-| Contextual (Tier 2) | Individual memory files | On demand, when Claude reads them | Per-read: only when relevant |
+| Tier | Prefix | Injected when | Per-turn cost |
+|------|--------|--------------|---------------|
+| Universal | `user_`, `feedback_` | Every turn | Flat: bounded by the count of universal entries only |
+| Contextual | `project_`, `reference_` | Once per session (native MEMORY.md read), then on demand | Zero per-turn |
 
-**Why tiering matters:** Without tiering, every saved memory gets injected into every turn. At small scale this is invisible. At 50+ memories it burns significant context budget on every interaction, whether the memories are relevant or not. The index-only approach keeps per-turn cost flat as memory grows. Claude reads full memory files only when the task warrants it.
+**Why two-axis tiering matters:**
+
+Injecting the whole MEMORY.md index every turn is O(entries), not flat. Each saved memory adds ~150 chars to every turn's context budget. Past ~100 entries the injected block can overrun the per-turn size ceiling and load only partially, silently dropping entries. Tiering by type keeps the per-turn block flat as `project_` and `reference_` entries grow — only the universal tier (who the user is, how to behave) pays per-turn cost.
+
+**Filename prefix convention:**
+
+Memory files must use a type prefix so the hook can determine tier from the index link alone:
+- `user_*.md` — universal (injected every turn)
+- `feedback_*.md` — universal (injected every turn)
+- `project_*.md` — contextual (on demand)
+- `reference_*.md` — contextual (on demand)
+
+The `metadata.type` field in each file's frontmatter is the canonical type and must match the prefix.
+
+### user-prompt-submit.sh (deprecated)
+
+Stub pointing to `inject_memory.py`. Safe to delete.
 
 ## Installation
 

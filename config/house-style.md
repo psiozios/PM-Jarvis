@@ -63,4 +63,18 @@ This file defines your writing voice rules. The assistant applies these rules to
 
 ---
 
+## Absolute Rules (Promotion)
+
+<!--
+If you have a must-never or must-always rule that cannot be missed on any output,
+promote it into the "Absolute Rules" section at the top of CLAUDE.md — that file
+is always in context. Optionally mirror each promoted rule as a feedback_ memory
+entry so the per-turn hook reinforces it.
+
+Keep voice nuance (tone, sentence patterns, word preferences) here in house-style.md.
+Reserve the CLAUDE.md zone for hard bans and hard requirements only.
+-->
+
+---
+
 **Instructions:** Uncomment and fill in whichever sections matter for your voice. Delete sections you don't care about. The assistant checks this file before generating content and applies whatever rules you've set.

@@ -5,18 +5,23 @@ Persistent, file-based memory that carries facts and preferences across conversa
 ## How It Works
 
 1. **Memory files** live in this directory, one fact per file with YAML frontmatter
-2. **MEMORY.md** is the index, one line per entry, injected every turn via hook
-3. The assistant reads individual memory files on demand when the index suggests relevance
-4. The user can review, edit, or delete any memory at any time
+2. **MEMORY.md** is the index, one line per entry
+3. The **hook** (`hooks/inject_memory.py`) injects only the universal tier of the index every turn
+4. The assistant reads individual memory files on demand when the index suggests relevance
+5. The user can review, edit, or delete any memory at any time
 
-## Memory Types
+## Memory Types and Filename Prefixes
 
-| Type | What it stores | When to save |
-|------|---------------|-------------|
-| `user` | Role, goals, expertise, preferences | When you learn about the user's background or perspective |
-| `feedback` | Behavioral guidance (corrections and confirmations) | When the user corrects your approach or confirms something non-obvious |
-| `project` | Ongoing work, goals, deadlines, decisions | When you learn about project context not derivable from code/git |
-| `reference` | Pointers to external resources | When you learn where information lives in external systems |
+Each memory file must use a type prefix so the hook can determine its injection tier from the index link alone.
+
+| Type | Prefix | Tier | Injected per turn? |
+|------|--------|------|-------------------|
+| `user` | `user_` | Universal | Yes — who the user is |
+| `feedback` | `feedback_` | Universal | Yes — behavioral rules |
+| `project` | `project_` | Contextual | No — loaded once per session, then on demand |
+| `reference` | `reference_` | Contextual | No — loaded once per session, then on demand |
+
+The `metadata.type` field in the frontmatter is the canonical type and must match the prefix.
 
 ## Memory File Format
 
@@ -49,12 +54,19 @@ The rule or fact.
 
 ## Tiering
 
-The hook injects only `MEMORY.md` (the index) every turn. Individual memory files are read on demand. This keeps per-turn cost flat as memory grows. See `hooks/README.md` for the design rationale.
+**Index-only injection is O(entries), not flat.** Each index line adds ~150 chars to every turn's context budget. Past ~100 entries an untiered index overruns the per-turn size ceiling and loads only partially, silently dropping entries.
+
+**Flatness comes from tiering by type.** The hook injects only `user_` and `feedback_` entries (the universal tier) every turn. `project_` and `reference_` entries (the contextual tier) load once per session via the native MEMORY.md read and are recalled on demand. This keeps per-turn cost bounded by the count of universal entries, which should stay small.
+
+**Keep the universal tier small.** The scaling guarantee depends on `user_` + `feedback_` entries staying well under 100. If you find yourself with dozens of feedback entries, consolidate them.
+
+See `hooks/README.md` for the hook design and installation.
 
 ## Index Rules
 
-- `MEMORY.md` is injected into every conversation turn. Keep it concise.
+- `MEMORY.md` is read once per session by Claude (native behavior) and filtered per turn by the hook
 - Each entry: one line, under 150 characters
 - Lines after 200 may be truncated. Keep the index tight.
 - Organize semantically by topic, not chronologically.
+- Only `user_` and `feedback_` prefixed entries inject per turn.
 - Link related memories with `[[name]]` in the body text.

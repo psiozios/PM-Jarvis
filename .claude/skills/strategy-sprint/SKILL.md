@@ -380,6 +380,20 @@ At the end of the sprint, offer to file the final strategy doc back into `domain
 
 If the brain isn't initialized, the skill falls back to `context-library/strategy/` and `context-library/research/` as before. The brain makes this skill sharper; it doesn't gate it.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Create product strategy in 1 day, 1 week, or 1 month timeframes. Progressive strategy development framework.

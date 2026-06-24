@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f memory/MEMORY.md ]; then echo '<memory-context>'; cat memory/MEMORY.md; echo '</memory-context>'; fi"
+            "command": "python3 hooks/inject_memory.py"
           }
         ]
       }

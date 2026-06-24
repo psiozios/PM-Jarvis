@@ -11,6 +11,8 @@ user-invocable: true
 
 **Framework source:** Shreyas Doshi's LNO Framework (popularized by Aakash Gupta)
 
+**Commitment gate:** When prioritization results in committed work (not just ranking), run the five checks in `references/protocols/commitment-gate.md`.
+
 ## Quick Start
 
 1. Paste your task list (calendar, to-do list, or just describe your week)
@@ -518,6 +520,20 @@ Before delivering the prioritization output, verify:
 - [ ] **Actionable recommendations:** At least 2-3 specific overhead tasks are flagged for elimination or delegation, with a suggested alternative (who to delegate to, or why it can be skipped).
 - [ ] **Calendar blocking suggested:** Specific time blocks are recommended for Leverage work (e.g., "Block Monday 9-12 for PRD writing").
 - [ ] **Strategy alignment checked:** Leverage tasks are validated against current strategic priorities from `context-library/strategy/`. If a Leverage task does not connect to strategy, flag it.
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
