@@ -1,30 +1,35 @@
 ---
 name: example-daily-digest
-description: "Example skeleton. Copy and adapt to your tools. Runs a chosen skill on a schedule and reports back through a notifier."
+description: "Example routine. Copy and adapt to your tools. Chains meeting-prep, action-sweep, and loose-threads on a daily schedule and reports one digest back through a notifier."
 disable-model-invocation: true
 user-invocable: false
 ---
 
 <!--
 EXAMPLE ROUTINE. Copy this directory to `routines/<your-routine>/`, rename this
-file's frontmatter `name`, and fill in every <PLACEHOLDER>. Do not run this
-skeleton as-is — it has no real skill wired in.
+file's frontmatter `name`, and fill in every remaining <PLACEHOLDER> (notifier
+identity and cron schedule are still workspace-specific). The three skills
+below are real, shipped skills — this routine is runnable as-is once your
+notifier config and tool placeholders in those skills are filled in.
 
 This skeleton implements all eight disciplines from
 `references/protocols/routines.md`. Read that file first; the comments below
 point at which discipline each block satisfies but do not restate it.
 
 State files this routine owns (discipline #2 — one owner per file):
-  routines/<your-routine>/outputs/YYYY-MM-DD-<slug>.md   (dated output)
-  routines/<your-routine>/.last-run-<period>              (already-ran guard)
-  routines/<your-routine>/.thread-pointer.json             (notification thread — see notifications.md)
+  routines/example-daily-digest/outputs/YYYY-MM-DD-digest.md   (dated output)
+  routines/example-daily-digest/.last-run-<period>              (already-ran guard)
+  routines/example-daily-digest/.thread-pointer.json             (notification thread — see notifications.md)
 -->
 
 ## What This Routine Does
 
-<ONE LINE: what skill or short chain this orchestrates, and why it runs on a schedule instead of on demand.>
+A morning digest that chains three real skills in sequence — prep for the day's meetings, reconcile action items, then check for stalled threads — and reports one consolidated summary back through the notifier instead of three separate ones.
 
-Orchestrates: `/example-skill` (cite the skill — do not restate its internals here; see discipline #1 in `references/protocols/routines.md`).
+Orchestrates, in order (cite each skill — do not restate its internals here; see discipline #1 in `references/protocols/routines.md`):
+1. `.claude/skills/meeting-prep/SKILL.md` — prep for the day's next meeting
+2. `.claude/skills/action-sweep/SKILL.md` — reconcile open action items since the last sweep
+3. `.claude/skills/loose-threads/SKILL.md` — open-loop radar for stalled conversations
 
 ## Schedule
 
@@ -50,15 +55,17 @@ Compute today's period key in local time (discipline #8). Check `.last-run-<peri
 
 ### 3. Gather
 
-Read whatever context the orchestrated skill's own Context Routing Logic table specifies. Do not duplicate that table here — read it from the skill.
+Each of the three skills reads its own context per its own Context Routing Logic table. Do not duplicate those tables here — read them from the skills.
 
-### 4. Decide
+### 4. Decide (run the chain in order)
 
-Run `/example-skill` per its definition, passing the gathered context. Capture its output.
+Run `meeting-prep` per its definition. Then run `action-sweep` per its definition. Then run `loose-threads` per its definition. Capture each skill's output section — this routine does not reimplement any of their internal logic, it just sequences them and combines what they produce into one digest body.
+
+If `meeting-prep` finds no upcoming meeting today, note that plainly and continue to `action-sweep` — a skipped section is not a failed run.
 
 ### 5. Execute
 
-If the skill's output implies a write to the user's own systems (their own tracker, their own draft folder), apply the autonomy gate (discipline #7):
+If any skill's output implies a write to the user's own systems (their own tracker, their own draft folder — e.g. `action-sweep`'s task creation/mark-done step), apply the autonomy gate (discipline #7):
 
 - Standing approval already granted for this specific routine → apply the write.
 - No standing approval → list the proposed write and stop. Do not guess.
@@ -88,8 +95,8 @@ notifier.send(
   identity   = <BOT_IDENTITY>,          # bot identity, never "send as the user"
   target     = <USER_ID>,               # the user's own surface — self-notification only
   thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 3
-  body       = <rendered output summary>,
-  notify     = <true if material update / blocking ask, false if no-op — item 4>,
+  body       = <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections
+  notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 4>,
 )
 ```
 
@@ -117,10 +124,11 @@ If the anchor was deleted (thread/message not found on send), re-post per `notif
 
 ## Formal Eval
 
-This is an example skeleton, not a shipped skill — it has no `evals.md`. When you copy this into a real routine, give the *underlying skill* (`/example-skill` above) its own eval pass per `references/protocols/skill-evals.md`; the routine wrapper itself is not separately evaluated.
+This is a routine wrapper, not a skill — it has no `evals.md` of its own. Each orchestrated skill (`meeting-prep`, `action-sweep`, `loose-threads`) carries its own eval pass per `references/protocols/skill-evals.md`, run when that skill executes as part of this chain. The routine wrapper itself is not separately evaluated.
 
 ## Cross-Skill Links
 
-- **Setup:** `setup/routine-setup.md` walks through copying and filling this skeleton
+- **Orchestrates:** `meeting-prep`, `action-sweep`, `loose-threads` — in that order
+- **Setup:** `setup/routine-setup.md` walks through copying and adapting this routine
 - **Reply handling:** `.claude/skills/routine-responder/` turns this routine's notification thread into a two-way conversation
 - **Protocol:** `references/protocols/routines.md` (scheduling discipline), `references/protocols/notifications.md` (notifier contract)

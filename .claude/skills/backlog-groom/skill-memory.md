@@ -1,9 +1,9 @@
 ---
-skill: example-open-loop-radar
+skill: backlog-groom
 purpose: Improvement journal — what works, what doesn't, how to do it better.
 ---
 
-# Skill Memory: /example-open-loop-radar
+# Skill Memory: /backlog-groom
 
 Brief dated notes on improving this skill. 2-3 sentences per entry.
 

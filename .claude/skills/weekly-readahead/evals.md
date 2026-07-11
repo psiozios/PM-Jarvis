@@ -1,11 +1,11 @@
 ---
-skill: example-open-loop-radar
-archetype: Workflow-Orchestration
+skill: weekly-readahead
+archetype: Document-Writer
 eval-version: 1
 last-updated: 2026-07-11
 ---
 
-# Evals: /example-open-loop-radar
+# Evals: /weekly-readahead
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: 2026-07-11
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Bucketed by age | Output grouped into Fresh / This Week / Aging / Stale, not a flat list |
-| E2 | Real deep link per item | Every flagged item links to the actual source thread/post, not a generic reference |
-| E3 | Proposed follow-ups table present | A numbered/tabular list of proposed tasks, separate from the flagged items themselves |
+| E1 | Configured sections used | Output uses the section set configured for this specific meeting, not a generic default |
+| E2 | Meeting and week identified | Output header names the target meeting and the week it covers |
+| E3 | Consistent with prior read-aheads | Format matches the previously published read-ahead for this meeting, if one exists |
 
 ### Quality & Voice
 
@@ -39,16 +39,16 @@ last-updated: 2026-07-11
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Verify-before-flag | Every item carries a `Checked:` line naming a real cross-referenced source, not a placeholder |
-| E9 | Comprehensive-not-delta | The full sweep window was re-examined this run, not narrowed to only new-since-last-run items |
+| E8 | Durability | No point-in-time status is asserted as a standing fact without a date; metric values state their as-of date. See `references/protocols/freshness-provenance.md`. |
+| E9 | So-what per section | Every section leads with why it matters, not a bare activity list |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | Correct actionable classification | Each item's "whose court" call is defensible from the thread content, not guessed |
-| E11 | Propose-not-auto-create | No task was created in the tracker without an explicit confirmation step |
-| E12 | Non-accusatory framing | Flagged items are framed as triage, not as a scorecard of what the user failed to do |
+| E10 | All configured sections filled | No configured section is silently dropped for lack of content — a true no-update section says so explicitly |
+| E11 | Publish-on-confirm honored | No evidence the read-ahead was published to the docs hub before the draft was confirmed |
+| E12 | Specificity throughout | Numbers, names, and dates are used instead of vague summary language |
 
 ## Scoring
 

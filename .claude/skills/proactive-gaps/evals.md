@@ -1,11 +1,11 @@
 ---
-skill: example-board-groom
-archetype: Workflow-Orchestration
+skill: proactive-gaps
+archetype: Analysis
 eval-version: 1
 last-updated: 2026-07-11
 ---
 
-# Evals: /example-board-groom
+# Evals: /proactive-gaps
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: 2026-07-11
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Checklist grouped by UI-click | Output grouped by action (close/reorder/re-allocate/tag/fix-description), not by card |
-| E2 | Drafted text inline | Every text-based fix includes ready-to-paste replacement text, not just a note that it needs fixing |
-| E3 | Deep link per card | Every flagged card links to the actual card, not a generic reference |
+| E1 | Two-horizon structure | Output separates Present-State Alpha, Forward Alpha, and a Contrarian Read — not a merged list |
+| E2 | Ranked and capped | Items within each horizon are ranked by impact and the list is tight, not exhaustive |
+| E3 | "Your lane" stated per item | Every item explicitly states what the user can do with it |
 
 ### Quality & Voice
 
@@ -39,16 +39,16 @@ last-updated: 2026-07-11
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Read-only honored | No evidence the skill wrote to, moved, or edited any card on the board itself |
-| E9 | False-positive discipline | No card flagged solely for being long-lived or deliberately terse without a substantive reason given |
+| E8 | Durability | Evidence cited for each item is either dated or points to a live source, never asserted as an unchanging fact. See `references/protocols/freshness-provenance.md`. |
+| E9 | Evidence-backed, not speculative | Every item cites a real workspace source; nothing is included on pure inference with no evidence trail |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | Live priority | Judgments reflect the board's current state at run time, not a cached or assumed prior ranking |
-| E11 | Full board covered | Every card on the board was considered, not a sampled subset |
-| E12 | Reasoning stated per item | Each flagged card states why it needs the proposed action, not just what action |
+| E10 | Elevated-posture-but-landed | Every item connects a broad/elevated observation back to something concrete in the user's actual IC lane |
+| E11 | Contrarian pass grounded | The over-indexing claim is backed by actual recent-meeting evidence, not a generic assertion |
+| E12 | Surface-only honored | No task was created, no message drafted for sending, nothing written beyond the scan output itself |
 
 ## Scoring
 

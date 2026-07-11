@@ -2,7 +2,7 @@
 
 **Principle: THE CATALOG IS THE SHAPE; THE EXAMPLE SKILLS ARE THE HOW.**
 
-This is a catalog of reusable skill archetypes the template ships as worked examples, plus the disciplines every retrieval-and-writeback skill shares regardless of which archetype it follows. `.claude/skills/example-*` are concrete, parameterized implementations of Patterns 1-3 below — read this file for the shape, read those files for a filled-in instance.
+This is a catalog of reusable skill archetypes the template ships as worked, production skills, plus the disciplines every retrieval-and-writeback skill shares regardless of which archetype it follows. The skills named under each pattern below are concrete implementations of Patterns 1-3 — read this file for the shape, read those skills for a filled-in instance.
 
 These are worked examples of a broader class, not the only class. If a new task doesn't fit any named pattern, that's fine — the cross-cutting disciplines still apply.
 
@@ -52,7 +52,7 @@ A skill in this class does the judgment work and hands back an **execute-not-dec
 
 **Eval archetype:** Workflow-Orchestration.
 
-**Worked example:** `.claude/skills/example-open-loop-radar/`
+**Shipped implementation:** `.claude/skills/loose-threads/`. Dedupes against `.claude/skills/action-sweep/`, a sibling skill that also sweeps chat/email/meetings but for owed action items rather than stalled loops.
 
 ### Pattern 2 — Periodic-Review Assisted-Fill Cascade (week → month → quarter)
 
@@ -62,7 +62,7 @@ A skill in this class does the judgment work and hands back an **execute-not-dec
 
 **Eval archetype:** Workflow-Orchestration.
 
-**Worked example:** `.claude/skills/example-periodic-review-fill/`
+**Shipped implementation:** `.claude/skills/weekly-review-fill/` → `.claude/skills/monthly-review-fill/` → `.claude/skills/quarterly-review-fill/`, a nested cascade where each tier rolls up and synthesizes the completed tier below it rather than re-deriving from raw activity.
 
 ### Pattern 3 — Read-Only "Prep-Then-UI" Grooming + "Slate-for-Ceremony" Pair
 
@@ -76,7 +76,7 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 **Eval archetype:** Workflow-Orchestration.
 
-**Worked example:** `.claude/skills/example-board-groom/` (hygiene pass; the slate-for-ceremony sibling follows the same mechanics and is not separately shipped as an example).
+**Shipped implementation:** `.claude/skills/backlog-groom/` (hygiene pass) paired with `.claude/skills/refinement-prep/` (slate-for-ceremony pass) — the two skills this pattern describes as a pair.
 
 ### Pattern 4 — Multi-Horizon "Alpha Engine" Scan
 
@@ -86,7 +86,7 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 **Eval archetype:** Analysis or Research-Synthesis, depending on framing.
 
-**No worked example ships for this pattern** — it's included in the catalog for completeness; implement it directly from this description when the need arises.
+**Shipped implementation:** `.claude/skills/proactive-gaps/`
 
 ## Cross-References
 

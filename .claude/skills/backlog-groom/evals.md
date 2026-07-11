@@ -1,11 +1,11 @@
 ---
-skill: example-periodic-review-fill
+skill: backlog-groom
 archetype: Workflow-Orchestration
 eval-version: 1
 last-updated: 2026-07-11
 ---
 
-# Evals: /example-periodic-review-fill
+# Evals: /backlog-groom
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: 2026-07-11
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Auto-vs-asked table present | Explicit table separating auto-filled items from asked items, shown before the full draft |
-| E2 | Tier-appropriate rollup | Month/quarter tiers synthesize the completed lower-tier reviews, not raw activity |
-| E3 | Forward-created periods listed | Output states which future period shells were created |
+| E1 | Checklist grouped by UI-click | Output grouped by action (Close/Reorder/Re-allocate/Tag/Description-fix), not by item |
+| E2 | Drafted text inline | Every text-based fix includes ready-to-paste replacement text |
+| E3 | Deep link per item | Every flagged item links to the actual tracker item |
 
 ### Quality & Voice
 
@@ -39,16 +39,16 @@ last-updated: 2026-07-11
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Auto-vs-asked correctness | Nothing derivable from a source was placed in "asked"; nothing judgment-based was auto-filled with an unconfirmed guess |
-| E9 | Never-blank-questionnaire | The user was never handed an empty template — every section has at least a draft to react to |
+| E8 | Read-only honored | No evidence the skill wrote to, moved, closed, or edited any item on the board itself |
+| E9 | False-positive discipline | No item flagged solely for being long-lived, terse, or similar-sounding without a substantive reason given |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | Forward-create-with-dedupe | Forward-created periods were checked against existing shells before creation |
-| E11 | Surgical write | The write to the reviews store was a delta against current state, not a full replace |
-| E12 | Preview-first | Nothing was written until the user confirmed the draft |
+| E10 | Live priority | Judgments reflect the board's current state at run time, not a cached or assumed ranking |
+| E11 | Full board covered | All triage dimensions (stale, duplicate, ready-to-close, mis-prioritized, wrong-sprint, orphan, thin epic, thin description) were checked across the whole board, not a sampled subset |
+| E12 | Reasoning stated per item | Each flagged item states why it needs the proposed action, not just what action |
 
 ## Scoring
 

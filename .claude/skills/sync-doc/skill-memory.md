@@ -1,9 +1,9 @@
 ---
-skill: example-board-groom
+skill: sync-doc
 purpose: Improvement journal — what works, what doesn't, how to do it better.
 ---
 
-# Skill Memory: /example-board-groom
+# Skill Memory: /sync-doc
 
 Brief dated notes on improving this skill. 2-3 sentences per entry.
 

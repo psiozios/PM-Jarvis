@@ -1,9 +1,9 @@
 ---
-skill: example-periodic-review-fill
+skill: weekly-readahead
 purpose: Improvement journal — what works, what doesn't, how to do it better.
 ---
 
-# Skill Memory: /example-periodic-review-fill
+# Skill Memory: /weekly-readahead
 
 Brief dated notes on improving this skill. 2-3 sentences per entry.
 
