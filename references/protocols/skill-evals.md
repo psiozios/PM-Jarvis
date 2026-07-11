@@ -36,7 +36,7 @@ Each skill directory contains three files:
 5. Eval agent returns a results table to the original agent
 6. **If any FAIL:** eval agent includes specific remediation instructions → original agent applies fixes → re-submits for eval
 7. **Loop until zero FAILs**
-8. Final results appended to the Eval Results Log in `evals.md` (keep last 5 runs)
+8. Final results appended to the Eval Results Log in `evals.md` (keep last 5 runs) — see "Legible Eval Results Log" below for what the log entry must contain beyond pass/fail counts
 
 ### Scoring
 
@@ -45,6 +45,24 @@ Each skill directory contains three files:
 - **FAIL**: Not met — must fix before delivery
 
 **Passing threshold:** Zero FAILs. PARTIALs acceptable if the eval agent documents what's missing and it's acknowledged.
+
+## Legible Eval Results Log
+
+The Eval Results Log at the bottom of each `evals.md` is more than a running tally — it must stay legible enough that a future run can tell *what broke and what fixed it*, not just how many checks passed.
+
+Each row keeps the base columns (Date, Pass, Partial, Fail) and extends the Notes column (or adds columns) to carry:
+
+- **Which check IDs failed** (e.g. "E8, E11")
+- **What remediation was applied** (one clause — what changed between the failing attempt and the passing one)
+- **The re-check result** (confirmed pass on re-submission, or still-partial with what remains)
+
+**Worked example — one real PASS-after-fix row:**
+
+| Date | Pass | Partial | Fail | Notes |
+|------|------|---------|------|-------|
+| 2026-07-11 | 11 | 1 | 0 | Initial run failed E8 (verify-before-flag: two items missing `Checked:` lines) and E11 (auto-created a task instead of proposing it). Remediation: added `Checked:` line to both items citing the tracker cross-reference; converted the auto-created task to a proposed row in the follow-ups table. Re-check: E8 and E11 both PASS. E9 remains PARTIAL — sweep window was 10 days, not the full 14-day default; acknowledged and accepted for this run. |
+
+Keep the last 5 runs, same as before — the enrichment is in what each row *contains*, not how many rows are kept.
 
 ## Eval Categories
 
@@ -62,6 +80,25 @@ Is it grounded in real context, specific not generic, actionable?
 ### Category 4: Completeness & Context
 Does it cover all requirements, use available context sources, offer next steps?
 
+## Eval Versioning & Category Extension
+
+Every `evals.md` carries `eval-version` (an integer) and `last-updated` in its frontmatter. The four base categories above (Structure & Format, Quality & Voice, Substance & Specificity, Completeness & Context) are the **floor, not the ceiling** — a skill is free to grow a fifth category once its judgment genuinely outgrows the four.
+
+**When to bump the version:** Only when a skill's judgment grows a whole new *category* of check — not when a check is reworded or tightened within an existing category. Rewording E7's criteria stays at the same version; adding a whole new category with checks E13+ bumps `eval-version` from 1 to 2 and updates `last-updated`.
+
+**Worked example:** A skill that produces standing-radar output (see `references/protocols/skill-patterns.md` Pattern 1) might outgrow the four base categories with a fifth:
+
+```markdown
+### Category 5: Verification Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Verify-before-flag | Every flagged item carries a `Checked:` line naming a real cross-referenced source |
+| E14 | Comprehensive-not-delta | The full sweep window was re-examined, not narrowed to new-since-last-run items |
+```
+
+Bump `eval-version: 1` → `eval-version: 2`, set `last-updated` to the date of the change, and append the new category after Category 4 in that skill's `evals.md`. Do not renumber existing E-IDs — new checks always get the next unused number.
+
 ## Universal Checks (apply to ALL archetypes)
 
 These checks appear in every skill's evals.md regardless of archetype:
@@ -70,6 +107,7 @@ These checks appear in every skill's evals.md regardless of archetype:
 - **House style compliance**: Follows any active rules in `config/house-style.md`
 - **Human-sounding**: Varied sentence lengths, contractions used naturally, no formulaic paragraph openings
 - **Context-grounded**: References specific data from context sources — not generic placeholder language
+- **Durability** (Document-Writer, Analysis, and Research-Synthesis archetypes — see `references/protocols/freshness-provenance.md`): No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent
 
 ## Skill Archetypes
 
@@ -141,6 +179,7 @@ At the end of a skill run, if a durable learning about the skill itself was disc
 2. Wait for user confirmation
 3. Prepend to the Entries section of `skill-memory.md`
 4. If entries exceed 20, consolidate oldest into Archived Patterns
+5. **If the confirmed entry changes how the skill should run, propagate it the same pass** — see "Memory-to-Method Feedback Loop" below. A journal entry that never reaches `SKILL.md` or `evals.md` is a note nobody acts on.
 
 **What belongs in skill-memory.md:**
 - Patterns that produce better output
@@ -152,3 +191,13 @@ At the end of a skill run, if a durable learning about the skill itself was disc
 - Eval pass/fail results (those go in `evals.md` results log)
 - User preferences (those go in `memory/`)
 - Feature-specific context (that goes in `context-library/`)
+
+### Memory-to-Method Feedback Loop
+
+A `skill-memory.md` entry is a journal note until it changes what the skill actually does. When a confirmed entry describes a change to the skill's *method* (not just an observation), close the loop in the same pass:
+
+1. **Update `SKILL.md`** — if the entry describes a better way to do a step, edit that step's instructions directly. The journal entry explains *why* the change happened; `SKILL.md` reflects the *current* method going forward — don't make a future run rediscover the same lesson from the journal.
+2. **Update `evals.md`** — if the entry describes a failure mode worth guarding against permanently, add or tighten a check for it. This is exactly the trigger described in "Eval Versioning & Category Extension" above: if the new check doesn't fit an existing category, add one and bump `eval-version`.
+3. Only entries that change method require this propagation. An entry that's purely an observation ("context source X was unusually rich this run") stays in `skill-memory.md` alone.
+
+This closes the loop the four-category floor implies: informal self-check (SKILL.md) → formal eval (evals.md) → improvement journal (skill-memory.md) → back into SKILL.md and evals.md. Without step 3, the journal accumulates insight the skill never actually learns from.

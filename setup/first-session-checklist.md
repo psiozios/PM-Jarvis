@@ -410,6 +410,7 @@ Start with:
 3. **Try real tasks** - Use it for your next meeting, PRD, or update
 4. **Customize skills** - Edit the skills in `.claude/skills/` to match your style
 5. **Add tools** - Set up MCPs for Slack, Google Drive, etc. (run `/connect-mcps` in Claude Code)
+6. **Automate a recurring task** - Once a skill feels solid on demand, turn it into a scheduled routine with `setup/routine-setup.md`
 
 ### If Some Tests Failed ❌
 

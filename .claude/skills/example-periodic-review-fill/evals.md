@@ -1,11 +1,11 @@
 ---
-skill: SKILL_NAME
-archetype: ARCHETYPE
+skill: example-periodic-review-fill
+archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: YYYY-MM-DD
+last-updated: 2026-07-11
 ---
 
-# Evals: /SKILL_NAME
+# Evals: /example-periodic-review-fill
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: YYYY-MM-DD
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | | |
-| E2 | | |
-| E3 | | |
+| E1 | Auto-vs-asked table present | Explicit table separating auto-filled items from asked items, shown before the full draft |
+| E2 | Tier-appropriate rollup | Month/quarter tiers synthesize the completed lower-tier reviews, not raw activity |
+| E3 | Forward-created periods listed | Output states which future period shells were created |
 
 ### Quality & Voice
 
@@ -39,32 +39,16 @@ last-updated: YYYY-MM-DD
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
-| E9 | | |
+| E8 | Auto-vs-asked correctness | Nothing derivable from a source was placed in "asked"; nothing judgment-based was auto-filled with an unconfirmed guess |
+| E9 | Never-blank-questionnaire | The user was never handed an empty template — every section has at least a draft to react to |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | | |
-| E11 | | |
-| E12 | | |
-
-<!--
-OPTIONAL Category 5+: the four categories above are the floor, not the
-ceiling. Only add a new category when the skill's judgment grows a whole
-new dimension — not for a reworded or tightened check within an existing
-category (that doesn't bump the version). When you do add one, bump
-`eval-version` in the frontmatter and update `last-updated`. See
-references/protocols/skill-evals.md, "Eval Versioning & Category Extension"
-for the full rule and a worked example.
-
-### Category 5: <NAME>
-
-| ID | Check | Criteria |
-|----|-------|----------|
-| E13 | | |
--->
+| E10 | Forward-create-with-dedupe | Forward-created periods were checked against existing shells before creation |
+| E11 | Surgical write | The write to the reviews store was a delta against current state, not a full replace |
+| E12 | Preview-first | Nothing was written until the user confirmed the draft |
 
 ## Scoring
 
@@ -76,13 +60,7 @@ for the full rule and a worked example.
 
 ## Eval Results Log
 
-<!--
-Append after each run. Keep last 5. Notes must be legible enough to show
-what broke and what fixed it — not just a pass/fail count. Include: which
-check IDs failed, what remediation was applied, and the re-check result.
-See references/protocols/skill-evals.md, "Legible Eval Results Log" for a
-worked example row.
--->
+<!-- Append after each run. Keep last 5. -->
 
 | Date | Pass | Partial | Fail | Notes |
 |------|------|---------|------|-------|

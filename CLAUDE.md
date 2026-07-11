@@ -45,6 +45,8 @@ Two global protocols govern every skill:
 
 **The boundary: READ FREELY, WRITE ON CONFIRM.**
 
+A third protocol governs scheduled work: **Routines** (a routine is a thin schedule wrapped around an existing skill, never a restatement of one). See `references/protocols/routines.md` and `setup/routine-setup.md` to set one up.
+
 ## Knowledge Routing
 
 Load only what the current task requires. Do not read everything upfront.
@@ -121,6 +123,8 @@ Each skill directory contains three files:
 | `skill-memory.md` | Living improvement journal |
 
 When creating or modifying skills, all three files must be present. See `references/protocols/skill-evals.md` for the eval protocol and templates.
+
+A recurring class of skill — search across sources, verify, propose a write-back — has its own catalog of reusable archetypes and shared disciplines. See `references/protocols/skill-patterns.md` before building a new radar, periodic-review, or grooming-style skill from scratch.
 
 ## File Creation
 

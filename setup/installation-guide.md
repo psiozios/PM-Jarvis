@@ -190,7 +190,8 @@ Now you can just type `pm` to start a PM session!
 ```
 pm-jarvis/
 ├── CLAUDE.md                 ← Master context (read this first!)
-├── .claude/skills/           ← 73 slash command skills
+├── .claude/skills/           ← slash command skills (see all-skills.md for the current list)
+├── routines/                 ← scheduled wrappers around skills (see setup/routine-setup.md)
 ├── setup/                    ← You are here
 ├── context-library/          ← Fill these out for your situation
 ├── sub-agents/               ← Different reviewer perspectives
@@ -206,6 +207,7 @@ pm-jarvis/
 1. ✅ You've installed everything
 2. 📝 Next: Set up your environment keys → `environment-keys.md`
 3. ✅ Then: Run through the first session checklist → `first-session-checklist.md`
+4. 🔁 Once a skill earns its keep on demand, automate it → `routine-setup.md`
 
 ---
 

@@ -1,11 +1,11 @@
 ---
-skill: SKILL_NAME
-archetype: ARCHETYPE
+skill: example-board-groom
+archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: YYYY-MM-DD
+last-updated: 2026-07-11
 ---
 
-# Evals: /SKILL_NAME
+# Evals: /example-board-groom
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: YYYY-MM-DD
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | | |
-| E2 | | |
-| E3 | | |
+| E1 | Checklist grouped by UI-click | Output grouped by action (close/reorder/re-allocate/tag/fix-description), not by card |
+| E2 | Drafted text inline | Every text-based fix includes ready-to-paste replacement text, not just a note that it needs fixing |
+| E3 | Deep link per card | Every flagged card links to the actual card, not a generic reference |
 
 ### Quality & Voice
 
@@ -39,32 +39,16 @@ last-updated: YYYY-MM-DD
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
-| E9 | | |
+| E8 | Read-only honored | No evidence the skill wrote to, moved, or edited any card on the board itself |
+| E9 | False-positive discipline | No card flagged solely for being long-lived or deliberately terse without a substantive reason given |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | | |
-| E11 | | |
-| E12 | | |
-
-<!--
-OPTIONAL Category 5+: the four categories above are the floor, not the
-ceiling. Only add a new category when the skill's judgment grows a whole
-new dimension — not for a reworded or tightened check within an existing
-category (that doesn't bump the version). When you do add one, bump
-`eval-version` in the frontmatter and update `last-updated`. See
-references/protocols/skill-evals.md, "Eval Versioning & Category Extension"
-for the full rule and a worked example.
-
-### Category 5: <NAME>
-
-| ID | Check | Criteria |
-|----|-------|----------|
-| E13 | | |
--->
+| E10 | Live priority | Judgments reflect the board's current state at run time, not a cached or assumed prior ranking |
+| E11 | Full board covered | Every card on the board was considered, not a sampled subset |
+| E12 | Reasoning stated per item | Each flagged card states why it needs the proposed action, not just what action |
 
 ## Scoring
 
@@ -76,13 +60,7 @@ for the full rule and a worked example.
 
 ## Eval Results Log
 
-<!--
-Append after each run. Keep last 5. Notes must be legible enough to show
-what broke and what fixed it — not just a pass/fail count. Include: which
-check IDs failed, what remediation was applied, and the re-check result.
-See references/protocols/skill-evals.md, "Legible Eval Results Log" for a
-worked example row.
--->
+<!-- Append after each run. Keep last 5. -->
 
 | Date | Pass | Partial | Fail | Notes |
 |------|------|---------|------|-------|

@@ -1,11 +1,11 @@
 ---
-skill: SKILL_NAME
-archetype: ARCHETYPE
+skill: example-open-loop-radar
+archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: YYYY-MM-DD
+last-updated: 2026-07-11
 ---
 
-# Evals: /SKILL_NAME
+# Evals: /example-open-loop-radar
 
 ## How to Run (automatic on every skill invocation)
 
@@ -22,9 +22,9 @@ last-updated: YYYY-MM-DD
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | | |
-| E2 | | |
-| E3 | | |
+| E1 | Bucketed by age | Output grouped into Fresh / This Week / Aging / Stale, not a flat list |
+| E2 | Real deep link per item | Every flagged item links to the actual source thread/post, not a generic reference |
+| E3 | Proposed follow-ups table present | A numbered/tabular list of proposed tasks, separate from the flagged items themselves |
 
 ### Quality & Voice
 
@@ -39,32 +39,16 @@ last-updated: YYYY-MM-DD
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
-| E9 | | |
+| E8 | Verify-before-flag | Every item carries a `Checked:` line naming a real cross-referenced source, not a placeholder |
+| E9 | Comprehensive-not-delta | The full sweep window was re-examined this run, not narrowed to only new-since-last-run items |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | | |
-| E11 | | |
-| E12 | | |
-
-<!--
-OPTIONAL Category 5+: the four categories above are the floor, not the
-ceiling. Only add a new category when the skill's judgment grows a whole
-new dimension — not for a reworded or tightened check within an existing
-category (that doesn't bump the version). When you do add one, bump
-`eval-version` in the frontmatter and update `last-updated`. See
-references/protocols/skill-evals.md, "Eval Versioning & Category Extension"
-for the full rule and a worked example.
-
-### Category 5: <NAME>
-
-| ID | Check | Criteria |
-|----|-------|----------|
-| E13 | | |
--->
+| E10 | Correct actionable classification | Each item's "whose court" call is defensible from the thread content, not guessed |
+| E11 | Propose-not-auto-create | No task was created in the tracker without an explicit confirmation step |
+| E12 | Non-accusatory framing | Flagged items are framed as triage, not as a scorecard of what the user failed to do |
 
 ## Scoring
 
@@ -76,13 +60,7 @@ for the full rule and a worked example.
 
 ## Eval Results Log
 
-<!--
-Append after each run. Keep last 5. Notes must be legible enough to show
-what broke and what fixed it — not just a pass/fail count. Include: which
-check IDs failed, what remediation was applied, and the re-check result.
-See references/protocols/skill-evals.md, "Legible Eval Results Log" for a
-worked example row.
--->
+<!-- Append after each run. Keep last 5. -->
 
 | Date | Pass | Partial | Fail | Notes |
 |------|------|---------|------|-------|

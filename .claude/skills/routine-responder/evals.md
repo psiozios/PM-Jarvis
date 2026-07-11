@@ -1,17 +1,17 @@
 ---
-skill: SKILL_NAME
-archetype: ARCHETYPE
+skill: routine-responder
+archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: YYYY-MM-DD
+last-updated: 2026-07-11
 ---
 
-# Evals: /SKILL_NAME
+# Evals: /routine-responder
 
 ## How to Run (automatic on every skill invocation)
 
 1. Original agent completes skill output and runs informal self-check
 2. Original agent spawns a separate eval agent (clean context window)
-3. Eval agent reads: this file, the skill output, `config/house-style.md`
+3. Eval agent reads: this file, the skill output (or the sweep's log of what it did/didn't do), `config/house-style.md`
 4. Evaluates each criterion independently → PASS / FAIL / PARTIAL
 5. FAILs returned to original agent for revision → re-eval loop
 6. Zero FAILs achieved → log results below
@@ -22,9 +22,9 @@ last-updated: YYYY-MM-DD
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | | |
-| E2 | | |
-| E3 | | |
+| E1 | Thread discovery correct | Every `.thread-pointer.json` under `routines/*/` was checked, not a hardcoded subset |
+| E2 | State file scoped correctly | Only `.last-reply-processed` files were written; no routine's own dated output or `.last-run-*` pointer was touched |
+| E3 | Reaction lifecycle correct | "Thinking" reaction applied on pickup, swapped to "done" only after the reply send was confirmed |
 
 ### Quality & Voice
 
@@ -39,32 +39,16 @@ last-updated: YYYY-MM-DD
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
-| E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
-| E9 | | |
+| E8 | Loop-safety | The bot's own prior messages in a thread were never classified as actionable input |
+| E9 | Correct actionable detection | A message was treated as actionable only if authored by the user, newer than the bot's last message, and newer than `.last-reply-processed` — all three, not a subset |
 
 ### Completeness & Context
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | | |
-| E11 | | |
-| E12 | | |
-
-<!--
-OPTIONAL Category 5+: the four categories above are the floor, not the
-ceiling. Only add a new category when the skill's judgment grows a whole
-new dimension — not for a reworded or tightened check within an existing
-category (that doesn't bump the version). When you do add one, bump
-`eval-version` in the frontmatter and update `last-updated`. See
-references/protocols/skill-evals.md, "Eval Versioning & Category Extension"
-for the full rule and a worked example.
-
-### Category 5: <NAME>
-
-| ID | Check | Criteria |
-|----|-------|----------|
-| E13 | | |
--->
+| E10 | Silent stop on no replies | If no thread had an actionable message, nothing was sent and nothing was written — no "nothing found" filler message |
+| E11 | Outward-draft-only | Any content destined for someone other than the user was produced as a draft, never sent automatically |
+| E12 | Marker advanced only after confirmed send | `.last-reply-processed` only moved forward once the reply's delivery was confirmed by the notifier, not optimistically before |
 
 ## Scoring
 
@@ -76,13 +60,7 @@ for the full rule and a worked example.
 
 ## Eval Results Log
 
-<!--
-Append after each run. Keep last 5. Notes must be legible enough to show
-what broke and what fixed it — not just a pass/fail count. Include: which
-check IDs failed, what remediation was applied, and the re-check result.
-See references/protocols/skill-evals.md, "Legible Eval Results Log" for a
-worked example row.
--->
+<!-- Append after each run. Keep last 5. -->
 
 | Date | Pass | Partial | Fail | Notes |
 |------|------|---------|------|-------|
