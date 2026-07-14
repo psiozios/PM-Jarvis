@@ -702,7 +702,8 @@ After generating review, prompt user with contextual suggestions:
 
 **Periodic use:**
 - `/feature-results` - Monthly deep dive on launched features
-- `/quarter-review` - (If exists) Quarterly synthesis of weekly reviews
+- `/monthly-review-fill` - Roll weekly reviews up into a monthly assessment
+- `/quarterly-review-fill` - Quarterly synthesis built from the monthly reviews
 
 ---
 

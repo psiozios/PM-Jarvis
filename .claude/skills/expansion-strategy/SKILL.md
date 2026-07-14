@@ -587,7 +587,7 @@ Median days from signup to first upgrade
 - `/retention-analysis` - Which segments retain best (expansion potential)
 - `/activation-analysis` - When users are ready to expand (post-activation)
 - `/define-north-star` - Ensure expansion metrics align with North Star
-- `/competitive-analysis` - Competitor pricing and tier positioning
+- `/competitor-analysis` - Competitor pricing and tier positioning
 
 ### Key Questions to Revisit
 

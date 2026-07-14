@@ -461,7 +461,7 @@ quarter: Q[X] YYYY
 
 **Complements:**
 - `/prd-draft` - Weekly priorities often include PRD milestones
-- `/stakeholder-update` - Share weekly plan with leadership
+- `/status-update` - Share weekly plan with leadership
 
 ---
 

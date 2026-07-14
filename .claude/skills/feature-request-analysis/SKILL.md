@@ -38,7 +38,7 @@ Output: outputs/analyses/feature-requests-[area]-[date].md
 | PRDs | `context-library/prds/*.md` | scope, out of scope | What's already planned |
 
 **Cross-Skill Links:**
-- Themes → `/voc-report` for cross-channel validation
+- Themes → `/voice-of-customer` for cross-channel validation
 - Prioritized items → `/prd-lite` or `/prd-draft`
 - Competitive requests → `/competitor-analysis`
 - Impact estimate → `/impact-sizing` or `/opportunity-sizing`

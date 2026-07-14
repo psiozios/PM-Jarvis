@@ -798,7 +798,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 **Complements:**
 - `/competitor-analysis` - Inform strategic review
-- `/stakeholder-update` - Share review results
+- `/status-update` - Share review results
 
 ---
 

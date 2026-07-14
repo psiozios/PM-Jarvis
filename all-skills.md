@@ -11663,7 +11663,7 @@ Median days from signup to first upgrade
 - `/retention-analysis` - Which segments retain best (expansion potential)
 - `/activation-analysis` - When users are ready to expand (post-activation)
 - `/define-north-star` - Ensure expansion metrics align with North Star
-- `/competitive-analysis` - Competitor pricing and tier positioning
+- `/competitor-analysis` - Competitor pricing and tier positioning
 
 ### Key Questions to Revisit
 
@@ -13347,7 +13347,7 @@ Output: outputs/analyses/feature-requests-[area]-[date].md
 | PRDs | `context-library/prds/*.md` | scope, out of scope | What's already planned |
 
 **Cross-Skill Links:**
-- Themes → `/voc-report` for cross-channel validation
+- Themes → `/voice-of-customer` for cross-channel validation
 - Prioritized items → `/prd-lite` or `/prd-draft`
 - Competitive requests → `/competitor-analysis`
 - Impact estimate → `/impact-sizing` or `/opportunity-sizing`
@@ -26225,7 +26225,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 **Complements:**
 - `/competitor-analysis` - Inform strategic review
-- `/stakeholder-update` - Share review results
+- `/status-update` - Share review results
 
 ---
 
@@ -36683,7 +36683,7 @@ quarter: Q[X] YYYY
 
 **Complements:**
 - `/prd-draft` - Weekly priorities often include PRD milestones
-- `/stakeholder-update` - Share weekly plan with leadership
+- `/status-update` - Share weekly plan with leadership
 
 ---
 
@@ -37541,7 +37541,8 @@ After generating review, prompt user with contextual suggestions:
 
 **Periodic use:**
 - `/feature-results` - Monthly deep dive on launched features
-- `/quarter-review` - (If exists) Quarterly synthesis of weekly reviews
+- `/monthly-review-fill` - Roll weekly reviews up into a monthly assessment
+- `/quarterly-review-fill` - Quarterly synthesis built from the monthly reviews
 
 ---
 
