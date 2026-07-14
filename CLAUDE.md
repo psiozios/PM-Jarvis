@@ -95,19 +95,20 @@ These defaults apply unless the user configures different preferences in `config
 
 ## Skills
 
-73 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Categories:
+87 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Categories:
 
 | Category | Count | Coverage |
 |----------|-------|----------|
-| Core PM Workflows | 18 | Planning, meetings, PRDs, status updates, decisions, communication |
+| Core PM Workflows | 21 | Planning, meetings, PRDs, status updates, decisions, communication, document ops |
 | User Research & Interviews | 7 | Interviews, research synthesis, surveys, VoC |
 | Strategic Frameworks | 8 | Strategy, OKRs, prioritization, metrics, journey maps |
 | Product Analysis | 13 | Impact sizing, experiments, retention, pricing, root cause |
 | Prototyping & Design | 6 | Design direction, prototypes, wireframes, feedback loops |
 | Competitive Intelligence | 2 | Competitor analysis, sales battlecards |
-| Development & Execution | 16 | Tickets, launches, sprints, code, execution plans |
+| Development & Execution | 18 | Tickets, launches, sprints, code, execution plans, grooming, refinement |
+| Automation & Cadence | 8 | Action sweeps, radar, periodic-review cascade, read-aheads, routine replies |
 | Learning & Growth | 1 | Technical PM education |
-| Knowledge Management | 1 | Compounding second-brain wiki |
+| Knowledge Management | 2 | Compounding second-brain wiki, chat ingestion |
 | Fun | 1 | Devil's advocate reviewer |
 
 **Skill chaining:** When a skill completes, check its Cross-Skill Links section and offer the logical next step from its Before/After/Related list. Offer one nudge; do not auto-run the next skill. For multi-skill workflow sequences, see `references/skill-chains.md`.

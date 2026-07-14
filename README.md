@@ -7,14 +7,17 @@ Your AI-powered copilot for modern product management. Built for Claude Code.
 Most PMs use AI the same way they use Google: one-off questions, zero context. This system works differently.
 
 - **Context over prompting.** AI is only as good as the context you give it. PM Jarvis organizes your company knowledge, writing styles, stakeholder profiles, and past decisions so every output sounds like it came from someone who actually works there.
-- **Workflows, not chat.** 73 slash commands cover the full PM loop: strategy, research, PRDs, metrics, meetings, launches, prototyping, design, code, knowledge management, and retrospectives. Each one builds on the others.
+- **Workflows, not chat.** 87 slash commands cover the full PM loop: strategy, research, PRDs, metrics, meetings, launches, prototyping, design, code, knowledge management, retrospectives, and recurring cadence. Each one builds on the others.
+- **Automate the recurring stuff.** Any skill can be wrapped in a scheduled routine that fires on its own, checks its own state, and reports back through a notification. Weekly reviews, backlog grooming, action-item sweeps, and open-loop radar run without you kicking them off.
 - **Ship the draft, then iterate.** Documents are living artifacts. A 1-page PRD that ships Monday beats a 10-page spec that ships never.
 
 ## What You Get
 
 - **Pre-built context library** with templates for company info, writing styles, stakeholder profiles, and strategic frameworks (7 Powers, JTBD, PLG Iceberg, Growth Loops, and more)
-- **73 slash commands** for recurring PM tasks, from PRDs and meeting notes to pricing analysis, design direction, code reviews, and a compounding second-brain wiki
+- **87 slash commands** for recurring PM tasks, from PRDs and meeting notes to pricing analysis, design direction, code reviews, and a compounding second-brain wiki
+- **An automation layer** — routines that run skills on a schedule and report back through provider-agnostic notifiers, so recurring work happens without you
 - **7 sub-agents** for multi-perspective reviews (engineer, designer, executive, legal, UX researcher, skeptic, customer voice)
+- **Persistent memory** that carries facts, feedback, and project state across sessions via a per-turn injection hook
 - **Knowledge assets** including 63 curated interview questions, validated survey templates, canvas templates, and 139 AI prompt references
 - **Example PRDs** demonstrating modern best practices
 - **Workflow chains** that connect skills together for daily routines, PRD lifecycles, strategic planning, and more
@@ -64,7 +67,7 @@ Fill out these files to personalize the system:
 
 Pick whichever fits your day. Claude will ask clarifying questions and pull from your context automatically.
 
-### 5. Connect Your Tools (Optional)
+### 6. Connect Your Tools (Optional)
 
 Connect Model Context Protocol (MCP) servers for real-time data access from your existing tools.
 
@@ -95,15 +98,17 @@ All skills work without MCPs by falling back to your context library files. You 
 ```
 pm-jarvis/
 ├── README.md                       # You are here
-├── CLAUDE.md                       # Lean operating system (~120 lines)
+├── CLAUDE.md                       # Lean operating system (~160 lines)
 ├── LICENSE.md                      # MIT License
 │
 ├── .claude/
-│   └── skills/                     # 73 registered slash commands
+│   └── skills/                     # 87 registered slash commands
+│                                   #   (each has SKILL.md + evals.md + skill-memory.md)
 │
 ├── config/                         # User-configurable settings
 │   ├── house-style.md              # Writing voice rules (configure me)
 │   ├── persona.md                  # Interaction style (configure me)
+│   ├── notifier-example.md         # Notifier adapter reference (routines report back)
 │   └── settings-template.json      # Hook wiring (copy to .claude/settings.json)
 │
 ├── hooks/                          # Claude Code hook scripts
@@ -113,15 +118,20 @@ pm-jarvis/
 │   ├── MEMORY.md                   # Index (injected per-turn via hook)
 │   └── README.md                   # Memory system documentation
 │
+├── routines/                       # Scheduled routines (thin schedules around skills)
+│   └── example-daily-digest/       # Reference routine
+│
 ├── references/                     # On-demand reference files
-│   ├── protocols/                  # Global protocols (context acquisition, knowledge capture)
+│   ├── protocols/                  # Global protocols: context-acquisition, knowledge-capture,
+│   │                               #   routines, notifications, skill-evals, skill-patterns,
+│   │                               #   commitment-gate, freshness-provenance
 │   ├── skill-chains.md             # Multi-skill workflow sequences
 │   ├── mcp-routing.md              # Tool routing rules
 │   ├── file-creation-rules.md      # Output directory taxonomy
 │   ├── sub-agents.md               # Sub-agent roster
 │   └── capabilities.md             # Parallel execution, plan mode, etc.
 │
-├── setup/                          # Installation and configuration guides
+├── setup/                          # Installation guides (incl. routine-setup.md)
 ├── advanced/                       # Advanced workflows and automation
 ├── sub-agents/                     # 7 specialized review agents
 │
@@ -171,11 +181,13 @@ Unlike ChatGPT or regular Claude:
 - You can **run multiple instances** in parallel for different initiatives
 - It **executes code** and **creates files** directly in your workspace
 
-### Three Layers of Context
+### Layers of Context
 
 1. **Project Knowledge** (`context-library/`) - Company info, writing styles, stakeholder profiles, strategy frameworks, and past decisions that apply across all your work
-2. **Skills** (`.claude/skills/`) - 73 registered slash commands for recurring tasks, each with built-in context routing and cross-skill integration
+2. **Skills** (`.claude/skills/`) - 87 registered slash commands for recurring tasks, each with built-in context routing and cross-skill integration
 3. **Sub-Agents** (`sub-agents/`) - 7 specialized reviewers for multi-perspective feedback
+4. **Memory** (`memory/`) - Persistent facts, feedback, and project state carried across sessions, injected each turn via a hook
+5. **Routines** (`routines/`) - Schedules that fire skills on their own and report back through notifiers
 
 When you ask Claude to draft a PRD, it automatically:
 - References your company's business info
@@ -184,11 +196,25 @@ When you ask Claude to draft a PRD, it automatically:
 - Checks alignment with your strategy and OKRs
 - Includes real examples from your library
 
-## Available Skills (73 Total)
+### Routines and Automation
+
+A **routine** is a thin schedule wrapped around a skill — it never restates the skill, it just decides *when* the skill runs, tracks its own state so it doesn't double-fire, and reports back through a **notifier** (a provider-agnostic adapter; Slack is the reference implementation). This keeps recurring work off your plate: a Monday weekly review, a nightly action-item sweep, a loose-threads radar.
+
+Two guardrails matter for a shared team setup:
+- **Notifications are self-notifications.** A routine posts to your own surface from a bot identity — never as you, never to a shared channel unless it explicitly exists to.
+- **Unattended runs can't write to others.** Headless routines get read access and can notify you, but sending messages, creating tickets, or editing shared docs always stops for explicit approval.
+
+See `references/protocols/routines.md` and `setup/routine-setup.md` to build one, and `config/notifier-example.md` for the notifier contract.
+
+### Skill Quality and Governance
+
+Every skill ships as three files: `SKILL.md` (the method), `evals.md` (pass/fail criteria that run each invocation), and `skill-memory.md` (a living improvement journal). Reusable archetypes for radar, periodic-review, and grooming skills live in `references/protocols/skill-patterns.md`.
+
+## Available Skills (87 Total)
 
 Type `/` in Claude Code to see the autocomplete menu with all commands.
 
-### Core PM Workflows (18)
+### Core PM Workflows (21)
 | Command | What it does |
 |---------|-------------|
 | `/connect-mcps` | Connect MCPs for real-time tool integration |
@@ -198,6 +224,7 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | `/daily-plan` | Generate PM daily plan with context |
 | `/weekly-plan` | Set next week's priorities tied to quarterly goals |
 | `/weekly-review` | Review week's progress, meetings, and learnings |
+| `/meeting-prep` | Assemble substantive prep for an upcoming meeting from workspace + second-brain context |
 | `/meeting-notes` | Transform transcripts into structured action items |
 | `/meeting-agenda` | Create structured meeting agendas (supports `--oneonone`) |
 | `/meeting-feedback` | Post-meeting effectiveness feedback |
@@ -207,6 +234,8 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | `/slack-message` | Draft team communications (supports `--thread`, `--difficult`, `--translate`) |
 | `/board-deck` | Prepare executive and board-level presentations |
 | `/editing-assistant` | Edit and improve any PM document |
+| `/iterate-document` | Surgically update a source-of-truth doc based on what changed since its last revision |
+| `/sync-doc` | Reconcile a pasted or exported external doc into its local counterpart |
 | `/stakeholder-tactics` | Navigate stakeholder dynamics (map, align, resolve, prepare) |
 | `/content-marketing` | Create product-led content assets |
 
@@ -266,7 +295,7 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | `/napkin-sketch` | ASCII wireframes and browser capture |
 | `/prototype-feedback` | Build, review, iterate workflow (supports `--design` with 7-dimension scoring) |
 
-### Development and Execution (16)
+### Development and Execution (18)
 | Command | What it does |
 |---------|-------------|
 | `/create-tickets` | Create tickets via Linear/Jira MCP or formatted text (supports `--quick`, `--stories`) |
@@ -275,6 +304,8 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | `/pre-mortem` | Structured pre-mortem before launches or major decisions |
 | `/post-mortem` | Blameless post-mortem after incidents or failed launches |
 | `/sprint-planning` | Sprint planning and backlog grooming |
+| `/backlog-groom` | Whole-board hygiene pass over the issue tracker (read-only triage checklist) |
+| `/refinement-prep` | Slate the next refinement ceremony off a cleaned tracker (read-only) |
 | `/analytics-instrumentation` | Design tracking plans for product features |
 | `/deprecation-plan` | Plan and execute feature deprecations |
 | `/ai-quality-debug` | Evaluate and debug AI/ML feature quality |
@@ -291,10 +322,26 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 |---------|-------------|
 | `/learning-mode` | Three-level teaching mode for technical PMs |
 
-### Knowledge Management (1)
+### Knowledge Management (2)
 | Command | What it does |
 |---------|-------------|
 | `/second-brain` | Build and maintain a compounding PM knowledge base (Karpathy's LLM Wiki pattern); modes: `init`, `ingest`, `query`, `compile`, `explore`, `lint`, `prep`, `status` |
+| `/chat-ingest` | Pull high-signal chat threads into the second-brain knowledge base (channel sweep, topic search, catch-up) |
+
+### Automation and Cadence (8)
+
+These skills are built to run on a schedule as **routines** (see below), though each also works on demand.
+
+| Command | What it does |
+|---------|-------------|
+| `/action-sweep` | Sweep every connected source for open action items, reconcile against the tracker, execute or propose each |
+| `/loose-threads` | Open-loop radar — surface stalled two-way conversations you may be dropping |
+| `/proactive-gaps` | Two-horizon "what should I be worried about?" scan (present problems + forward inflections) |
+| `/weekly-readahead` | Draft and publish a weekly read-ahead for a recurring cross-team meeting |
+| `/weekly-review-fill` | Base tier of the periodic-review cascade — pre-fills the week's review from completed work |
+| `/monthly-review-fill` | Rolls up the month's weekly reviews into a synthesized monthly assessment |
+| `/quarterly-review-fill` | Rolls up the quarter's monthly reviews into a synthesized quarterly assessment |
+| `/routine-responder` | Turn a routine's notification thread into a two-way conversation and continue the underlying skill |
 
 ### Fun (1)
 | Command | What it does |
@@ -335,6 +382,12 @@ Monday `/weekly-plan` → daily workflow → Friday `/weekly-review` → `/statu
 **Second Brain (compounding knowledge):**
 `/second-brain init <focus>` → `/second-brain ingest <source>` → existing skills auto-file into the brain → `/second-brain query` before PRDs or strategy → weekly `/second-brain lint` + `/second-brain explore`
 
+**Periodic-Review Cascade (roll-up, not re-derivation):**
+weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the weeks) → quarterly `/quarterly-review-fill` (rolls up the months)
+
+**Stay-on-top Radar (run as routines):**
+`/action-sweep` (open items across sources) + `/loose-threads` (dropped conversations) + `/proactive-gaps` (what to worry about) — schedule these so they land in your notifier without you asking
+
 ## Pro Tips
 
 1. **Use dictation.** Talk to Claude Code like a colleague. Much faster than typing.
@@ -354,6 +407,8 @@ Monday `/weekly-plan` → daily workflow → Friday `/weekly-review` → `/statu
 | No file system access | Creates and edits files directly in your project |
 | Single perspective | Multi-agent reviews from 7 perspectives |
 | No tool integration | Connects to your analytics, PM tools, and more via MCPs |
+| Only runs when you prompt it | Routines run recurring work on a schedule and report back |
+| Starts fresh every chat | Persistent memory carries context across sessions |
 
 ## Getting Started Checklist
 

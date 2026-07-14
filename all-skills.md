@@ -1,17 +1,20 @@
 # PM Jarvis - Complete Skill Reference
 
-All 73 skills compiled into a single document.
+All 87 skills compiled into a single document.
 
 ---
 
 ## Table of Contents
 
+- [/action-sweep](#action-sweep)
 - [/activation-analysis](#activation-analysis)
 - [/ai-quality-debug](#ai-quality-debug)
 - [/analytics-instrumentation](#analytics-instrumentation)
 - [/autoresearch](#autoresearch)
+- [/backlog-groom](#backlog-groom)
 - [/board-deck](#board-deck)
 - [/business-model-canvas](#business-model-canvas)
+- [/chat-ingest](#chat-ingest)
 - [/code-first-draft](#code-first-draft)
 - [/code-review](#code-review)
 - [/competitor-analysis](#competitor-analysis)
@@ -39,14 +42,18 @@ All 73 skills compiled into a single document.
 - [/interview-feedback](#interview-feedback)
 - [/interview-guide](#interview-guide)
 - [/interview-prep](#interview-prep)
+- [/iterate-document](#iterate-document)
 - [/journey-map](#journey-map)
 - [/launch-checklist](#launch-checklist)
 - [/learning-mode](#learning-mode)
+- [/loose-threads](#loose-threads)
 - [/meeting-agenda](#meeting-agenda)
 - [/meeting-cleanup](#meeting-cleanup)
 - [/meeting-feedback](#meeting-feedback)
 - [/meeting-notes](#meeting-notes)
+- [/meeting-prep](#meeting-prep)
 - [/metrics-framework](#metrics-framework)
+- [/monthly-review-fill](#monthly-review-fill)
 - [/napkin-sketch](#napkin-sketch)
 - [/okr-planning](#okr-planning)
 - [/opportunity-sizing](#opportunity-sizing)
@@ -58,11 +65,15 @@ All 73 skills compiled into a single document.
 - [/pre-mortem](#pre-mortem)
 - [/pricing-analysis](#pricing-analysis)
 - [/prioritize](#prioritize)
+- [/proactive-gaps](#proactive-gaps)
 - [/prototype](#prototype)
 - [/prototype-feedback](#prototype-feedback)
+- [/quarterly-review-fill](#quarterly-review-fill)
 - [/ralph-wiggum](#ralph-wiggum)
+- [/refinement-prep](#refinement-prep)
 - [/retention-analysis](#retention-analysis)
 - [/root-cause-analysis](#root-cause-analysis)
+- [/routine-responder](#routine-responder)
 - [/sales-battlecard](#sales-battlecard)
 - [/second-brain](#second-brain)
 - [/slack-message](#slack-message)
@@ -71,14 +82,153 @@ All 73 skills compiled into a single document.
 - [/status-update](#status-update)
 - [/strategy-sprint](#strategy-sprint)
 - [/survey-builder](#survey-builder)
+- [/sync-doc](#sync-doc)
 - [/update-docs](#update-docs)
 - [/user-interview](#user-interview)
 - [/user-research-synthesis](#user-research-synthesis)
 - [/voice-of-customer](#voice-of-customer)
 - [/weekly-plan](#weekly-plan)
+- [/weekly-readahead](#weekly-readahead)
 - [/weekly-review](#weekly-review)
+- [/weekly-review-fill](#weekly-review-fill)
 - [/win-loss-analysis](#win-loss-analysis)
 - [/write-prod-strategy](#write-prod-strategy)
+
+---
+
+<a id="action-sweep"></a>
+
+---
+name: action-sweep
+description: Sweep every connected source for the user's open action items since the last sweep, reconcile against the task tracker, and either execute internal-tool items end-to-end or propose the rest.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — it sweeps since the last run by default.
+
+```
+/action-sweep               → sweep since .last-sweep, reconcile against the task tracker
+/action-sweep --since 3d    → override the window
+```
+
+**What you get:** A numbered table of proposed new tasks and verified-done items. On approval, new tasks are created and done items are marked done in the task tracker end-to-end; anything outward-to-others stays a draft you send yourself.
+
+**Time:** A few minutes, most of it reading sources in parallel.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Meeting notes | `outputs/meeting-notes/`, `context-library/meetings/` | Action items assigned to the user since last sweep |
+| Chat platform | `<CHAT_PLATFORM>` | Both directions: asks directed at the user, and commitments the user made |
+| Email | `<EMAIL_SOURCE>` | Threads where the user owes a reply or a deliverable |
+| Calendar | `<CALENDAR>` | Meetings that likely produced commitments (cross-check against notes) |
+| Issue tracker | `<TASK_TRACKER>` | Current open tasks, for dedupe and mark-done matching |
+| Call-transcript source | `<CALL_TRANSCRIPT_SOURCE>` | Action items surfaced in calls not yet in meeting notes |
+| Sweep state | `.last-sweep` (this skill's own state file) | Window start for "since last sweep" |
+
+## Workflow
+
+### 1. Determine the window
+
+Read `.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed.
+
+### 2. Sweep every source, both directions
+
+Pull candidate action items from every source in the routing table. For the chat platform and email specifically, sweep **both directions**: things asked of the user, and things the user committed to doing. Read every candidate thread to resolution — a search hit is a pointer, not an answer (see `references/protocols/skill-patterns.md` discipline #1).
+
+### 3. Apply exclusions
+
+Drop anything that's clearly not the user's action: FYI-only mentions, items explicitly delegated away, items already closed out in the same thread.
+
+### 4. Verify live state
+
+For each remaining candidate, check whether it's already been handled since it arose — cross-reference the task tracker, later messages in the same thread, and calendar follow-ups. An item resolved after the fact is marked **verified-done**, not surfaced as still-open (see `skill-patterns.md` discipline #2 — verify before surfacing).
+
+### 5. Dedupe against the task tracker
+
+Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRACKER>` by title/description similarity. A near-match is treated as the same item, not a duplicate proposal.
+
+### 6. Present the reconciliation table
+
+Show proposed new tasks and verified-done items as one numbered table (see Output Format). Nothing is written until this is approved.
+
+### 7. Execute on approval
+
+- **New tasks:** create in `<TASK_TRACKER>`.
+- **Verified-done:** mark done in `<TASK_TRACKER>`.
+- **Fully internal-tool-doable items** (the fix is entirely within a tool the user has authorized end-to-end use of): carry out the action, then mark done.
+- **Outward-to-others** (a message, an email, a ticket reply, an invite): produce a draft only. Never send automatically.
+
+### 8. Stamp
+
+After the reconciliation is applied (or explicitly declined), write `.last-sweep` to the current timestamp — not before, so a partial or aborted run retries the same window next time.
+
+## Output Format
+
+```markdown
+# Action Sweep — <DATE> (since <WINDOW START>)
+
+## Proposed New Tasks
+| # | Item | Source | Checked | Proposed Task |
+|---|---|---|---|---|
+| 1 | <what's owed> | <meeting notes / chat / email / call> | <cross-ref confirming it's still open> | <task title> |
+
+## Verified-Done (no longer open)
+| # | Item | Source | Resolved Via |
+|---|---|---|---|
+| 1 | <item> | <original source> | <where the resolution was found> |
+
+## Drafts (outward-to-others — review before sending)
+- <draft 1, ready to copy/send manually or via confirm>
+```
+
+## Runs as a Routine
+
+This is a strong candidate for a scheduled routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. `routines/example-daily-digest/SKILL.md` chains this skill after `meeting-prep`.
+
+## Output Quality Self-Check
+
+- [ ] Window correctly resolved from `.last-sweep`, with the first-run-of-day fallback applied when relevant
+- [ ] Both directions swept on the chat platform and email, not just inbound
+- [ ] Every verified-done item cites where the resolution was found
+- [ ] Dedupe checked against currently open tracker items before proposing anything new
+- [ ] Nothing was created or marked done without the reconciliation table being approved first
+- [ ] Outward-to-others items are drafts, not sent messages
+- [ ] `.last-sweep` only advanced after the run completed or was explicitly declined
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `daily-plan`, `loose-threads` (sibling radar — dedupe against its output), `meeting-notes`, `create-tickets`
+
+## When to Use
+
+- Daily or every few days, to catch action items scattered across sources before they slip
+
+## When NOT to Use
+
+- For a one-off "what did I commit to in this meeting" — use `meeting-notes` directly, it's cheaper for a single meeting
+
+## Common Mistakes
+
+- Sweeping only inbound asks and missing the user's own outbound commitments
+- Surfacing an item as open when it was already resolved elsewhere
+- Creating tasks or marking items done before the reconciliation table was approved
+- Sending an outward message automatically instead of drafting it
+
 
 ---
 
@@ -691,6 +841,20 @@ Before delivering the activation analysis, verify:
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --debug (Rapid Activation Drop Investigation)
 
 Use `/activation-analysis --debug` when activation just dropped and you need answers fast. This is triage, not a full analysis.
@@ -1057,6 +1221,20 @@ AI features need different launch criteria than traditional features. Use this c
 - [ ] **Monitoring plan defined:** Ongoing visibility after launch, not just at launch
 - [ ] **Output saved:** `outputs/analyses/ai-quality-[feature]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Evaluate and debug AI/ML feature quality from a PM perspective.
@@ -1346,6 +1524,20 @@ Tracking Plan QA Checklist
 - [ ] **Funnels derivable:** The events defined make the funnels you need buildable
 - [ ] **QA checklist included:** Engineering knows what to validate before launch
 - [ ] **Output saved:** `outputs/analyses/tracking-plan-[feature]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -1689,6 +1881,20 @@ Save final synthesis to:
 - [ ] Final synthesis saved to `outputs/analyses/`
 - [ ] Natural next-step hypotheses provided
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Autonomous iterative experimentation loop inspired by Karpathy's autoresearch.
@@ -1708,6 +1914,137 @@ Save final synthesis to:
 **Before:** Check relevant context files and run any prerequisite skills
 **After:** See `references/skill-chains.md` for recommended next steps
 **Related:** See skill category peers in CLAUDE.md
+
+
+---
+
+<a id="backlog-groom"></a>
+
+---
+name: backlog-groom
+description: Whole-board hygiene pass over the issue tracker, strictly read-only. Triages stale, duplicate, ready-to-close, mis-prioritized, wrong-sprint, orphan, and thin items with hard false-positive discipline. Output is a UI-action checklist the user applies by hand.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required.
+
+```
+/backlog-groom               → whole-board hygiene pass
+```
+
+**What you get:** A checklist grouped by the click you'll make in the tracker UI — Close, Reorder, Re-allocate, Tag, Description-fix — with drafted replacement text inline. This skill never touches the board itself.
+
+**Time:** A few minutes for a full board sweep.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Issue tracker | `<TASK_TRACKER>` | Full current board state: every item, status, description, age, assignee, sprint, epic/parent |
+| Sprint context | `<TASK_TRACKER>` sprint field | Current sprint boundaries, for wrong-sprint detection |
+
+## Workflow
+
+### 1. Read the full board — never mutate it
+
+Pull every item's current state from `<TASK_TRACKER>`. Strictly read-only: nothing in this skill writes back to the tracker (see `references/protocols/skill-patterns.md` discipline #8).
+
+### 2. Triage each item across all dimensions
+
+For every item, check each triage dimension:
+
+- **Stale** — no activity in a long window, not just "old"
+- **Duplicate** — genuinely overlapping scope with another open item
+- **Ready-to-close** — already resolved, superseded, or no longer relevant
+- **Mis-prioritized / mis-ordered** — priority or position doesn't match current reality
+- **Wrong-sprint** — assigned to a sprint that's already closed, or clearly doesn't fit the current one
+- **Orphan / mis-parented** — missing an epic/parent it should have, or parented under the wrong one
+- **Thin epic** — an epic with no meaningfully scoped children
+- **Thin description** — too vague to action without asking the author
+
+### 3. Establish priority live
+
+Judge priority and ordering from the board's current state at run time — never from a stale doc or an assumed prior ranking.
+
+### 4. Apply hard false-positive discipline
+
+Before flagging: a long-lived item is not automatically stale (check for a design reason it's meant to sit), a deliberately terse item is not automatically thin (check whether terseness was intentional for that item type), a similar-sounding item is not automatically a duplicate (check scope, not just title) — see discipline #7. Drop or downgrade anything that doesn't survive this check.
+
+### 5. Draft the fix inline
+
+For any text-based fix (a rewritten description, a suggested tag, a suggested parent), draft the replacement text directly in the checklist — ready to paste, not a note that it needs fixing.
+
+### 6. Group by UI action
+
+Group the output by the click the user will actually make, not by item — this matches how they'll work through it.
+
+## Output Format
+
+```markdown
+# Backlog Hygiene Pass — <DATE>
+
+## Close
+- [ ] **[<item>](<link>)** — <why: duplicate of / resolved via / stale since>
+
+## Reorder
+- [ ] **[<item>](<link>)** — currently <position>, suggested <position> because <reason>
+
+## Re-allocate
+- [ ] **[<item>](<link>)** — currently <sprint/owner>, suggested <sprint/owner> because <reason>
+
+## Tag / Re-parent
+- [ ] **[<item>](<link>)** — add tag: `<tag>` / re-parent under: `<epic>`
+
+## Fix Description
+- [ ] **[<item>](<link>)**
+  Current: "<current description, truncated>"
+  Suggested: "<drafted replacement, ready to paste>"
+```
+
+## Runs as a Routine
+
+Pairs naturally with `refinement-prep` on a recurring cadence — hygiene between ceremonies, slate before them. See `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Board was read, never written to
+- [ ] Checklist grouped by UI action, not by item
+- [ ] Every text-based fix has drafted replacement text ready to paste
+- [ ] Every flagged item survived the false-positive check
+- [ ] Priority judgments reflect the board's current live state, not a cached ranking
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Pairs with:** `refinement-prep` (runs off the cleaned board this skill produces)
+
+**Related:** `sprint-planning` (`--groom` mode covers per-ticket INVEST readiness; this skill covers whole-board hygiene — run this first, then `sprint-planning --groom` for the tickets headed into the next sprint)
+
+## When to Use
+
+- Between planning ceremonies, to keep the board clean without a human combing through every item
+
+## When NOT to Use
+
+- When you need the board actively re-prioritized for an upcoming ceremony — that's `refinement-prep`
+
+## Common Mistakes
+
+- Writing directly to the tracker instead of emitting a checklist
+- Grouping the checklist by item instead of by the UI action needed
+- Flagging a deliberately terse or deliberately long-lived item as a problem without checking why it's that way
 
 
 ---
@@ -2073,6 +2410,20 @@ Before delivering the deck outline, verify:
 - [ ] **Likely Q&A prepared:** 5+ likely questions with suggested answers
 - [ ] **Appendix flagged:** Topics that need backup slides identified
 - [ ] **Output file saved:** Saved to `outputs/board-decks/[deck-type]-[quarter]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -2446,6 +2797,20 @@ Before delivering a canvas, verify:
 - [ ] **Critique mode (if used): Every block rated:** 🟢/🟡/🔴 with specific reasoning, not just "this is weak"
 - [ ] **Output file saved:** Canvas saved to `outputs/business-canvases/[bmc|lean]-canvas-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Build and analyze a Business Model Canvas or Lean Canvas.
@@ -2459,6 +2824,127 @@ Before delivering a canvas, verify:
 - Skipping context: not reading relevant workspace files before generating output
 - Generic output: producing content that could apply to any company instead of using specific context from your workspace
 - Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="chat-ingest"></a>
+
+---
+name: chat-ingest
+description: Pull high-signal threads from the chat platform into the second-brain knowledge base. Filters for signal, previews before writing, routes each thread to the right focus area. Modes for channel sweep, topic search, catch-up ranking, DM-to-stakeholder mapping, and daily catch-all.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** A mode, or let it default to a daily catch-all.
+
+```
+/chat-ingest                        → daily catch-all: sweep since last ingest, filter for signal
+/chat-ingest channel <name>         → sweep one channel fully
+/chat-ingest topic "<search term>"  → pull everything matching a topic
+/chat-ingest catch-up               → ranked history for catching up after time away
+/chat-ingest dm-threads             → map DM threads to stakeholder profiles
+```
+
+**What you get:** A preview of high-signal threads and where each would file in the second brain — nothing is written until you confirm.
+
+**Time:** A few minutes depending on mode and window.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Integrates with `second-brain` — this skill is the chat-platform-specific ingestion path into it.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Chat platform | `<CHAT_PLATFORM>` | Threads matching the selected mode's scope |
+| Second brain | `context-library/second-brain/*/wiki/index.md` | Existing pages, to avoid re-ingesting the same content twice |
+| Stakeholder profiles | `context-library/second-brain/stakeholders/` | For `dm-threads` mode: mapping a DM partner to their existing profile |
+| Ingest state | `.last-ingest` (this skill's own state file) | Window start for the daily catch-all mode |
+
+## Workflow
+
+### 1. Resolve scope from mode
+
+- **Daily catch-all:** sweep since `.last-ingest`, all scoped channels.
+- **Channel sweep:** full history of one named channel (bounded by a reasonable lookback if the channel is large).
+- **Topic search:** search across all scoped channels for the given term.
+- **Catch-up:** rank recent activity by signal so returning from time away starts with what matters, not chronological scroll.
+- **DM-threads:** sweep DM threads and match each partner to a `stakeholders` profile.
+
+### 2. Filter for signal
+
+Not every thread is worth ingesting. Filter on: thread length (a real discussion, not a one-line ack), decision language ("let's go with," "we decided," "the plan is"), and substance (concrete claims, not small talk). Discard low-signal matches before they ever reach the preview.
+
+### 3. Preview before writing
+
+Show the filtered candidates and, for each, which second-brain focus area it would route to and why. Nothing is ingested until the user confirms — this mirrors `second-brain`'s own ingest discipline (propose, don't auto-write).
+
+### 4. Route to the right focus area
+
+Match each confirmed thread's content to the most relevant existing focus area under `context-library/second-brain/`. If none fits, flag it rather than forcing it into the wrong wiki.
+
+### 5. Ingest on confirm
+
+Hand off confirmed threads to `second-brain`'s own `ingest` mode, one at a time per its own discipline (discuss takeaways, don't batch blindly) — see the `second-brain` skill for the full ingest workflow this triggers.
+
+### 6. Stamp
+
+After a daily catch-all run completes (or is explicitly declined), write `.last-ingest` to the current timestamp.
+
+## Output Format
+
+```markdown
+# Chat Ingest Preview — <mode>, <DATE>
+
+| # | Thread | Signal | Routes To | Why |
+|---|---|---|---|---|
+| 1 | <deep link> | <decision / substantive discussion> | `<focus-area>` | <one line> |
+
+Confirm which to ingest (all / by number / none).
+```
+
+## Runs as a Routine
+
+The daily catch-all mode is a natural routine candidate — see `references/protocols/routines.md` and `setup/routine-setup.md`. On-demand for the other modes.
+
+## Output Quality Self-Check
+
+- [ ] Low-signal threads (acks, small talk) were filtered out before the preview
+- [ ] Every candidate shows its proposed focus-area routing and why
+- [ ] Nothing was ingested before the user confirmed
+- [ ] `dm-threads` mode correctly matched partners to existing stakeholder profiles where one exists
+- [ ] `.last-ingest` only advanced after the daily catch-all run completed or was declined
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Hands off to:** `second-brain` (`ingest` mode does the actual wiki write)
+
+**Related:** `loose-threads`, `action-sweep` (also read the chat platform, but for open loops and action items — not knowledge capture)
+
+## When to Use
+
+- Regularly, to keep the second brain current with what's actually being discussed on the chat platform
+
+## When NOT to Use
+
+- For finding action items or stalled replies — use `action-sweep` or `loose-threads`, which read the same platform for a different purpose
+
+## Common Mistakes
+
+- Ingesting low-signal threads (small talk, one-line acks) that add noise to the wiki
+- Writing to the second brain before the preview was confirmed
+- Forcing a thread into a focus area it doesn't actually fit instead of flagging it
 
 
 ---
@@ -2837,6 +3323,20 @@ Before delivering the first draft, verify:
 
 If any check fails, fix it before delivering. A first draft with failing tests or missing accessibility is not ready to share.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Initial feature implementation
@@ -3063,6 +3563,20 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 - [ ] **No false positives** - each issue verified against actual code context
 - [ ] **Recommendation is clear** - PASS, PASS WITH NOTES, or FAIL with rationale
 - [ ] **Output saved:** `outputs/analyses/code-review-[scope]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -3820,6 +4334,20 @@ If yes, ingest into `competitive-intelligence`:
 Invoke `/second-brain ingest` with the analysis file as the source. If `competitive-intelligence` doesn't exist yet, offer `/second-brain init competitive-intelligence` first.
 
 Competitive intel ages fast. The brain keeps it current by treating every analysis as an update to the canonical view.
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -5096,6 +5624,20 @@ Before confirming an MCP connection is complete, verify:
 
 If any check fails, fix it before declaring success. A half-connected MCP causes confusion when skills try to use it.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Cross-Skill Links
 
 **Before:** Check relevant context files and run any prerequisite skills
@@ -5422,6 +5964,20 @@ Example: "Conversational, confident, not hype-y. No buzzwords. Contractions are 
 - [ ] **Measurable outcomes included:** Numbers beat adjectives
 - [ ] **Output saved:** `outputs/content/[type]-[feature]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Create product-led content assets.
@@ -5469,6 +6025,8 @@ Generate engineering tickets from PRDs, feature specs, or task lists. Supports d
 **Output:** Tickets created in Linear/Jira, or saved to `outputs/analyses/[feature]-tickets.md`
 
 **Time:** 15-30 minutes depending on PRD complexity
+
+**Commitment gate:** Before creating tickets that commit a team to work, run the five checks in `references/protocols/commitment-gate.md`.
 
 ## When to Use This Skill
 
@@ -5905,6 +6463,20 @@ If any check fails, fix it before delivering. Bad tickets slow engineering down 
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --quick (Fast Issue Capture)
 
 Use `/create-tickets --quick` to capture a bug or feature request mid-development without the full ticket ceremony. You're in the zone and thought of something. Log it fast, get back to work.
@@ -6265,6 +6837,20 @@ After Phase 1, report back:
 - [ ] **Risks identified** - at least 2-3 with mitigations
 - [ ] **Scope explicitly defined** - what's IN and what's OUT for each phase
 - [ ] **Output saved:** `outputs/analyses/cto-consult-[project]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -6843,6 +7429,20 @@ Before presenting the daily plan, verify:
    - If no weekly plan: "This week isn't planned yet. Run `/weekly-plan` to set priorities?"
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Evening Planning Variant
 
@@ -8140,6 +8740,20 @@ Before presenting output to the PM, verify:
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --deliberate (Pre-Decision Deliberation)
 
 Use `/decision-doc --deliberate` before you know your recommendation. This mode helps you think through the options, not document what you've already decided.
@@ -8855,6 +9469,20 @@ Before delivering the North Star analysis, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's North Star Metric framework. Read the full article: https://www.news.aakashg.com/p/do-you-really-need-a-north-star-metric
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Identify and validate your North Star Metric. Aligns product strategy with key business metric.
@@ -9125,6 +9753,20 @@ Define what "done" looks like before you flip the switch.
 - [ ] **Communication timeline starts 90 days out:** Not 2 weeks notice for significant changes
 - [ ] **Go/No-go criteria defined:** Migration threshold set before communications begin
 - [ ] **Output saved:** `outputs/analyses/deprecation-plan-[feature]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -9518,6 +10160,20 @@ Before delivering the audit, verify:
 - [ ] **Next steps are clear** -- PM knows what to do with this audit
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
@@ -9914,6 +10570,20 @@ Before delivering the design direction, verify:
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Cross-Skill Links
 
 **Before:**
@@ -10124,6 +10794,20 @@ Always apply these regardless of mode:
 - [ ] **Mode applied correctly:** The specific edit mode was executed, not just a general cleanup
 - [ ] **Change summary included:** PM knows exactly what was changed and why
 - [ ] **Style rules applied:** House-style rules from `config/house-style.md` followed
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -10358,6 +11042,20 @@ Decisions that must be made before or during implementation:
 - [ ] **Time estimates provided** - per step and overall
 - [ ] **Progress tracking works** - emoji statuses are correctly set
 - [ ] **Output saved:** `outputs/plans/plan-[project]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -11139,6 +11837,20 @@ Before delivering the expansion strategy, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's expansion and monetization frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-expansion
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Upsell, cross-sell, and account growth tactics. Framework for revenue expansion.
@@ -11492,6 +12204,20 @@ Before delivering the experiment decision, verify:
 - [ ] **Connected to past decisions** -- have we made similar decisions before? What happened?
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
@@ -12021,6 +12747,20 @@ Before presenting output to the PM, verify:
 - [ ] **Guardrail metrics identified:** At least 3 guardrail metrics are defined with acceptable ranges to prevent unintended harm
 - [ ] **No vanity metrics without justification:** If any metric could be considered a vanity metric (e.g., page views, total signups), the output explains why it is valid for this specific experiment
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - STEDII framework for selecting trustworthy experiment metrics. Ensures metric validity and reliability.
@@ -12235,6 +12975,20 @@ Write a clear summary that someone could use to start implementing.
 - [ ] **Reusable code identified** - existing utilities and patterns noted
 - [ ] **Complexity honestly assessed** - not under- or over-estimated
 - [ ] **Output saved:** `outputs/analyses/explore-[topic]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -12528,6 +13282,20 @@ Before presenting output to the PM, verify:
 - [ ] **Data source identified for each metric:** Every metric names where the data comes from (e.g., "Amplitude event: task_created" or "database query on users table")
 - [ ] **Metric sensitivity estimated:** The output addresses whether the expected feature impact is large enough for the metric to detect, given current variance and traffic
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Common Mistakes
 
 - Skipping context: not reading relevant workspace files before generating output
@@ -12734,6 +13502,20 @@ Before escalating to roadmap:
 - [ ] **Already-in-flight items flagged:** No recommending what's already being built
 - [ ] **Declined requests explained:** Clear reasoning, not just "not prioritized"
 - [ ] **Output saved:** `outputs/analyses/feature-requests-[area]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -13161,6 +13943,20 @@ Before delivering the feature results doc, verify:
 - [ ] **Linked to original PRD** and any related experiments
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Mode: --edit (Revise Existing Results Doc)
 
@@ -13728,6 +14524,20 @@ If any check fails, fix it before delivering. The prompt should work on the firs
 
 Remember: A 5-minute prototype can save 2 weeks of engineering waste. Invest in prototyping before building.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Cross-Skill Links
 
 **Before:** Check relevant context files and run any prerequisite skills
@@ -14100,6 +14910,20 @@ Before presenting output to the PM, verify:
 - [ ] **Impact tied to strategic goal:** The recommendation section explicitly references a strategic goal or OKR from `context-library/strategy/`
 - [ ] **Sensitivity analysis included:** Output shows best-case, worst-case, and expected-case scenarios with the key variable that drives the range
 - [ ] **Market sizing (if requested):** TAM/SAM/SOM provided with method (top-down or bottom-up), explicit assumptions, and confidence levels for each level
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -14770,6 +15594,19 @@ Remember: Every interview is data. Even rejections teach you something. Capture 
 - [Master the Product Sense Interview](https://www.news.aakashg.com/p/master-the-product-sense-interview)
 - [Real Answers to Real PM Interview Questions](https://www.news.aakashg.com/p/real-answers-to-real-pm-interview)
 
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 
 ---
 
@@ -15280,6 +16117,20 @@ Before delivering the interview guide, verify:
 **If any check fails, address it before delivering the output.**
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Tips
 
@@ -16046,11 +16897,144 @@ Before delivering the prep plan, verify:
 
 Remember: Great preparation beats natural talent. Put in the 10-15 hours of structured prep, and you'll walk in confident and ready to nail the interview.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Cross-Skill Links
 
 **Before:** Check relevant context files and run any prerequisite skills
 **After:** See `references/skill-chains.md` for recommended next steps
 **Related:** See skill category peers in CLAUDE.md
+
+
+---
+
+<a id="iterate-document"></a>
+
+---
+name: iterate-document
+description: Iterate a source-of-truth doc (plan, OKRs, strategy, roadmap, PRD, periodic review) based on what was learned since its last revision. Surgical deltas, not a rewrite. Validates numeric targets against the data source and confirms before any fundamental rewrite.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** The doc to iterate (path or pasted content) and what's changed since it was last touched — new data, a decision, a shipped milestone.
+
+```
+/iterate-document <path or doc type>
+[what's new since the last revision]
+```
+
+**What you get:** A surgical delta applied directly to the source doc — not a regenerated rewrite. Numeric targets are checked against the live data source before being restated. A fundamental rewrite only happens with explicit confirmation.
+
+**Time:** A few minutes.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice, and honors whatever writing rules the target doc itself already carries (a PRD's own section conventions, a strategy doc's own format). This skill carries no independent voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Target doc | local file or external store (`<DOCS_HUB>`) | Current content, last-revised date if tracked |
+| Metrics source | `<METRICS_SOURCE>` | Live values for any numeric target the doc states, to validate before restating |
+| What's new | user input for this run | The specific learning driving the iteration |
+
+## Workflow
+
+### 1. Read the current doc in full
+
+Don't skim. Understand its existing structure and claims before touching anything.
+
+### 2. Identify what actually needs to change
+
+Map "what's new" onto the doc's existing sections. Most iterations are localized — a target updates, a risk resolves, a milestone ships and its status flips. Identify exactly which sections are affected.
+
+### 3. Validate numeric targets
+
+Before restating any number (a metric, a date, a target), check it against `<METRICS_SOURCE>` rather than trusting the input as given. If the source and the stated update disagree, surface the discrepancy rather than silently trusting one.
+
+### 4. Apply a surgical delta
+
+Edit only the affected sections. Preserve everything else exactly as it was — structure, phrasing the user has already refined, sections unrelated to this update. This is not a regenerate-from-scratch pass.
+
+### 5. Honor the doc's own rules
+
+If the doc has its own section conventions or a stated writing style (a PRD template's required sections, a strategy doc's framework), keep the edit consistent with them rather than imposing a different structure.
+
+### 6. Confirm before any fundamental rewrite
+
+If the requested change is large enough that a surgical delta isn't really possible — the doc's premise itself has changed — say so explicitly and ask before doing a fundamental rewrite. Don't silently escalate a small ask into a full regeneration.
+
+### 7. Apply directly to the source
+
+Once the delta is confirmed, apply it directly to the source doc (local file or external store) — this skill's whole purpose is keeping the source of truth current, not producing a separate draft copy.
+
+## Output Format
+
+```markdown
+# Iteration — <doc name>
+
+## What Changed
+- <section>: <what was updated and why>
+
+## Numeric Targets Validated
+- <target>: stated <value> — source confirms <value> (match / discrepancy flagged)
+
+## Delta Applied
+<diff-style summary: what was added/changed/removed, not a full reprint of the doc>
+```
+
+## Runs as a Routine
+
+Can run as a routine when the trigger is periodic (e.g., re-validate numeric targets against the metrics source on a schedule) — see `references/protocols/routines.md` and `setup/routine-setup.md`. Otherwise on-demand, triggered by a specific piece of new learning.
+
+## Output Quality Self-Check
+
+- [ ] Only the affected sections changed — unrelated content is untouched
+- [ ] Every restated numeric target was checked against the live metrics source
+- [ ] Any discrepancy between the input and the source was surfaced, not silently resolved
+- [ ] The doc's own existing writing rules and structure were honored
+- [ ] A fundamental rewrite was proposed and confirmed, never applied silently in place of a delta
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `editing-assistant` (voice/clarity/audience edits on any doc; this skill is for content updates driven by new learning, not prose polish — chain them: iterate first, then polish)
+
+## When to Use
+
+- When a source-of-truth doc needs to reflect a real update — new data, a decision, a shipped milestone — without a full rewrite
+
+## When NOT to Use
+
+- For a prose/voice/audience edit with no new underlying information — use `editing-assistant`
+- For reconciling two copies of the same doc (a local file vs. an external export) — use `sync-doc`
+
+## Common Mistakes
+
+- Regenerating the whole doc when only one section actually changed
+- Restating a numeric target without checking it against the live data source
+- Escalating a small update into a full rewrite without confirming first
 
 
 ---
@@ -16614,6 +17598,19 @@ Before presenting output to the PM, verify:
 - [ ] **Opportunities linked to specific product improvements:** Each opportunity names a concrete product change (e.g., "add progress bar to onboarding step 3"), not generic advice like "improve the experience"
 - [ ] **Emotional journey shows highs and lows:** The emotional arc across stages is not flat; it includes at least one high point and one low point with explanations for the shifts
 
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 
 ---
 
@@ -17021,6 +18018,20 @@ If any check fails, fix it before delivering. A launch checklist with missing ow
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: --testplan (Feature Test Plan)
 
 Use `/launch-checklist --testplan` to create a structured test plan for a feature before launch. Covers functional, edge case, regression, performance, and accessibility testing.
@@ -17242,6 +18253,20 @@ Technical PMs commonly ask about:
 - [ ] **Jargon explained** - no undefined technical terms
 - [ ] **Peer tone** - conversational, not condescending
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Common Mistakes
 
 - Skipping context: not reading relevant workspace files before generating output
@@ -17253,6 +18278,143 @@ Technical PMs commonly ask about:
 **Before:** Check relevant context files and run any prerequisite skills
 **After:** See `references/skill-chains.md` for recommended next steps
 **Related:** See skill category peers in CLAUDE.md
+
+
+---
+
+<a id="loose-threads"></a>
+
+---
+name: loose-threads
+description: Open-loop radar. Finds stalled two-way conversations the user may be dropping — across threads they're in and their own posts awaiting reply — verified before flagging, bucketed by age, framed as triage not a scorecard.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — sweeps a default window.
+
+```
+/loose-threads               → full re-sweep of the default window (14 days) across scoped channels
+/loose-threads --window 30d  → widen the sweep
+```
+
+**What you get:** Open loops bucketed by age, each with a whose-court call, a `Checked:` line, and a real deep link. A follow-up task is proposed only where the next move is genuinely the user's.
+
+**Time:** A few minutes — most of it reading threads to resolution, not scanning titles.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Chat platform | `<CHAT_PLATFORM>` | Every thread/DM the user participated in within the window |
+| Task tracker | `<TASK_TRACKER>` | Cross-check: is a loop already tracked as a ticket? |
+| Email | `<EMAIL_SOURCE>` | Threads awaiting the user's reply or awaiting someone else's |
+| Calendar | `<CALENDAR>` | Cross-check: did a loop resolve in a meeting instead of in-thread? |
+| Sibling sweep | `action-sweep` output | Dedupe — don't re-flag something `action-sweep` already surfaced as an action item |
+
+## Workflow
+
+### 1. Full-window, from-scratch sweep
+
+Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3).
+
+### 2. Sweep both directions
+
+- **Inbound:** someone asked the user something or mentioned them, no reply yet.
+- **Outbound:** the user posted a question or ask, no reply received yet.
+
+### 3. Classify whose court
+
+For each candidate: **yours** (the user owes the next move), **theirs** (someone else owes it), or **no owner** (ambiguous — flag as low-confidence rather than force a call).
+
+### 4. Verify before flagging
+
+Open every candidate and read to resolution — a search hit is a pointer, not an answer (discipline #1). Cross-check the task tracker, calendar, and other threads: a thread with no in-channel reply but a resolved ticket, or a decision made live in a meeting, is not stalled. Emit a `Checked:` line per item naming what was cross-referenced (discipline #2).
+
+### 5. False-positive pass
+
+A long-running thread with a healthy back-and-forth cadence is not automatically stalled just because it's old (discipline #7). Drop or downgrade anything that doesn't survive this check.
+
+### 6. Dedupe against action-sweep
+
+If `action-sweep` already surfaced the same item as an action item, don't re-flag it here — cross-reference its most recent output before finalizing the list.
+
+### 7. Bucket by age
+
+Fresh (0-2 days) / This week (3-7 days) / Aging (8-13 days) / Stale (14+ days).
+
+### 8. Propose follow-ups
+
+For "yours" items only, propose a task in `<TASK_TRACKER>` as a numbered list awaiting confirmation — never auto-created (discipline #4).
+
+## Output Format
+
+```markdown
+# Loose Threads — <DATE>
+
+## Fresh (0-2 days)
+- **[<thread title>](<deep link>)** — <whose court>: <one line on what's owed>
+  Checked: <cross-reference>
+
+## This Week (3-7 days)
+...
+
+## Aging (8-13 days)
+...
+
+## Stale (14+ days)
+...
+
+## Proposed Follow-Ups
+| Item | Next Move | Proposed Task |
+|---|---|---|
+| <thread> | Yours | <task title, ready on confirm> |
+```
+
+## Runs as a Routine
+
+Natural fit for a scheduled routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. `routines/example-daily-digest/SKILL.md` chains this skill last, after `meeting-prep` and `action-sweep`.
+
+## Output Quality Self-Check
+
+- [ ] Full window re-swept, not narrowed by prior-run state
+- [ ] Both directions covered — inbound and the user's own outbound posts
+- [ ] Every item has a real `Checked:` line, not a placeholder
+- [ ] No item duplicated from `action-sweep`'s most recent output
+- [ ] Framing is non-accusatory — triage, not a scorecard
+- [ ] Follow-ups proposed only for "yours" items, and only as a numbered list
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `action-sweep` (dedupe target), `daily-plan`, `references/protocols/skill-patterns.md` (Pattern 1)
+
+## When to Use
+
+- Periodically, to catch conversations the user might be unintentionally dropping
+
+## When NOT to Use
+
+- As a substitute for checking a single thread you already know needs a reply — this is for the ones you don't know about
+- When `action-sweep` already covers today's need — the two overlap by design and dedupe against each other, but running both back to back on the same window is redundant
+
+## Common Mistakes
+
+- Flagging a thread as stalled without cross-checking whether it resolved elsewhere
+- Narrowing the sweep window based on what a previous run already found
+- Auto-creating follow-up tasks instead of proposing them
+- Re-flagging something `action-sweep` already surfaced
 
 
 ---
@@ -18010,6 +19172,20 @@ Remember: A great agenda is half the battle. The other half is actually sticking
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Context Routing Strategy
 
 When the PM uses `/meeting-agenda`, I automatically:
@@ -18400,6 +19576,20 @@ Before delivering the meeting cleanup, verify:
 - [ ] **File saved correctly** -- output saved to `outputs/meeting-notes/cleanup-[date].md`
 
 If any check fails, revise before delivering.
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -19031,6 +20221,20 @@ If any check fails, revise before delivering.
 Remember: Meeting culture is built one feedback loop at a time. Small improvements compound into massive time savings.
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Context Routing Strategy
 
@@ -20118,6 +21322,144 @@ Invoke `/second-brain ingest` with the meeting notes file as the source. If a re
 
 Don't file the whole transcript — file the **claims that should survive next month**. Everything else stays in `outputs/meeting-notes/`.
 
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
+
+---
+
+<a id="meeting-prep"></a>
+
+---
+name: meeting-prep
+description: Assemble substantive prep for an upcoming meeting — attendee context, recent history, current priorities, real talking points and risks — pulled from workspace and second-brain context, never a blank agenda.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — defaults to the next meeting on the calendar.
+
+```
+/meeting-prep                    → prep for the next upcoming meeting
+/meeting-prep "<meeting title>"  → prep for a named meeting
+```
+
+**What you get:** Per-attendee context, recent history with them, current priorities, real talking points, decisions to push, and risks — grounded in what actually exists in the workspace, not a template with blanks.
+
+**Time:** A couple minutes.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Calendar | `<CALENDAR>` | The target meeting: time, attendees, stated topic |
+| Stakeholder profiles | `context-library/second-brain/stakeholders/`, `context-library/stakeholder-template.md` | Per-attendee priorities, communication style, open asks |
+| Meeting history | `outputs/meeting-notes/`, `context-library/meetings/` | Last interactions with each attendee, prior decisions on this topic |
+| Recent calls | `<CALL_TRANSCRIPT_SOURCE>` | Substantive context from recent shared calls, not just 1:1s |
+| Priorities | `outputs/weekly-plans/`, `context-library/strategy/` | Current priorities that give the meeting a "so what" |
+
+## Workflow
+
+### 1. Identify the target meeting
+
+Read `<CALENDAR>` for the next upcoming meeting, or match the named meeting if one was given.
+
+### 2. Pull per-attendee context
+
+For each attendee: their stakeholder profile (priorities, communication style, pet peeves), the last time the user met with them (date, topic, what was discussed), and any open asks in either direction.
+
+### 3. Mine recent calls, not just 1:1s
+
+Check `<CALL_TRANSCRIPT_SOURCE>` for substantive shared calls involving any attendee in the recent window — a group call often surfaces context a 1:1 history alone misses.
+
+### 4. Pull current priorities
+
+Read `outputs/weekly-plans/` and `context-library/strategy/` for what's currently top of mind — this is what gives the meeting's talking points a strategic "so what" instead of a status recap.
+
+### 5. Assemble real talking points
+
+Draft specific talking points, decisions worth pushing for, and risks worth naming — grounded in what steps 2-4 actually turned up. If a section has nothing to say, say so explicitly rather than filling it with a generic placeholder (see `references/protocols/skill-patterns.md` discipline #1 — verify and read to resolution before asserting).
+
+## Output Format
+
+```markdown
+# Meeting Prep — <meeting title>, <date/time>
+
+## Attendees
+### <Name> (<role>)
+- Last met: <date> — <what was discussed>
+- Open: <asks owed either direction>
+- Style: <from stakeholder profile, if present>
+
+## What's Current
+<the priorities/strategy context that makes this meeting matter right now>
+
+## Talking Points
+- <specific point, grounded in real context>
+
+## Decisions to Push
+- <decision worth getting resolved in this meeting, and why now>
+
+## Risks
+- <risk worth naming going in>
+```
+
+## Runs as a Routine
+
+A natural first step in a daily chain — see `references/protocols/routines.md` and `setup/routine-setup.md`. `routines/example-daily-digest/SKILL.md` runs this skill first, ahead of `action-sweep` and `loose-threads`.
+
+## Output Quality Self-Check
+
+- [ ] Every attendee has real per-person context, not a generic placeholder
+- [ ] At least one talking point ties to a current priority, not just meeting-topic small talk
+- [ ] Recent shared calls were checked, not just 1:1 history
+- [ ] If a section genuinely has nothing to say, that's stated explicitly rather than padded
+- [ ] Deep links or file references point to the actual source, not a generic mention
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Before this:** `daily-plan` (surfaces the day's meetings)
+
+**After this:** `meeting-agenda` (formalize into a structured agenda), `meeting-notes` (capture outcomes afterward)
+
+**Related:** `second-brain` (stakeholder and topic context)
+
+## When to Use
+
+- Ahead of any meeting where showing up informed actually matters
+
+## When NOT to Use
+
+- For a meeting that's purely a status broadcast with no real stakes — `meeting-agenda`'s necessity diagnostic may be the better starting point
+
+## Common Mistakes
+
+- Producing a blank agenda template instead of substantive, grounded talking points
+- Only checking 1:1 history and missing context from a recent group call
+- Padding a section with generic filler instead of stating plainly that there's nothing new
+
 
 ---
 
@@ -20843,6 +22185,20 @@ Before delivering the metrics framework, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's metrics frameworks. Read: https://www.news.aakashg.com/p/become-an-ab-testing-expert-advanced
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Set up leading vs lagging indicators for product decisions. Framework for metric selection and tracking.
@@ -20850,6 +22206,134 @@ Before delivering the metrics framework, verify:
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+
+---
+
+<a id="monthly-review-fill"></a>
+
+---
+name: monthly-review-fill
+description: Middle tier of the periodic-review cascade. Links and rolls up the month's completed weekly-review-fill entries into a synthesized monthly assessment — never re-derives from raw task activity. Pre-fills, asks only judgment questions, forward-creates.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — defaults to the current month.
+
+```
+/monthly-review-fill                → pre-fill this month's review, rolling up its completed weeks
+/monthly-review-fill --month 2026-07  → target a specific month
+```
+
+**What you get:** A pre-filled monthly entry whose assessment is synthesized from the month's `weekly-review-fill` entries — not re-derived from raw tickets. Same auto-vs-asked discipline, same preview-first, same forward-create with dedupe as the weekly tier.
+
+**Time:** A couple minutes to review; the rollup itself is automatic once the weeks exist.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the middle tier of a nested cascade — see `weekly-review-fill` (the tier it rolls up) and `quarterly-review-fill` (the tier that rolls this one up in turn).
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Reviews store | `<REVIEWS_STORE>` | This month's existing entry, and every `weekly-review-fill` entry whose date range falls inside the month |
+| Task tracker | `<TASK_TRACKER>` | Only used as a fallback for a week with no filled entry yet — see step 2 |
+| Calendar | `<CALENDAR>` | Month boundaries, computed in local time |
+
+## Workflow
+
+### 1. Resolve the period and its weeks
+
+Compute the target month's boundaries from `<CALENDAR>`. Identify every week whose range falls inside the month.
+
+### 2. Require the lower tier, don't bypass it
+
+For each week in range, check `<REVIEWS_STORE>` for a completed `weekly-review-fill` entry. If one is missing, that's the trigger to run `weekly-review-fill` for that week first — **never** fall back to re-deriving the month's accomplishments straight from raw `<TASK_TRACKER>` activity. The nesting is the point: a month reads its weeks, a quarter reads its months.
+
+### 3. Roll up and synthesize
+
+Read the completed weekly entries and synthesize the month's assessment block from them: what compounded across weeks, which weeks were strong or weak and why, what carried over more than once. This is a synthesis pass, not a concatenation — don't just paste four weeks back to back.
+
+### 4. Create the period entry from template
+
+Set derivable fields immediately: date range, links to every week entry rolled up, links to the prior/next month entries, and a rating computed from the weeks' own ratings.
+
+### 5. Ask only genuine judgment questions
+
+Everything derivable from the rolled-up weeks is auto-filled. Only ask what the weeks themselves don't answer — a monthly-scale judgment the weekly entries wouldn't have surfaced individually.
+
+### 6. Auto-vs-asked table, preview-first, surgical write, forward-create
+
+Same discipline as `weekly-review-fill` steps 5-8: table before the draft, nothing written until confirmed, delta-only write, next N months forward-created with dedupe.
+
+## Output Format
+
+```markdown
+# Month <YYYY-MM> Review Draft
+
+## Weeks Rolled Up
+| Week | Rating | Link |
+|---|---|---|
+| <YYYY-Www> | <rating> | `<REVIEWS_STORE>` entry |
+
+## Auto-Filled vs. Asked
+| Item | Source | Auto-filled or Asked |
+|---|---|---|
+| Date range | `<CALENDAR>` | Auto-filled |
+| Weekly rollup | Completed week entries | Auto-filled |
+| Monthly rating | Computed from weekly ratings | Auto-filled |
+| Monthly-scale judgment call | — | Asked |
+
+## Draft Entry
+<synthesized assessment, not a concatenation of the four weeks>
+
+## Forward-Created
+- Month <N+1> shell created in `<REVIEWS_STORE>`
+```
+
+## Runs as a Routine
+
+A natural monthly-cadence routine — see `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Every week in range was checked for a completed entry before rolling up
+- [ ] Missing weeks triggered `weekly-review-fill`, not a raw-activity fallback
+- [ ] The assessment is a genuine synthesis, not four weeks pasted back to back
+- [ ] Nothing derivable from the weekly entries was left in "asked"
+- [ ] The write was a delta, and forward-created months were deduped
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Rolls up:** `weekly-review-fill` (required lower tier)
+
+**Rolled up by:** `quarterly-review-fill`
+
+**Related:** `weekly-review` (deeper weekly narrative, feeds this tier indirectly via its own second-brain filing)
+
+## When to Use
+
+- At the start or close of every month, once the month's weekly entries are filled
+
+## When NOT to Use
+
+- Before any of the month's weeks have a filled entry — run `weekly-review-fill` for those first
+
+## Common Mistakes
+
+- Re-deriving the month's accomplishments from raw tickets instead of rolling up the weeks
+- Concatenating the weekly entries instead of synthesizing them
+- Skipping a week with no entry instead of triggering its fill first
 
 
 ---
@@ -21457,6 +22941,20 @@ If any check fails, fix it before delivering. A 5-minute wireframe should save h
 
 Remember: Wireframes are thinking tools, not art. Good enough to communicate is perfect. The best wireframe is the one you can draw in 5 minutes.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Common Mistakes
 
 - Skipping context: not reading relevant workspace files before generating output
@@ -21852,6 +23350,20 @@ Before delivering OKRs, verify:
 - [ ] **Check-in cadence set:** Weekly, monthly, and quarterly rhythms defined
 - [ ] **Output file saved:** Saved to `outputs/okrs/okrs-[quarter]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Create and align quarterly OKRs with product strategy and North Star.
@@ -22109,6 +23621,20 @@ Does this opportunity align with where we're going?
 - [ ] **Recommendation made:** Not just "more research needed" unless that's genuinely the answer
 - [ ] **Output saved:** `outputs/analyses/opportunity-[name]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Evaluate the strategic size of a market or product opportunity before committing to build.
@@ -22316,6 +23842,20 @@ Statistics, detailed evaluations, and prioritized action plan.
 - [ ] **Action plan only includes real issues** - false positives excluded from fix list
 - [ ] **Tone is fair** - credit given for good catches, context given for misses
 - [ ] **Output saved:** `outputs/analyses/peer-review-[scope]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -22607,6 +24147,20 @@ Action types:
 - [ ] **All actions are assigned and dated:** No "we should improve X" without an owner
 - [ ] **Output saved:** `outputs/post-mortems/post-mortem-[incident]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Run a structured post-mortem after an incident, failed launch, or missed goal.
@@ -22638,6 +24192,8 @@ description: Create a modern, AI-era PRD for features and initiatives. Guides th
 disable-model-invocation: false
 user-invocable: true
 ---
+
+**Commitment gate:** When a PRD moves past proposal into committed scope, run the five checks in `references/protocols/commitment-gate.md`.
 
 ## Quick Start
 
@@ -23345,6 +24901,20 @@ Before presenting the PRD draft to the PM, verify:
 
 For comprehensive end-to-end PRD creation, follow this 7-step process.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Step-by-Step Workflow
 
 ### Workflow Step 1: Gather Context (10 min)
@@ -23664,6 +25234,8 @@ A PRD Lite is a decision doc, not a spec. It's what you write when you need alig
 **Use PRD Lite when:** You're pitching a feature, asking for prioritization, or proposing something that hasn't been fully scoped yet.
 **Use /prd-draft when:** Engineering is ready to build, you need full spec, or the feature is already prioritized.
 
+**Commitment gate:** A PRD Lite is a proposal, not a commitment — but if it graduates directly into scoped work, run the five checks in `references/protocols/commitment-gate.md` first.
+
 ## Quick Start
 
 ```
@@ -23819,6 +25391,20 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 - [ ] **Next steps are clear:** Specific action with owner, not "follow up"
 - [ ] **Decision ask is explicit:** Does this need approval, more research, or an estimate?
 - [ ] **Output saved:** `outputs/prds/prd-lite-[feature]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -24653,6 +26239,20 @@ Before presenting output to the PM, verify:
 - [ ] **Synthesis section prioritizes feedback items:** The TL;DR and summary sections rank issues by severity (Critical Blockers > Important Gaps > Enhancements) with a clear recommended next step
 - [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Multi-agent PRD review (7 perspectives)
@@ -25028,6 +26628,20 @@ Before delivering the pre-mortem output, verify:
 - [ ] **Go/no-go recommendation made:** Clear statement on whether to proceed, with conditions if needed
 - [ ] **Output file saved:** Saved to `outputs/pre-mortems/pre-mortem-[initiative]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Run a structured pre-mortem session before a launch, major decision, or project kickoff.
@@ -25327,6 +26941,20 @@ Value-based (price to outcome, not feature set)
 - [ ] **Next validation step named:** Experiment, survey, or sales test to confirm
 - [ ] **Output saved:** `outputs/analyses/pricing-[product]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Design and analyze pricing strategy for products and features.
@@ -25364,6 +26992,8 @@ user-invocable: true
 **When to use:** When overwhelmed with tasks, during weekly planning, or when feeling busy but not productive
 
 **Framework source:** Shreyas Doshi's LNO Framework (popularized by Aakash Gupta)
+
+**Commitment gate:** When prioritization results in committed work (not just ranking), run the five checks in `references/protocols/commitment-gate.md`.
 
 ## Quick Start
 
@@ -25873,6 +27503,20 @@ Before delivering the prioritization output, verify:
 - [ ] **Calendar blocking suggested:** Specific time blocks are recommended for Leverage work (e.g., "Block Monday 9-12 for PRD writing").
 - [ ] **Strategy alignment checked:** Leverage tasks are validated against current strategic priorities from `context-library/strategy/`. If a Leverage task does not connect to strategy, flag it.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Classify PM tasks using LNO Framework (Leverage/Neutral/Overhead) to focus on high-impact work.
@@ -25880,6 +27524,122 @@ Before delivering the prioritization output, verify:
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
+
+
+---
+
+<a id="proactive-gaps"></a>
+
+---
+name: proactive-gaps
+description: Two-horizon product-alpha scan answering "what should I be worried about?" — present-state problems needing action now, forward inflections nobody is preparing for, and a contrarian pass on what the team over-indexes on. Surface-only, evidence-backed, run from an elevated posture but landed in the user's actual lane.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required.
+
+```
+/proactive-gaps               → full two-horizon scan
+```
+
+**What you get:** A tight, ranked, evidence-backed list of present-state alpha, forward alpha, and a contrarian read on what the team over-indexes on — every item landed back in something the user can actually act on. Surface-only: nothing is created, nothing is sent.
+
+**Time:** A few minutes to read evidence, longer if the workspace is thin and evidence has to be gathered from multiple sources.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Realizes Pattern 4 (Multi-Horizon "Alpha Engine" Scan) from `references/protocols/skill-patterns.md` — read that first for the mechanics this skill instantiates.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Customer insights | `<CALL_TRANSCRIPT_SOURCE>`, `context-library/second-brain/customer-insights/`, `context-library/research/` | Unsolved problem patterns, normalized failure modes users have stopped mentioning |
+| Incidents/exceptions | `context-library/decisions/`, `context-library/launches/`, error/incident logs if present | Fuzzy requirements that caused rework, repeated failure classes |
+| Metrics | `<METRICS_SOURCE>` | Quant signals nobody is actively watching |
+| Competitor intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Competitive gaps, moves the team hasn't reacted to |
+| Recent meetings | `outputs/meeting-notes/`, `context-library/meetings/` | What the team is currently spending its attention on (for the contrarian pass) |
+| The product itself | codebase/product surface, if accessible | Direct evidence of unsolved problems, not just what's reported |
+
+## Workflow
+
+### 1. Gather the freshest evidence, in parallel
+
+Read across all sources in the routing table. This is a surface-only skill, so breadth of evidence matters more than depth in any one source — read to resolution on each candidate signal, but don't over-invest in one channel at the expense of scanning the rest (see `references/protocols/skill-patterns.md` discipline #1).
+
+### 2. Present-state alpha
+
+Identify problems that need action **now**: unsolved customer-problem patterns (issues raised repeatedly that never got fixed), normalized failure modes (something broken so long it stopped being reported as broken), fuzzy requirements that are actively causing rework, competitive gaps already costing deals or users, and quant signals nobody is watching.
+
+### 3. Forward alpha
+
+Identify inflections **nobody is preparing for**: dated events with no prep started, a trajectory about to cross a threshold or cliff, the bet the market appears to be bending toward that the team hasn't placed yet.
+
+### 4. Contrarian pass
+
+Identify what the team is currently over-indexing on — using the recent-meetings evidence to see where attention is actually going — and name the tension between that and what steps 2-3 surfaced.
+
+### 5. Run from an elevated posture, land in the user's lane
+
+Adopt a head-of-product/CEO-level vantage point when scanning for what matters — but every single item in the output must connect back to something the user, in their actual IC role, can act on or flag. An item that only makes sense from a CEO's chair and gives the user nothing to do with it is noise, not alpha.
+
+### 6. Rank and cap
+
+Rank by impact. Cap the list tight — this skill's value is in forcing a small, sharp list, not an exhaustive audit.
+
+## Output Format
+
+```markdown
+# Proactive Gaps Scan — <DATE>
+
+## Present-State Alpha
+1. **<item>** — <evidence, cited> — **Your lane:** <what the user can do with this>
+
+## Forward Alpha
+1. **<item>** — <evidence, cited> — **Your lane:** <what the user can do with this>
+
+## Contrarian Read
+<what the team is over-indexing on right now, and why that tension matters>
+```
+
+## Runs as a Routine
+
+A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly cadence suits the "what should I be worried about" framing better than daily.
+
+## Output Quality Self-Check
+
+- [ ] Every item cites real evidence from a workspace source, not a speculative claim
+- [ ] Every item states what the user, specifically, can do with it
+- [ ] The list is ranked and capped, not an exhaustive dump
+- [ ] The contrarian pass is grounded in actual recent-meeting evidence, not a generic observation
+- [ ] Nothing was created, drafted-for-sending, or written — this skill only surfaces
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `root-cause-analysis` (deeper dive once a present-state item is picked), `pre-mortem` (forward-alpha items may warrant a formal pre-mortem), `competitor-analysis` (feeds competitive-gap evidence)
+
+## When to Use
+
+- Periodically, as a forcing function to surface what isn't showing up in the normal status-reporting cadence
+
+## When NOT to Use
+
+- As a replacement for `root-cause-analysis` on a known, specific problem — this skill is for surfacing what isn't yet on anyone's radar
+
+## Common Mistakes
+
+- Surfacing an item with no evidence behind it
+- Framing an item purely from an elevated vantage point with nothing the user can actually do
+- Producing an exhaustive list instead of a tight, ranked one
 
 
 ---
@@ -26498,6 +28258,20 @@ Before presenting the prototype or prompt, verify:
 - `/user-interview` - Test with real users
 - `/ralph-wiggum` - Challenge the solution approach
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Common Mistakes
 
 - Skipping context: not reading relevant workspace files before generating output
@@ -26965,6 +28739,20 @@ If any check fails, fix it before delivering. Generic feedback wastes iteration 
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: Visual Design Critique (--design)
 
 Use `/prototype-feedback --design` for focused visual design feedback on in-progress prototypes. Applies the 7-dimension audit framework (shared with `/design-audit`) to catch visual quality issues before shipping.
@@ -27090,6 +28878,136 @@ If a design direction file exists at `outputs/prototypes/[feature]-design-direct
 **Before:** Check relevant context files and run any prerequisite skills
 **After:** See `references/skill-chains.md` for recommended next steps
 **Related:** See skill category peers in CLAUDE.md
+
+
+---
+
+<a id="quarterly-review-fill"></a>
+
+---
+name: quarterly-review-fill
+description: Top tier of the periodic-review cascade. Links and rolls up the quarter's completed monthly-review-fill entries into a synthesized quarterly assessment — never re-derives from raw weeks or task activity. Pre-fills, asks only judgment questions, forward-creates.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — defaults to the current quarter.
+
+```
+/quarterly-review-fill                → pre-fill this quarter's review, rolling up its completed months
+/quarterly-review-fill --quarter 2026-Q3  → target a specific quarter
+```
+
+**What you get:** A pre-filled quarterly entry whose assessment is synthesized from the quarter's three `monthly-review-fill` entries — not re-derived from twelve weeks or raw tickets. Same discipline as the two tiers below it.
+
+**Time:** A couple minutes to review; the rollup is automatic once the months exist.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the top tier of a nested cascade — see `monthly-review-fill` (the tier it rolls up) and `weekly-review-fill` (the base tier two levels down).
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Reviews store | `<REVIEWS_STORE>` | This quarter's existing entry, and every `monthly-review-fill` entry inside it |
+| Strategy | `context-library/strategy/` | The quarter's stated OKRs/goals, for grading the quarter against intent, not just activity |
+| Calendar | `<CALENDAR>` | Quarter boundaries, computed in local time |
+
+## Workflow
+
+### 1. Resolve the period and its months
+
+Compute the target quarter's boundaries from `<CALENDAR>`. Identify the three months inside it.
+
+### 2. Require the lower tier, don't bypass it
+
+For each month, check `<REVIEWS_STORE>` for a completed `monthly-review-fill` entry. If missing, that's the trigger to run `monthly-review-fill` for that month — **never** skip two tiers and re-derive the quarter from raw weeks or tickets.
+
+### 3. Roll up and synthesize against strategy
+
+Read the three monthly entries and synthesize the quarter's assessment: trajectory across the three months, whether the quarter's OKRs (from `context-library/strategy/`) were actually advanced, and what the quarter's throughline was. Grade against stated intent, not just a list of what happened.
+
+### 4. Create the period entry from template
+
+Set derivable fields: date range, links to all three month entries, links to prior/next quarter entries, and a rating computed from the months' own ratings and OKR progress.
+
+### 5. Ask only genuine judgment questions
+
+Only quarterly-scale calls the months themselves don't resolve — a strategic read, a call on next quarter's focus.
+
+### 6. Auto-vs-asked table, preview-first, surgical write, forward-create
+
+Same discipline as the two tiers below: table before the draft, nothing written until confirmed, delta-only write, next N quarters forward-created with dedupe.
+
+## Output Format
+
+```markdown
+# Quarter <YYYY-QN> Review Draft
+
+## Months Rolled Up
+| Month | Rating | Link |
+|---|---|---|
+| <YYYY-MM> | <rating> | `<REVIEWS_STORE>` entry |
+
+## OKR Progress (from context-library/strategy/)
+| Objective | Status |
+|---|---|
+
+## Auto-Filled vs. Asked
+| Item | Source | Auto-filled or Asked |
+|---|---|---|
+| Date range | `<CALENDAR>` | Auto-filled |
+| Monthly rollup | Completed month entries | Auto-filled |
+| OKR progress | `context-library/strategy/` + monthly rollups | Auto-filled |
+| Quarterly-scale judgment call | — | Asked |
+
+## Draft Entry
+<synthesized assessment graded against stated OKRs, not a concatenation of three months>
+
+## Forward-Created
+- Quarter <N+1> shell created in `<REVIEWS_STORE>`
+```
+
+## Runs as a Routine
+
+A natural quarterly-cadence routine — see `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Every month in the quarter was checked for a completed entry before rolling up
+- [ ] Missing months triggered `monthly-review-fill`, not a raw-activity or raw-week fallback
+- [ ] The assessment is graded against stated OKRs, not just a recap of activity
+- [ ] Nothing derivable from the monthly entries was left in "asked"
+- [ ] The write was a delta, and forward-created quarters were deduped
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Rolls up:** `monthly-review-fill` (required lower tier)
+
+**Related:** `okr-planning` (next quarter's OKRs, informed by this review), `board-deck` (quarterly assessment feeds the QBR narrative)
+
+## When to Use
+
+- At quarter close, once all three months have filled entries
+
+## When NOT to Use
+
+- Before the quarter's months have filled entries — run `monthly-review-fill` for those first
+
+## Common Mistakes
+
+- Re-deriving the quarter from raw weeks or tickets instead of rolling up the months
+- Reporting activity without grading it against the quarter's stated OKRs
+- Skipping a month with no entry instead of triggering its fill first
 
 
 ---
@@ -27452,11 +29370,145 @@ Before presenting the review, verify:
 - `/feature-metrics` - Tighten metrics if flagged
 - `/interview-guide` - Plan research to fill gaps Ralph found
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Common Mistakes
 
 - Skipping context: not reading relevant workspace files before generating output
 - Generic output: producing content that could apply to any company instead of using specific context from your workspace
 - Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="refinement-prep"></a>
+
+---
+name: refinement-prep
+description: Slate for the next refinement ceremony, run off a cleaned issue tracker. Asks the period's theme first, ranks a capped shortlist by theme-fit then live priority then readiness, drafts each item's enrichment, and surfaces the unknowns that would cause rework. Read-only.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** The period's theme (the "big rock") — if not given, this skill asks first.
+
+```
+/refinement-prep               → asks for the theme, then builds the slate
+/refinement-prep "<theme>"     → builds the slate directly against a stated theme
+```
+
+**What you get:** A capped shortlist ranked for the next refinement ceremony, each item's enrichment drafted, and the 1-2 genuine unknowns that would cause rework if the item entered the ceremony raw. Strictly read-only — a staged brief the user applies in the tracker UI.
+
+**Time:** A few minutes, most of it after `backlog-groom` has already cleaned the board.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Issue tracker | `<TASK_TRACKER>` | Full current board state, post-`backlog-groom` if it's been run recently |
+| Strategy | `context-library/strategy/` | Current priorities, for theme-fit ranking |
+| Prioritize method | `.claude/skills/prioritize/SKILL.md` (if present) | The LNO-style ranking method, if the user wants live priority scored consistently with how they prioritize elsewhere |
+
+## Workflow
+
+### 1. Ask the theme first
+
+Before touching the board, ask the user what this ceremony's theme is — the one big rock this refinement session should be organized around. Don't infer it silently; a wrong assumed theme produces a shortlist for the wrong ceremony.
+
+### 2. Read the board — never mutate it
+
+Pull the current board state from `<TASK_TRACKER>`. Strictly read-only, same as `backlog-groom` (see `references/protocols/skill-patterns.md` discipline #8).
+
+### 3. Rank by theme-fit, then live priority, then readiness
+
+Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, judged live rather than from a stale doc. Break remaining ties by readiness (how close the item already is to refinement-ready).
+
+### 4. Cap the shortlist
+
+A refinement ceremony has limited time. Cap the shortlist to what the ceremony can realistically cover — don't hand over the whole filtered set.
+
+### 5. Draft each item's enrichment
+
+For each shortlisted item, draft what it needs to enter refinement ready: a clearer description, acceptance criteria, a sizing note — whatever's missing, drafted inline and ready to paste.
+
+### 6. Surface the unknowns
+
+For each shortlisted item, identify the 1-2 genuine unknowns that would cause rework if the item entered the ceremony raw and got refined on a wrong assumption. Not every open question — only the ones that would actually cause backtracking.
+
+## Output Format
+
+```markdown
+# Refinement Slate — <DATE>
+**Theme:** <stated theme>
+
+## Shortlist (ranked)
+1. **[<item>](<link>)** — theme-fit: <why> | priority: <live rank> | readiness: <ready / needs enrichment>
+   **Enrichment drafted:** <description / AC / sizing note, ready to paste>
+   **Unknowns that would cause rework:** <1-2 items, or "none identified">
+
+2. ...
+
+## Cut From Shortlist (theme-fit too weak)
+- <item> — <why it didn't make the cap>
+```
+
+## Runs as a Routine
+
+Pairs with `backlog-groom` on a recurring cadence — hygiene between ceremonies, this slate right before one. See `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Theme was asked (or explicitly given) before the board was read
+- [ ] Board was read, never written to
+- [ ] Ranking used theme-fit first, then live priority, then readiness — in that order
+- [ ] Shortlist is genuinely capped, not the full filtered set
+- [ ] Every shortlisted item has drafted enrichment ready to paste
+- [ ] Unknowns surfaced are ones that would actually cause rework, not every open question
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Before this:** `backlog-groom` (the cleaned board this slate runs off of)
+
+**Related:** `prioritize` (ranking method, when present), `sprint-planning` (the ceremony this slate feeds into)
+
+## When to Use
+
+- Right before a refinement ceremony, once the board has recently been groomed
+
+## When NOT to Use
+
+- For whole-board hygiene — that's `backlog-groom`, which this skill assumes has already run
+
+## Common Mistakes
+
+- Building the shortlist before asking what the theme is
+- Handing over an uncapped list instead of what the ceremony can realistically cover
+- Surfacing every open question instead of just the ones that would cause rework
+- Writing directly to the tracker instead of staging a brief
 
 
 ---
@@ -28152,6 +30204,20 @@ Before delivering the retention analysis, verify:
 
 **Framework credit:** Adapted from Aakash Gupta's retention frameworks. Read: https://www.news.aakashg.com/p/ultimate-guide-activation (habit formation section)
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Cohort analysis and retention optimization framework. Identifies retention drivers and churn factors.
@@ -28411,6 +30477,20 @@ Before concluding, answer:
 - [ ] **Validation defined:** Clear signal that confirms the fix worked
 - [ ] **Output saved:** `outputs/analyses/rca-[issue]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Structured problem investigation for PMs.
@@ -28430,6 +30510,139 @@ Before concluding, answer:
 **Before:** Check relevant context files and run any prerequisite skills
 **After:** See `references/skill-chains.md` for recommended next steps
 **Related:** See skill category peers in CLAUDE.md
+
+
+---
+
+<a id="routine-responder"></a>
+
+---
+name: routine-responder
+description: Turn a routine's notification thread into a two-way conversation. Discovers reply threads from active routines, picks up genuine user replies, and continues the underlying skill treating the reply as input.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required. Run it standalone, or wire it as the on-reply continuation for any routine under `routines/`.
+
+```
+/routine-responder             → sweep all routine threads for unprocessed user replies
+```
+
+**What you get:** Any routine thread with a genuine, unprocessed reply from the user gets picked up, routed to its routine's continuation, and answered in-thread. Threads with nothing new are left untouched — silently.
+
+**Time:** Seconds per thread. Cheap enough to poll frequently.
+
+---
+
+## Purpose
+
+A routine (see `references/protocols/routines.md`) posts a notification and stops. Without this skill, that's a one-way broadcast. `routine-responder` is the receive side: it watches every routine's notification thread for a reply from the user and, when it finds one, continues the conversation — running the routine's skill again with the reply as input, or just answering the question directly.
+
+This skill is example-worthy scaffolding, not a single-purpose tool: any routine that ships an "on-reply continuation" section can be picked up by this responder without a code change here.
+
+---
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|-----------------|
+| Routine thread pointers | `routines/*/.thread-pointer.json` | Which threads exist, one per active routine |
+| Per-thread reply marker | `routines/*/.last-reply-processed` | The last reply this skill already handled, per thread |
+| Routine definition | `routines/<name>/SKILL.md` | The routine's on-reply continuation, if it defines one |
+| Notifier config | `config/notifier-example.md` (or your adapter) | Credentials and identity for reading/posting |
+
+---
+
+## Workflow
+
+### 1. Discover threads
+
+Glob `routines/*/.thread-pointer.json`. Each file maps a routine to its live notification thread(s). Build a worklist: one entry per (routine, thread).
+
+### 2. Determine what's actionable
+
+A message in a thread is actionable only if **all** of the following hold:
+
+- It was authored by **the user** — never the bot's own messages (this is the loop-prevention check; a routine reading and reacting to its own posts is the primary failure mode this guards against).
+- It is **newer than the bot's last message** in that thread.
+- It is **newer than that thread's `.last-reply-processed`** marker.
+
+If no thread has an actionable message: **stop silently.** Send nothing. Write nothing. A sweep that finds nothing to do produces zero output — no "nothing to report" message, no log noise.
+
+### 3. Acknowledge
+
+For each actionable message found, add a "thinking" reaction to it on pickup (signals to the user that it's been seen and is being worked). Swap to a "done" reaction once the reply is posted.
+
+### 4. Route and continue
+
+Identify which routine owns the thread. Check that routine's `SKILL.md` for an on-reply continuation section:
+
+- **If the routine defines a continuation:** run it, treating the user's message as input to that continuation — not as a fresh invocation of the underlying skill from scratch.
+- **If it's a plain question with no continuation defined:** answer conversationally, using full workspace and memory context, the same as any direct chat message would.
+
+Inherit the action rules from the routine's own autonomy gate (`references/protocols/routines.md` discipline #7): anything outward-to-others (a message to someone besides the user, an email, a ticket) is draft-only here too — never sent automatically. Anything that would write to the user's own systems runs end-to-end only with unambiguous approval already on record; if approval is ambiguous, ask back in-thread rather than guessing.
+
+### 5. Post and mark
+
+Post the reply in-thread with the notifier's mention token (per `references/protocols/notifications.md` item 4 — this is a material update, so it notifies).
+
+**Only after the send is confirmed:**
+1. Advance `.last-reply-processed` for that thread to the message just handled.
+2. Swap the reaction from "thinking" to "done."
+
+If the send is not confirmed, leave the marker where it was — the next sweep retries this reply rather than silently dropping it.
+
+### 6. State and cadence
+
+This skill owns exactly one class of file: `.last-reply-processed`, one per thread. It never writes to a routine's own dated output or `.last-run-<period>` pointer — those belong to the routine, not the responder (one owner per file, per `routines.md` discipline #2).
+
+Cadence: cheap to poll frequently (local, read-mostly, idle-cheap when nothing's actionable). Wire it to run on a short local interval, or trigger it manually.
+
+---
+
+## Output Quality Self-Check
+
+Before finishing a sweep, verify:
+
+- [ ] **No self-loop:** the bot's own prior messages were never treated as actionable input
+- [ ] **Silent when idle:** if no thread had an actionable reply, nothing was sent and nothing was written
+- [ ] **Correct thread routing:** each reply was matched to the routine that actually owns its thread
+- [ ] **Outward drafts only:** anything destined for someone other than the user was drafted, not sent
+- [ ] **Marker discipline:** `.last-reply-processed` only advanced after a confirmed send
+
+---
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads this file's `evals.md` in a clean context window.
+
+---
+
+## Cross-Skill Links
+
+**Before this:** any routine under `routines/` that has posted at least one notification
+
+**After this:** none — this is the terminal step of a reply cycle
+
+**Related:** `references/protocols/routines.md`, `references/protocols/notifications.md`, `setup/routine-setup.md`
+
+## When to Use
+
+- Any active routine's notification thread might have a user reply worth acting on
+
+## When NOT to Use
+
+- Before any routine has actually posted a notification (nothing to discover yet)
+
+## Common Mistakes
+
+- Treating the bot's own posts as actionable input (loop risk)
+- Sending a "nothing found" message on an idle sweep instead of staying silent
+- Advancing `.last-reply-processed` before the reply send is confirmed
+- Sending an outward message (to someone other than the user) without a draft-and-confirm step
 
 
 ---
@@ -28680,6 +30893,20 @@ Walk-away profile: [Describe the deals we typically lose]
 - [ ] **Landmines are non-obvious:** Questions that sound natural, not like attacks
 - [ ] **Walk-away criteria defined:** Saves everyone time when the fit is wrong
 - [ ] **Output saved:** `outputs/analyses/battlecard-vs-[competitor]-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -29123,6 +31350,20 @@ The index-based approach holds up to ~100 raw sources and a few hundred wiki pag
 - Consider adding a search tool like [qmd](https://github.com/tobi/qmd) (local markdown search, BM25/vector hybrid, works as CLI or MCP server)
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
@@ -29738,6 +31979,20 @@ Before presenting output to the PM, verify:
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Additional Modes
 
 ### --thread (Thread Summary)
@@ -29800,6 +32055,8 @@ user-invocable: true
 # /sprint-planning - Turn Backlog into Sprint Commitment
 
 Sprint planning fails when PMs dump tickets into a sprint and hope for the best. This skill makes it intentional: a clear sprint goal, realistic capacity, sequenced priorities, and a team that knows what they're committing to.
+
+**Commitment gate:** Before committing work to a sprint, run the five checks in `references/protocols/commitment-gate.md`.
 
 ## Quick Start
 
@@ -30009,6 +32266,20 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 - [ ] **Dependencies flagged:** Each dependency has an owner and expected resolution date
 - [ ] **For grooming: AC added:** Every reviewed ticket has testable acceptance criteria
 - [ ] **Output saved:** `outputs/analyses/sprint-[number]-plan-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -30284,6 +32555,20 @@ Run `/meeting-notes` and update `context-library/stakeholder-template.md` with a
 - [ ] **Output saved:** `outputs/analyses/stakeholder-[initiative]-[date].md`
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
@@ -31198,6 +33483,20 @@ If any check fails, revise before delivering.
 
 ---
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## Mode: Data Storytelling (--story)
 
 Use `/status-update --story` when you have metrics to share but need them to land as insights, not a spreadsheet dump. Numbers without narrative get ignored.
@@ -31622,6 +33921,20 @@ At the end of the sprint, offer to file the final strategy doc back into `domain
 
 If the brain isn't initialized, the skill falls back to `context-library/strategy/` and `context-library/research/` as before. The brain makes this skill sharper; it doesn't gate it.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Create product strategy in 1 day, 1 week, or 1 month timeframes. Progressive strategy development framework.
@@ -32002,6 +34315,20 @@ Before delivering a survey design, verify:
 - [ ] **Past surveys checked:** Confirmed we're not re-running a survey we already have results for
 - [ ] **Output file saved:** Survey saved to `outputs/surveys/survey-[type]-[topic]-[date].md`
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Design product surveys using validated PM research methodologies.
@@ -32015,6 +34342,114 @@ Before delivering a survey design, verify:
 - Skipping context: not reading relevant workspace files before generating output
 - Generic output: producing content that could apply to any company instead of using specific context from your workspace
 - Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="sync-doc"></a>
+
+---
+name: sync-doc
+description: Reconcile a pasted or exported external doc into its local counterpart. Applies only substantive changes, ignores formatting noise, and preserves richer local context the external copy lacks.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** The external doc's current content (pasted or exported) and the path to its local counterpart.
+
+```
+/sync-doc <local file path>
+[paste the external doc's current content]
+```
+
+**What you get:** A reconciliation showing exactly what substantive changes to apply to the local file — checked-off items, new content, updated facts — with formatting noise ignored and any richer local context preserved.
+
+**Time:** A minute or two, depending on doc size.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| External docs tool | `<DOCS_HUB>` (pasted/exported content) | The doc's current state as the external source of truth for content that originates there |
+| Local file | path given by the user | Current local content, including any local-only context to preserve |
+
+## Workflow
+
+### 1. Diff for substance, not formatting
+
+Compare the external content against the local file's current content. Identify substantive changes only: items checked off, new sections or bullets added, facts or numbers updated, statuses changed. Ignore pure formatting differences — whitespace, heading style, list markers, line wrapping — that carry no content change.
+
+### 2. Preserve richer local context
+
+If the local file has content the external copy doesn't (local annotations, a more detailed breakdown, context added after the last sync), keep it. The sync is additive-and-corrective from the external source, not a wholesale overwrite that would discard local-only richness.
+
+### 3. Reconcile conflicting facts
+
+If the external and local versions disagree on the same fact (a status, a number), treat the external doc as more current for anything that plausibly originates there, but flag the conflict explicitly rather than silently picking a side if it's ambiguous which is newer.
+
+### 4. Present the delta, apply on confirm
+
+Show exactly what would change before writing anything. Apply only on confirmation.
+
+## Output Format
+
+```markdown
+# Doc Sync — <local file>
+
+## Substantive Changes to Apply
+- <change 1: what's changing and why — e.g. "item X now checked off">
+- <change 2>
+
+## Local-Only Context Preserved
+- <content that exists locally but not externally, kept as-is>
+
+## Conflicts (need a call)
+- <fact that differs between the two, with both values shown>
+
+## Ignored (formatting only)
+<one line noting formatting-only differences were skipped, if any>
+```
+
+## Runs as a Routine
+
+If the external doc updates on a predictable cadence, this can run as a scheduled routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Otherwise it's naturally on-demand, triggered right after the external doc changes.
+
+## Output Quality Self-Check
+
+- [ ] Only substantive changes are listed — formatting-only differences are explicitly excluded, not silently merged in
+- [ ] Local-only context is identified and preserved, not overwritten
+- [ ] Genuine conflicts are flagged, not silently resolved by picking a side
+- [ ] Nothing was written to the local file before the delta was confirmed
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `iterate-document` (this skill reconciles two copies of the same content; `iterate-document` evolves a source-of-truth doc based on new learning — different job, similar surgical-edit discipline)
+
+## When to Use
+
+- Whenever an external doc (a shared doc, an exported file) is the source of truth for content that also has a local file, and you need the local copy to catch up without losing local-only additions
+
+## When NOT to Use
+
+- When there's no local counterpart to reconcile against — just import the external content directly instead
+
+## Common Mistakes
+
+- Treating a formatting difference as a substantive change
+- Overwriting local-only context that the external copy never had
+- Silently picking a side on a genuine conflict instead of flagging it
 
 
 ---
@@ -32210,6 +34645,20 @@ Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 - [ ] **Concise** - docs are shorter than the code they describe
 - [ ] **No aspirational documentation** - only documents what currently exists
 - [ ] **Summary saved:** `outputs/analyses/docs-update-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
@@ -32744,6 +35193,20 @@ Before delivering the final research synthesis, verify:
 **If any check fails, address it before delivering the output.**
 
 ---
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## Next Steps
 
@@ -33452,6 +35915,19 @@ Invoke `/second-brain ingest` with the synthesis file as the source. If `custome
 
 One research round is a snapshot. The brain is how snapshots compound into a picture of who your customers actually are.
 
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 
 ---
 
@@ -33710,6 +36186,20 @@ If yes, ingest into `customer-insights`:
 Invoke `/second-brain ingest` with the VoC report as the source. Competitor mentions get a second ingest into `competitive-intelligence`.
 
 VoC is inherently comparative — a report without a baseline is half a report. The brain is the baseline.
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -34207,6 +36697,20 @@ Before presenting output to the PM, verify:
 - [ ] **Dependencies and blockers identified:** Each priority lists what it depends on (people, decisions, deliverables) and any known blockers with mitigation plans
 - [ ] **Carry-over items from last week addressed:** If `outputs/weekly-reviews/` or `outputs/weekly-plans/` contain incomplete items from last week, they are explicitly acknowledged as carried over, deferred, or dropped with reasoning
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Set next week's priorities
@@ -34220,6 +36724,113 @@ Before presenting output to the PM, verify:
 - Skipping context: not reading relevant workspace files before generating output
 - Generic output: producing content that could apply to any company instead of using specific context from your workspace
 - Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="weekly-readahead"></a>
+
+---
+name: weekly-readahead
+description: Draft a weekly read-ahead for a recurring cross-team meeting and publish it to the shared docs hub. Configurable section set, pulled from the week's shipped work, decisions, risks, and metrics, with a clear so-what per section.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Which recurring meeting this read-ahead is for, and its section set if this is the first run (subsequent runs reuse the configured set).
+
+```
+/weekly-readahead "<meeting name>"               → draft using the configured section set
+/weekly-readahead "<meeting name>" --sections "<Section A, Section B, ...>"  → set or override sections
+```
+
+**What you get:** A drafted read-ahead pulling from the week's shipped work, decisions, risks, and metrics — each section carrying a clear so-what, not a raw activity dump. Published to the shared docs hub on confirmation.
+
+**Time:** A few minutes.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Section set is configurable per meeting — this skill does not hardcode a fixed org structure or a fixed list of sections.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Task tracker | `<TASK_TRACKER>` | Work shipped this week |
+| Decisions | `context-library/decisions/`, `outputs/decisions/` | Decisions made this week |
+| Metrics | `<METRICS_SOURCE>` | Movement worth reporting |
+| Meeting notes | `outputs/meeting-notes/` | Risks or blockers surfaced this week |
+| Docs hub | `<DOCS_HUB>` | Where the read-ahead publishes, and the prior week's read-ahead for continuity |
+
+## Workflow
+
+### 1. Resolve the section set
+
+If this is the first run for this meeting, ask for the section set (or accept `--sections`). Store it for reuse on subsequent runs so the format stays consistent week over week — this skill does not assume a fixed set of sections across all meetings, since different recurring meetings care about different things.
+
+### 2. Pull the week's substance
+
+For each configured section, pull the relevant material: shipped work from `<TASK_TRACKER>`, decisions from `context-library/decisions/`, metric movement from `<METRICS_SOURCE>`, risks from recent meeting notes.
+
+### 3. Write a so-what per section
+
+Every section leads with why it matters to this specific audience, not a bare list of what happened. A shipped-work bullet without an impact statement is incomplete.
+
+### 4. Draft, then publish on confirm
+
+Show the drafted read-ahead. Publish to `<DOCS_HUB>` only after confirmation — this is content visible to others, so it follows the outward-draft-first discipline even though the destination is a shared doc rather than a message.
+
+## Output Format
+
+```markdown
+# Read-Ahead: <meeting name> — Week of <date>
+
+## <Configured Section 1>
+<content, with the so-what stated first>
+
+## <Configured Section 2>
+<content, with the so-what stated first>
+
+[... remaining configured sections]
+```
+
+## Runs as a Routine
+
+A strong weekly-cadence routine candidate, timed to land before the meeting — see `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Section set matches what was configured for this meeting, not a generic default
+- [ ] Every section leads with a so-what, not a bare activity list
+- [ ] Content is pulled from real sources with specifics — numbers, names, dates — not vague summary language
+- [ ] Nothing was published to the docs hub before the draft was confirmed
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Related:** `status-update` (similar substance, different destination — this skill is specifically for a recurring cross-team meeting's shared read-ahead), `board-deck` (heavier-weight version for board/exec audiences)
+
+## When to Use
+
+- Ahead of a recurring cross-team meeting that expects a pre-read
+
+## When NOT to Use
+
+- For a one-off update to a single stakeholder — use `status-update`
+- For a board or executive-level presentation — use `board-deck`
+
+## Common Mistakes
+
+- Hardcoding a fixed section set instead of using what this meeting actually needs
+- Listing activity without stating why it matters
+- Publishing to the shared docs hub before the draft was confirmed
 
 
 ---
@@ -34967,6 +37578,20 @@ Invoke `/second-brain ingest` with the review as the source. If `domain-knowledg
 
 Weekly reviews without accumulation are confessional journaling. Weekly reviews that feed the brain become your personal operating manual — one that gets sharper every Friday.
 
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
+
 ## When to Use
 
 - Review week's progress, meetings, learnings
@@ -34980,6 +37605,137 @@ Weekly reviews without accumulation are confessional journaling. Weekly reviews 
 - Skipping context: not reading relevant workspace files before generating output
 - Generic output: producing content that could apply to any company instead of using specific context from your workspace
 - Missing the handoff: not offering the logical next skill when this one completes
+
+
+---
+
+<a id="weekly-review-fill"></a>
+
+---
+name: weekly-review-fill
+description: Base tier of the periodic-review cascade. Pre-fills the week's review entry from completed work, asks only genuine judgment questions, and forward-creates upcoming weeks with dedupe. Never hands over a blank questionnaire.
+disable-model-invocation: false
+user-invocable: true
+---
+
+## Quick Start
+
+**What to provide:** Nothing required — defaults to the current week.
+
+```
+/weekly-review-fill               → pre-fill this week's review entry
+/weekly-review-fill --week 2026-W15  → target a specific week
+```
+
+**What you get:** A pre-filled draft of the week's review with an explicit auto-filled-vs-asked table, ready for a single edit pass — never a blank template. On confirm, the next N weeks get forward-created shells (deduped), and the delta is written to the reviews store.
+
+**Time:** A couple minutes to review the draft; the fill itself is automatic.
+
+---
+
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the base tier of a nested cascade — see `monthly-review-fill` and `quarterly-review-fill`, which roll this tier up rather than re-deriving from raw activity.
+
+## Context Routing Logic
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Reviews store | `<REVIEWS_STORE>` | This week's existing entry (if any), the prior week's entry for continuity |
+| Task tracker | `<TASK_TRACKER>` | Tasks completed within the week's date range, for candidate accomplishments |
+| Calendar | `<CALENDAR>` | Week boundaries, computed in local time |
+
+## Workflow
+
+### 1. Resolve the period
+
+Compute the target week's start/end dates from `<CALENDAR>` in local time. Check `<REVIEWS_STORE>` for an existing entry for this week.
+
+### 2. Create the period entry from template
+
+If no entry exists, create it from the store's standing template. Set every derivable field immediately: date range, links to the prior and next week entries, and a rating computed from the completed-work count against whatever baseline the store defines.
+
+### 3. Pull completed work
+
+Query `<TASK_TRACKER>` for everything completed within the week's date range. These are the candidate accomplishments — draft them into the accomplishments section directly, not as a prompt for the user to fill in themselves.
+
+### 4. Ask only genuine judgment questions
+
+Everything derivable from step 2-3 is auto-filled. The only questions asked are things no source can answer: how the week actually felt, what should change, what's the honest read on a stalled item. Never leave a derivable field blank waiting on the user, and never guess at a judgment call.
+
+### 5. Present the auto-vs-asked table, then the draft
+
+Show exactly what was inferred versus what needs input (see Output Format) before the full draft — so the user's one edit pass is informed, not a cold read.
+
+### 6. Preview-first, write on confirm
+
+Nothing is written to `<REVIEWS_STORE>` until the user confirms the draft (including their answers to the judgment questions).
+
+### 7. Surgical write
+
+Fetch the entry's current state in `<REVIEWS_STORE>` immediately before writing, compute the delta against the confirmed draft, and write only that delta. Never replace the whole entry — a user's own prior edits to this week's entry survive.
+
+### 8. Forward-create next N periods
+
+Create shells for the next N weeks in `<REVIEWS_STORE>`, deduped against anything already scheduled there. This also runs only on confirm.
+
+## Output Format
+
+```markdown
+# Week <YYYY-Www> Review Draft
+
+## Auto-Filled vs. Asked
+| Item | Source | Auto-filled or Asked |
+|---|---|---|
+| Date range | `<CALENDAR>` | Auto-filled |
+| Completed work | `<TASK_TRACKER>` | Auto-filled |
+| Rating | Computed from completion count | Auto-filled |
+| How the week felt | — | Asked |
+| What to change next week | — | Asked |
+
+## Draft Entry
+<pre-filled sections with judgment-question answers inserted where provided>
+
+## Forward-Created
+- Week <N+1> shell created in `<REVIEWS_STORE>`
+```
+
+## Runs as a Routine
+
+A natural weekly-cadence routine — fire at the start (or end) of each week to have the draft ready before the user sits down. See `references/protocols/routines.md` and `setup/routine-setup.md`.
+
+## Output Quality Self-Check
+
+- [ ] Nothing derivable from the task tracker or calendar was left in "asked"
+- [ ] Nothing genuinely judgment-based was auto-filled with a guess
+- [ ] The write was a delta against current state, not a wholesale replace
+- [ ] Forward-created weeks were deduped against existing entries
+- [ ] Nothing was written before the draft was confirmed
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+
+## Cross-Skill Links
+
+**Rolled up by:** `monthly-review-fill` (synthesizes completed weeks into the month's assessment)
+
+**Related:** `weekly-review` (deeper narrative synthesis — this skill fills the structured entry fast; `weekly-review` is the fuller reflective pass)
+
+## When to Use
+
+- At the start or close of every week, to keep the reviews store current with minimal manual entry
+
+## When NOT to Use
+
+- When you want the full narrative synthesis (patterns, learnings, stakeholder pulse) — that's `weekly-review`, which can read this skill's filled entry as a starting point
+
+## Common Mistakes
+
+- Handing over a blank entry instead of a pre-filled draft
+- Guessing at a judgment question instead of asking
+- Replacing the whole entry instead of writing only the delta
+- Forward-creating a week that already has a shell, producing a duplicate
 
 
 ---
@@ -35324,6 +38080,20 @@ Before delivering the win/loss analysis, verify:
 - [ ] **Roadmap implications are actionable:** Not "improve X" but "build Y feature" or "reposition Z capability"
 - [ ] **Next steps have owners:** Actions assigned with names, not just "sales team should..."
 - [ ] **Output file saved:** Saved to `outputs/win-loss/win-loss-analysis-[date].md`
+
+
+## Formal Eval
+
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
 ## When to Use
 
@@ -36110,6 +38880,16 @@ At the end, offer to file the strategy into `domain-knowledge` (process learning
 
 If the brain isn't initialized, fall back to `context-library/strategy/` and `context-library/research/` — this hook sharpens the strategy, doesn't gate it.
 
+## Formal Eval
 
----
+**Runs automatically after every skill invocation.** After generating output:
+
+1. Run the informal Output Quality Self-Check above (fast, same agent)
+2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
+3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
+4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
+5. Loop until zero FAILs
+6. Log final results in the Eval Results Log table in `evals.md`
+
+See `references/protocols/skill-evals.md`.
 
