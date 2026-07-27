@@ -4,6 +4,8 @@
 
 Every skill invocation ends with a formal eval pass. A separate agent evaluates the output in a clean context window. Failures loop back for revision until the output passes all checks.
 
+**The loop is the backstop, not the mechanism.** `config/house-style.md` is applied *before* drafting — the cheapest slop to remove is the sentence never written. An eval that catches a banned word has already cost a rewrite the drafting agent could have avoided by reading the standard first. Treat a house-style FAIL as evidence the standard was not read, not as the standard working.
+
 ## Skill File Structure
 
 Each skill directory contains three files:
@@ -101,10 +103,15 @@ Bump `eval-version: 1` → `eval-version: 2`, set `last-updated` to the date of 
 
 ## Universal Checks (apply to ALL archetypes)
 
-These checks appear in every skill's evals.md regardless of archetype:
+These checks appear in every skill's evals.md regardless of archetype.
 
-- **No AI slop**: Zero instances of: delve, leverage, utilize, unlock, harness, streamline, robust, cutting-edge, empower, elevate, foster, holistic, synergy, paradigm
-- **House style compliance**: Follows any active rules in `config/house-style.md`
+**The two universal writing checks are normalized — E4 and E5 below are the canonical wording.** They are identical in every `evals.md` and in `templates/skill-evals-template.md`. Do not reintroduce a local variant, and do not let either check drift into restating the `CLAUDE.md` absolute rules, which are scored separately.
+
+- **E4 — No AI slop**: Zero banned words and zero slop patterns per `config/house-style.md`. The 14-word list carried inline in each `evals.md` (delve, leverage, utilize, unlock, harness, streamline, robust, cutting-edge, empower, elevate, foster, holistic, synergy, paradigm) is a **fast tripwire, not the list** — the full 29-word §3 list and the P1-P17 pattern catalog govern. Passing the tripwire is not passing the check.
+- **E5 — House style compliance**: Conforms to `config/house-style.md`, including any rules the user has set in its "Your own rules" section. The formatting rules (§6) apply to **prose only**, per the prose test in §2 — **artifact scaffolding is exempt by design, not a violation**. Template headings, table structure, checklists, status columns, ticket fields, and genuinely parallel lists are intentional structure; flagging them is a false positive.
+
+**`config/house-style.md` is live and the check is real.** There is no auto-PASS. An eval agent that cannot read the file scores E5 **PARTIAL** and says so explicitly ("could not read `config/house-style.md`"). It never assumes compliance and never records a vacuous PASS. Use **N/A** only for checks needing an input the agent genuinely does not have — see §8 of the standard.
+
 - **Human-sounding**: Varied sentence lengths, contractions used naturally, no formulaic paragraph openings
 - **Context-grounded**: References specific data from context sources — not generic placeholder language
 - **Durability** (Document-Writer, Analysis, and Research-Synthesis archetypes — see `references/protocols/freshness-provenance.md`): No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent
@@ -162,12 +169,13 @@ These checks appear in every skill's evals.md regardless of archetype:
 
 When creating a new skill (via `anthropic-skills:skill-creator` or manually):
 
-1. Determine the skill's archetype from the table above
-2. Generate `evals.md` using the archetype guidance and universal checks
-3. Include 8-12 checks across the 4 categories, tailored to the skill's specific purpose
-4. Generate `skill-memory.md` (starts with empty Entries section)
-5. Add the "Formal Eval" section to SKILL.md after Output Quality Self-Check
-6. Add `skill-memory.md` to the skill's Context Routing Logic table
+1. **Copy `templates/skill-template.md` to `.claude/skills/<name>/SKILL.md`** and follow the copy procedure in its header comment. The template carries the canonical section names, the size budget, and the never-restate rule — see `references/protocols/prompt-architecture.md` for the standard it enforces.
+2. Determine the skill's archetype from the table above
+3. Generate `evals.md` from `templates/skill-evals-template.md` using the archetype guidance and universal checks
+4. Include 8-12 checks across the 4 categories, tailored to the skill's specific purpose
+5. Generate `skill-memory.md` from `templates/skill-memory-template.md` (starts with empty Entries section)
+6. Keep the `## Formal Eval` section the template ships, after `## Output Quality Self-Check`
+7. Add `skill-memory.md` to the skill's `## Context Routing` table
 
 ## Skill Memory Protocol
 

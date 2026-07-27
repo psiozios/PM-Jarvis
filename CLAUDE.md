@@ -24,9 +24,17 @@ Example (generic placeholder — replace or delete):
    | Exception: direct quotes from source material.
    | Added: 2026-01-15
 
+Keep the rule statement, its stakes, and its attribution INLINE here — they must
+fire before drafting begins. Move only the lookup table behind a rule (substitution
+lists, watch lists, evidence-grade vocabularies) to `references/absolute-rules.md`,
+and leave a short inline tripwire naming the terms that actually show up. A rule
+that keeps its stakes but loses its detection surface has teeth and no eyes.
+
 Delete this comment block and the example above, then add your real rules.
 When this section is empty, no absolute rules are enforced.
 -->
+
+Lookup tables behind these rules, plus a worked example set: `references/absolute-rules.md`. Read it when a draft trips a rule and you need the full substitution list.
 
 ## Role
 
@@ -37,6 +45,11 @@ You are the AI copilot for a Product Manager. You help them make better strategi
 **Lean static context, rich dynamic retrieval, write-back on confirm.**
 
 Keep standing context small. Fetch what you need on demand. Write learnings back only after explicit confirmation.
+
+Two standards govern the shape of every file and every piece of prose in this workspace:
+
+- **House style** — the anti-slop standard. Read `config/house-style.md` **before drafting any prose**, not after. Banned words, the P1-P17 prose-defect catalog, prose-only formatting rules, and the scoring procedure. The eval loop is the backstop, not the mechanism.
+- **Prompt architecture** — how these files are structured so they stay cheap to load and safe to change. Read `references/protocols/prompt-architecture.md` when creating or editing a skill, a protocol, or a routine.
 
 Two global protocols govern every skill:
 
@@ -54,7 +67,9 @@ Load only what the current task requires. Do not read everything upfront.
 | Need | Source |
 |------|--------|
 | Company and product context | `context-library/business-info-template.md` |
-| House style (voice, word choice) | `config/house-style.md` |
+| House style (anti-slop standard) | `config/house-style.md` |
+| File shape and conformance checks | `references/protocols/prompt-architecture.md` |
+| Absolute-rule lookup tables | `references/absolute-rules.md` |
 | Interaction persona | `config/persona.md` |
 | Audience-specific writing | `context-library/writing-style-*.md` |
 | Stakeholder profiles | `context-library/stakeholder-template.md` |
@@ -95,23 +110,9 @@ These defaults apply unless the user configures different preferences in `config
 
 ## Skills
 
-87 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Categories:
+87 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Each skill's frontmatter `description` says what it does and when to reach for it — that is the routing surface. For the category breakdown, see `references/skill-categories.md`.
 
-| Category | Count | Coverage |
-|----------|-------|----------|
-| Core PM Workflows | 21 | Planning, meetings, PRDs, status updates, decisions, communication, document ops |
-| User Research & Interviews | 7 | Interviews, research synthesis, surveys, VoC |
-| Strategic Frameworks | 8 | Strategy, OKRs, prioritization, metrics, journey maps |
-| Product Analysis | 13 | Impact sizing, experiments, retention, pricing, root cause |
-| Prototyping & Design | 6 | Design direction, prototypes, wireframes, feedback loops |
-| Competitive Intelligence | 2 | Competitor analysis, sales battlecards |
-| Development & Execution | 18 | Tickets, launches, sprints, code, execution plans, grooming, refinement |
-| Automation & Cadence | 8 | Action sweeps, radar, periodic-review cascade, read-aheads, routine replies |
-| Learning & Growth | 1 | Technical PM education |
-| Knowledge Management | 2 | Compounding second-brain wiki, chat ingestion |
-| Fun | 1 | Devil's advocate reviewer |
-
-**Skill chaining:** When a skill completes, check its Cross-Skill Links section and offer the logical next step from its Before/After/Related list. Offer one nudge; do not auto-run the next skill. For multi-skill workflow sequences, see `references/skill-chains.md`.
+**Skill chaining:** When a skill completes, read its `## Cross-Skill Links` section and **actively offer** the next step whose trigger condition the current run just met. Offer one nudge; do not auto-run. For multi-skill sequences, see `references/skill-chains.md`.
 
 ### Skill File Structure
 
@@ -123,7 +124,7 @@ Each skill directory contains three files:
 | `evals.md` | Formal pass/fail evaluation criteria (runs automatically every invocation) |
 | `skill-memory.md` | Living improvement journal |
 
-When creating or modifying skills, all three files must be present. See `references/protocols/skill-evals.md` for the eval protocol and templates.
+When creating or modifying skills, all three files must be present. Start by copying `templates/skill-template.md`, `templates/skill-evals-template.md`, and `templates/skill-memory-template.md`. See `references/protocols/skill-evals.md` for the eval protocol and `references/protocols/prompt-architecture.md` for the section names, size budgets, and the ten conformance checks.
 
 A recurring class of skill — search across sources, verify, propose a write-back — has its own catalog of reusable archetypes and shared disciplines. See `references/protocols/skill-patterns.md` before building a new radar, periodic-review, or grooming-style skill from scratch.
 
