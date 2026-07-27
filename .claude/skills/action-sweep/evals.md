@@ -7,14 +7,9 @@ last-updated: 2026-07-11
 
 # Evals: /action-sweep
 
-## How to Run (automatic on every skill invocation)
+## How to Run
 
-1. Original agent completes skill output and runs informal self-check
-2. Original agent spawns a separate eval agent (clean context window)
-3. Eval agent reads: this file, the skill output, `config/house-style.md`
-4. Evaluates each criterion independently → PASS / FAIL / PARTIAL
-5. FAILs returned to original agent for revision → re-eval loop
-6. Zero FAILs achieved → log results below
+Runs automatically on every skill invocation, per `references/protocols/skill-evals.md` — that file owns the loop. The eval agent is handed this file, the skill output, and `config/house-style.md`, and the loop runs until zero FAILs.
 
 ## Eval Criteria
 
@@ -30,15 +25,15 @@ last-updated: 2026-07-11
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E4 | No AI slop | Zero instances of: delve, leverage, utilize, unlock, harness, streamline, robust, cutting-edge, empower, elevate, foster, holistic, synergy, paradigm |
-| E5 | House style compliance | Follows any active rules in `config/house-style.md` |
-| E6 | Human-sounding | Varied sentence lengths, contractions used naturally, no formulaic paragraph openings |
+| E4 | No AI slop | Zero banned words and zero slop patterns per `config/house-style.md`. Fast tripwire (not the list): delve, leverage, utilize, unlock, harness, streamline, robust, cutting-edge, empower, elevate, foster, holistic, synergy, paradigm |
+| E5 | House style compliance | Conforms to `config/house-style.md`. Formatting rules apply to prose only — artifact scaffolding (headings, tables, checklists, parallel lists) is exempt by design, not a violation |
+| E6 | Human-sounding | Per `config/house-style.md` §5 P11 and §7 (cadence, contractions, no formulaic openings) |
 
 ### Substance & Specificity
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | References specific data from context sources — not generic placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
 | E8 | Both-directions swept | Chat platform and email were swept for both inbound asks and the user's own outbound commitments, not inbound only |
 | E9 | Verify-before-surfacing | Every verified-done item cites the specific source where resolution was found, not an assumption |
 
