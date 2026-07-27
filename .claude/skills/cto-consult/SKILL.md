@@ -1,8 +1,8 @@
 ---
 name: cto-consult
-description: CTO simulation for technical pushback, phase planning, and architecture decisions
-disable-model-invocation: false
+description: Pressure-test what you want to build from a technical co-founder's chair — pushback on scope, hard questions about assumptions, a phased breakdown, and architecture calls, plus an implementation prompt per phase. Use when you want someone to tell you the plan is too big before engineering does.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /cto-consult - Your Technical Co-Founder (Who Pushes Back)
@@ -27,7 +27,7 @@ Output: outputs/analyses/cto-consult-[project]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -37,17 +37,12 @@ Output: outputs/analyses/cto-consult-[project]-[date].md
 | Past Consultations | `outputs/analyses/cto-consult-*.md` | decisions, architecture | Prior technical decisions |
 | Explorations | `outputs/analyses/explore-*.md` | complexity, dependencies | Technical understanding |
 
-**Cross-Skill Links:**
-- Before → `/prd-draft` or `/prd-lite` for the idea
-- After → `/execution-plan` for detailed tracked planning
-- After → `/code-first-draft` to implement phases
-- Related → `/pre-mortem` for risk surfacing
-- Related → `/decision-doc` for architecture decisions
-- Related → `/explore-codebase` for deeper technical investigation
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - Before starting a new project or significant feature
 - When deciding architecture or tech stack
@@ -55,7 +50,7 @@ Output: outputs/analyses/cto-consult-[project]-[date].md
 - When you're building directly with AI tools and want a sanity check
 - When translating a PRD into engineering work
 
-## When NOT to Use This Skill
+## When NOT to Use
 
 - Simple bug fixes (just fix them)
 - You need a code review (use `/code-review`)
@@ -220,7 +215,7 @@ After Phase 1, report back:
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **Push back.** If the scope is too big, say so. If the approach is wrong, say so. Be direct.
 - **Ask until you understand.** Don't accept vague requirements. "Make it better" is not a requirement.
@@ -245,25 +240,15 @@ After Phase 1, report back:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/prd-draft` or `/prd-lite` -> before the consult, when the idea is not yet written down
+- `/explore-codebase` -> when the pushback needs grounding in what the code actually does
+- `/execution-plan` -> after the consult, to turn the phased breakdown into a tracked plan
+- `/code-first-draft` -> after the consult, to implement an approved phase
+- `/pre-mortem` -> when the technical risks warrant a formal failure-mode pass
+- `/decision-doc` -> when an architecture call needs to survive being relitigated

@@ -1,8 +1,8 @@
 ---
 name: survey-builder
 description: Design product surveys using validated PM research methodologies. Covers PMF, NPS, CSAT, CES, JTBD, and Van Westendorp pricing surveys with exact question wording and interpretation guides.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /survey-builder - Design Product Surveys
@@ -28,7 +28,7 @@ Output: outputs/surveys/survey-[type]-[topic]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -45,13 +45,10 @@ When this skill is invoked, immediately check:
 2. Match survey type to the specific measurement goal SECOND
 3. Customize question wording for the product/feature THIRD
 
-**Cross-Skill Links:**
-- After survey runs → Link to `/user-research-synthesis` to synthesize results
-- Survey reveals activation issue → Link to `/activation-analysis`
-- Survey reveals churn risk → Link to `/retention-analysis`
-- PMF survey results → Link to `/write-prod-strategy` if results inform direction
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding What You Need to Measure
 
@@ -326,30 +323,24 @@ Based on results:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Survey designs:**
 - Active work: `outputs/surveys/survey-[type]-[topic]-[date].md`
 - After results come in: Archive to `context-library/metrics/` for baseline tracking
 - Reference in PRDs: Link to survey in "Research & Validation" section
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/user-research-synthesis` - Synthesize open-text survey responses
-- `/activation-analysis` - PMF and CES results inform activation work
-- `/retention-analysis` - NPS and CSAT trends inform retention work
-- `/feature-metrics` - Survey results help set success metric targets
-- `/impact-sizing` - PMF strength informs market opportunity sizing
-
-**Pulls from:**
-- `context-library/metrics/` - Existing survey baselines to compare against
-- `context-library/prds/` - Feature context for CES and JTBD questions
-- `context-library/strategy/` - Pricing context for Van Westendorp surveys
-
 ---
+
+## Cross-Skill Links
+
+- `/interview-guide` -> when the question needs depth from conversation rather than scale from a survey
+- `/user-research-synthesis` -> after results, to synthesize open-text responses
+- `/pricing-analysis` -> when the Van Westendorp results feed a pricing decision
+- `/activation-analysis` -> when PMF or CES results point at an onboarding problem
+- `/retention-analysis` -> when NPS or CSAT trends point at churn risk
+- `/feature-metrics` -> when survey results should set success-metric targets
+- `/opportunity-sizing` -> when PMF strength informs whether the market is worth entering
 
 ## Output Quality Self-Check
 
@@ -368,14 +359,7 @@ Before delivering a survey design, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -386,9 +370,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

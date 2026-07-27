@@ -1,8 +1,8 @@
 ---
 name: board-deck
 description: Prepare executive and board-level presentations. Structures narrative, builds slide outlines, identifies data needed, and ensures strategic clarity. Covers board updates, all-hands, executive business reviews, and investor updates.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /board-deck - Prepare Executive Presentations
@@ -28,7 +28,7 @@ Output: outputs/board-decks/[deck-type]-[quarter]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -47,13 +47,10 @@ When this skill is invoked, immediately check:
 3. Product wins and milestones THIRD (what shipped, what's next)
 4. Key decisions and risks FOURTH
 
-**Cross-Skill Links:**
-- After deck → Share with stakeholders via `/slack-message`
-- Before deck → Run `/pre-mortem` on any risk you're surfacing
-- Metrics section → Pull from `/feature-results` if relevant to quarter narrative
-- OKR section → Pull from `/okr-planning` for current quarter OKRs
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding the Context
 
@@ -301,29 +298,24 @@ For slides with complex or sensitive content:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Board deck outlines:**
 - Active work: `outputs/board-decks/[deck-type]-[quarter]-[date].md`
 - After meeting: Archive notes from the meeting to `context-library/meetings/`
 - Key decisions made → log to `context-library/decisions/`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/status-update` - Board deck narrative informs stakeholder updates
-- `/slack-message` - Send pre-read or follow-up to meeting participants
-
-**Pulls from:**
-- `/okr-planning` - OKR progress feeds the OKR scorecard section
-- `/feature-results` - Post-launch results feed the product wins section
-- `/impact-sizing` - Revenue impact claims need sizing backing
-- `/pre-mortem` - Risk section draws from pre-mortem outputs
-- `context-library/metrics/` - All key metrics for the period
-
 ---
+
+## Cross-Skill Links
+
+- `/okr-planning` -> before the deck, when the OKR scorecard section has no current-quarter source
+- `/feature-results` -> before the deck, when the product-wins section needs shipped-feature outcomes
+- `/impact-sizing` -> before the deck, when a revenue claim needs sizing behind it
+- `/pre-mortem` -> before the deck, when the risk section needs surfaced failure modes
+- `/quarterly-review-fill` -> when the quarter's assessment already exists and should anchor the narrative
+- `/status-update` -> after the deck, to cascade the narrative to non-board stakeholders
+- `/slack-message` -> after the deck, to send the pre-read or follow-up to attendees
 
 ## Common Mistakes
 
@@ -361,14 +353,7 @@ Before delivering the deck outline, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

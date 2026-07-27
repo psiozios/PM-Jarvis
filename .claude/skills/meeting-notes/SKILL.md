@@ -1,8 +1,8 @@
 ---
 name: meeting-notes
-description: Transform meeting transcripts into structured action items, decisions, and key insights. Processes raw notes, voice memos, or recordings.
-disable-model-invocation: false
+description: Turn one meeting's raw material — transcript, bullet notes, voice memo dictation, a chat thread, or just tell me what happened — into structured decisions, action items with owners and dates, insights, and open questions. Segments very long transcripts. Use meeting-cleanup for a whole day at once.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -44,7 +44,7 @@ user-invocable: true
 
 When the PM types `/meeting-notes`, process raw meeting notes, transcripts, or recordings and extract structured action items, decisions, and key insights.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -63,13 +63,10 @@ When this skill is invoked, immediately check:
 3. Strategic context THIRD
 4. Historical meeting context FOURTH
 
-**Cross-Skill Links:**
-- If customer interview → Auto-flag for `/user-research-synthesis` if > 3 customer conversations
-- If decision about feature → Update related PRD in `/prd-draft`
-- If action items about research → Link to `/interview-guide` or `/user-research-synthesis`
-- If strategy discussion → Update `/write-prod-strategy` context
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Meeting Context
 
@@ -118,7 +115,7 @@ Before processing, let me check if there's relevant context...
 
 ---
 
-## How It Works
+## Workflow
 
 This is a 2-step process:
 
@@ -611,7 +608,7 @@ Full notes: [Link to doc]
 
 ---
 
-## Integration With Other Commands
+## Handoff Details
 
 ### Flows Into PRD
 
@@ -698,7 +695,7 @@ Over time, I'll spot patterns:
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### ❌ Waiting Too Long to Process
 
@@ -972,16 +969,16 @@ addressed stakeholder concerns and shortened the approval conversation.
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Meeting notes:**
 - Quick capture: `outputs/meeting-notes/[date]-[topic].md` (raw processing)
 - When finalized: Archive to `context-library/meetings/[date]-[topic].md` for historical reference
 - Use as templates: Your meeting notes become template for team
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After processing meeting notes:
 - **Update PRDs** - If feature decision was made, update `/prd-draft`
@@ -990,23 +987,18 @@ After processing meeting notes:
 - **Research synthesis** - If customer interview, add to `/user-research-synthesis` batch
 - **Slack share** - Use `/slack-message` to share recap with broader team
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/prd-draft` - Meeting decisions go into PRD sections
-- `/status-update` - Meeting action items appear in weekly updates
-- `/user-research-synthesis` - Customer interviews add to research synthesis
-- `/create-tickets` - Action items become engineering tickets
-
-**Pulls from:**
-- `context-library/prds/` - Feature context for meeting
-- Stakeholder profiles - Communication preferences and concerns
-- `context-library/strategy/` - Strategic alignment context
-- `context-library/meetings/` - Previous decisions and context
-
 ---
 
----
+## Cross-Skill Links
+
+- `/meeting-cleanup` -> when this is one of several meetings from the same day
+- `/create-tickets` -> when action items need to become tracked engineering work
+- `/decision-doc` -> when a decision made here will be questioned in three months
+- `/user-research-synthesis` -> when this was a customer conversation and three or more have accumulated
+- `/prd-draft` -> when the meeting changed a feature's requirements
+- `/status-update` -> when the outcomes belong in the next stakeholder update
+- `/second-brain` -> when stakeholder or product signal from this meeting should be filed to the brain
+- `/slack-message` -> when the recap needs sharing to a broader channel
 
 ## Output Quality Self-Check
 
@@ -1046,13 +1038,6 @@ Don't file the whole transcript — file the **claims that should survive next m
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.

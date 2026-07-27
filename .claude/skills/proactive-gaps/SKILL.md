@@ -1,8 +1,8 @@
 ---
 name: proactive-gaps
 description: Two-horizon product-alpha scan answering "what should I be worried about?" — present-state problems needing action now, forward inflections nobody is preparing for, and a contrarian pass on what the team over-indexes on. Surface-only, evidence-backed, run from an elevated posture but landed in the user's actual lane.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -23,7 +23,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Realizes Pattern 4 (Multi-Horizon "Alpha Engine" Scan) from `references/protocols/skill-patterns.md` — read that first for the mechanics this skill instantiates.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -33,6 +33,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Competitor intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Competitive gaps, moves the team hasn't reacted to |
 | Recent meetings | `outputs/meeting-notes/`, `context-library/meetings/` | What the team is currently spending its attention on (for the contrarian pass) |
 | The product itself | codebase/product surface, if accessible | Direct evidence of unsolved problems, not just what's reported |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -60,7 +63,7 @@ Adopt a head-of-product/CEO-level vantage point when scanning for what matters �
 
 Rank by impact. Cap the list tight — this skill's value is in forcing a small, sharp list, not an exhaustive audit.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Proactive Gaps Scan — <DATE>
@@ -89,11 +92,17 @@ A natural periodic routine — see `references/protocols/routines.md` and `setup
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `root-cause-analysis` (deeper dive once a present-state item is picked), `pre-mortem` (forward-alpha items may warrant a formal pre-mortem), `competitor-analysis` (feeds competitive-gap evidence)
+- `/root-cause-analysis` -> when a present-state item is picked up and needs diagnosing
+- `/pre-mortem` -> when a forward inflection warrants a formal failure-mode pass
+- `/competitor-analysis` -> when the gap evidence is competitive and needs depth
+- `/loose-threads` -> when a flagged gap is actually a dropped conversation, not a product problem
+- `/decision-doc` -> when the contrarian pass changes a standing assumption
 
 ## When to Use
 

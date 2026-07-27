@@ -1,8 +1,8 @@
 ---
 name: prioritize
-description: Classify PM tasks using LNO Framework (Leverage/Neutral/Overhead) to focus on high-impact work.
-disable-model-invocation: false
+description: Sort a messy task list into Leverage, Neutral, and Overhead, show the real time split against a healthy 40/35/20, and name what to drop, delegate, or timebox. Use when you feel busy but nothing is moving, or heading into weekly planning. Runs a commitment gate if the ranking turns into committed work.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Task Prioritization: LNO Framework
@@ -420,12 +420,12 @@ Ask yourself weekly:
 
 ## Cross-Skill Links
 
-- `/strategy-sprint` - Leverage strategy work
-- `/prd-draft` - Leverage through great PRDs
-- `/activation-analysis` - Leverage through product improvements
-- `/user-research-synthesis` - Leverage through insights
-
----
+- `/weekly-plan` -> when the classified list needs turning into the week's committed priorities
+- `/daily-plan` -> when the Leverage items need sequencing into today
+- `/backlog-groom` -> when the mess is in the issue tracker rather than your own task list
+- `/refinement-prep` -> when the ranking feeds the next refinement ceremony
+- `/stakeholder-tactics` -> when the conflict is competing stakeholder priorities, not your own time
+- `/strategy-sprint` -> when nothing scores as Leverage because there is no strategy to score against
 
 ## Delegation Awareness
 
@@ -466,7 +466,7 @@ After classifying tasks, check total estimated hours against available time:
 
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/prioritize`, I automatically:
 
@@ -509,6 +509,9 @@ When the PM uses `/prioritize`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before delivering the prioritization output, verify:
@@ -524,14 +527,7 @@ Before delivering the prioritization output, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

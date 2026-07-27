@@ -1,8 +1,8 @@
 ---
 name: daily-plan
-description: Generate PM daily plan with context
-disable-model-invocation: false
+description: Assemble today's plan — meetings with attendee context, the top few priorities, active PRDs, open tasks, metrics to watch, and what to brace for — pulled from your workspace and connected tools rather than asked for. Use for what should I do today or plan my day. Writes a dated plan file.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -47,7 +47,7 @@ Start your day with a comprehensive plan that pulls together everything you need
 
 Inspired by personal operating system patterns but tailored specifically for Product Managers.
 
-## Usage
+### Usage
 
 - `/daily-plan` - Create today's daily plan (compact mode by default)
 - `/daily-plan full` - Full daily plan with all sections
@@ -108,6 +108,9 @@ If no integrations available, I'll:
 3. Generate plan with placeholders you can fill in
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -562,14 +565,7 @@ Before presenting the daily plan, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -587,7 +583,7 @@ When user runs `/daily-plan tomorrow`:
 
 ---
 
-## Cross-Skill Links
+## MCP & API Setup
 
 ### Setup Path 1: MCP Servers (Recommended)
 
@@ -886,19 +882,6 @@ Total time: 2 minutes
 
 ---
 
-### Integration
-
-**Before `/daily-plan`:**
-- `/weekly-plan` - Sets weekly priorities that inform today's focus
-
-**After `/daily-plan`:**
-- `/meeting-notes` - Capture outcomes from today's meetings
-- `/create-tickets` - Convert action items to Linear/Jira tasks
-- `/daily-review` - (If created) Reflect on what got done
-
-**Parallel use:**
-- `/prd-draft` - Today's work might include PRD writing
-- `/prototype` - Today might be prototype iteration day
 
 ---
 
@@ -928,20 +911,14 @@ Total time: 2 minutes
 
 ---
 
-### Related Skills
+## Cross-Skill Links
 
-**Before this:**
-- `/weekly-plan` - Set weekly priorities
-- `/connect-mcps` - Connect to Calendar, Gmail, Linear
-
-**After this:**
-- `/meeting-notes` - Capture meeting outcomes
-- `/create-tickets` - Track action items
-- `/weekly-review` - End-of-week synthesis
-
-**Parallel use:**
-- `/prd-draft` - Write PRDs during free blocks
-- `/impact-sizing` - Analyze features during planning time
+- `/weekly-plan` -> before today, when the week's priorities have not been set
+- `/meeting-prep` -> when a meeting on today's calendar needs substantive prep, not just a slot
+- `/meeting-notes` -> after a meeting, to capture outcomes and action items
+- `/action-sweep` -> when open commitments are scattered across tools and unreconciled
+- `/create-tickets` -> when today's action items need tracking
+- `/weekly-review` -> at end of week, to synthesize the days into a retrospective
 
 ---
 
@@ -963,9 +940,3 @@ Five minutes of brain-assisted prep at 8am beats forty minutes scrambling betwee
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

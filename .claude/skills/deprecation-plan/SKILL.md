@@ -1,8 +1,8 @@
 ---
 name: deprecation-plan
 description: Plan and execute feature or product deprecations. Covers sunset criteria, user impact analysis, migration paths, communication sequencing, and how to close down something gracefully without burning customer trust.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /deprecation-plan - Sunset Gracefully
@@ -28,7 +28,7 @@ Output: outputs/analyses/deprecation-plan-[feature]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -38,13 +38,10 @@ Output: outputs/analyses/deprecation-plan-[feature]-[date].md
 | Launches | `context-library/launches/*.md` | feature launch, GA date | When it launched (helps estimate user expectations) |
 | Meeting Notes | `context-library/meetings/*.md` | [feature name], customer, contract | Customer contracts or commitments that may block sunset |
 
-**Cross-Skill Links:**
-- Usage data → analytics MCP if connected
-- Replacement feature → `/prd-lite` or `/prd-draft`
-- Communication plan → `/slack-message` and `/content-marketing` (--announce mode)
-- Post-deprecation review → `/feature-results`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 1: Deprecation Readiness Assessment
 
@@ -259,14 +256,7 @@ Define what "done" looks like before you flip the switch.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -278,14 +268,11 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/prd-lite` or `/prd-draft` -> when a replacement feature has to exist before the sunset
+- `/content-marketing` -> when the sunset needs an announcement or in-app messaging (`--announce`)
+- `/slack-message` -> when the internal heads-up needs drafting
+- `/launch-checklist` -> when the migration path itself is a launch with dates and owners
+- `/feature-results` -> after the sunset, to review whether migration actually landed
+- `/retention-analysis` -> when the deprecation risks churning a specific segment

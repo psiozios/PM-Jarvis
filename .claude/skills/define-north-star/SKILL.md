@@ -1,8 +1,8 @@
 ---
 name: define-north-star
-description: Identify and validate your North Star Metric. Aligns product strategy with key business metric.
-disable-model-invocation: false
+description: Pick or sanity-check the single metric the whole team should be moving — core value, a formula of frequency times core action times breadth, validation tests, input metrics, and guardrails. Use when everyone is optimizing something different or the metrics feel scattered. Will say when 2-4 metrics beat one.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Define North Star Metric
@@ -21,7 +21,7 @@ user-invocable: true
 
 **Key decision:** Not every product needs a single North Star. Marketplaces, multi-product companies, and complex B2B may need a constellation of 2-4 metrics instead. I will help you decide which approach fits.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -40,13 +40,10 @@ When this skill is invoked, immediately check:
 3. Historical metrics data THIRD
 4. Stakeholder expectations FOURTH
 
-**Cross-Skill Links:**
-- If building strategy → Link to `/write-prod-strategy` which uses North Star
-- If defining feature metrics → Link to `/feature-metrics` which should ladder to North Star
-- If analyzing retention → Link to `/retention-analysis` to identify leading indicators
-- If setting up metrics framework → Link to `/metrics-framework`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Current Metric State
 
@@ -551,16 +548,16 @@ Without guardrails, teams will find ways to game the North Star that hurt the bu
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **North Star definition:**
 - Active work: `outputs/analyses/north-star-[quarter].md` (your working definition)
 - When finalized: Move to `context-library/metrics/north-star-[year].md` for reference
 - Share widely: This becomes the basis for all team metrics
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After defining North Star:
 - **Reference in strategy** - "Our North Star metric is [X]" in `/write-prod-strategy`
@@ -568,33 +565,17 @@ After defining North Star:
 - **Inform roadmap** - Roadmap priorities are evaluated by North Star impact
 - **Dashboard anchor** - North Star sits at top of your metrics dashboard
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/write-prod-strategy` - North Star becomes the Objective component
-- `/metrics-framework` - North Star is your lagging metric anchor
-- `/feature-metrics` - Feature success metrics should ladder to North Star
-- `/status-update` - Progress toward North Star is tracked in updates
-
-**Pulls from:**
-- `context-library/business-info-template.md` - Business model informs what matters
-- `context-library/metrics/` - Historical data validates metric choices
-- `/retention-analysis` - Understand what drives long-term success
-- `/activation-analysis` - Early indicators of North Star movement
-
 ---
 
-### Related Skills
+## Cross-Skill Links
 
-- `/activation-analysis` - Find your activation metric
-- `/feature-metrics` - Choose experiment metrics that ladder to North Star
-- `/metrics-framework` - Understand leading vs lagging metrics
-- `/retention-analysis` - Measure what drives retention and North Star
-- `/write-prod-strategy` - Connect North Star to strategy
-
----
-
----
+- `/metrics-framework` -> when the North Star needs a leading/lagging hierarchy beneath it
+- `/write-prod-strategy` -> when the North Star becomes the strategy's Objective component
+- `/feature-metrics` -> when feature success metrics need to ladder to this metric
+- `/retention-analysis` -> when validating that the metric actually tracks long-term success
+- `/activation-analysis` -> when you need the early indicator that predicts North Star movement
+- `/okr-planning` -> when Key Results must ladder to this metric
+- `/status-update` -> when progress toward the North Star should appear in stakeholder updates
 
 ## Output Quality Self-Check
 
@@ -616,14 +597,7 @@ Before delivering the North Star analysis, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

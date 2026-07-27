@@ -1,8 +1,8 @@
 ---
 name: editing-assistant
 description: Edit and improve any PM document. Modes for shortening, clarifying, adapting audience, polishing prose, and strengthening arguments. Works on PRDs, strategy docs, status updates, emails, Slack messages, and more.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /editing-assistant - Edit Any PM Document
@@ -22,6 +22,7 @@ Paste your document and tell me the edit mode:
 --polish      Improve word choice, rhythm, and readability
 --strengthen  Sharpen arguments, close logical gaps, add specificity
 --tighten     Remove filler, hedge words, and passive voice
+--report      Name every defect WITHOUT rewriting a word. For text you did not write.
 
 Or just describe what's wrong: "the middle section is rambling", "the ask is buried",
 "this sounds too corporate", "the numbers don't land right"
@@ -31,7 +32,7 @@ Output: Returns the edited document in the same format, with a brief change summ
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -42,12 +43,10 @@ Output: Returns the edited document in the same format, with a brief change summ
 
 **The golden rule:** Preserve the PM's voice. Fix what's wrong, not what's different.
 
-**Cross-Skill Links:**
-- PRD edits → Use in `/prd-draft` or `/prd-review-panel`
-- Status update edits → Use in `/status-update`
-- Slack message edits → Use in `/slack-message`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Edit Modes
 
@@ -55,9 +54,7 @@ Output: Returns the edited document in the same format, with a brief change summ
 **Goal:** Remove 30-50% of words without losing any meaning.
 
 **Method:**
-- Kill filler phrases: "in order to," "it is important to note," "as a result of," "in the context of"
-- Convert passive to active voice
-- Cut hedge words: "somewhat," "generally," "relatively," "perhaps"
+- Apply `config/house-style.md` §4 (padding phrases and adverbs, via the keep-test) and §5 P15/P16 (hedging, passive-for-agency)
 - Merge sentences that say the same thing
 - Replace paragraphs with bullet points where appropriate
 - Remove preambles: "As you know..." / "Given the above..." / "It goes without saying..."
@@ -112,12 +109,10 @@ Output: Returns the edited document in the same format, with a brief change summ
 ### `--tighten`
 **Goal:** Remove weakness without removing content.
 
-**Common culprits:**
-- Hedge language: "somewhat," "relatively," "might," "could potentially"
-- Passive voice: "was decided" → "we decided," "has been identified" → "we found"
-- Circular openers: "In order to..." "Given that..." "As a result of..."
+**Common culprits:** `config/house-style.md` §4 padding and §5 P15 (hedging), P16 (passive-for-agency), P2 (throat-clearing openers). Apply the §4 keep-test rather than cutting on sight — this skill edits someone else's draft, so a soft-tier word that is doing work stays.
+
+**Not covered by the standard, specific to this skill:**
 - Redundant pairs: "each and every," "first and foremost," "new and innovative"
-- Unnecessary qualifiers: "very," "really," "quite," "basically"
 
 ---
 
@@ -156,12 +151,17 @@ After editing, I'll provide:
 
 ---
 
+## Mode: --report
+
+Name every defect. Rewrite nothing. Use this for text the user did not write — a vendor's draft, a colleague's doc, a piece they want assessed rather than changed.
+
+Output one row per defect: the quoted text, its tier and ID (`config/house-style.md` §3 banned word, §4 padding, §5 P-ID, §6 F-ID), and the fix the standard prescribes — described, not applied. Close with the §8 six-dimension scorecard. Never assign a slop score and never state or imply a passage was AI-written; name the defect, never the author.
+
 ## Voice Rules
 
-Always apply these regardless of mode:
-- Read and apply rules from `config/house-style.md` (punctuation, word avoidance, tone)
-- Vary sentence length for natural rhythm
-- Specific over vague: real numbers, real names, real outcomes
+Apply `config/house-style.md` in full before and during every mode — it owns banned words, padding, prose patterns, and formatting, and this skill re-lists none of them.
+
+**This skill is almost always §7 Case A** (editing a human's draft): protect the voice in the draft, note three to five signals first, and make the minimum effective edit. Over-editing is the failure mode here — which is why `--tighten` keeps a soft-tier word when the keep-test says keep, rather than cutting on sight.
 
 ---
 
@@ -176,14 +176,7 @@ Always apply these regardless of mode:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -195,14 +188,10 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/iterate-document` -> when the doc needs new content from new learning, not prose polish; run it first, then polish here
+- `/prd-draft` or `/prd-review-panel` -> when the document being edited is a PRD
+- `/status-update` -> when the document is a stakeholder update whose tone must match the reader
+- `/slack-message` -> when the output is a chat message rather than a document
+- `/sync-doc` -> when the real task is reconciling two copies of the same doc, not editing one

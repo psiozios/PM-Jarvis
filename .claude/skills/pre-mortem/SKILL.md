@@ -1,8 +1,8 @@
 ---
 name: pre-mortem
 description: Run a structured pre-mortem session before a launch, major decision, or project kickoff. Surfaces failure modes before they happen by imagining failure, mapping root causes, and building mitigations into the plan.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /pre-mortem - Surface Risks Before They Happen
@@ -28,7 +28,7 @@ Output: outputs/pre-mortems/pre-mortem-[initiative]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -47,13 +47,10 @@ When this skill is invoked, immediately check:
 3. Meeting notes with surfaced concerns THIRD
 4. Strategic assumptions FOURTH
 
-**Cross-Skill Links:**
-- After pre-mortem → Link to `/launch-checklist` to embed mitigations in launch plan
-- If major decision at stake → Link to `/decision-doc` to document go/no-go rationale
-- If experiment involved → Link to `/experiment-decision` for kill criteria
-- For executive communication of risks → Link to `/status-update` or `/board-deck`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: What We Already Know About This Initiative
 
@@ -317,29 +314,23 @@ If you're doing this solo, use these prompts to force honest thinking:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Pre-mortem outputs:**
 - Active work: `outputs/pre-mortems/pre-mortem-[initiative]-[date].md`
 - Mitigations get added to launch checklist in `context-library/launches/`
 - Immediate risk decisions → log in `outputs/decisions/`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/launch-checklist` - Embed immediate mitigations into launch plan
-- `/decision-doc` - Go/no-go decision with documented rationale
-- `/status-update` - Risk summary for stakeholder communication
-- `/board-deck` - Risk section for executive presentations
-
-**Pulls from:**
-- `context-library/prds/` - Known risks from PRD assumptions
-- `context-library/launches/` - Launch plan dependencies
-- `context-library/meetings/` - Concerns raised in planning conversations
-
 ---
+
+## Cross-Skill Links
+
+- `/prd-draft` -> before the session, when the assumptions to attack are not written down
+- `/launch-checklist` -> after the session, to embed mitigations as dated checklist items
+- `/decision-doc` -> when the output is a go/no-go that needs its rationale recorded
+- `/experiment-decision` -> when the risk is best handled by testing with kill criteria
+- `/status-update` or `/board-deck` -> when the risk register needs communicating upward
+- `/post-mortem` -> after the fact, when the failure happened anyway
 
 ## Output Quality Self-Check
 
@@ -357,14 +348,7 @@ Before delivering the pre-mortem output, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -375,9 +359,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

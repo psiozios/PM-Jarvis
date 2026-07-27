@@ -1,8 +1,8 @@
 ---
 name: competitor-analysis
 description: Deep competitive analysis + ongoing monitoring. Checks user research for competitor mentions, sales notes, existing analysis. Integrates with retention-analysis and user-research-synthesis.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /competitor-analysis - Strategic Competitive Intelligence
@@ -23,7 +23,7 @@ Two modes: **Deep Analysis** (comprehensive one-time research) + **Ongoing Monit
 
 **Time:** Deep Analysis: 2-4 hours | Monitoring: 30 min/month
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -42,12 +42,10 @@ When this skill is invoked, immediately check:
 2. Analytics MCP SECOND (if connected - query churn cohorts)
 3. Web search LAST (only for gaps not covered by internal intel)
 
-**Cross-Skill Links:**
-- If churn mentioned → Link to `retention-analysis`
-- If user feedback → Link to `user-research-synthesis`
-- If positioning mentioned → Link to `write-prod-strategy`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding What We Already Know
 
@@ -567,9 +565,7 @@ I can help you set up:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Deep Analysis:**
 - Active work: `outputs/research-synthesis/competitor-analysis-[name]-[date].md`
@@ -578,7 +574,9 @@ I can help you set up:
 **Ongoing Monitoring:**
 - Save directly to: `outputs/research-synthesis/competitive-intel-[month].md`
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After completing analysis:
 - **Reference in PRDs** - "Based on competitive analysis [link], we're positioning as..."
@@ -586,20 +584,16 @@ After completing analysis:
 - **Create battlecards** - Use findings for sales team (via `/slack-message`)
 - **Inform roadmap** - Link specific competitor threats to roadmap priorities
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/prd-draft` - Auto-populate "Market Context" and "Alternatives Considered"
-- `/write-prod-strategy` - Inform competitive positioning and differentiation
-- `/retention-analysis` - Understand churn to competitors
-- `/user-research-synthesis` - Reference competitive mentions in interviews
-
-**Pulls from:**
-- `/user-research-synthesis` - Uses existing research themes
-- `/retention-analysis` - Churn patterns and reasons
-- `/feature-results` - Which features helped us compete
-
 ---
+
+## Cross-Skill Links
+
+- `/retention-analysis` -> when the analysis surfaces churn going to a named competitor
+- `/user-research-synthesis` -> when competitor mentions in interviews need pulling out and weighting
+- `/write-prod-strategy` -> when findings change positioning or differentiation
+- `/sales-battlecard` -> when the findings need to reach the sales team as an objection-handling card
+- `/prd-draft` -> when a competitive gap is concrete enough to spec
+- `/win-loss-analysis` -> when you need deal-level evidence for a competitive claim
 
 ## Web Research Methodology
 
@@ -639,7 +633,7 @@ Always prefer high-confidence sources. Flag low-confidence claims explicitly so 
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### Mistake 1: Jumping to Web Research First
 **Bad:** Immediately Googling competitors without checking internal intel
@@ -741,14 +735,7 @@ Competitive intel ages fast. The brain keeps it current by treating every analys
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

@@ -1,8 +1,8 @@
 ---
 name: voice-of-customer
 description: Aggregate customer feedback into Voice of Customer (VoC) reports. Cross-channel synthesis from support tickets, sales calls, user interviews, NPS comments, reviews, and social feedback. Surfaces patterns, themes, and product implications.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /voice-of-customer - Aggregate Customer Feedback into Insight
@@ -29,7 +29,7 @@ Output: outputs/research-synthesis/voc-report-[period]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -40,14 +40,10 @@ Output: outputs/research-synthesis/voc-report-[period]-[date].md
 | Past VoC | `context-library/research/voc-*.md` | theme, complaint, request, praise | Prior themes to track change over time |
 | Metrics | `context-library/metrics/*.md` | NPS, CSAT, support volume | Quantitative signal to anchor qualitative |
 
-**Cross-Skill Links:**
-- Themes surface product gaps → `/prd-lite` or `/prd-draft`
-- Churn signal in feedback → `/retention-analysis`
-- Competitive mentions → `/competitor-analysis`
-- Activation friction patterns → `/activation-analysis`
-- Feature requests → `/feature-request-analysis`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## VoC Synthesis Framework
 
@@ -208,19 +204,23 @@ If you only have one source (e.g., just NPS verbatims or just support tickets), 
 
 ---
 
-## Cross-Skill Links
+## Where Files Go
 
-**Files:** `outputs/research-synthesis/voc-report-[period]-[date].md`
+`outputs/research-synthesis/voc-report-[period]-[date].md`
+
 - After finalizing: Move to `context-library/research/` for longitudinal tracking
 
-**Cross-Skill Integration:**
-- Themes → `/feature-request-analysis` for deeper prioritization
-- Churn signal → `/retention-analysis`
-- Competitive mentions → `/competitor-analysis`
-- Product gaps → `/prd-lite` for quick proposals
-- New themes → Update `/user-research-synthesis` with emerging patterns
-
 ---
+
+## Cross-Skill Links
+
+- `/feature-request-analysis` -> when themes need clustering and scoring for prioritization
+- `/user-research-synthesis` -> when the interview channel needs deeper synthesis than aggregation gives
+- `/retention-analysis` -> when the feedback carries a churn signal
+- `/competitor-analysis` -> when competitor mentions recur across channels
+- `/activation-analysis` -> when the friction patterns are concentrated in onboarding
+- `/prd-lite` or `/prd-draft` -> when a product gap is concrete enough to propose
+- `/win-loss-analysis` -> when the sales-call channel is the one carrying the signal
 
 ## Output Quality Self-Check
 
@@ -255,14 +255,7 @@ VoC is inherently comparative — a report without a baseline is half a report. 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -273,9 +266,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

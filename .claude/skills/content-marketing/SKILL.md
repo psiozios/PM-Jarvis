@@ -1,8 +1,8 @@
 ---
 name: content-marketing
 description: Create product-led content assets. Covers launch announcements, changelogs, release notes, in-app messaging, onboarding copy, and case study outlines. Helps PMs write and brief content that drives activation, retention, and product awareness.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /content-marketing - Product Content That Moves Metrics
@@ -35,7 +35,7 @@ Output: outputs/content/[type]-[feature]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -45,13 +45,10 @@ Output: outputs/content/[type]-[feature]-[date].md
 | Launches | `context-library/launches/*.md` | messaging, positioning, GTM | Prior launch context |
 | Strategy | `context-library/strategy/*.md` | positioning, value prop, North Star | Strategic framing |
 
-**Cross-Skill Links:**
-- Launch assets → `/launch-checklist` to track content deliverables
-- Feature context → `/prd-draft` for the underlying feature spec
-- Customer success data → `/feature-results` for metrics to include in case studies
-- Messaging consistency → `/write-prod-strategy` (positioning section)
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Mode: --announce (Launch Announcement)
 
@@ -316,14 +313,7 @@ Example: "Conversational, confident, not hype-y. No buzzwords. Contractions are 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -335,14 +325,10 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/launch-checklist` -> when these assets are launch deliverables that need tracking to a date
+- `/prd-draft` -> when the underlying feature spec is the source of what to claim
+- `/feature-results` -> when a case study or announcement needs real post-launch numbers
+- `/write-prod-strategy` -> when messaging must stay consistent with the positioning section
+- `/deprecation-plan` -> when the content being written is a sunset announcement

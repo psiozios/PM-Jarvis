@@ -1,13 +1,15 @@
 ---
 name: journey-map
-description: Create user journey maps and customer journey maps (dual mode)
+description: Map how someone moves through an experience end to end. Two modes it asks you to pick between — a user journey through the product with touchpoints, emotions, friction, and opportunities, or a customer journey across the full lifecycle from awareness to advocacy with revenue and cross-functional handoffs.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 # Journey Map Skill
 
 Map user experiences and customer lifecycles. Use two modes: User-focused (touchpoints, emotions, pain points) and Business-focused (full lifecycle, revenue metrics, cross-functional).
 
-## When to Use This Skill
+## When to Use
 
 **User Journey Mapping:**
 - Understanding how users experience your product
@@ -459,7 +461,7 @@ Revenue:  [MRR/ARR progression over time]
 6. **Workshop format:** Best created collaboratively with cross-functional team
 7. **Prioritize ruthlessly:** Can't fix everything - focus on biggest impact
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Too many phases (10+ is overwhelming)
 ✅ 3-7 phases that map to real stages
@@ -478,16 +480,12 @@ Revenue:  [MRR/ARR progression over time]
 
 ## Cross-Skill Links
 
-**Feeds into:**
-- `/prd-draft` - Inform feature specs with journey insights
-- `/write-prod-strategy` - User/customer understanding in strategy
-- `/activation-analysis` - Setup → Aha → Habit maps to journey phases
-- `/retention-analysis` - Journey reveals retention drivers
-
-**Requires:**
-- User research (interviews, surveys)
-- Analytics data (funnel metrics, behavior)
-- Support data (common issues, friction points)
+- `/user-research-synthesis` -> before mapping, when the journey would otherwise be assumed rather than evidenced
+- `/activation-analysis` -> when the early journey phases map onto Setup, Aha, and Habit
+- `/retention-analysis` -> when the map reveals where users stop coming back
+- `/prd-draft` -> when a friction point is concrete enough to spec
+- `/napkin-sketch` -> when a touchpoint needs a wireframe
+- `/write-prod-strategy` -> when the journey informs the strategy's Users component
 
 ## Questions to Ask Before Starting
 
@@ -501,7 +499,7 @@ Remember: Journey maps are tools for empathy and alignment. A good journey map m
 
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/journey-map`, I automatically:
 
@@ -544,6 +542,9 @@ When the PM uses `/journey-map`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before presenting output to the PM, verify:
@@ -557,13 +558,6 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.

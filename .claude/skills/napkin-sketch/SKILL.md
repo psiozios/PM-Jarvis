@@ -1,6 +1,8 @@
 ---
 name: napkin-sketch
-description: ASCII wireframes + browser capture for design matching
+description: Sketch a screen fast as an annotated ASCII wireframe, or capture existing product UI from the browser so a new design matches what already ships. Layout, key components, and state variations, cheap enough to throw away. Feeds PRDs, tickets, and the prototyping skills.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 # Napkin Sketch Skill
@@ -21,7 +23,7 @@ Create quick wireframes as ASCII art OR capture existing UI from browser to matc
 
 **Time:** 5-10 minutes per screen
 
-## When to Use This Skill
+## When to Use
 
 **ASCII Wireframes (New Designs):**
 - Communicating initial UI concepts
@@ -446,7 +448,7 @@ What can differ:
 └──────────────────────┘
 ```
 
-## Output Format
+## Output Template
 
 Every napkin sketch delivery should follow this structure:
 
@@ -546,16 +548,15 @@ Common UI:
 
 ## Cross-Skill Links
 
-**Feeds into:**
-- `/prd-draft` - Include wireframes in PRDs
-- `/generate-ai-prototype` - Use as reference for AI prototype prompts
-- `/create-tickets` - Engineers see wireframe in ticket
+- `/journey-map` -> before sketching, when the touchpoints to wireframe are not yet mapped
+- `/interview-guide` -> when the sketch is a stimulus for discovery interviews
+- `/design-direction` -> when layout is settled and the visual tone is the open question
+- `/prototype` -> when the sketch is approved and needs building
+- `/generate-ai-prototype` -> when the sketch becomes the reference for a v0/Lovable/Bolt prompt
+- `/prd-draft` -> when the wireframe belongs in the spec
+- `/create-tickets` -> when engineers need the wireframe attached to the ticket
 
-**Follows:**
-- `/interview-guide` - Wireframes help structure interview questions
-- `/journey-map` - Map user journey, wireframe each touchpoint
-
-## Context Routing (Check Before Wireframing)
+## Context Routing
 
 Before creating any wireframe, check these sources:
 
@@ -569,6 +570,9 @@ Before creating any wireframe, check these sources:
 | Business Context | `context-library/business-info-template.md` | Product type, user personas, platform (web/mobile/both) |
 
 **Priority:** PRD requirements first (the wireframe must match the spec), then user research (ground the design in real pain points), then past prototypes (maintain consistency).
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Questions to Ask Before Wireframing
 
@@ -602,19 +606,6 @@ Remember: Wireframes are thinking tools, not art. Good enough to communicate is 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

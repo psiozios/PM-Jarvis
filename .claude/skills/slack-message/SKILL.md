@@ -1,8 +1,8 @@
 ---
 name: slack-message
-description: Draft team communications for Slack. Creates clear, actionable messages for different contexts.
-disable-model-invocation: false
+description: Draft a team chat message in your voice for a specific situation — chasing a status update without nagging, sharing a decision or recap, escalating tactfully, asking to be unblocked, announcing a launch. Drafts only and hands it to you to send; nothing is posted anywhere.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /slack-message - Write Contextual Messages Fast
@@ -21,7 +21,7 @@ When the PM types `/slack-message`, craft Slack messages that match their voice,
 
 ---
 
-## How It Works
+## Workflow
 
 Quick 2-step process:
 
@@ -457,7 +457,7 @@ This keeps the channel clean while providing depth for those who need it.
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### ❌ The Novel
 
@@ -532,7 +532,7 @@ Slack lets you edit. Use it. Fix typos, clarify wording, add missing context.
 
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/slack-message`, I automatically:
 
@@ -575,6 +575,9 @@ When you mention blockers:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before presenting output to the PM, verify:
@@ -590,14 +593,7 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -644,6 +640,8 @@ I'll rewrite it in the right voice, length, and level of detail for the new read
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/status-update` -> when the message is really a recurring progress report to a defined audience
+- `/meeting-notes` -> when the message is a recap of a meeting that also needs writing up
+- `/stakeholder-tactics` -> when the message is the hard part of a relationship problem
+- `/editing-assistant` -> when you have a draft that needs tightening rather than writing
+- `/decision-doc` -> when what you are announcing is a decision that will be questioned later

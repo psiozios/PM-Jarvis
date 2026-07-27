@@ -1,8 +1,8 @@
 ---
 name: backlog-groom
 description: Whole-board hygiene pass over the issue tracker, strictly read-only. Triages stale, duplicate, ready-to-close, mis-prioritized, wrong-sprint, orphan, and thin items with hard false-positive discipline. Output is a UI-action checklist the user applies by hand.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -23,12 +23,15 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Issue tracker | `<TASK_TRACKER>` | Full current board state: every item, status, description, age, assignee, sprint, epic/parent |
 | Sprint context | `<TASK_TRACKER>` sprint field | Current sprint boundaries, for wrong-sprint detection |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -65,7 +68,7 @@ For any text-based fix (a rewritten description, a suggested tag, a suggested pa
 
 Group the output by the click the user will actually make, not by item — this matches how they'll work through it.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Backlog Hygiene Pass — <DATE>
@@ -102,13 +105,16 @@ Pairs naturally with `refinement-prep` on a recurring cadence — hygiene betwee
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Pairs with:** `refinement-prep` (runs off the cleaned board this skill produces)
-
-**Related:** `sprint-planning` (`--groom` mode covers per-ticket INVEST readiness; this skill covers whole-board hygiene — run this first, then `sprint-planning --groom` for the tickets headed into the next sprint)
+- `/refinement-prep` -> after this, since it runs off the cleaned board this pass produces
+- `/sprint-planning` -> after this; `--groom` mode covers per-ticket INVEST readiness once the board is clean
+- `/create-tickets` -> when a thin item needs rewriting into a proper ticket rather than closing
+- `/prioritize` -> when mis-prioritized items need a consistent classification method
 
 ## When to Use
 

@@ -1,8 +1,8 @@
 ---
 name: action-sweep
 description: Sweep every connected source for the user's open action items since the last sweep, reconcile against the task tracker, and either execute internal-tool items end-to-end or propose the rest.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,7 +24,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -35,6 +35,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Issue tracker | `<TASK_TRACKER>` | Current open tasks, for dedupe and mark-done matching |
 | Call-transcript source | `<CALL_TRANSCRIPT_SOURCE>` | Action items surfaced in calls not yet in meeting notes |
 | Sweep state | `.last-sweep` (this skill's own state file) | Window start for "since last sweep" |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -73,7 +76,7 @@ Show proposed new tasks and verified-done items as one numbered table (see Outpu
 
 After the reconciliation is applied (or explicitly declined), write `.last-sweep` to the current timestamp — not before, so a partial or aborted run retries the same window next time.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Action Sweep — <DATE> (since <WINDOW START>)
@@ -108,11 +111,16 @@ This is a strong candidate for a scheduled routine — see `references/protocols
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `daily-plan`, `loose-threads` (sibling radar — dedupe against its output), `meeting-notes`, `create-tickets`
+- `/loose-threads` -> when a swept item is a stalled conversation rather than an action; dedupe against its output before flagging either
+- `/create-tickets` -> when a swept item needs to become a tracked ticket rather than a reply
+- `/meeting-notes` -> when the sweep surfaces meeting commitments that were never written up
+- `/daily-plan` -> when the surviving items need sequencing into today
 
 ## When to Use
 

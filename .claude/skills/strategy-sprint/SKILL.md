@@ -1,8 +1,8 @@
 ---
 name: strategy-sprint
-description: Create product strategy in 1 day, 1 week, or 1 month timeframes. Progressive strategy development framework.
-disable-model-invocation: false
+description: Produce a product strategy against a clock — a 1-day POV, a 1-week plan with research behind it, or a 1-month comprehensive strategy — built progressively so every tier starts from the 1-day foundation, with explicit triggers for when to escalate. Use write-prod-strategy for the full 7-component doc.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Strategy Sprint: Write Strategy in 1 Day / 1 Week / 1 Month
@@ -332,17 +332,21 @@ Help me work through the appropriate framework step by step.
 
 ---
 
-## Cross-Skill Links
+## Frameworks to Pull From
 
-- `/prd-draft` - Turn strategy into PRDs
-- `/competitor-analysis` - Research competitors (includes SWOT, Porter's Five Forces, PESTEL, Ansoff Matrix)
-- `/business-model-canvas` - Build a Business Model Canvas or Lean Canvas alongside your strategy (especially useful for 1-Day sprint on a new product or business model; canvas templates are in `templates/knowledge/`)
-- `/okr-planning` - Translate strategy into quarterly OKRs with measurable Key Results
-- `/user-research-synthesis` - Process customer insights
 - `context-library/strategy/jtbd-canvas.md` - Understand customer jobs
 - `context-library/strategy/7-powers-framework.md` - Identify unfair advantages
 
 ---
+
+## Cross-Skill Links
+
+- `/write-prod-strategy` -> when time is not the constraint and the full 7-component doc is what you need
+- `/business-model-canvas` -> when the 1-day sprint is on a new product or business model
+- `/competitor-analysis` -> when the sprint needs the competitive landscape it does not have
+- `/user-research-synthesis` -> when customer insight is the missing input
+- `/okr-planning` -> after the sprint, to translate strategy into quarterly Key Results
+- `/prd-draft` -> after the sprint, when a pillar is concrete enough to spec
 
 ## Output Quality Self-Check
 
@@ -383,14 +387,7 @@ If the brain isn't initialized, the skill falls back to `context-library/strateg
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

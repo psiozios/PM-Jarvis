@@ -1,8 +1,8 @@
 ---
 name: experiment-decision
-description: Decide when to A/B test vs just ship. Framework for experiment planning and prioritization.
-disable-model-invocation: false
+description: Decide whether a change needs an A/B test or should just ship — walks reversibility, hypothesis strength, whether the effect is even detectable at your traffic, and risk, then gives a straight call of test, ship and monitor, or just ship. Use when someone demands data before a small change.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Experiment Decision Framework: When to A/B Test vs Ship
@@ -342,31 +342,28 @@ Before delivering the experiment decision, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-- `/experiment-metrics` - Choose the right metrics to measure
-- `/activation-analysis` - Test activation improvements
-- `/metrics-framework` - Understand leading vs lagging metrics
-- `/define-north-star` - Align tests to North Star
+- `/experiment-metrics` -> when you need a metric trustworthy enough to call the test on
+- `/impact-sizing` -> when the expected effect size determines whether a test can even detect it
+- `/activation-analysis` -> when the change under test is an activation or onboarding change
+- `/retention-analysis` -> when the change under test is expected to move long-term retention
+- `/feature-results` -> after the test concludes, to write up what happened
+- `/pre-mortem` -> when kill criteria need to be set before launch
 
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's experiment decision frameworks. Read: https://www.news.aakashg.com/p/when-to-ab-test
 
+**Framework credit:** Adapted from Aakash Gupta's experiment decision frameworks. Read: https://www.news.aakashg.com/p/when-to-ab-test
+
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/experiment-decision`, I automatically:
 
@@ -401,6 +398,9 @@ When the PM uses `/experiment-decision`, I automatically:
 - **Example:** "Last experiment took 3 weeks; if we ship in 1 week and monitor, ROI favors shipping"
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Mode: --brainstorm (Generate Experiment Ideas)
 

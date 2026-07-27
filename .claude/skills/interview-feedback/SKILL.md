@@ -1,6 +1,8 @@
 ---
 name: interview-feedback
-description: Post-PM-interview debrief and continuous improvement for job search
+description: Debrief a PM job interview while it is fresh — what they asked, how you did scored across five dimensions, strengths to repeat, and an improvement plan before the next round, with patterns tracked across interviews. Job search, not user research; for research debriefs use user-research-synthesis.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 **Note:** This skill is for PM career interviews (job interviews). For debriefing after conducting user research interviews, use `/user-research-synthesis` instead.
@@ -32,7 +34,7 @@ For user research interview debriefs, use /user-research-synthesis instead.
 Output: outputs/interview-feedback/[date]-[company]-debrief.md
 ```
 
-## When to Use This Skill
+## When to Use
 
 - Within 15 minutes of finishing a PM job interview
 - After phone screens, onsite rounds, or take-home presentations
@@ -387,7 +389,7 @@ Turn insights into concrete improvements:
 
 ---
 
-## Output Format
+## Output Template
 
 ```markdown
 # Interview Debrief: [Company] - [Interview Type]
@@ -577,7 +579,7 @@ Turn insights into concrete improvements:
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Waiting hours/days to debrief (memory fades)
 ✅ Capture within 15 minutes while fresh
@@ -609,10 +611,7 @@ After every interview debrief:
 
 ---
 
-## Cross-Skill Links
-
-**Before interview:**
-- `/interview-prep` - Preparation checklist
+## Using This Over a Job Search
 
 **During job search:**
 - Track all feedback in `outputs/interview-feedback/`
@@ -625,7 +624,10 @@ After every interview debrief:
 
 ---
 
----
+## Cross-Skill Links
+
+- `/interview-prep` -> before the next round, targeting the dimensions this debrief scored lowest
+- `/user-research-synthesis` -> when the debrief you want is for a research interview, not a job interview
 
 ## Output Quality Self-Check
 
@@ -658,13 +660,6 @@ Remember: Every interview is data. Even rejections teach you something. Capture 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.

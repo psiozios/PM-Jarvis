@@ -1,8 +1,8 @@
 ---
 name: second-brain
-description: Build and maintain a compounding PM knowledge base inspired by Karpathy's LLM Wiki pattern. Scaffolds focus-area wikis under context-library/second-brain/, ingests sources with cross-linking, answers questions with citations, files good answers back, and surfaces gaps. Modes, init, ingest, query, compile, explore, lint, prep, status. Use when the PM wants a personal wiki, knowledge base, or persistent memory that gets smarter with every use.
-disable-model-invocation: false
+description: Build and maintain a compounding knowledge base — a personal wiki that ingests sources with cross-linking, answers questions with citations, files good answers back, and surfaces gaps, so the same research stops getting redone. Talks through the takeaways with you before writing anything into the brain.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /second-brain - A Knowledge Base That Compounds
@@ -111,7 +111,7 @@ Followed by a one-paragraph summary, then the body.
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 Before running any mode, check:
 
@@ -129,6 +129,9 @@ Before running any mode, check:
 - If the brain doesn't exist yet and the PM asks a query, offer to run `/second-brain init` first.
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Mode 1: `init` — Scaffold a New Focus Area
 
@@ -360,7 +363,7 @@ Report:
 
 ---
 
-## Integration With Existing Skills
+## What Each Skill Files And Pulls
 
 The brain compounds only if outputs flow into it. These skills will prompt "File to Second Brain?" at the end of their runs:
 
@@ -419,33 +422,20 @@ The index-based approach holds up to ~100 raw sources and a few hundred wiki pag
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-- **Writes to the brain:** `/meeting-notes`, `/decision-doc`, `/user-research-synthesis`, `/voice-of-customer`, `/competitor-analysis`, `/weekly-review`, `/stakeholder-tactics`
-- **Reads from the brain:** `/prd-draft`, `/daily-plan`, `/meeting-agenda`, `/strategy-sprint`, `/write-prod-strategy`, `/decision-doc`
-- **Complementary:** `/learning-mode` (teaches new concepts; complements `domain-knowledge` focus area)
-
----
+- `/chat-ingest` -> when the source is chat threads; it filters and routes, this skill's `ingest` mode does the wiki write
+- `/decision-doc` and `/stakeholder-tactics` -> these declare this skill as their canonical store; `query` before they run, `ingest` after
+- `/prd-draft` -> `query` or `prep` before drafting, so the Background section starts from cited evidence
+- `/learning-mode` -> when a gap surfaced by `explore` or `lint` is a concept you need taught, not a page you need to write
+- Any skill that ends by offering "File to Second Brain?" -> `ingest` with its output as the source
 
 ## Reference
 
 Full operational prompt library — copy-paste versions of every mode plus PM-specific queries — lives at:
 
 `.claude/skills/second-brain/references/starter-prompts.md`
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

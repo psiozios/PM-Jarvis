@@ -1,8 +1,8 @@
 ---
 name: sales-battlecard
 description: Create competitive battle cards for the sales team. Turns product knowledge, win/loss intel, and competitive research into concise sales-ready cards — objection handling, differentiation points, landmine questions, and proof points.
-disable-model-invocable: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /sales-battlecard - Arm Sales to Win More Deals
@@ -27,7 +27,7 @@ Output: outputs/analyses/battlecard-vs-[competitor]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -36,13 +36,10 @@ Output: outputs/analyses/battlecard-vs-[competitor]-[date].md
 | Meeting Notes | `context-library/meetings/*.md` | [competitor name], objection, comparison | Sales call intel |
 | PRDs | `context-library/prds/*.md` | feature, capability, roadmap | Our actual capabilities to reference |
 
-**Cross-Skill Links:**
-- Deeper competitive analysis → `/competitor-analysis`
-- Win/loss patterns → `/win-loss-analysis`
-- Positioning document → `/write-prod-strategy` (messaging section)
-- Customer proof points → `/feature-results` or `/user-research-synthesis`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Battle Card Structure
 
@@ -246,14 +243,7 @@ Walk-away profile: [Describe the deals we typically lose]
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -265,14 +255,10 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/competitor-analysis` -> before the card, when the competitor intel is not deep enough to differentiate on
+- `/win-loss-analysis` -> when objection patterns should come from real deal outcomes, not guesses
+- `/write-prod-strategy` -> when positioning claims need to match the messaging section
+- `/feature-results` or `/user-research-synthesis` -> when proof points need real numbers or quotes
+- `/slack-message` -> when the card needs announcing to the sales team

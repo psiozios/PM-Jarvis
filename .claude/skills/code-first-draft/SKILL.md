@@ -1,6 +1,8 @@
 ---
 name: code-first-draft
-description: Initial feature implementation
+description: Build the first working implementation of a feature in your codebase, from a PRD or a described change. Explores the existing patterns first, proposes a plan and waits for your approval before writing any code, then implements with tests and a summary of every file created or modified.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -21,7 +23,7 @@ description: Initial feature implementation
 
 Connect to codebase and build initial implementation of a feature. Single-pass development with manual iteration.
 
-## Usage
+### Usage
 
 - `/code-first-draft` - Build feature from PRD
 - `/code-first-draft [prd-name]` - Build specific PRD
@@ -34,10 +36,13 @@ Connect to codebase and build initial implementation of a feature. Single-pass d
 
 **Check first:**
 1. `outputs/prds/` - PRD for requirements
-2. `context-library/technical/codebase-overview.md` - Cached codebase context
+2. `outputs/analyses/explore-*.md` - Cached codebase context, written by `/explore-codebase`
 3. Codebase (`.git` directory, source files)
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -69,22 +74,7 @@ tree -L 2 -I 'node_modules|__pycache__|.git'
 ```
 
 **Save context:**
-Create `context-library/technical/codebase-overview.md`:
-```markdown
-# Codebase Overview
-
-**Framework:** [React/Django/Rails/etc]
-**Key directories:**
-- `/src/components/` - UI components
-- `/src/api/` - API routes
-- `/src/services/` - Business logic
-
-**Patterns:**
-- [Pattern observed]
-
-**Tech stack:**
-- [Languages, frameworks, libraries]
-```
+`/explore-codebase` owns codebase context and writes it to `outputs/analyses/explore-[topic]-[date].md`. If no exploration output exists yet, run `/explore-codebase` rather than writing a cached overview here — `context-library/` is not a write destination for the assistant (see `references/file-creation-rules.md`).
 
 ---
 
@@ -336,19 +326,13 @@ Generate tests using the detected testing framework. If no testing framework is 
 
 ## Cross-Skill Links
 
-**Before:**
-- `/prd-draft` - Define feature
-- `/prototype` - Validate UX first
-
-**After:**
-- `/ralph-wiggum` - If needs autonomous iteration
-- `/launch-checklist` - Prepare for launch
-- `/create-tickets` - Track remaining work
-
-**Related:**
-- `/prd-review-panel` - Get engineering review
-
----
+- `/explore-codebase` -> before implementing, when you do not yet know where the change belongs
+- `/execution-plan` -> before implementing, when the work needs phasing; run with `--from-plan`
+- `/prd-draft` -> before implementing, when requirements are not written down
+- `/code-review` -> after implementing, as the quality gate on what was generated
+- `/update-docs` -> after implementing, when the change alters documented behavior
+- `/create-tickets` -> when work is left over that this pass did not cover
+- `/learning-mode` -> when you hit a concept in the code you do not fully understand
 
 ## Output Quality Self-Check
 
@@ -373,14 +357,7 @@ If any check fails, fix it before delivering. A first draft with failing tests o
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -391,9 +368,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

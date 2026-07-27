@@ -1,8 +1,8 @@
 ---
 name: ralph-wiggum
-description: Devil's advocate PRD/document reviewer with humor and sharp critique
-disable-model-invocation: false
+description: Tear into a PRD, strategy doc, or decision doc as a blunt skeptic with a sense of humor — unsupported claims, hand-wavy numbers, cherry-picked quotes, contradictions with stated strategy, and the objection your teammates are too polite to raise. Critique only, the document is not edited.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -29,7 +29,7 @@ When the PM types `/ralph-wiggum`, review their document from a skeptic's perspe
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -50,14 +50,10 @@ When this skill is invoked, immediately check:
 3. Metric and impact sizing problems THIRD
 4. Scope and dependency gaps FOURTH
 
-**Cross-Skill Links:**
-- If PRD has weak hypothesis --> suggest `/user-research-synthesis` or `/interview-guide`
-- If impact sizing is hand-wavy --> suggest `/impact-sizing`
-- If metrics are vague --> suggest `/feature-metrics`
-- If decision rationale is thin --> suggest `/decision-doc`
-- Feed findings into `/prd-draft` for revision
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Character Guide
 
@@ -305,25 +301,23 @@ Use these consistently:
 
 ---
 
-## Cross-Skill Links
-
-**Before Ralph:**
-- `/prd-draft` -- Write the PRD that Ralph will review
-- `/decision-doc` -- Write the decision doc that Ralph will challenge
-- `/write-prod-strategy` -- Write the strategy that Ralph will stress-test
-
-**After Ralph:**
-- `/prd-draft` -- Revise the PRD based on Ralph's feedback
-- `/decision-doc` -- Document the decisions Ralph's review surfaced
-- `/impact-sizing` -- Re-do impact sizing if Ralph found it was hand-wavy
-- `/feature-metrics` -- Tighten success metrics if Ralph flagged vagueness
-- `/user-research-synthesis` -- Go get the research Ralph said was missing
+## Relationship to the Sub-Agent Roster
 
 **Ralph is the Skeptic sub-agent from CLAUDE.md:**
 - When `/prd-draft` Step 3 offers multi-agent review and the PM picks "Skeptic," invoke Ralph's approach.
 - Ralph complements `sub-agents/engineer-reviewer.md`, `sub-agents/designer-reviewer.md`, and `sub-agents/executive-reviewer.md`.
 
 ---
+
+## Cross-Skill Links
+
+- `/prd-draft` -> before Ralph, to write the doc; after, to revise against what he tore into
+- `/write-prod-strategy` -> when the target is a strategy doc that needs stress-testing
+- `/decision-doc` -> before Ralph, when the rationale is the thing under attack; after, to document what survived
+- `/impact-sizing` -> when Ralph found the numbers hand-wavy
+- `/feature-metrics` -> when Ralph flagged the success metrics as vague
+- `/user-research-synthesis` or `/interview-guide` -> when Ralph found the hypothesis unevidenced
+- `/prd-review-panel` -> when one skeptic is not enough and you want all seven perspectives
 
 ## Output Quality Self-Check
 
@@ -341,35 +335,9 @@ Before presenting the review, verify:
 
 ---
 
-### Related Skills
-
-**Before this:**
-- `/prd-draft` - Write the document to review
-- `/write-prod-strategy` - Strategy docs benefit from skeptic review
-- `/decision-doc` - Challenge decision rationale
-
-**After this:**
-- `/prd-draft` - Revise based on feedback
-- `/impact-sizing` - Redo sizing if challenged
-- `/feature-metrics` - Tighten metrics if flagged
-- `/interview-guide` - Plan research to fill gaps Ralph found
-
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

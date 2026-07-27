@@ -1,8 +1,8 @@
 ---
 name: retention-analysis
-description: Cohort analysis and retention optimization framework. Identifies retention drivers and churn factors.
-disable-model-invocation: false
+description: Work out why users stop coming back — the shape of the retention curve, where the biggest drop-off sits, cohort comparison, and what retained users did that churned ones never did, turned into interventions. Use for churn, a flattening curve, stickiness, or gauging product-market fit.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Retention Analysis: Measuring What Keeps Users Coming Back
@@ -27,7 +27,7 @@ compare retained vs churned user behavior, and recommend interventions.
 
 **Framework source:** Aakash Gupta's retention frameworks and "Ultimate Guide to Activation"
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -45,12 +45,10 @@ When this skill is invoked, immediately check:
 2. Analytics MCP SECOND (if connected - query retention cohorts, churn reasons)
 3. Framework guidance LAST (generic retention tactics)
 
-**Cross-Skill Links:**
-- If activation issues found → Link to `activation-analysis` (fix activation first)
-- If expansion opportunity identified → Link to `expansion-strategy`
-- If feature opportunity identified → Link to `prd-draft`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Current Retention Reality
 
@@ -518,9 +516,7 @@ Use this with your data:
 
 ---
 
-## Cross-Skill Links
-
-### Where to Save Your Retention Analysis
+## Where Files Go
 
 **Research & Findings:**
 - Save to: `outputs/analyses/retention-analysis-[date].md`
@@ -536,23 +532,9 @@ Use this with your data:
 - Link this retention analysis as context
 - Track impact in PRD success metrics
 
-### Cross-Skill Integration
+---
 
-**Feeds into:**
-- `/activation-analysis` - Activation rates predict retention (low activation = low retention)
-- `/expansion-strategy` - Retention is prerequisite for expansion (retain before upselling)
-- `/prd-draft` - Retention features become product roadmap items
-- `/experiment-decision` - Test retention improvements (email cadence, notifications, features)
-- `/metrics-framework` - Retention and churn as leading indicators of business health
-- `/define-north-star` - Retention often ties to North Star metric
-
-**Pulls from:**
-- `/activation-analysis` - Aha moment and habit formation data
-- `/user-research-synthesis` - Churn interview synthesis and user feedback
-- `/competitor-analysis` - Understand if churn is to competitors
-- `/expansion-strategy` - Expansion cohort retention patterns
-
-### Key Questions to Revisit
+## Key Questions to Revisit
 
 After analyzing retention, ask:
 - Is our Aha moment definition (from activation-analysis) actually tied to retention?
@@ -562,6 +544,17 @@ After analyzing retention, ask:
 - Do we have data on resurrection campaigns—can we win back churned users?
 
 ---
+
+## Cross-Skill Links
+
+- `/activation-analysis` -> when the curve drops early; fix activation before chasing retention
+- `/user-research-synthesis` -> when you have the churn shape but not the churn reason
+- `/expansion-strategy` -> when retained segments are the ones worth expanding
+- `/competitor-analysis` -> when churn appears to be going somewhere specific
+- `/prd-draft` -> when a retention intervention needs a spec
+- `/experiment-decision` -> when the intervention should be tested rather than shipped
+- `/metrics-framework` -> when retention needs leading indicators that move sooner than D30
+- `/define-north-star` -> when retention is a candidate for, or input to, the North Star
 
 ## Win-Back Playbook
 
@@ -673,15 +666,6 @@ Before delivering the retention analysis, verify:
 
 ---
 
-### Related Skills
-
-- `activation-analysis` - Improve activation to boost retention (activation -> retention pipeline)
-- `metrics-framework` - Leading indicators of retention (D7, L28, feature adoption)
-- `experiment-decision` - Test retention improvements (engagement features, notifications)
-- `define-north-star` - Align retention metrics to North Star metric
-- `user-research-synthesis` - Understand why users churn (synthesis of churn interviews)
-- `expansion-strategy` - Retention enables expansion (can't expand churned users)
-- `competitor-analysis` - Understand competitive churn factors
 
 ---
 
@@ -690,14 +674,7 @@ Before delivering the retention analysis, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

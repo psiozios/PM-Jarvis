@@ -1,8 +1,8 @@
 ---
 name: meeting-cleanup
-description: Batch process multiple meetings from a single day. Consolidates action items and insights across meetings.
-disable-model-invocation: false
+description: Process a whole day of meetings in one pass — summarize each, pull every decision and action item with an owner, dedupe items that repeat across meetings, and flag cross-meeting conflicts into one consolidated list. Use meeting-notes for a single meeting's transcript.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -22,7 +22,7 @@ Upload or paste all of today's meeting transcripts, and I'll:
 
 Process all your meetings in one batch at the end of the day using AI.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -43,6 +43,9 @@ When this skill is invoked, immediately check:
 4. Business info for general context FOURTH
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Overview
 
@@ -221,7 +224,7 @@ Always surface conflicts with the format:
 
 ---
 
-## Context Routing Strategy
+### Extraction Method
 
 When the PM uses `/meeting-cleanup`, I automatically:
 
@@ -285,14 +288,7 @@ If any check fails, revise before delivering.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -304,14 +300,10 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/meeting-notes` -> when a single meeting needs full-depth processing rather than batch treatment
+- `/create-tickets` -> when the consolidated action list needs to become tracked work
+- `/decision-doc` -> when a decision recurred across meetings and needs formalizing
+- `/action-sweep` -> when action items are scattered beyond meetings and need reconciling against the tracker
+- `/status-update` -> when the day's decisions need reporting outward

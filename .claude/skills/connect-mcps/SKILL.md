@@ -1,9 +1,8 @@
 ---
 name: connect-mcps
-description: Connect MCPs for real-time tool integration
-version: 1.0
+description: Set up a live tool connection (analytics, issue tracker, docs hub, chat) so skills pull real data instead of asking you for it — finds the server, walks you through credentials, tests the connection. Modifies your workspace, editing skill files and the CLAUDE.md routing registry as part of setup.
 user-invocable: true
-modifies-workspace: true
+disable-model-invocation: false
 ---
 
 # `/connect-mcps` - MCP Integration & Connection Manager
@@ -47,7 +46,7 @@ Tell me which tool to connect (e.g., "connect to Amplitude") and I will guide yo
 ```
 Then provide multiple tool names when prompted.
 
-## How It Works
+## Workflow
 
 When you run `/connect-mcps connect to [tool name]`, I will:
 
@@ -65,7 +64,7 @@ When you run `/connect-mcps connect to [tool name]`, I will:
 - ⚙️ **Second:** Local MCP server via NPM/Docker
 - 🔑 **Last:** Manual OAuth/API token setup
 
-## Step-by-Step Workflow
+### Step-by-Step Workflow
 
 ### Step 1: Parse Tool Name
 
@@ -808,15 +807,15 @@ Me: [maps to both skill groups]
 
 6. **Check the integration log** - Each connection creates a log in `outputs/mcp-integration-logs/` with full details about what was updated.
 
-7. **MCPs are optional** - If an MCP isn't connected, skills will gracefully fall back to manual workflows (e.g., "Upload CSV to context-library/metrics/").
+7. **MCPs are optional** - See `references/mcp-routing.md` for per-source fallbacks when a tool is not connected (e.g., "Upload CSV to context-library/metrics/").
 
 8. **Re-run `/connect-mcps connect` to update** - If credentials change or expire, just run the connect command again to reconfigure.
 
-9. **Check CLAUDE.md registry** - View `CLAUDE.md` → "MCP Integrations" section to see all connected MCPs and routing logic.
+9. **Check the routing table** - See `references/mcp-routing.md` for connected MCPs and query routing logic.
 
 10. **Skills auto-update** - When you connect an MCP, relevant skills are automatically updated with integration instructions. No manual work needed.
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ **Don't paste credentials in chat without the prompt** - Wait for me to explicitly ask for your API key. Don't volunteer it unprompted.
 
@@ -869,7 +868,7 @@ If no MCP exists, you can still use the tool manually and store outputs in `cont
 ### "Queries aren't routing to my MCP"
 
 **Solution:**
-1. Check `CLAUDE.md` → "MCP Integrations" → Verify MCP is listed
+1. Check `references/mcp-routing.md` → verify the MCP is listed
 2. Verify routing logic includes your MCP category
 3. Try being more explicit: "Use Amplitude to show me metrics on X"
 4. Check if MCP connection is still active (test with simple query)
@@ -1208,7 +1207,7 @@ Since analytics is the #1 requested integration, here's the specifics:
 **For PM-specific help:**
 - Check `outputs/mcp-integration-logs/` for detailed error messages
 - Ask in chat: "Why did my Amplitude connection fail?"
-- Reference CLAUDE.md → MCP Integrations section for routing logic
+- Reference `references/mcp-routing.md` for routing logic
 
 ---
 
@@ -1263,19 +1262,10 @@ If any check fails, fix it before declaring success. A half-connected MCP causes
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+<!-- No Cross-Skill Links: this is a setup utility, not a workflow step. Every skill degrades gracefully without MCPs, and any static list of which skills benefit from which connector would be stale within a week. Live routing lives in `references/mcp-routing.md`. -->

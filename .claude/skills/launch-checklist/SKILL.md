@@ -1,6 +1,8 @@
 ---
 name: launch-checklist
-description: Comprehensive product launch planning
+description: Build the launch checklist for a feature or product — pre-launch prep, launch-day execution, post-launch monitoring — sized for a small feature, a major launch, or a regulatory release, with owners, dependencies, dates, and the critical path that cannot slip. Saved to the launches folder.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -21,7 +23,7 @@ description: Comprehensive product launch planning
 
 Generate comprehensive launch checklist ensuring nothing falls through the cracks. Covers pre-launch prep, launch execution, and post-launch monitoring.
 
-## Usage
+### Usage
 
 - `/launch-checklist` - Create checklist for a feature/product
 - `/launch-checklist [prd-name]` - Create for specific PRD
@@ -39,6 +41,9 @@ Generate comprehensive launch checklist ensuring nothing falls through the crack
 5. `templates/launch-checklist-template.md` - Base template (if exists)
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -351,35 +356,13 @@ WARNING: Any delay in this chain delays launch by the same amount.
 
 ## Cross-Skill Links
 
-**Before `/launch-checklist`:**
-- `/prd-draft` - Define what's launching
-- `/prd-review-panel` - Ensure PRD is solid
-- `/prototype` - Validate solution before building
-
-**After `/launch-checklist`:**
-- `/create-tickets` - Convert to Linear/Jira tasks
-- `/daily-plan` - Surface checklist items in daily planning
-- `/feature-results` - Analyze post-launch impact
-
-**During launch:**
-- `/weekly-review` - Track checklist progress each week
-- `/status-update` - Share launch status with stakeholders
-
----
-
-### Related Skills
-
-**Before this:**
-- `/prd-draft` - Create PRD
-- `/prd-review-panel` - Validate approach
-- `/impact-sizing` - Estimate value
-
-**After this:**
-- `/create-tickets` - Track in Linear/Jira
-- `/feature-results` - Post-launch analysis
-- `/weekly-review` - Monitor progress weekly
-
----
+- `/prd-draft` -> before the checklist, when what is launching is not specified
+- `/prd-review-panel` -> before the checklist, when the PRD has not been stress-tested
+- `/pre-mortem` -> before the checklist, to surface failure modes to embed as mitigations
+- `/content-marketing` -> when launch announcements and release notes are checklist deliverables
+- `/create-tickets` -> to convert checklist items into tracked work
+- `/status-update` -> during the launch, to keep stakeholders current
+- `/feature-results` -> after the launch, to analyze what actually happened
 
 ## Output Quality Self-Check
 
@@ -403,14 +386,7 @@ If any check fails, fix it before delivering. A launch checklist with missing ow
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -488,9 +464,3 @@ All P0 scenarios pass before launch. P1 scenarios pass or have documented workar
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

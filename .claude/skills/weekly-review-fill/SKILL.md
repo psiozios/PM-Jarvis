@@ -1,8 +1,8 @@
 ---
 name: weekly-review-fill
-description: Base tier of the periodic-review cascade. Pre-fills the week's review entry from completed work, asks only genuine judgment questions, and forward-creates upcoming weeks with dedupe. Never hands over a blank questionnaire.
-disable-model-invocation: false
+description: Fill in the week's entry in a standing review tracker — pre-filled from work you actually completed, asking only the genuine judgment questions, never handing over a blank questionnaire. Base tier of the periodic-review cascade; forward-creates upcoming week shells with dedupe. For a free-form week retrospective, use weekly-review.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,13 +24,16 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the base tier of a nested cascade — see `monthly-review-fill` and `quarterly-review-fill`, which roll this tier up rather than re-deriving from raw activity.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Reviews store | `<REVIEWS_STORE>` | This week's existing entry (if any), the prior week's entry for continuity |
 | Task tracker | `<TASK_TRACKER>` | Tasks completed within the week's date range, for candidate accomplishments |
 | Calendar | `<CALENDAR>` | Week boundaries, computed in local time |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -66,7 +69,7 @@ Fetch the entry's current state in `<REVIEWS_STORE>` immediately before writing,
 
 Create shells for the next N weeks in `<REVIEWS_STORE>`, deduped against anything already scheduled there. This also runs only on confirm.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Week <YYYY-Www> Review Draft
@@ -101,13 +104,15 @@ A natural weekly-cadence routine — fire at the start (or end) of each week to 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Rolled up by:** `monthly-review-fill` (synthesizes completed weeks into the month's assessment)
-
-**Related:** `weekly-review` (deeper narrative synthesis — this skill fills the structured entry fast; `weekly-review` is the fuller reflective pass)
+- `/monthly-review-fill` -> when four weeks are filled and the month can be rolled up
+- `/weekly-review` -> when you want the fuller reflective narrative rather than the structured entry
+- `/weekly-plan` -> when this week's entry should shape next week's priorities
 
 ## When to Use
 

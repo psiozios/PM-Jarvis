@@ -1,8 +1,8 @@
 ---
 name: refinement-prep
 description: Slate for the next refinement ceremony, run off a cleaned issue tracker. Asks the period's theme first, ranks a capped shortlist by theme-fit then live priority then readiness, drafts each item's enrichment, and surfaces the unknowns that would cause rework. Read-only.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,13 +24,16 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Issue tracker | `<TASK_TRACKER>` | Full current board state, post-`backlog-groom` if it's been run recently |
 | Strategy | `context-library/strategy/` | Current priorities, for theme-fit ranking |
 | Prioritize method | `.claude/skills/prioritize/SKILL.md` (if present) | The LNO-style ranking method, if the user wants live priority scored consistently with how they prioritize elsewhere |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -58,7 +61,7 @@ For each shortlisted item, draft what it needs to enter refinement ready: a clea
 
 For each shortlisted item, identify the 1-2 genuine unknowns that would cause rework if the item entered the ceremony raw and got refined on a wrong assumption. Not every open question — only the ones that would actually cause backtracking.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Refinement Slate — <DATE>
@@ -90,13 +93,16 @@ Pairs with `backlog-groom` on a recurring cadence — hygiene between ceremonies
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before this:** `backlog-groom` (the cleaned board this slate runs off of)
-
-**Related:** `prioritize` (ranking method, when present), `sprint-planning` (the ceremony this slate feeds into)
+- `/backlog-groom` -> before this, for the cleaned board this slate runs off of
+- `/sprint-planning` -> after this, as the ceremony this slate feeds into
+- `/prioritize` -> when the ranking method itself needs settling first
+- `/create-tickets` -> when an enriched item needs rewriting into proper ticket form
 
 ## When to Use
 

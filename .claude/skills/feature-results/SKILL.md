@@ -1,8 +1,8 @@
 ---
 name: feature-results
-description: Post-launch analysis and results documentation. Document what shipped and what we learned.
-disable-model-invocation: false
+description: Write up what actually happened after a feature shipped — results against the original hypothesis and targets, why it missed, segment breakdown, calibration of your estimates, and how to tell stakeholders. Verifies the thing really launched first; for pre-launch estimates use impact-sizing.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /feature-results - Post-Launch Analysis
@@ -347,7 +347,7 @@ Always analyze results across these default segments. Segment analysis often rev
 
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/feature-results`, I automatically:
 
@@ -387,6 +387,9 @@ When the PM uses `/feature-results`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before delivering the feature results doc, verify:
@@ -409,14 +412,7 @@ Before delivering the feature results doc, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -441,14 +437,12 @@ I'll revise the specific section — not rewrite the whole doc.
 - Executive review feedback — strengthen the so-what or simplify for leadership audience
 - Missed a metric — add a guardrail or secondary metric that wasn't initially tracked
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/feature-metrics` -> when the feature shipped without defined success criteria to measure against
+- `/impact-sizing` -> when you need the original estimate to calibrate against actuals
+- `/experiment-decision` -> when the readout is an A/B result rather than a rollout
+- `/decision-doc` -> when the result forces a ship/iterate/kill call worth documenting
+- `/status-update` or `/slack-message` -> when the result needs communicating to stakeholders
+- `/create-tickets` -> when the iterate path produces concrete follow-up work
+- `/post-mortem` -> when the feature missed badly enough to warrant a blameless retrospective

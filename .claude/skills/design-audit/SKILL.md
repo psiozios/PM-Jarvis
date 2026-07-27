@@ -1,8 +1,8 @@
 ---
 name: design-audit
 description: Structured 7-dimension design audit for existing UIs. Evaluate typography, color, layout, interactivity, content, components, and code quality. Modes for competitor audit, benchmarking, and quick review.
-disable-model-invocation: true
 user-invocable: true
+disable-model-invocation: true
 ---
 
 # /design-audit - Structured UI Quality Assessment
@@ -28,7 +28,7 @@ Give structured, credible design feedback on existing products, competitor UIs, 
 
 ---
 
-## Context Routing Logic (Internal)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -49,6 +49,9 @@ Give structured, credible design feedback on existing products, competitor UIs, 
 4. Competitor benchmarks FOURTH (how others solve this)
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## When to Use
 
@@ -369,45 +372,16 @@ Before delivering the audit, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:**
-- `/competitor-analysis` -- Gather competitive context before auditing
-- `/user-research-synthesis` -- Understand user expectations before judging the UI
-
-**After:**
-- `/design-direction` -- Set target parameters for the redesign
-- `/prototype` -- Build improved version based on audit findings
-- `/prototype-feedback --design` -- Evaluate the new prototype against audit issues
-- `/create-tickets` -- Turn must-fix items into engineering tickets
-
-**Related:**
-- `/prd-review-panel` -- Designer sub-agent reviews PRDs, this skill reviews built UIs
-- `/napkin-sketch` -- Quick wireframe after identifying layout issues
-- `/second-brain ingest` -- File audit findings into competitive-intelligence
-
----
-
-### Related Skills
-
-- `/design-direction` -- Set the target aesthetic after auditing current state
-- `/prototype-feedback --design` -- For in-progress prototypes, not shipped UIs
-- `/competitor-analysis` -- Broader competitive intelligence beyond UI
-- `/prototype` -- Build the improved version
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
+- `/competitor-analysis` -> before auditing, when you need the competitive visual landscape
+- `/user-research-synthesis` -> before auditing, when user expectations are assumed rather than known
+- `/design-direction` -> after auditing, to set the target aesthetic for the fix
+- `/prototype` -> after auditing, to build the improved version
+- `/prototype-feedback --design` -> when the target is an in-progress prototype, not a shipped UI
+- `/napkin-sketch` -> when the audit found a layout problem worth re-sketching cheaply
+- `/create-tickets` -> when must-fix items need to become engineering work

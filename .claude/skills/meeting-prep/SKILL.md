@@ -1,8 +1,8 @@
 ---
 name: meeting-prep
 description: Assemble substantive prep for an upcoming meeting — attendee context, recent history, current priorities, real talking points and risks — pulled from workspace and second-brain context, never a blank agenda.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,7 +24,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -33,6 +33,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Meeting history | `outputs/meeting-notes/`, `context-library/meetings/` | Last interactions with each attendee, prior decisions on this topic |
 | Recent calls | `<CALL_TRANSCRIPT_SOURCE>` | Substantive context from recent shared calls, not just 1:1s |
 | Priorities | `outputs/weekly-plans/`, `context-library/strategy/` | Current priorities that give the meeting a "so what" |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -56,7 +59,7 @@ Read `outputs/weekly-plans/` and `context-library/strategy/` for what's currentl
 
 Draft specific talking points, decisions worth pushing for, and risks worth naming — grounded in what steps 2-4 actually turned up. If a section has nothing to say, say so explicitly rather than filling it with a generic placeholder (see `references/protocols/skill-patterns.md` discipline #1 — verify and read to resolution before asserting).
 
-## Output Format
+## Output Template
 
 ```markdown
 # Meeting Prep — <meeting title>, <date/time>
@@ -94,15 +97,17 @@ A natural first step in a daily chain — see `references/protocols/routines.md`
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before this:** `daily-plan` (surfaces the day's meetings)
-
-**After this:** `meeting-agenda` (formalize into a structured agenda), `meeting-notes` (capture outcomes afterward)
-
-**Related:** `second-brain` (stakeholder and topic context)
+- `/daily-plan` -> before this, when you do not yet know which meetings today needs prep for
+- `/meeting-agenda` -> after this, to formalize the prep into a structured agenda
+- `/meeting-notes` -> after the meeting, to capture what actually came out of it
+- `/second-brain` -> when attendee and topic context should come from the brain rather than memory
+- `/stakeholder-tactics` -> when the meeting is a difficult conversation that needs a plan, not just prep
 
 ## When to Use
 

@@ -1,8 +1,8 @@
 ---
 name: business-model-canvas
 description: Build and analyze a Business Model Canvas or Lean Canvas. Two modes - generate from scratch with AI assistance, or critique an existing canvas for gaps and weak assumptions.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /business-model-canvas - Build or Critique Your Canvas
@@ -29,7 +29,7 @@ Output: outputs/business-canvases/[bmc|lean]-canvas-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -48,14 +48,10 @@ When this skill is invoked, immediately check:
 3. User research THIRD (customer segments and pain validation)
 4. PRDs FOURTH (solution specifics)
 
-**Cross-Skill Links:**
-- After canvas → Link to `/write-prod-strategy` to build full strategy
-- If pricing block is weak → Link to `/survey-builder` (Van Westendorp) to research pricing
-- If customer segments are unclear → Link to `/interview-guide` to run discovery interviews
-- If building business case → Reference canvas in `/prd-draft` Strategic Fit section
-- If doing 1-day sprint → Canvas output pairs with `/strategy-sprint`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Context
 
@@ -320,28 +316,22 @@ List the 3-5 most critical assumptions in this canvas that, if wrong, would inva
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Canvases:**
 - Active work: `outputs/business-canvases/[bmc|lean]-canvas-[date].md`
 - When finalized: Move to `context-library/strategy/` for ongoing reference
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/write-prod-strategy` - Canvas informs the business model section of strategy docs
-- `/strategy-sprint` - 1-day or 1-week sprint benefits from canvas as a foundation
-- `/prd-draft` - Canvas context populates "Strategic Fit" and "Business Model" sections
-- `/impact-sizing` - Revenue streams and cost structure inform sizing assumptions
-
-**Pulls from:**
-- `context-library/business-info-template.md` - Auto-populates known blocks
-- `context-library/research/` - Customer segment and pain data
-- `context-library/strategy/` - Value proposition and positioning context
-
 ---
+
+## Cross-Skill Links
+
+- `/write-prod-strategy` -> when the canvas is settled and the full strategy doc is next
+- `/strategy-sprint` -> when the canvas is the foundation for a 1-day or 1-week strategy sprint
+- `/survey-builder` -> when the revenue-streams or pricing block is the weakest assumption (Van Westendorp)
+- `/interview-guide` -> when the customer-segments block is guesswork and needs discovery interviews
+- `/impact-sizing` -> when revenue streams and cost structure need numbers behind them
+- `/prd-draft` -> when the canvas feeds a feature's Strategic Fit section
 
 ## Output Quality Self-Check
 
@@ -360,14 +350,7 @@ Before delivering a canvas, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -378,9 +361,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

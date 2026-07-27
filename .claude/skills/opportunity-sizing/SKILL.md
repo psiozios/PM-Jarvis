@@ -1,8 +1,8 @@
 ---
 name: opportunity-sizing
-description: Evaluate the strategic size of a market or product opportunity before committing to build. Combines market analysis (TAM/SAM/SOM), problem frequency, willingness to pay, and competitive landscape into a structured investment thesis.
-disable-model-invocation: false
+description: Judge whether a market or problem space is worth entering before committing to build — TAM, SAM, and SOM, how often the problem actually bites, willingness to pay, and the competitive landscape, assembled into an investment thesis. Market-level; use impact-sizing to value one specific feature.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /opportunity-sizing - Evaluate the Bet Before You Make It
@@ -24,7 +24,7 @@ Output: outputs/analyses/opportunity-[name]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -33,13 +33,10 @@ Output: outputs/analyses/opportunity-[name]-[date].md
 | Metrics | `context-library/metrics/*.md` | revenue, ARR, conversion, LTV | Baseline unit economics |
 | Competitive | `context-library/research/competitive*.md` | competitor, market share, TAM | Competitive market context |
 
-**Cross-Skill Links:**
-- Validated opportunity → `/prd-draft` or `/write-prod-strategy`
-- Revenue model component → `/business-model-canvas`
-- Need survey data to validate willingness to pay → `/survey-builder` (Van Westendorp)
-- Pricing structure → `/pricing-analysis`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 1: Define the Opportunity Clearly
 
@@ -239,14 +236,7 @@ Does this opportunity align with where we're going?
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -258,14 +248,11 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/impact-sizing` -> when the question narrows to what one specific feature is worth
+- `/survey-builder` -> when willingness to pay is the weakest number (Van Westendorp)
+- `/pricing-analysis` -> when the revenue model depends on pricing structure
+- `/business-model-canvas` -> when the opportunity needs a full business model behind it
+- `/competitor-analysis` -> when the competitive landscape section is guesswork
+- `/write-prod-strategy` or `/prd-draft` -> when the thesis clears the bar and needs committing to

@@ -1,8 +1,8 @@
 ---
 name: design-direction
 description: Set and communicate design direction using a 3-parameter system (variance, motion, density). Style presets (soft, minimal, brutalist). Output briefs for designers or AI tools. Use --strict for engineering-ready specs.
-disable-model-invocation: true
 user-invocable: true
+disable-model-invocation: true
 ---
 
 # /design-direction - Set Visual Tone for Features
@@ -35,7 +35,7 @@ Help PMs articulate "how it should feel" and communicate that direction to desig
 
 ---
 
-## Context Routing Logic (Internal)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -56,6 +56,9 @@ Help PMs articulate "how it should feel" and communicate that direction to desig
 4. Competitor landscape FOURTH (how do we differentiate visually)
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## When to Use
 
@@ -359,44 +362,16 @@ Before delivering the design direction, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:**
-- `/prd-draft` -- Define the feature first, then set its visual tone
-- `/competitor-analysis` -- Understand the visual landscape before differentiating
-- `/design-audit` -- Audit the current state before setting a new direction
-
-**After:**
-- `/generate-ai-prototype --with-taste` -- Inject this direction into AI tool prompts
-- `/prototype` -- Build prototypes that follow this direction
-- `/prototype-feedback --design` -- Evaluate prototypes against this direction
-
-**Related:**
-- `/napkin-sketch` -- Quick layout exploration before committing to a direction
-- `/prd-review-panel` -- Designer sub-agent validates the direction fits the product
-
----
-
-### Related Skills
-
-- `/design-audit` -- Audit existing UIs before setting a new direction
-- `/generate-ai-prototype` -- Generate tool-specific prompts with taste parameters
-- `/prototype` -- Build prototypes in the chosen style
-- `/prototype-feedback` -- Evaluate results against the direction
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
+- `/design-audit` -> before setting direction, when the current state has not been assessed
+- `/prd-draft` -> before setting direction, when the feature itself is not yet defined
+- `/competitor-analysis` -> when the direction needs to differentiate from a known visual landscape
+- `/generate-ai-prototype --with-taste` -> after, to inject this direction into v0/Lovable/Bolt prompts
+- `/prototype` -> after, to build in the chosen style
+- `/prototype-feedback --design` -> after, to score the build against these parameters
+- `/napkin-sketch` -> when layout needs exploring before committing to a direction

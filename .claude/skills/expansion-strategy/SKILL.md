@@ -1,8 +1,8 @@
 ---
 name: expansion-strategy
-description: Upsell, cross-sell, and account growth tactics. Framework for revenue expansion.
-disable-model-invocation: false
+description: Grow revenue from customers you already have — decompose NRR, find the biggest expansion gap, gauge pricing sensitivity, and design in-product upsell, cross-sell, and seat-expansion triggers into a playbook. Use when NRR is flat, upgrades stall, or you are deciding what to put behind a higher tier.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Expansion Strategy: Upsell, Cross-sell, and Account Growth
@@ -27,7 +27,7 @@ pricing sensitivity, design in-product triggers, and build a playbook.
 
 **Framework source:** Aakash Gupta's expansion and monetization frameworks
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -45,12 +45,10 @@ When this skill is invoked, immediately check:
 2. Analytics MCP SECOND (if connected - query expansion rates, NRR)
 3. Framework guidance LAST (generic expansion tactics)
 
-**Cross-Skill Links:**
-- If activation concerns mentioned → Link to `activation-analysis`
-- If retention impacts mentioned → Link to `retention-analysis`
-- If pricing model unclear → Link to `write-prod-strategy`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Current Monetization State
 
@@ -558,9 +556,7 @@ Median days from signup to first upgrade
 
 ---
 
-## Cross-Skill Links
-
-### Where to Save Your Expansion Strategy
+## Where Files Go
 
 **Strategy Documents:**
 - Save to: `outputs/analyses/expansion-strategy-[quarter].md`
@@ -574,22 +570,9 @@ Median days from signup to first upgrade
 - For go-to-market: Use `/slack-message` to draft sales team battlecards
 - For playbook docs: Reference expansion-strategy findings
 
-### Cross-Skill Integration
+---
 
-**Feeds into:**
-- `/prd-draft` - New tier/feature gating decisions reference expansion strategy
-- `/retention-analysis` - Expansion cohort performance data informs retention strategy
-- `/activation-analysis` - Activation rate by segment informs expansion readiness
-- `/write-prod-strategy` - Revenue model and pricing strategy
-- `/metrics-framework` - NRR, expansion rate as leading indicators of business health
-
-**Pulls from:**
-- `/retention-analysis` - Which segments retain best (expansion potential)
-- `/activation-analysis` - When users are ready to expand (post-activation)
-- `/define-north-star` - Ensure expansion metrics align with North Star
-- `/competitor-analysis` - Competitor pricing and tier positioning
-
-### Key Questions to Revisit
+## Key Questions to Revisit
 
 After defining your expansion strategy, ask:
 - Does every tier have clear value differentiation?
@@ -598,6 +581,17 @@ After defining your expansion strategy, ask:
 - How do we measure expansion impact on overall unit economics?
 
 ---
+
+## Cross-Skill Links
+
+- `/retention-analysis` -> before expanding, when you do not know which segments retain well enough to upsell
+- `/activation-analysis` -> before expanding, when segments have not reached the point where expansion lands
+- `/pricing-analysis` -> when tier structure and willingness to pay are the real open questions
+- `/competitor-analysis` -> when competitor pricing and tier positioning are unknown
+- `/prd-draft` -> when a tier change or feature gate needs a spec
+- `/experiment-decision` -> when a pricing or upsell change should be tested rather than shipped
+- `/metrics-framework` -> when NRR and expansion rate should become tracked indicators
+- `/define-north-star` -> when expansion metrics need to align with the North Star
 
 ## NRR Decomposition
 
@@ -747,15 +741,6 @@ Before delivering the expansion strategy, verify:
 
 ---
 
-### Related Skills
-
-- `retention-analysis` - Retention enables expansion (retained users more likely to expand)
-- `activation-analysis` - Activation precedes expansion (activate before offering tiers)
-- `experiment-decision` - Test expansion features and pricing changes
-- `define-north-star` - Align expansion to metrics (ensure NRR supports growth)
-- `metrics-framework` - Track expansion rate and NRR as leading indicators
-- `competitor-analysis` - Understand competitive pricing and positioning
-- `write-prod-strategy` - Align expansion to broader strategy
 
 ---
 
@@ -764,14 +749,7 @@ Before delivering the expansion strategy, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

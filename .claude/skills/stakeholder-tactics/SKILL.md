@@ -1,8 +1,8 @@
 ---
 name: stakeholder-tactics
 description: Navigate stakeholder dynamics with confidence. Map influence, align competing priorities, handle resistance, prepare for difficult conversations, and build the political capital to move your roadmap forward.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /stakeholder-tactics - Influence Without Authority
@@ -32,7 +32,7 @@ Output: outputs/analyses/stakeholder-[initiative]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -41,13 +41,10 @@ Output: outputs/analyses/stakeholder-[initiative]-[date].md
 | Strategy | `context-library/strategy/*.md` | priority, roadmap, OKR, bet | Strategic context for alignment |
 | Decisions | `context-library/decisions/*.md` | stakeholder, approved, rejected | Past decisions and how they were made |
 
-**Cross-Skill Links:**
-- After alignment → `/decision-doc` to formally document the agreed path
-- For a difficult meeting → `/meeting-agenda` to structure the conversation
-- Stakeholder comms → `/slack-message` or `/status-update`
-- Competing priority needs analysis → `/prioritize`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Mode: --map (Stakeholder Influence Map)
 
@@ -257,18 +254,11 @@ Run `/meeting-notes` and update `context-library/stakeholder-template.md` with a
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Cross-Skill Links
+## Second Brain
 
 The `stakeholders` focus area of the second brain is now the **canonical store** for stakeholder profiles, replacing a parallel local store. `/stakeholder-tactics --map` reads from and writes to `context-library/second-brain/stakeholders/wiki/`.
 
@@ -297,8 +287,13 @@ Stakeholder memory is the hardest PM knowledge to keep because it lives in dozen
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
+---
 
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
+## Cross-Skill Links
+
+- `/second-brain` -> query `stakeholders` before any mode; `ingest` after, since it is the canonical store
+- `/meeting-prep` -> when the tactic has to land in a specific upcoming meeting
+- `/meeting-agenda` -> when a difficult conversation needs structuring
+- `/decision-doc` -> when the alignment reached needs recording so it holds
+- `/prioritize` -> when the conflict is competing priorities that need classifying
+- `/status-update` or `/slack-message` -> when the next move is a written communication

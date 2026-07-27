@@ -1,15 +1,15 @@
 ---
 name: impact-sizing
-description: Quantify feature value with driver trees, confidence levels, and the 4-step sizing framework.
-disable-model-invocation: false
+description: Estimate what a specific feature is actually worth before building it — a driver tree from the target metric down to inputs you can move, adoption assumptions, and a low, base, and high range with stated confidence. Feature-level; use opportunity-sizing to judge whether a whole market or problem space is worth entering.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /impact-sizing - Quantify Feature Value
 
 Systematically estimate the impact of a feature using the 4-step framework.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -28,13 +28,10 @@ When this skill is invoked, immediately check:
 3. User base size and addressable segment THIRD
 4. Historical precedent for similar features FOURTH
 
-**Cross-Skill Links:**
-- If sizing is unclear → Link to `/impact-sizing` (this skill)
-- If comparing options → Use this to inform `/experiment-decision`
-- If building business case → Reference in PRD and `/write-prod-strategy`
-- If identifying leading metrics → Connect to `/feature-metrics` and `/metrics-framework`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding What We're Sizing
 
@@ -226,16 +223,16 @@ Feature: [Name]
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Impact sizing analysis:**
 - Active work: `outputs/analyses/impact-sizing-[feature-name]-[date].md`
 - When finalized: Reference in PRD in `Strategic Fit` section
 - Archive: Move to `context-library/prds/` as historical reference when feature ships
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After sizing impact:
 - **Reference in PRD** - "Users affected: X, revenue impact: $Y, confidence: [High/Med/Low]"
@@ -243,23 +240,21 @@ After sizing impact:
 - **Support pitches** - Share with executives when requesting resources
 - **Inform metrics** - Use impact estimates to set success metric targets
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/prd-draft` - Impact sizing goes into "Strategic Fit" section
-- `/write-prod-strategy` - Feature impact informs strategic pillar priorities
-- `/feature-metrics` - Usage estimates inform what metrics can detect changes
-- `/experiment-decision` - Impact size determines experiment duration/sample size
-
-**Pulls from:**
-- `context-library/research/` - User pain and adoption patterns
-- `/user-research-synthesis` - Qualitative insights about addressable users
-- `context-library/business-info-template.md` - Business model and growth drivers
-- `context-library/metrics/` - Historical data on similar features
-
 ---
 
+## Cross-Skill Links
+
+- `/opportunity-sizing` -> when the question is whether the market is worth entering, not what one feature is worth
+- `/user-research-synthesis` -> when the addressable-user assumption has no qualitative evidence
+- `/prd-draft` -> when the sizing goes into the PRD's Strategic Fit section
+- `/feature-metrics` -> when usage estimates determine what the success metric can detect
+- `/experiment-decision` -> when the effect size determines test duration and sample size
+- `/write-prod-strategy` -> when feature impact should shape strategic pillar priorities
+- `/feature-results` -> after launch, to calibrate this estimate against actuals
+
 ## Market Sizing Mode (TAM/SAM/SOM)
+
+**`/opportunity-sizing` owns TAM/SAM/SOM** and wraps it in problem validation, willingness-to-pay, and a full investment thesis. Read it when the question is whether to enter a market at all. Use the abbreviated version below only when a sizing number is needed inline during a feature impact estimate.
 
 Use this when you're sizing the market opportunity, not just a specific feature. Run this alongside or before the 4-Step Framework when building a business case or entering a new segment.
 
@@ -363,19 +358,6 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

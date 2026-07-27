@@ -1,8 +1,8 @@
 ---
 name: sprint-planning
-description: Sprint planning and backlog grooming. Capacity planning, story estimation, sprint goals, and team readiness checks. Turns the backlog into a focused, achievable sprint commitment.
-disable-model-invocation: false
+description: Turn the backlog into a sprint the team can genuinely commit to — sprint goal, capacity against team size, estimates, sequencing, and readiness checks. Commits people to work, so a commitment gate runs first. Use backlog-groom for whole-board hygiene and refinement-prep to slate the next ceremony.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /sprint-planning - Turn Backlog into Sprint Commitment
@@ -32,7 +32,7 @@ Output: outputs/analyses/sprint-[number]-plan-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -43,13 +43,10 @@ Output: outputs/analyses/sprint-[number]-plan-[date].md
 | Previous Meeting Notes | `context-library/meetings/*.md` | sprint review, retro, blockers | Velocity data, carryover items |
 | Decisions | `context-library/decisions/*.md` | prioritization, build vs buy | Context for what's in vs out |
 
-**Cross-Skill Links:**
-- Before planning → `/create-tickets` to generate properly formatted tickets
-- PRD not ready? → `/prd-draft` or `/prd-lite` first
-- Unclear priorities? → `/prioritize` (LNO Framework) to classify work
-- Sprint goal needs OKR alignment → `/okr-planning`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Sprint Planning Mode (`--plan`)
 
@@ -198,17 +195,21 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 
 ---
 
-## Cross-Skill Links
+## Where Files Go
 
-**Files:** `outputs/analyses/sprint-[number]-plan-[date].md`
-
-**Cross-Skill Integration:**
-- `/create-tickets` — Use `--stories` mode to format tickets with INVEST criteria
-- `/prd-draft` — Source PRDs for sprint-ready features
-- `/okr-planning` — Connect sprint goals to quarterly Key Results
-- `/meeting-notes` — Process sprint review and retro notes after the sprint
+`outputs/analyses/sprint-[number]-plan-[date].md`
 
 ---
+
+## Cross-Skill Links
+
+- `/backlog-groom` -> before planning, for whole-board hygiene so stale and duplicate items do not reach the sprint
+- `/refinement-prep` -> before planning, to slate and enrich the shortlist the ceremony works from
+- `/prioritize` -> when priorities are contested and need LNO classification first
+- `/prd-draft` or `/prd-lite` -> when a candidate has no spec to estimate against
+- `/create-tickets` -> when sprint items need formatting with acceptance criteria; `--stories` for INVEST
+- `/okr-planning` -> when the sprint goal needs to ladder to a Key Result
+- `/meeting-notes` -> after the sprint, to process review and retro
 
 ## Output Quality Self-Check
 
@@ -223,14 +224,7 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -241,9 +235,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

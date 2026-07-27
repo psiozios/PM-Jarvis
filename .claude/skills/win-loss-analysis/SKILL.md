@@ -1,8 +1,8 @@
 ---
 name: win-loss-analysis
 description: Synthesize sales win/loss data into product and positioning insights. Turns raw intel from sales calls, churn interviews, and customer feedback into roadmap implications and GTM adjustments.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /win-loss-analysis - Turn Sales Intel into Product Decisions
@@ -28,7 +28,7 @@ Output: outputs/win-loss/win-loss-analysis-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -48,13 +48,10 @@ When this skill is invoked, immediately check:
 3. Metrics/baseline THIRD
 4. External web research LAST (to fill gaps only)
 
-**Cross-Skill Links:**
-- Competitor keeps appearing → Link to `/competitor-analysis`
-- Churn patterns emerge → Link to `/retention-analysis`
-- Product gaps identified → Link to `/prd-draft` to spec the fix
-- Positioning issues surface → Link to `/write-prod-strategy`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: What Intel Already Exists
 
@@ -282,33 +279,26 @@ Translate loss reasons into product requirements:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Win/loss analyses:**
 - Active work: `outputs/win-loss/win-loss-analysis-[date].md`
 - When finalized: Move relevant competitive intel to `context-library/research/competitive-*.md`
 - Share roadmap implications with relevant PRDs
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/competitor-analysis` - Win/loss data enriches competitive picture
-- `/prd-draft` - Product gaps become PRD inputs; link to evidence from loss interviews
-- `/write-prod-strategy` - Win patterns inform ICP; loss patterns inform positioning
-- `/slack-message` - Summary for sales team or leadership
-- `/launch-checklist` - Positioning gaps identified here inform launch messaging
-
-**Pulls from:**
-- `context-library/meetings/` - Sales notes and CS syncs
-- `context-library/research/` - Churn and customer interviews
-- `context-library/metrics/` - Win rate and churn data
-- `/retention-analysis` - Churn patterns complement loss patterns
-
 ---
 
-## Common Mistakes to Avoid
+## Cross-Skill Links
+
+- `/competitor-analysis` -> when one competitor keeps appearing in the loss reasons
+- `/retention-analysis` -> when churn patterns complement the loss patterns
+- `/sales-battlecard` -> when the objection patterns should reach the sales team as a card
+- `/prd-draft` -> when a product gap blocking deals is concrete enough to spec
+- `/write-prod-strategy` -> when win patterns redefine the ICP or loss patterns redefine positioning
+- `/launch-checklist` -> when a positioning gap found here has to inform launch messaging
+- `/slack-message` -> when the summary needs to reach sales or leadership
+
+## Common Mistakes
 
 **Mistake 1: Trusting sales reps' stated reasons without digging deeper**
 Sales reps often say "pricing" when the real issue is value perception. Dig into: "Was it truly price, or did they not see enough value to justify the price?"
@@ -340,14 +330,7 @@ Before delivering the win/loss analysis, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

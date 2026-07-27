@@ -1,8 +1,8 @@
 ---
 name: status-update
-description: Generate stakeholder status updates. Creates clear, concise progress reports for different audiences.
-disable-model-invocation: false
+description: Write a progress update aimed at a specific audience — your team, your manager, execs, or cross-functional partners — pulling shipped work, decisions, blockers, and metric movement from your workspace instead of asking you to recall it, with tone matched to the reader. Drafted for you to send, never sent.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,7 +24,7 @@ You can also just say "pull from my recent work" and I'll scan your workspace fo
 
 When the PM types `/status-update`, create status updates that communicate progress, surface blockers, and keep stakeholders aligned.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -44,13 +44,10 @@ When this skill is invoked, immediately check:
 3. Strategic context (pillars, goals) THIRD
 4. Metrics and progress FOURTH
 
-**Cross-Skill Links:**
-- If action items from meetings → Reference `/meeting-notes`
-- If progress on features → Reference `/prd-draft` or `/feature-results`
-- If metric updates → Reference `/metrics-framework` and North Star
-- If blockers → Link to relevant skill for resolution (e.g., `/prd-draft` if scope unclear)
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Update Context
 
@@ -104,7 +101,7 @@ Before drafting, let me gather what happened...
 
 ---
 
-## How It Works
+## Workflow
 
 ### Step 1: Tell Me What's Happened
 ### Step 2: Get a Structured Update
@@ -558,7 +555,7 @@ You've mentioned "waiting for design" in 3 consecutive updates.
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### ❌ Activity Lists, Not Outcomes
 
@@ -626,7 +623,7 @@ Call out teammates who helped you. Builds goodwill and visibility for them.
 
 ---
 
-## Integration With Other Commands
+## Handoff Details
 
 ### After Meeting Notes
 
@@ -811,16 +808,16 @@ Given the extra time, we could:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Status updates:**
 - Weekly/recurring: Save to `outputs/status-updates/[date]-[audience].md`
-- Archive: Move finalized updates to `context-library/meetings/status-updates/` for historical record
+- Archive: the user may move finalized updates into `context-library/` for historical record; the assistant writes only to `outputs/status-updates/`
 - Share: Send directly or paste into Slack/email
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After creating status update:
 - **Share with team** - Post to Slack or email to stakeholders
@@ -829,24 +826,17 @@ After creating status update:
 - **Follow up on blockers** - Schedule follow-ups on items that need resolution
 - **Archive for 1:1** - Use this in your manager 1:1 prep
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- Team alignment - Status updates keep stakeholders informed
-- Manager 1:1s - Status gives your manager context for your work
-- Quarterly reviews - Status updates are artifacts for performance reviews
-- Strategy evaluation - Metric progress ties back to strategy
-
-**Pulls from:**
-- `/meeting-notes` - Recent decisions and action items from meetings
-- `/prd-draft` - Feature status and progress on PRDs
-- `/feature-results` - Shipped feature performance
-- `/metrics-framework` - Current metric values and movement
-- `context-library/strategy/` - Strategic context and goals
-
 ---
 
----
+## Cross-Skill Links
+
+- `/weekly-review` -> before the update, when you need the week synthesized rather than recalled
+- `/meeting-notes` -> when recent decisions and actions belong in the update
+- `/feature-results` -> when a shipped feature's outcome is the headline
+- `/metrics-framework` -> when metric movement needs a hierarchy to be read against
+- `/weekly-readahead` -> when the destination is a recurring cross-team meeting's shared doc, not a stakeholder inbox
+- `/board-deck` -> when the audience is the board and the format needs to be a deck
+- `/editing-assistant` -> when the draft needs shortening or re-pitching for a different reader
 
 ## Output Quality Self-Check
 
@@ -861,7 +851,7 @@ Before delivering the status update, verify:
 - [ ] **No buried risks:** Risks and blockers are visible, not hidden in prose
 - [ ] **Consistent format:** Matches the format used in previous updates (if any exist)
 - [ ] **Right length:** Daily = 3-4 bullets, Weekly = 5-7 sections, Executive = 1-page max
-- [ ] **Human voice:** Reads like the PM wrote it, not like AI generated it
+- [ ] **Human voice:** Varied cadence and natural contractions per `config/house-style.md` §7. Name the defect, never the author.
 
 If any check fails, revise before delivering.
 
@@ -874,14 +864,7 @@ If any check fails, revise before delivering.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

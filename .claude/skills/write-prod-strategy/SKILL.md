@@ -1,6 +1,8 @@
 ---
 name: write-prod-strategy
-description: Product strategy docs using 7-component framework
+description: Write a durable product or company strategy document on a 7-component structure — objective, users, superpowers, vision, pillars, impact, roadmap — for aligning an org rather than answering one question. Runs 2000-3000 words; ask for a 1-page brief to get less. Use strategy-sprint when time is the constraint.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 # Write Product Strategy Skill
@@ -17,7 +19,7 @@ Create comprehensive product strategy using a 7-component framework. Connects vi
 
 **Output length:** A complete 7-component strategy doc should be 2,000-3,000 words with an executive summary of 200-300 words. If you want a shorter version, ask for a "1-page strategy brief" and I will generate only: Objective, Target Users, Strategic Pillars, and Key Metrics.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -37,13 +39,10 @@ When this skill is invoked, immediately check:
 3. Competitive positioning THIRD
 4. Existing feature decisions FOURTH
 
-**Cross-Skill Links:**
-- If defining North Star → Link to `/define-north-star`
-- If analyzing user needs → Link to `/user-research-synthesis` and `/journey-map`
-- If evaluating features → Link to `/impact-sizing` for driver trees
-- If creating PRDs → Ensure they reference strategic pillars from here
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Strategic Context
 
@@ -84,7 +83,7 @@ Before writing strategy, let me understand where you are...
 
 ---
 
-## When to Use This Skill
+## When to Use
 
 - Annual/quarterly strategy planning
 - New product launch planning
@@ -651,7 +650,7 @@ What we're NOT doing (and why):
 6. **Visual visiontype:** Show, don't just tell
 7. **Update quarterly:** Strategy is living document, not set-and-forget
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Vague objectives ("be the best")
 ✅ Measurable targets ("reduce churn from 5% to 2% by Q4")
@@ -668,16 +667,16 @@ What we're NOT doing (and why):
 ❌ Feature roadmap masquerading as strategy
 ✅ Outcome-driven pillars with example initiatives
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Strategy documents:**
 - Active work: `outputs/analyses/strategy-[product]-[date].md` (living document)
 - When finalized: Move to `context-library/strategy/[product]-strategy-[year].md` for reference
 - Executive version: Can be adapted for board/investor presentations
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After writing strategy:
 - **Reference in PRDs** - "This feature supports Strategic Pillar [X]" from this document
@@ -685,34 +684,19 @@ After writing strategy:
 - **Team alignment** - Share with cross-functional teams for guidance
 - **Status updates** - Track progress against strategic goals in `/status-update`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/prd-draft` - All PRDs should reference and support strategic pillars
-- `/status-update` - Track progress against strategy in weekly updates
-- Board/investor communications - Strategy is the foundation for pitches
-- Quarterly planning - Use strategy to guide roadmap prioritization
-
-**Pulls from:**
-- `/define-north-star` - Your North Star becomes the Objective component
-- `/user-research-synthesis` - User insights inform Users component
-- `/impact-sizing` - Feature impact sizing informs Impact component
-- `/competitor-analysis` - Competitive insights inform Superpowers component
-
 ---
 
-### Integration
+## Cross-Skill Links
 
-**Inputs:**
-- `/define-north-star` - Component 1: Objective
-- `/journey-map` - Component 2: Users
-- `/impact-sizing` - Component 6: Impact
-- `/user-research-synthesis` - Component 2: User insights
-
-**Outputs:**
-- `/prd-draft` - PRDs align with strategic pillars
-- `/status-update` - Progress against strategy
-- Board/investor decks - Executive summary
+- `/strategy-sprint` -> when time is the constraint and a 1-day or 1-week version is enough
+- `/define-north-star` -> when the Objective component has no validated metric behind it
+- `/journey-map` -> when the Users component needs the experience mapped end to end
+- `/user-research-synthesis` -> when user insight for the Users component is assumed
+- `/competitor-analysis` -> when the Superpowers component needs a real competitive read
+- `/impact-sizing` -> when the Impact component needs driver trees rather than assertions
+- `/okr-planning` -> after the doc, to translate pillars into quarterly Key Results
+- `/prd-draft` -> after the doc, when every PRD should point at a named pillar
+- `/iterate-document` -> when a quarter's learning should update this doc surgically, not rewrite it
 
 ## Questions to Ask Before Writing
 
@@ -772,13 +756,6 @@ If the brain isn't initialized, fall back to `context-library/strategy/` and `co
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.

@@ -1,8 +1,8 @@
 ---
 name: prd-lite
-description: Generate lightweight PRD Lite feature proposals — decision-grade prioritization docs, not engineering-ready specs. Fast, structured, opinion-strong. Feeds into /prd-draft when the feature gets slated.
-disable-model-invocation: false
+description: Write a short, opinionated feature proposal for deciding whether something is worth doing at all — problem, proposed shape, rough impact, and a clear recommendation. Fast and decision-grade, deliberately not an engineering-ready spec. Feeds prd-draft once the feature actually gets slated.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /prd-lite - Lightweight Feature Proposals
@@ -32,7 +32,7 @@ Output: outputs/prds/prd-lite-[feature]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 
@@ -44,13 +44,10 @@ Output: outputs/prds/prd-lite-[feature]-[date].md
 | PRDs | `context-library/prds/*.md` | similar feature, related | Prior work to reference |
 | Metrics | `context-library/metrics/*.md` | baseline, current rate | Numbers for the business case |
 
-**Cross-Skill Links:**
-- If the feature gets prioritized → Escalate to `/prd-draft` for full spec
-- If the sizing is unclear → Run `/impact-sizing` first
-- If research is thin → Run `/interview-guide` to validate
-- For multi-perspective review → `/prd-review-panel`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## The PRD Lite Format
 
@@ -103,7 +100,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 1. [Risk] — Mitigation: [one sentence]
 2. [Risk] — Mitigation: [one sentence]
 
-## Cross-Skill Links
+## Next Steps
 
 - [ ] [Validate assumption: how and by when]
 - [ ] [If green: escalate to /prd-draft]
@@ -173,14 +170,7 @@ If we [build/change/remove X], then [specific users] will [specific behavior cha
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -192,8 +182,13 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
+---
 
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
+## Cross-Skill Links
+
+- `/feature-request-analysis` -> before writing, when the demand signal has not been clustered
+- `/impact-sizing` -> when the business case is hand-wavy and needs a driver tree
+- `/interview-guide` -> when the problem evidence is too thin to recommend anything
+- `/prd-draft` -> when the feature gets prioritized and needs a full engineering-ready spec
+- `/prd-review-panel` -> when the proposal is contentious enough to want multi-perspective pushback
+- `/ralph-wiggum` -> when the recommendation deserves a skeptic before it reaches a decision-maker

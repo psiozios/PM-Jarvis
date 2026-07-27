@@ -1,8 +1,8 @@
 ---
 name: interview-guide
-description: Create JTBD-based interview guides for user research. Structured questions for discovery interviews.
-disable-model-invocation: false
+description: Write the guide for a user research or discovery interview using Jobs-to-be-Done — the questions to ask, in what order, aimed at the gaps in your existing research instead of re-asking what you already know. User research, not job interviews; for PM job interview prep use interview-prep.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /interview-guide - Create Interview Guides
@@ -29,7 +29,7 @@ Output: outputs/interview-guides-[topic]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -37,10 +37,10 @@ When this skill is invoked, immediately check:
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
 | Research Plan | `context-library/research/*.md` | hypothesis, problem statement, target users | Current understanding of problem |
-| User Personas | `context-library/research/personas*.md` or stakeholder template | target segment, role, company size | Who to interview and their context |
+| User Personas | `context-library/research/*persona*.md` or stakeholder template | target segment, role, company size | Who to interview and their context |
 | PRDs | `context-library/prds/*.md` | problem statement, user pain | Problem framing for interview hypothesis |
 | Strategy | `context-library/strategy/*.md` | user segment, JTBD canvas | Jobs framework and strategic fit |
-| Previous Research | `context-library/research/interviews*.md` | similar problem area, past themes | Avoid revalidating, build on insights |
+| Previous Research | `context-library/research/*.md` | similar problem area, past themes | Avoid revalidating, build on insights |
 
 **Context Priority:**
 1. Current PRD and problem statement FIRST
@@ -48,14 +48,10 @@ When this skill is invoked, immediately check:
 3. Previous research on related topics THIRD
 4. Strategic context FOURTH
 
-**Cross-Skill Links:**
-- After interview → Link to `/user-interview` for processing transcripts
-- After interview → Link to `/user-research-synthesis` for deeper synthesis
-- If extracting insights → Link to `/user-research-synthesis` for analysis
-- If developing strategy from findings → Link to `/write-prod-strategy`
-- Note: `/interview-prep` is for PM job interviews, not user research
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Research Objective
 
@@ -451,16 +447,16 @@ Wrap up, ask for referrals
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Interview guides:**
 - Active work: `outputs/interview-guides-[topic]-[date].md`
-- When finalized: Archive to `context-library/research/interview-guides/` for team reference
+- When finalized: the user may archive into `context-library/research/` for team reference; the assistant writes only to `outputs/`
 - Use directly: Share with interviewing team before sessions
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After creating the guide:
 - **Share with team** - Use as standard guide for all interviews on this topic
@@ -468,19 +464,16 @@ After creating the guide:
 - **Update PRD** - If research validates hypothesis, update in `/prd-draft`
 - **Inform strategy** - If research reveals new insights, feed to `/write-prod-strategy`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/user-research-synthesis` - After interviews, synthesize the raw notes
-- `/prd-draft` - Research findings go into Hypothesis section
-- `/write-prod-strategy` - Deep user research informs strategic decisions
-
-**Pulls from:**
-- `context-library/research/` - Previous research on this topic
-- `context-library/strategy/` - Strategic context about this user problem
-- Stakeholder profiles - Information about target user segment
-
 ---
+
+## Cross-Skill Links
+
+- `/second-brain` -> before writing questions, to avoid re-asking what prior research already answered
+- `/user-interview` -> after the sessions, to process one or two fresh transcripts
+- `/user-research-synthesis` -> after several sessions, to synthesize across the study
+- `/survey-builder` -> when the question is better answered at scale than in conversation
+- `/prd-draft` -> when findings validate or kill the hypothesis in a spec
+- `/interview-prep` -> only if you actually meant PM job interviews, not user research
 
 ## Output Quality Self-Check
 
@@ -507,14 +500,7 @@ Before delivering the interview guide, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -588,9 +574,3 @@ Good candidates ask about: team structure and culture, how decisions get made, w
 | Stakeholder influence | Cross-functional examples, political savvy | |
 | Learning orientation | Self-awareness, what they'd do differently | |
 | Culture fit | Curiosity, team orientation, values alignment | |
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

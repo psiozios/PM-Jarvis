@@ -1,8 +1,8 @@
 ---
 name: prototype-feedback
-description: Build → review → iterate prototype workflow. Structured feedback collection and iteration.
-disable-model-invocation: false
+description: Review a prototype you already built — a v0, Lovable, or Bolt link, or something made in-session — against its PRD, design direction, and user research, returning must-fix, should-fix, and nice-to-have. Repeats round by round until validated. Use prototype to build one in the first place.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Prototype Feedback Loop Workflow
@@ -30,11 +30,14 @@ Rapidly iterate on prototypes using AI-powered building and automated feedback c
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
 | PRD | `outputs/prds/`, `context-library/prds/` | Requirements, acceptance criteria, success metrics |
-| Design System | `context-library/technical/`, design docs | Colors, typography, component patterns to match |
+| Design System | `outputs/prototypes/*-design-direction.md`, design docs | Colors, typography, component patterns to match |
 | Stakeholder Profiles | `context-library/stakeholder-*.md` | Who reviews this, their priorities and concerns |
 | User Research | `context-library/research/` | User pain points, quotes, behavior patterns |
 | Past Prototypes | `outputs/prototypes/` | Previous feedback rounds, resolved issues |
 | Design Direction | `outputs/prototypes/*-design-direction.md` | Target parameters (variance, motion, density), style preset, anti-patterns |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Overview
 
@@ -457,14 +460,7 @@ If any check fails, fix it before delivering. Generic feedback wastes iteration 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -590,6 +586,9 @@ If a design direction file exists at `outputs/prototypes/[feature]-design-direct
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/prototype` -> before feedback, to build the thing being reviewed; after, to apply the fixes
+- `/design-direction` -> when there is no direction file to validate the prototype against
+- `/design-audit` -> when the target is a shipped UI or competitor product, not an in-progress prototype
+- `/generate-ai-prototype` -> when the next iteration goes back through v0, Lovable, or Bolt
+- `/prd-review-panel` -> when the open questions are about requirements, not visual quality
+- `/create-tickets` -> when must-fix items become engineering work

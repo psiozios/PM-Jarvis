@@ -1,8 +1,8 @@
 ---
 name: prd-draft
-description: Create a modern, AI-era PRD for features and initiatives. Guides through clarifying questions, generates draft, and offers multi-agent review.
-disable-model-invocation: false
+description: Write the full PRD for a feature — hypothesis, strategic fit, non-goals, success metrics, rollout plan, optional AI behavior specs — through guided clarifying questions, with an offer to run the multi-agent review panel afterward. The spec engineering builds from; use prd-lite for a quick proposal before a feature is slated.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 **Commitment gate:** When a PRD moves past proposal into committed scope, run the five checks in `references/protocols/commitment-gate.md`.
@@ -30,7 +30,7 @@ user-invocable: true
 
 When the PM types `/prd-draft`, guide them through creating a modern, AI-era PRD.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -50,13 +50,10 @@ When this skill is invoked, immediately check:
 3. Business context and metrics THIRD
 4. Competitive positioning FOURTH
 
-**Cross-Skill Links:**
-- If user problem not validated → Link to `/interview-guide` and `/user-research-synthesis`
-- If impact unclear → Link to `/impact-sizing` for user/revenue impact
-- If success metrics unclear → Link to `/feature-metrics` for STEDII framework
-- If strategic fit unclear → Link to `/write-prod-strategy` for context
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Feature Context
 
@@ -121,7 +118,7 @@ Flag this and suggest `/write-prod-strategy` or `/strategy-sprint` first.
 - Moving from prototype to formal spec
 - Preparing for planning/prioritization review
 
-## How It Works
+## Workflow
 
 This is a 3-step conversational workflow:
 
@@ -625,7 +622,7 @@ Customize the template for your company. Add sections that matter to your team.
 ❌ **Vague metrics** - "Increase engagement" is not specific enough
 ❌ **No rollout plan** - A/B test vs full launch matters
 ❌ **Missing kill criteria** - How will you know if this failed?
-❌ **Sounds like AI** - Write like a human, not a chatbot
+❌ **Formulaic prose** - Apply `config/house-style.md` §5 (P11 robotic rhythm, P2 throat-clearing)
 
 ---
 
@@ -643,23 +640,23 @@ Great work! Your PRD is ready for review.
 **Want me to:**
 - `/create-tickets` -- Turn this PRD into engineering tickets
 - `/slack-message` -- Draft a Slack message announcing this PRD
-- `/feature-metrics` -- Deep-dive on success metrics with STEDII
+- `/feature-metrics` -- Primary metric, guardrails, and kill criteria for this PRD
 - `/impact-sizing` -- Quantify the user/revenue impact
 - `/generate-ai-prototype` -- Create a prototype prompt from this spec
 ```
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **PRD documents:**
 - Active work: `outputs/prds/[feature-name]-[stage].md`
 - When finalized: Move to `context-library/prds/[feature-name].md` for historical reference
 - Evolve through stages: Team Kickoff → Planning Review → XFN Kickoff → Solution Review → Launch → Impact
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After creating PRD:
 - **Reference in status updates** - Feature appears in `/status-update` with link to PRD
@@ -667,24 +664,19 @@ After creating PRD:
 - **Plan roadmap** - PRD informs quarterly prioritization
 - **Track results** - Use `/feature-results` to measure actual impact post-launch
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/feature-metrics` - PRD success metrics section gets detailed STEDII analysis
-- `/impact-sizing` - PRD Strategic Fit section gets quantified user/revenue impact
-- `/status-update` - PRD progress gets included in weekly updates
-- `/feature-results` - PRD success criteria are measured here post-launch
-
-**Pulls from:**
-- `/user-research-synthesis` - User quotes and insights populate Hypothesis
-- `/impact-sizing` - Usage estimates and revenue impact go into Strategic Fit
-- `/interview-guide` - User research that validated the problem
-- `context-library/strategy/` - Strategic pillar and alignment context
-- `/define-north-star` - Ensure feature's success metrics ladder to North Star
-
 ---
 
----
+## Cross-Skill Links
+
+- `/prd-lite` -> when the feature is not yet slated; write the short proposal first and escalate here
+- `/user-research-synthesis` -> when the user problem is asserted rather than evidenced
+- `/impact-sizing` -> when Strategic Fit has no numbers behind it
+- `/feature-metrics` -> when the success-metrics section needs a primary metric, guardrails, and kill criteria
+- `/write-prod-strategy` -> when strategic fit is unclear and there is no pillar to point at
+- `/second-brain` -> before drafting, to pull cited background from `product-knowledge` and `customer-insights`
+- `/prd-review-panel` -> after drafting, for seven-perspective review before stakeholders see it
+- `/create-tickets` -> after approval, to break the spec into engineering work
+- `/launch-checklist` -> when the spec is settled and the launch needs planning
 
 ## Output Quality Self-Check
 
@@ -699,7 +691,7 @@ Before presenting the PRD draft to the PM, verify:
 - [ ] **Success metrics have baselines and targets:** Not just "increase X" but "X from [current] to [target] by [date]"
 - [ ] **Kill criteria are realistic:** Would the team actually pull the plug at this threshold?
 - [ ] **Behavior Examples vs Solution Overview:** AI features have the behavior table; non-AI features have the solution overview
-- [ ] **Sounds human:** Read it aloud -- does it sound like the PM wrote it, or like an AI generated it?
+- [ ] **Reads naturally:** Read it aloud — varied cadence, natural contractions, no formulaic openings (`config/house-style.md` §5 P11, §7). Name the defect, never the author.
 - [ ] **User quotes included:** If user research exists in `context-library/research/`, at least one real quote is referenced
 - [ ] **Open questions have owners:** Every open question has a @stakeholder assigned
 
@@ -716,18 +708,11 @@ For comprehensive end-to-end PRD creation, follow this 7-step process.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Step-by-Step Workflow
+### Step-by-Step Workflow
 
 ### Workflow Step 1: Gather Context (10 min)
 
@@ -954,55 +939,13 @@ Add this to the standard PRD for AI features:
 - Accuracy < ___% after 2 weeks
 - User satisfaction < ___%
 - Escalation rate > ___%
+```
 
 ---
 
-## Mode: --brief (Lightweight Feature Brief)
+## Mode: --brief
 
-Use `--brief` when a feature needs a prioritization decision, not an engineering spec. Produces a 300-400 word brief that answers "should we build this?" before committing to a full PRD.
-
-**When to use:** Before the PRD, when the idea is still a candidate. Escalate to full PRD when it gets prioritized.
-
-**Brief structure (always one page):**
-
-```markdown
-# Feature Brief: [Name]
-
-**Status:** Candidate — not yet committed
-**Author:** [name] | **Date:** [date]
-
-## The Problem
-[2 sentences, specific: who, when, what gets stuck, how often]
-
-## The Hypothesis
-If we [build X], then [users will Y], because [underlying insight].
-
-## Why Now
-[1 sentence on urgency — opportunity, strategic moment, or cost of delay]
-
-## Rough Shape of a Solution
-[2-4 bullets — direction only, not a spec. Enough for engineers to react.]
-
-## Business Case
-
-| Signal | Value |
-|--------|-------|
-| Users affected | [N or %] |
-| Estimated impact | [metric + magnitude] |
-| Effort signal | [S / M / L rough estimate] |
-| Confidence | [Low / Medium / High] |
-
-## Risks
-1. [Risk 1]
-2. [Risk 2]
-
-## Next Step
-[What needs to happen to move this to a full PRD — research, data pull, design spike, exec alignment]
-```
-
-**Output:** `outputs/prds/brief-[feature]-[date].md`
-**Escalate to:** `/prd-draft` (full) when the feature is prioritized
-```
+Alias for `/prd-lite`, which owns the pre-commitment feature brief. Run `/prd-lite` instead — same artifact, and it is the skill that is maintained.
 
 ---
 
@@ -1020,9 +963,3 @@ Equivalent of `/second-brain query "background context for <feature>" --focus=<e
 If the brain is thin on this topic, flag it at the top of the PRD ("evidence gap: we don't yet have wiki pages for X, Y"). That's a research task, not a blocker — but it should be visible.
 
 If `context-library/second-brain/` isn't initialized, proceed without — this hook is a force multiplier, not a prerequisite.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

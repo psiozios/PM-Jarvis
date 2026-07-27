@@ -1,13 +1,15 @@
 ---
 name: weekly-plan
-description: Set next week's priorities
+description: Plan the week ahead — pick the few priorities that actually move the quarter, carried against last week's leftovers, quarterly OKRs, and what the calendar has already claimed. Use for what should I focus on next week or Monday-morning setup. Writes a dated weekly plan file to outputs.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Purpose
 
 Plan your week forward with clear priorities tied to quarterly goals. Sets the foundation for effective daily planning and ensures strategic alignment.
 
-## Usage
+## Quick Start
 
 - `/weekly-plan` - Plan upcoming week (or current week if Monday)
 - `/weekly-plan next` - Plan next week (when running on Friday)
@@ -31,6 +33,9 @@ Plan your week forward with clear priorities tied to quarterly goals. Sets the f
 **Fallback:** File-based planning using strategy docs and PRD pipeline.
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -404,7 +409,7 @@ quarter: Q[X] YYYY
 
 **If strategy docs don't exist:**
 - Ask: "What are your top quarterly goals?"
-- Suggest: "Fill out `context-library/strategy/OKRs.md` for better alignment"
+- Suggest: "Run `/okr-planning` — it writes into `context-library/strategy/` for better alignment"
 
 ---
 
@@ -433,37 +438,13 @@ quarter: Q[X] YYYY
 
 ## Cross-Skill Links
 
-**Before `/weekly-plan`:**
-- `/weekly-review` - Review last week first (if Friday planning)
-- `/quarter-plan` - (If exists) Ensure week aligns with quarter
-
-**After `/weekly-plan`:**
-- `/daily-plan` - Break week down into daily execution
-- `/create-tickets` - Convert tasks to Linear/Jira
-- `/slack-message` - Share plan with team
-
-**Parallel use:**
-- `/prd-draft` - Priorities might include PRD work
-- `/impact-sizing` - Validate priorities are high-impact
-
----
-
-### Related Skills
-
-**Before this:**
-- `/weekly-review` - Reflect on last week
-- `/mcp` - Connect to Calendar, Linear for richer planning
-
-**After this:**
-- `/daily-plan` - Execute the weekly plan day by day
-- `/create-tickets` - Track priorities in Linear/Jira
-- `/weekly-review` - Close the loop at end of week
-
-**Complements:**
-- `/prd-draft` - Weekly priorities often include PRD milestones
-- `/status-update` - Share weekly plan with leadership
-
----
+- `/weekly-review` -> before planning, to close out last week; after Friday's plan, to close the loop
+- `/weekly-review-fill` -> when the standing review tracker entry is what actually needs filling
+- `/prioritize` -> when the candidate list is too long and needs LNO classification
+- `/okr-planning` -> when the week's priorities have no quarterly goal to ladder to
+- `/daily-plan` -> to break the week into daily execution
+- `/create-tickets` -> when priorities need tracking in the issue tracker
+- `/connect-mcps` -> when calendar and tracker data would make this plan real instead of recalled
 
 ## Output Quality Self-Check
 
@@ -478,14 +459,7 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -496,9 +470,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

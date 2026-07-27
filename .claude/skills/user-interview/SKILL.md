@@ -1,8 +1,8 @@
 ---
 name: user-interview
-description: Systematically process user interviews to extract actionable insights. Batch processes interviews and generates research reports.
-disable-model-invocation: false
+description: Process one to a few fresh interview transcripts into per-interview insight cards — pain points, feature requests, jobs-to-be-done, and quotes labelled as validating, challenging, or new against existing research. Same-day debrief scope; use user-research-synthesis to synthesize across a whole study.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # User Interview Processing Workflow
@@ -47,7 +47,7 @@ Output: outputs/research-synthesis/[date]-interview-insights.md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -66,13 +66,10 @@ When this skill is invoked, immediately check:
 3. Business context and positioning THIRD
 4. Recent launches and stakeholder info FOURTH
 
-**Cross-Skill Links:**
-- Before interviews → `/interview-guide` for question preparation
-- After processing → `/user-research-synthesis` for deeper analysis
-- If insights inform a feature → `/prd-draft` to reference findings
-- If insights reveal strategic shifts → `/write-prod-strategy`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Overview
 
@@ -454,7 +451,7 @@ Dovetail is purpose-built for research synthesis:
 ### Build Search System
 
 **Using Claude Code:**
-- Keep all transcripts in `context-library/research/interviews/`
+- Keep all transcripts in `context-library/research/`
 - Query anytime: "Search all interviews for mentions of [topic]"
 - Get instant insights from entire history
 
@@ -518,18 +515,11 @@ Before delivering the final research synthesis, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Next Steps
+## Building a Research Cadence
 
 1. Do 3-5 user interviews this week
 2. Process with Claude Code
@@ -549,6 +539,8 @@ See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/interview-guide` -> before the sessions, to write the questions
+- `/user-research-synthesis` -> when several sessions have accumulated and need synthesizing across the study
+- `/prd-draft` -> when the insights should populate a spec's hypothesis and evidence
+- `/voice-of-customer` -> when these transcripts are one channel among several to aggregate
+- `/write-prod-strategy` -> when the insights imply a strategic shift, not a feature

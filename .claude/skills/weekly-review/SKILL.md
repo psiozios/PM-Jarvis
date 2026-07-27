@@ -1,6 +1,8 @@
 ---
 name: weekly-review
-description: Review week's progress, meetings, learnings
+description: Look back at the week — what you planned versus what actually happened, wins, blockers, decisions made, and what you learned — synthesized from plans, meeting notes, PRDs, and launches into a narrative retrospective. For filling the structured entry in a standing review tracker, use weekly-review-fill.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -17,7 +19,7 @@ description: Review week's progress, meetings, learnings
 
 End-of-week synthesis reviewing what you accomplished, what you learned, and what needs attention. Feeds into next week's planning and builds institutional memory.
 
-## Usage
+### Usage
 
 - `/weekly-review` - Review current/past week
 - `/weekly-review last-week` - Review previous week (if you forgot)
@@ -45,6 +47,9 @@ End-of-week synthesis reviewing what you accomplished, what you learned, and wha
 **Fallback:** File-based analysis of PM Jarvis workspace + manual input for completions.
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -626,7 +631,7 @@ After generating review, prompt user with contextual suggestions:
 > - [Learning 1]
 > - [Learning 2]
 >
-> I'll surface these in future planning. Want me to add to `context-library/personal-context/lessons-learned.md`?"
+> I'll surface these in future planning. Want me to add to `context-library/personal-context-working-preferences.md`?"
 
 **If metrics concerning:**
 > "⚠️ [Feature] metrics need attention:
@@ -640,22 +645,13 @@ After generating review, prompt user with contextual suggestions:
 
 ## Cross-Skill Links
 
-**Before `/weekly-review`:**
-- `/daily-plan` - Ran throughout the week (provides daily context)
-- `/meeting-notes` - Captured meeting outcomes
-- `/prd-draft` - Created/updated PRDs this week
-
-**After `/weekly-review`:**
-- `/weekly-plan` - Plan next week based on this review
-- `/decision-doc` - Document key decisions made
-- `/status-update` - Share with stakeholders
-- `/feature-results` - Deep dive on launched features
-
-**Parallel use:**
-- `/impact-sizing` - Validate completed work had expected impact
-- `/competitor-analysis` - If competitive intel emerged this week
-
----
+- `/weekly-review-fill` -> when what you need is the structured tracker entry, not a free-form retrospective
+- `/monthly-review-fill` -> when the month is complete and the weeks should be rolled up
+- `/daily-plan` and `/meeting-notes` -> ran through the week; they are this review's raw material
+- `/weekly-plan` -> immediately after, to plan next week from what this surfaced
+- `/status-update` -> when the synthesis needs sharing with stakeholders
+- `/decision-doc` -> when a decision made this week needs recording properly
+- `/feature-results` -> when something launched this week and deserves a real readout
 
 ## Tips for Best Results
 
@@ -688,22 +684,6 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-### Related Skills
-
-**Before this:**
-- `/daily-plan` - Daily execution throughout week
-- `/weekly-plan` - Set priorities at start of week
-- `/meeting-notes` - Captured throughout week
-
-**After this:**
-- `/weekly-plan` - Plan next week immediately after review
-- `/status-update` - Share summary with stakeholders
-- `/decision-doc` - Formalize key decisions made
-
-**Periodic use:**
-- `/feature-results` - Monthly deep dive on launched features
-- `/monthly-review-fill` - Roll weekly reviews up into a monthly assessment
-- `/quarterly-review-fill` - Quarterly synthesis built from the monthly reviews
 
 ---
 
@@ -743,14 +723,7 @@ Weekly reviews without accumulation are confessional journaling. Weekly reviews 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -761,9 +734,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

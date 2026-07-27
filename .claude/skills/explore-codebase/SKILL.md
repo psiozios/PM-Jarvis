@@ -1,8 +1,8 @@
 ---
 name: explore-codebase
-description: Pre-implementation codebase exploration and problem space mapping. Understand before you build.
-disable-model-invocation: false
+description: Map the problem space in a codebase before anyone writes code — where the change belongs, what it touches, dependencies, edge cases, and the questions worth settling first. Deliberately does not implement. The cached output feeds execution-plan and code-first-draft.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /explore-codebase - Understand Before You Build
@@ -27,7 +27,7 @@ Output: outputs/analyses/explore-[topic]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -36,15 +36,12 @@ Output: outputs/analyses/explore-[topic]-[date].md
 | Past Analyses | `outputs/analyses/*.md` | explore, cto-consult | Prior exploration or CTO consultations |
 | Codebase | Project source files | imports, exports, function signatures | Architecture, patterns, dependencies |
 
-**Cross-Skill Links:**
-- After exploration → `/execution-plan` to create a tracked plan
-- After exploration → `/code-first-draft` to implement
-- Complex architecture question → `/cto-consult` for pushback
-- Unknown concept encountered → `/learning-mode` to understand it
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - Before `/code-first-draft` on any non-trivial feature
 - When evaluating if a PRD is technically feasible
@@ -52,7 +49,7 @@ Output: outputs/analyses/explore-[topic]-[date].md
 - When debugging something you don't fully understand yet
 - When you need to explain technical constraints to stakeholders
 
-## When NOT to Use This Skill
+## When NOT to Use
 
 - Simple one-file changes (just read the file and do it)
 - You already understand the code well
@@ -109,7 +106,7 @@ Write a clear summary that someone could use to start implementing.
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **NEVER write or modify code.** This is read-only exploration.
 - **Ask questions.** Don't assume requirements. If something is ambiguous, ask.
@@ -197,25 +194,14 @@ Write a clear summary that someone could use to start implementing.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/execution-plan` -> after exploring, to turn the map into a tracked step-by-step plan
+- `/code-first-draft` -> after exploring, to implement once the shape is clear
+- `/cto-consult` -> when exploration raised an architecture question that needs pushback
+- `/learning-mode` -> when you hit a concept in the code you do not understand
+- `/prd-draft` -> when exploration shows the spec is technically infeasible as written

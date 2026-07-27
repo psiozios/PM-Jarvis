@@ -1,8 +1,8 @@
 ---
 name: execution-plan
-description: Create tracked markdown execution plans with emoji status tracking and progress percentage
-disable-model-invocation: false
+description: Turn a PRD, exploration, or described project into a step-by-step markdown plan you can track — phases and subtasks with status emoji, a live progress percentage, critical decisions, and time estimates. Saved as a plan file that later sessions update in place rather than regenerate.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /execution-plan - Plan the Work, Track the Work
@@ -27,7 +27,7 @@ Output: outputs/plans/plan-[project]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -36,22 +36,19 @@ Output: outputs/plans/plan-[project]-[date].md
 | CTO Consult | `outputs/analyses/cto-consult-*.md` | phases, risks, architecture | Phase structure and risk register |
 | Past Plans | `outputs/plans/*.md` | plan, progress | Previous plan formats and calibration |
 
-**Cross-Skill Links:**
-- Input from → `/explore-codebase` or `/cto-consult` or `/prd-draft`
-- Executed by → `/code-first-draft --from-plan`
-- Tickets from → `/create-tickets` to break into engineering tickets
-- Sprint assignment → `/sprint-planning`
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - After `/explore-codebase` when you understand the problem and are ready to plan
 - Before starting multi-step implementation work
 - When coordinating complex work across multiple sessions
 - When you want a visual tracker for a project
 
-## When NOT to Use This Skill
+## When NOT to Use
 
 - Single-step changes (just do it)
 - You're still exploring (use `/explore-codebase` first)
@@ -187,7 +184,7 @@ Decisions that must be made before or during implementation:
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **Don't over-plan.** If the project is simple, make it one phase with a few steps. Match plan complexity to project complexity.
 - **Steps must be atomic.** Each step should be small enough to complete and verify in one sitting.
@@ -210,25 +207,16 @@ Decisions that must be made before or during implementation:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/explore-codebase` -> before planning, when you do not yet know what the change touches
+- `/cto-consult` -> before planning, when the phasing itself needs technical pushback
+- `/prd-draft` -> before planning, when requirements are the missing input
+- `/code-first-draft --from-plan` -> to execute a step of this plan
+- `/create-tickets` -> when the plan's steps need to become tracked engineering tickets
+- `/sprint-planning` -> when the phases need committing to a sprint with capacity
+- `/iterate-document` -> when the plan needs updating from what was learned since it was written

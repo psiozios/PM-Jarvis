@@ -1,8 +1,8 @@
 ---
 name: post-mortem
 description: Run a structured post-mortem after an incident, failed launch, or missed goal. Establishes a blameless timeline, identifies root causes, drives prevention actions, and documents learnings for the team.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /post-mortem - Learn From What Went Wrong
@@ -27,7 +27,7 @@ Output: outputs/post-mortems/post-mortem-[incident]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -36,13 +36,10 @@ Output: outputs/post-mortems/post-mortem-[incident]-[date].md
 | Metrics | `context-library/metrics/*.md` | alert, anomaly, incident, SLA | Baseline and incident data |
 | Past Post-Mortems | `context-library/decisions/*.md` | post-mortem, incident, retrospective | Prior learnings — are we repeating patterns? |
 
-**Cross-Skill Links:**
-- Root cause investigation → `/root-cause-analysis`
-- Prevention planning → `/pre-mortem` for the next launch
-- Stakeholder communication → `/status-update` for incident comms
-- Ticket creation for fixes → `/create-tickets`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Blameless Principles (Read This First)
 
@@ -274,14 +271,7 @@ Action types:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -293,14 +283,11 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/root-cause-analysis` -> when a specific failure mode needs deeper investigation than the timeline gave it
+- `/create-tickets` -> when prevention actions need owners and tracking
+- `/pre-mortem` -> before the next launch, to apply what this one taught
+- `/sprint-planning` -> when the highest-impact fixes need to displace planned work
+- `/decision-doc` -> when a decision that contributed needs recording so it is not repeated
+- `/status-update` -> when the incident needs communicating outward

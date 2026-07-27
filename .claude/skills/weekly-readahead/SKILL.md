@@ -1,8 +1,8 @@
 ---
 name: weekly-readahead
-description: Draft a weekly read-ahead for a recurring cross-team meeting and publish it to the shared docs hub. Configurable section set, pulled from the week's shipped work, decisions, risks, and metrics, with a clear so-what per section.
-disable-model-invocation: false
+description: Draft a weekly read-ahead for a recurring cross-team meeting from the week's shipped work, decisions, risks, and metrics, each section carrying a clear so-what rather than an activity dump. Configurable section set. Publishes to the shared docs hub only after you confirm the draft.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,7 +24,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Section set is configurable per meeting — this skill does not hardcode a fixed org structure or a fixed list of sections.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -33,6 +33,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Metrics | `<METRICS_SOURCE>` | Movement worth reporting |
 | Meeting notes | `outputs/meeting-notes/` | Risks or blockers surfaced this week |
 | Docs hub | `<DOCS_HUB>` | Where the read-ahead publishes, and the prior week's read-ahead for continuity |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -52,7 +55,7 @@ Every section leads with why it matters to this specific audience, not a bare li
 
 Show the drafted read-ahead. Publish to `<DOCS_HUB>` only after confirmation — this is content visible to others, so it follows the outward-draft-first discipline even though the destination is a shared doc rather than a message.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Read-Ahead: <meeting name> — Week of <date>
@@ -79,11 +82,16 @@ A strong weekly-cadence routine candidate, timed to land before the meeting — 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `status-update` (similar substance, different destination — this skill is specifically for a recurring cross-team meeting's shared read-ahead), `board-deck` (heavier-weight version for board/exec audiences)
+- `/status-update` -> when the audience is a stakeholder inbox rather than a recurring meeting's shared doc
+- `/board-deck` -> when the audience is the board and the format needs more weight
+- `/weekly-review` -> when the week's substance has not been synthesized yet
+- `/meeting-prep` -> when you also need attendee context and talking points for the meeting itself
 
 ## When to Use
 

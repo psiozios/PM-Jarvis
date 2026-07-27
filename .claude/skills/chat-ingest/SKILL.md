@@ -1,8 +1,8 @@
 ---
 name: chat-ingest
 description: Pull high-signal threads from the chat platform into the second-brain knowledge base. Filters for signal, previews before writing, routes each thread to the right focus area. Modes for channel sweep, topic search, catch-up ranking, DM-to-stakeholder mapping, and daily catch-all.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -27,7 +27,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Integrates with `second-brain` — this skill is the chat-platform-specific ingestion path into it.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -35,6 +35,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Second brain | `context-library/second-brain/*/wiki/index.md` | Existing pages, to avoid re-ingesting the same content twice |
 | Stakeholder profiles | `context-library/second-brain/stakeholders/` | For `dm-threads` mode: mapping a DM partner to their existing profile |
 | Ingest state | `.last-ingest` (this skill's own state file) | Window start for the daily catch-all mode |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -66,7 +69,7 @@ Hand off confirmed threads to `second-brain`'s own `ingest` mode, one at a time 
 
 After a daily catch-all run completes (or is explicitly declined), write `.last-ingest` to the current timestamp.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Chat Ingest Preview — <mode>, <DATE>
@@ -92,13 +95,16 @@ The daily catch-all mode is a natural routine candidate — see `references/prot
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Hands off to:** `second-brain` (`ingest` mode does the actual wiki write)
-
-**Related:** `loose-threads`, `action-sweep` (also read the chat platform, but for open loops and action items — not knowledge capture)
+- `/second-brain` -> hands off here; its `ingest` mode does the actual wiki write
+- `/loose-threads` -> when a thread is an open loop awaiting your reply, not knowledge to capture
+- `/action-sweep` -> when a thread carries an action item rather than durable signal
+- `/meeting-prep` -> when the ingested context is needed for a specific upcoming meeting
 
 ## When to Use
 

@@ -1,8 +1,8 @@
 ---
 name: activation-analysis
-description: Analyze user activation using Setup → Aha → Habit framework. Identifies activation bottlenecks.
-disable-model-invocation: false
+description: Diagnose why users sign up but never reach value — maps the funnel as Setup, Aha, and Habit, finds the stage where they actually drop, compares the users who make it to the ones who do not, and recommends specific onboarding fixes. Use for onboarding drop-off, slow time-to-value, or weak D7.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Activation Analysis: Setup → Aha → Habit Framework
@@ -27,7 +27,7 @@ identify the biggest bottleneck, and recommend specific fixes.
 
 **Framework source:** Aakash Gupta's "Ultimate Guide to Activation" and "How to Measure Onboarding"
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -45,12 +45,10 @@ When this skill is invoked, immediately check:
 2. Analytics MCP SECOND (if connected - query activation funnel, D7/D30 by cohort)
 3. Framework guidance LAST (generic activation tactics)
 
-**Cross-Skill Links:**
-- If retention issues mentioned → Link to `retention-analysis`
-- If expansion opportunities found → Link to `expansion-strategy`
-- If user struggles identified → Link to `user-research-synthesis`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Current Activation Landscape
 
@@ -476,9 +474,7 @@ Use this with your team:
 
 ---
 
-## Cross-Skill Links
-
-### Where to Save Your Activation Analysis
+## Where Files Go
 
 **Research & Findings:**
 - Save to: `outputs/analyses/activation-analysis-[date].md`
@@ -493,21 +489,9 @@ Use this with your team:
 - Update `context-library/metrics/` with your Setup, Aha, Habit definitions and rates
 - Track weekly changes as baseline for comparison
 
-### Cross-Skill Integration
+---
 
-**Feeds into:**
-- `/retention-analysis` - Activation rate by stage informs retention analysis (Aha users retain better)
-- `/prd-draft` - Onboarding improvements become features in PRDs
-- `/experiment-decision` - Test setup flow changes or Aha moment triggers
-- `/metrics-framework` - Define leading indicators (setup rate, Aha rate as early signals)
-
-**Pulls from:**
-- `/user-research-synthesis` - User feedback on onboarding struggles
-- `/retention-analysis` - Understand habit formation patterns
-- `/competitor-analysis` - How competitors handle onboarding
-- `/expansion-strategy` - Activation enables expansion (activated users more likely to expand)
-
-### Key Questions to Revisit
+## Key Questions to Revisit
 
 After defining Setup → Aha → Habit, ask:
 - Is our Aha moment definition based on DATA (retained vs churned behavior)?
@@ -517,17 +501,16 @@ After defining Setup → Aha → Habit, ask:
 
 ---
 
-### Related Skills
+## Cross-Skill Links
 
-- `user-research-synthesis` - Understand user struggles in onboarding, synthesis of feedback
-- `experiment-decision` - Test activation improvements and measure impact
-- `retention-analysis` - Measure habit formation (Aha → habit stage)
-- `prd-draft` - Build features to improve activation based on this analysis
-- `metrics-framework` - Define leading indicators of activation success
-- `expansion-strategy` - Activation enables expansion (prerequisite)
-- `define-north-star` - Align activation metrics to North Star
-
----
+- `/retention-analysis` -> when you need to confirm the Aha moment actually predicts retention, or habit-stage data is missing
+- `/user-research-synthesis` -> when the funnel shows where users drop but not why
+- `/prd-draft` -> when an onboarding fix is large enough to need a spec
+- `/experiment-decision` -> when you want to A/B test a setup-flow change or Aha trigger
+- `/metrics-framework` -> when setup and Aha rates should become leading indicators
+- `/define-north-star` -> when the activation metric needs to ladder to the North Star
+- `/expansion-strategy` -> when activated segments are ready to be upsold
+- `/competitor-analysis` -> when you need to see how competitors handle the same onboarding step
 
 ## Structured Output Template
 
@@ -608,14 +591,7 @@ Before delivering the activation analysis, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

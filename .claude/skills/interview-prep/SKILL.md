@@ -1,6 +1,8 @@
 ---
 name: interview-prep
-description: Pre-interview preparation for PM job interviews (Product Sense, Execution, Behavioral)
+description: Get ready for a PM job interview — company and role research checklist, framework cheat sheets for Product Sense, Execution, Behavioral, Design, and Technical rounds, practice questions, and a day-of game plan. Ask for a mock interview to run a live round with feedback. Job search, not user research.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 **Note:** This skill is for PM career interviews (job interviews). For preparing to conduct user research interviews, see `/interview-guide`.
@@ -29,7 +31,7 @@ Say "mock interview" and I'll run you through a live practice round with feedbac
 For user research interview prep, use /interview-guide instead.
 ```
 
-## When to Use This Skill
+## When to Use
 
 - 1-2 weeks before PM job interviews
 - Preparing for specific interview rounds (Product Sense, Execution, Design, etc.)
@@ -527,7 +529,7 @@ Pre-Interview Routine:
 
 ---
 
-## Output Format
+## Output Template
 
 ```markdown
 # Interview Prep: [Company Name] - [Role]
@@ -606,7 +608,7 @@ Pre-Interview Routine:
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Jumping to solutions without understanding the problem
 ✅ Spend time on user segments and pain points first
@@ -684,19 +686,12 @@ Remember: Great preparation beats natural talent. Put in the 10-15 hours of stru
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/interview-feedback` -> after each real interview, to debrief and feed the next prep round
+- `/interview-guide` -> only if you actually meant user research interviews, not job interviews
+- `/learning-mode` -> when prep exposes a technical concept you cannot explain out loud

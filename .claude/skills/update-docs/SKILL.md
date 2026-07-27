@@ -1,8 +1,8 @@
 ---
 name: update-docs
-description: Update documentation after code changes. Reads git diff, verifies actual implementation, updates CHANGELOG and docs.
-disable-model-invocation: false
+description: Update README, CHANGELOG, and other docs after code changes by reading the actual implementation in the git diff rather than trusting what the docs already claim. Edits documentation files in place; run it with --check for an audit that finds stale docs and changes nothing.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /update-docs - Keep Docs Honest
@@ -27,7 +27,7 @@ Output: Updated docs in place + summary at outputs/analyses/docs-update-[date].m
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -36,15 +36,12 @@ Output: Updated docs in place + summary at outputs/analyses/docs-update-[date].m
 | PRDs | `context-library/prds/*.md` | requirements, behavior | Intended behavior vs actual |
 | Code Reviews | `outputs/analyses/code-review-*.md` | changes, fixes | What was reviewed and why |
 
-**Cross-Skill Links:**
-- After → `/code-first-draft` or `/code-review` to update docs post-change
-- Before → `/launch-checklist` which includes documentation as a gate
-- Related → `/content-marketing` for user-facing release notes
-- Related → `/editing-assistant` for prose quality improvements
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - After completing a feature (post `/code-first-draft`)
 - After a bug fix that changes documented behavior
@@ -52,7 +49,7 @@ Output: Updated docs in place + summary at outputs/analyses/docs-update-[date].m
 - When onboarding reveals docs are out of sync with code
 - Periodic audit to catch documentation drift
 
-## When NOT to Use This Skill
+## When NOT to Use
 
 - Writing new documentation from scratch (just write it)
 - Editing PM documents like PRDs (use `/editing-assistant`)
@@ -133,7 +130,7 @@ Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **NEVER trust existing documentation as source of truth.** Read the actual code.
 - **Be concise.** Documentation should be shorter than the code it describes.
@@ -191,25 +188,13 @@ Follow [Keep a Changelog](https://keepachangelog.com/) conventions:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/code-first-draft` or `/code-review` -> before this, as the change whose docs are now stale
+- `/content-marketing` -> when the change also needs user-facing release notes, not just internal docs
+- `/editing-assistant` -> when the docs are accurate but badly written
+- `/launch-checklist` -> when documentation is a launch gate that has to be signed off

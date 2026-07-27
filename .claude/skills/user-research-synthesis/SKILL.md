@@ -1,15 +1,15 @@
 ---
 name: user-research-synthesis
-description: Turn user interviews into actionable insights. Advanced synthesis techniques and frameworks.
-disable-model-invocation: false
+description: Synthesize a body of user research across many interviews into themes, patterns, and product implications, evidenced with verbatim quotes and checked against what you already knew. The cross-study layer — use user-interview to process one or two fresh transcripts from a single session.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /user-research-synthesis - Turn Interview Data Into Insights
 
 When the PM types `/user-research-synthesis`, transform raw user interview notes, transcripts, and observations into actionable product insights.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -20,7 +20,7 @@ When this skill is invoked, immediately check:
 | Related PRDs | `context-library/prds/*.md` | problem related to interviews | Problem framing and hypothesis |
 | Strategy Context | `context-library/strategy/*.md` | user segment, strategic fit | How findings ladder to strategy |
 | Previous Synthesis | `outputs/research-synthesis/` | topic name | Past research to build on |
-| Interview Guides | `context-library/research/interview-guides/` | topic | What questions were asked |
+| Interview Guides | `context-library/research/` | topic | What questions were asked |
 
 **Context Priority:**
 1. Raw interview data FIRST (always use verbatim quotes)
@@ -28,13 +28,10 @@ When this skill is invoked, immediately check:
 3. Previous research on related topics THIRD
 4. Strategic context FOURTH
 
-**Cross-Skill Links:**
-- After synthesis → Link to `/prd-draft` to turn insights into feature spec
-- If about competitor mentions → Link to `/competitor-analysis`
-- If about retention → Link to `/retention-analysis` for churn patterns
-- If informing strategy → Link to `/write-prod-strategy`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Research Context
 
@@ -82,7 +79,7 @@ Before we synthesize, let me understand what you've learned...
 
 ---
 
-## How It Works
+## Workflow
 
 This is a 4-step process:
 
@@ -497,7 +494,7 @@ Example:
 
 ---
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### Mistake 1: Treating All Feedback Equally
 Not all user feedback is equally valuable. I'll help you:
@@ -529,16 +526,16 @@ I'll remind you:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Research synthesis:**
 - Active work: `outputs/research-synthesis/[topic]-[date].md`
 - When finalized: Archive to `context-library/research/[topic]-synthesis.md` for future reference
 - Executive summary: Can be shared directly with stakeholders
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After synthesis:
 - **Create PRD** - Use `/prd-draft` to turn top themes into feature spec
@@ -546,21 +543,18 @@ After synthesis:
 - **Update roadmap** - Which themes map to Q# priorities?
 - **Competitive context** - If competitor mentions appear, link to `/competitor-analysis`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/prd-draft` - Auto-populate Hypothesis with user quotes and insights
-- `/write-prod-strategy` - Themes inform strategic pillars
-- `/status-update` - Key research findings go in stakeholder updates
-- `/competitor-analysis` - If competitors mentioned, extract those mentions
-
-**Pulls from:**
-- `context-library/research/` - What questions were asked?
-- `context-library/prds/` - What was the original problem hypothesis?
-- `/interview-guide` - Questions asked in the interview
-- `context-library/meetings/` - Past conversations about this problem
-
 ---
+
+## Cross-Skill Links
+
+- `/user-interview` -> before synthesis, to process the raw transcripts into insight cards
+- `/interview-guide` -> when the study has gaps that need another round of sessions
+- `/prd-draft` -> when themes are concrete enough to spec
+- `/write-prod-strategy` -> when themes cut across features and should shape pillars
+- `/competitor-analysis` -> when competitor mentions in the corpus need pulling out
+- `/retention-analysis` -> when the themes are churn-shaped and need quantifying
+- `/second-brain` -> to file the synthesis into `customer-insights` so it is not redone
+- `/status-update` -> when key findings belong in the next stakeholder update
 
 ## Integration With Your PRD
 
@@ -678,13 +672,6 @@ One research round is a snapshot. The brain is how snapshots compound into a pic
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.

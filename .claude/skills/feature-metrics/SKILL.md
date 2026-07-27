@@ -1,15 +1,15 @@
 ---
 name: feature-metrics
-description: Define success metrics using the STEDII framework for trustworthy experiment metrics.
-disable-model-invocation: false
+description: Define the success-metrics section of a PRD — one primary metric with a real baseline and target, guardrails protecting what you must not break, and explicit kill criteria — laddered up to the North Star. Screens candidates against STEDII rather than teaching it; use experiment-metrics for the framework itself.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /feature-metrics - Define Success Metrics
 
-Select trustworthy metrics using the STEDII framework.
+Define a feature's success-metric section for a PRD: one primary metric, its guardrails, and its kill criteria. Candidates are screened against STEDII, which `/experiment-metrics` owns.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -28,14 +28,10 @@ When this skill is invoked, immediately check:
 3. Historical metrics and baselines THIRD
 4. Stakeholder expectations FOURTH
 
-**Cross-Skill Links:**
-- If feature is part of larger product strategy → Link to `/write-prod-strategy`
-- If testing this feature → Link to `/experiment-decision` and `/experiment-metrics`
-- If metric is North Star related → Link to `/define-north-star`
-- If sizing impact → Link to `/impact-sizing` for usage estimates
-- If tracking retention → Link to `/retention-analysis` for cohort analysis
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## When to Use
 
@@ -89,39 +85,11 @@ Before we define metrics, let me check what context already exists...
 
 ---
 
-## STEDII Framework
+## STEDII Screen
 
-Every good metric should pass these 6 criteria:
+**`/experiment-metrics` owns STEDII** — it carries the sourced definition (Sensitive, Timely, Efficient, Debuggable, Interpretable, Isolated) with statistical power guidance per letter. Read `.claude/skills/experiment-metrics/SKILL.md` when a candidate metric needs the full six-criteria assessment.
 
-### S - Sensitive
-Can the metric detect changes from your feature?
-- Will it move meaningfully with expected impact?
-- Is the sample size sufficient?
-
-### T - Timely
-How quickly does the metric respond?
-- Can you measure it within your experiment window?
-- Leading indicators > lagging indicators
-
-### E - Easy to Understand
-Can stakeholders interpret it?
-- Avoid complex calculations
-- Clear cause and effect
-
-### D - Directional
-Is improvement clear?
-- Up = good or Down = good? Be explicit
-- Avoid metrics where direction is ambiguous
-
-### I - Implementable
-Can you actually track it?
-- Data exists or can be collected
-- Engineering effort is reasonable
-
-### I - Independent
-Does it avoid external factors?
-- Seasonality effects?
-- Other experiments running?
+This skill uses STEDII as a **screen, not a curriculum**: run each candidate primary metric and guardrail past the six criteria, record pass/fail with one line of reasoning, and drop anything that fails. The artifact this skill produces is the PRD's success-metric section — primary metric, guardrails, and kill criteria — not a metrics tutorial.
 
 ---
 
@@ -130,7 +98,7 @@ Does it avoid external factors?
 When PM types `/feature-metrics`, respond:
 
 ```
-Let's define metrics for your feature. I'll use the STEDII framework.
+Let's define your feature's success metrics: one primary, its guardrails, its kill criteria.
 
 Tell me:
 1. What feature are we measuring?
@@ -176,13 +144,13 @@ When to stop the experiment early.
 **Target:** [Y] ([+/- Z%])
 **Timeline:** [When we expect to see impact]
 
-**STEDII Check:**
+**STEDII Check** (criteria owned by `/experiment-metrics`):
 - [x] Sensitive - [why]
 - [x] Timely - [why]
-- [x] Easy to understand - [why]
-- [x] Directional - [up/down = good]
-- [x] Implementable - [data source]
-- [x] Independent - [controls for]
+- [x] Efficient - [why]
+- [x] Debuggable - [why]
+- [x] Interpretable - [why]
+- [x] Isolated - [controls for]
 
 ## Guardrail Metrics
 | Metric | Acceptable Range | Why It Matters |
@@ -217,37 +185,34 @@ If any of these occur, immediately rollback:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Feature metrics definitions:**
 - Active work: Add to PRD in `Strategic Fit` section
 - When finalized: Reference in `/experiment-decision` for A/B testing approach
 - Archive: Store final metrics in `context-library/metrics/[feature-name]-baseline.md` for historical reference
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After defining metrics:
-- **Reference in PRDs** - "Success is defined as [primary metric] reaching [target] based on STEDII framework"
+- **Reference in PRDs** - "Success is defined as [primary metric] reaching [target]"
 - **Use in experiments** - Feature metrics become primary metric in `/experiment-decision`
 - **Track progress** - Monitor against baseline in weekly status updates
 - **Feed retention analysis** - If tracking retention, pass metric definitions to `/retention-analysis`
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/experiment-decision` - Primary metric determines test design and duration
-- `/feature-results` - Use these metrics to measure actual impact post-launch
-- `/impact-sizing` - Use guardrails to validate usage estimates
-- `/metrics-framework` - This metric may become a leading indicator for North Star
-
-**Pulls from:**
-- `/define-north-star` - Ensure primary metric ladders up to North Star
-- `/impact-sizing` - Usage estimates inform what metrics can detect changes
-- `context-library/business-info-template.md` - Company metrics and baselines
-
 ---
+
+## Cross-Skill Links
+
+- `/experiment-metrics` -> when you need the STEDII framework itself, not its application to this PRD
+- `/define-north-star` -> when the primary metric has nothing to ladder up to
+- `/impact-sizing` -> when usage estimates determine whether the metric can detect a change
+- `/experiment-decision` -> when the primary metric drives test design and duration
+- `/analytics-instrumentation` -> when the metric is not currently instrumented
+- `/feature-results` -> after launch, to measure against the targets set here
+- `/metrics-framework` -> when this metric should become a leading indicator
 
 ## Tips
 
@@ -266,7 +231,7 @@ Before presenting output to the PM, verify:
 
 - [ ] **File saved to correct location:** Output saved to `outputs/analyses/feature-metrics-[feature-name]-[date].md`
 - [ ] **Context routing table was checked:** Reviewed `context-library/prds/` for feature context, `context-library/business-info-template.md` for North Star metric, and `context-library/metrics/` for existing dashboards and baselines
-- [ ] **Metrics pass STEDII framework:** Each proposed metric is evaluated against all 6 STEDII dimensions (Sensitive, Timely, Easy to understand, Directional, Implementable, Independent) with pass/fail reasoning
+- [ ] **Metrics pass the STEDII screen:** Each proposed metric is scored against the six criteria owned by `/experiment-metrics`, with pass/fail reasoning
 - [ ] **Primary metric has baseline and target:** The primary metric includes a current baseline number and a specific target value with timeline (not "improve" or "increase")
 - [ ] **Guardrail metrics defined:** At least 1 guardrail metric is specified with an acceptable range and explanation of what it protects against
 - [ ] **Metrics ladder to North Star:** The output explicitly shows how the primary metric connects upward to the company's North Star metric from `context-library/business-info-template.md`
@@ -276,19 +241,6 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

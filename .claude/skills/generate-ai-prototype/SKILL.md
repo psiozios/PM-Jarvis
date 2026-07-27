@@ -1,6 +1,8 @@
 ---
 name: generate-ai-prototype
-description: Generate v0.dev, Lovable, or Bolt.new prompts for AI-powered prototyping
+description: Write a copy-paste-ready prompt for v0.dev, Lovable, or Bolt.new that will build your feature, loaded with the PRD requirements, design system, and user context those tools need to get it right. Produces the prompt only and builds nothing itself — use prototype when you want it built in-session.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 # Generate AI Prototype Skill
@@ -21,7 +23,7 @@ Create optimized prompts for AI prototyping tools (v0.dev, Lovable, Bolt.new) to
 
 **Time:** 10-15 minutes to generate prompt, 1-2 minutes to build prototype
 
-## When to Use This Skill
+## When to Use
 
 - Converting PRDs into functional prototypes
 - Rapid iteration on UI concepts
@@ -469,7 +471,7 @@ If the prototype needs changes:
 6. **Share early:** Get feedback on prototype before engineering starts
 7. **Document learnings:** Note what works/doesn't for future prototypes
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Too many features in first prompt (overwhelming)
 ✅ Core flow first, add features incrementally
@@ -529,19 +531,15 @@ Remember: A 5-minute prototype can save 2 weeks of engineering waste. Invest in 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/prd-draft` -> before generating, when there is no spec to load into the prompt
+- `/design-direction` -> before generating, to set the visual tone; then run this with `--with-taste`
+- `/napkin-sketch` -> before generating, when layout has not been settled
+- `/prototype` -> when you want it built in-session rather than handed to an external tool
+- `/prototype-feedback` -> after the external tool builds it, to review the result
+- `/create-tickets` -> when the approved prototype becomes engineering work

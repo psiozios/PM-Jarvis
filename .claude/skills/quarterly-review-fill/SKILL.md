@@ -1,8 +1,8 @@
 ---
 name: quarterly-review-fill
 description: Top tier of the periodic-review cascade. Links and rolls up the quarter's completed monthly-review-fill entries into a synthesized quarterly assessment — never re-derives from raw weeks or task activity. Pre-fills, asks only judgment questions, forward-creates.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,13 +24,16 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the top tier of a nested cascade — see `monthly-review-fill` (the tier it rolls up) and `weekly-review-fill` (the base tier two levels down).
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Reviews store | `<REVIEWS_STORE>` | This quarter's existing entry, and every `monthly-review-fill` entry inside it |
 | Strategy | `context-library/strategy/` | The quarter's stated OKRs/goals, for grading the quarter against intent, not just activity |
 | Calendar | `<CALENDAR>` | Quarter boundaries, computed in local time |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -58,7 +61,7 @@ Only quarterly-scale calls the months themselves don't resolve — a strategic r
 
 Same discipline as the two tiers below: table before the draft, nothing written until confirmed, delta-only write, next N quarters forward-created with dedupe.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Quarter <YYYY-QN> Review Draft
@@ -101,13 +104,16 @@ A natural quarterly-cadence routine — see `references/protocols/routines.md` a
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Rolls up:** `monthly-review-fill` (required lower tier)
-
-**Related:** `okr-planning` (next quarter's OKRs, informed by this review), `board-deck` (quarterly assessment feeds the QBR narrative)
+- `/monthly-review-fill` -> required lower tier; run it for any month in the quarter still unfilled
+- `/okr-planning` -> when next quarter's OKRs should be informed by this assessment
+- `/board-deck` -> when the quarterly assessment anchors the QBR narrative
+- `/write-prod-strategy` -> when the quarter's learning invalidates a strategic pillar
 
 ## When to Use
 

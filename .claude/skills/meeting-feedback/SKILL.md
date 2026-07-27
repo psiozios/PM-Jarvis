@@ -1,6 +1,8 @@
 ---
 name: meeting-feedback
-description: Post-meeting effectiveness feedback and continuous improvement
+description: Rate a meeting you just ran or sat through and turn it into a concrete fix — scored across five dimensions, trended if the meeting recurs, with specific changes for next time. Use when a meeting felt like a waste of time or a standing ceremony keeps underdelivering.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -20,7 +22,7 @@ I'll walk you through a structured evaluation, score the meeting across 5 dimens
 
 Evaluate meeting effectiveness and identify improvements. Quick retrospective to make future meetings better.
 
-## When to Use This Skill
+## When to Use
 
 - Immediately after important meetings (within 10 minutes)
 - After recurring meetings (to improve cadence)
@@ -264,7 +266,7 @@ If keeping:
 - Format: [What changes to agenda/structure?]
 ```
 
-## Output Format
+## Output Template
 
 ```markdown
 # Meeting Feedback: [Meeting Name]
@@ -476,7 +478,7 @@ If not, what changes would justify the cost?
 6. **Act on insights:** Feedback without action is pointless
 7. **Review quarterly:** Look at meeting portfolio, not just individual meetings
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Generic feedback ("meeting was fine")
 ✅ Specific observations ("pre-read sent day-of, not 24hr before")
@@ -490,18 +492,19 @@ If not, what changes would justify the cost?
 ❌ Only noting problems
 ✅ Also capture what worked well (repeat it)
 
-## Cross-Skill Links
+## Recurring Use
 
-**Before meeting:**
-- `/meeting-agenda` - Create structured agenda
-
-**After meeting:**
-- `/meeting-notes` - Document decisions and action items
-- `/meeting-cleanup` - Batch process day's meetings
-
-**Recurring use:**
 - Run meeting-feedback monthly on recurring meetings
 - Team retrospective quarterly on meeting culture
+
+---
+
+## Cross-Skill Links
+
+- `/meeting-agenda` -> before the next occurrence, to restructure it around what this feedback found
+- `/meeting-prep` -> when the meeting failed for lack of prep rather than lack of structure
+- `/meeting-notes` -> when the meeting still needs its decisions and actions captured
+- `/stakeholder-tactics` -> when the dysfunction is about people, not format
 
 ## Quick Questions for Any Meeting
 
@@ -607,18 +610,11 @@ Remember: Meeting culture is built one feedback loop at a time. Small improvemen
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/meeting-feedback`, I automatically:
 
@@ -652,3 +648,6 @@ When the PM uses `/meeting-feedback`, I automatically:
 - **Recurring meeting:** Suggest changes for next occurrence
 - **Team pattern:** Suggest `/meeting-cleanup` to batch-process and identify systemic issues
 - **Major issue:** Flag for leadership discussion or team retrospective
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.

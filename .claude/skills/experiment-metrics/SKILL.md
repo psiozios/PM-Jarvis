@@ -1,8 +1,8 @@
 ---
 name: experiment-metrics
-description: STEDII framework for selecting trustworthy experiment metrics. Ensures metric validity and reliability.
-disable-model-invocation: false
+description: Choose metrics you can actually trust to call an A/B test, screened through STEDII — sensitive, timely, efficient, debuggable, interpretable, isolated. The sourced owner of that framework. Use when experiment results look confusing, a metric refuses to move, or you are picking what to measure before launch.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Experiment Metrics Selection: STEDII Framework
@@ -369,18 +369,21 @@ Before you launch an experiment, verify:
 
 ## Cross-Skill Links
 
-- `/experiment-decision` - Decide when to A/B test vs ship
-- `/metrics-framework` - Understand leading vs lagging metrics
-- `/define-north-star` - Choose your North Star Metric
-- `/retention-analysis` - Measure long-term impact
+- `/experiment-decision` -> when the open question is whether to test at all, not what to measure
+- `/feature-metrics` -> when the metric is going into a PRD's success-metrics section
+- `/analytics-instrumentation` -> when the chosen metric is not currently being captured
+- `/metrics-framework` -> when the metric needs a place in the leading/lagging hierarchy
+- `/define-north-star` -> when the metric must ladder to the North Star
 
 ---
 
 **Framework credit:** Adapted from Aakash Gupta's STEDII framework. Read the full article: https://www.news.aakashg.com/p/metrics-experiments
 
+**Framework credit:** Adapted from Aakash Gupta's STEDII framework. Read the full article: https://www.news.aakashg.com/p/metrics-experiments
+
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/experiment-metrics`, I automatically:
 
@@ -416,6 +419,9 @@ When the PM uses `/experiment-metrics`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before presenting output to the PM, verify:
@@ -430,14 +436,7 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -448,9 +447,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

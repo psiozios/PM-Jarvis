@@ -1,8 +1,8 @@
 ---
 name: okr-planning
 description: Create and align quarterly OKRs with product strategy and North Star. Two modes - write OKRs from scratch or critique existing OKRs for measurability, alignment, and balance.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /okr-planning - Create Aligned, Measurable OKRs
@@ -31,7 +31,7 @@ Output: outputs/okrs/okrs-[quarter]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -51,14 +51,10 @@ When this skill is invoked, immediately check:
 3. Strategy pillars THIRD (OKRs should reflect strategic bets)
 4. Current metric baselines FOURTH (Key Results need starting points)
 
-**Cross-Skill Links:**
-- OKRs → inform `/weekly-plan` (weekly priorities ladder to OKRs)
-- OKRs → inform `/metrics-framework` (Key Results become leading/lagging indicators)
-- OKRs → inform `/define-north-star` (OKRs should ladder to the North Star)
-- OKRs → inform `/write-prod-strategy` (strategy shapes OKRs, OKRs reflect strategy)
-- OKR check-ins → `/status-update` for quarterly progress reports
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Context
 
@@ -343,29 +339,24 @@ Even while chasing the Objectives, we won't sacrifice:
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **OKR documents:**
 - Active work: `outputs/okrs/okrs-[quarter]-[date].md`
 - When finalized: Move to `context-library/strategy/` for reference in future planning
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/weekly-plan` - Weekly priorities ladder to quarterly OKRs
-- `/metrics-framework` - KRs become leading/lagging indicator definitions
-- `/status-update` - OKR progress feeds into stakeholder updates
-- `/board-deck` - OKR overview and quarterly progress for executive presentations
-- `/define-north-star` - OKRs should ladder to the North Star
-
-**Pulls from:**
-- `context-library/strategy/` - North Star, strategic pillars, previous OKRs
-- `context-library/business-info-template.md` - Company-level goals
-- `context-library/metrics/` - Current metric baselines for KR targets
-
 ---
+
+## Cross-Skill Links
+
+- `/write-prod-strategy` -> before writing OKRs, when there is no strategy for them to express
+- `/define-north-star` -> when Key Results have nothing to ladder to
+- `/quarterly-review-fill` -> before planning, when last quarter's assessment should inform this one
+- `/metrics-framework` -> when Key Results need baselines and thresholds behind them
+- `/weekly-plan` -> when weekly priorities should ladder to these OKRs
+- `/status-update` -> when OKR progress needs reporting mid-quarter
+- `/board-deck` -> when OKR progress feeds the QBR scorecard
+- `/iterate-document` -> when a target needs revising mid-quarter based on what changed
 
 ## Output Quality Self-Check
 
@@ -385,14 +376,7 @@ Before delivering OKRs, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -403,9 +387,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

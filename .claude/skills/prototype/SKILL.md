@@ -1,8 +1,8 @@
 ---
 name: prototype
-description: Advanced prototyping (Artifacts/Figma/Lovable/v0/Bolt)
-disable-model-invocation: false
+description: Turn a PRD or feature description into a working prototype — built here as HTML or React, or handed off as a tool-specific brief for Lovable, v0, Bolt, or a Figma spec. The router of the prototyping skills, picking the medium that matches the fidelity you need and covering states and edge cases.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -38,7 +38,7 @@ Prototyping is the cheapest way to validate your solution before committing engi
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -60,15 +60,10 @@ When this skill is invoked, immediately check:
 3. Previous prototypes and napkin sketches THIRD (what we've already explored)
 4. Brand and competitor context FOURTH (how it should look/feel)
 
-**Cross-Skill Links:**
-- If no PRD exists --> suggest `/prd-draft` first ("Prototype without requirements = guessing")
-- If no user research --> suggest `/interview-guide` ("Who are you designing for?")
-- If no design direction exists --> suggest `/design-direction` ("Set the visual tone before building. What should this feel like?")
-- After prototype is built --> suggest `/prototype-feedback` for structured review
-- If prototype needs AI behavior --> link to `/generate-ai-prototype` for prompt generation
-- If starting from scratch visually --> suggest `/napkin-sketch` first for quick layout
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## When to Use
 
@@ -559,22 +554,14 @@ If any are missing, ask before generating.
 
 ## Cross-Skill Links
 
-**Before:**
-- `/prd-draft` - Define requirements (most important input)
-- `/napkin-sketch` - Quick ASCII wireframe to establish layout
-- `/generate-ai-prototype` - Generate AI-specific prompt behavior
-
-**After:**
-- `/prototype-feedback` - Structured review and iteration loop
-- `/prd-draft` - Update PRD based on prototype learnings
-- `/create-tickets` - Turn approved prototype into engineering tasks
-
-**Related:**
-- `/prd-review-panel` - Validate with Designer sub-agent
-- `/user-interview` - Test prototype with real users
-- `/ralph-wiggum` - Challenge whether this is the right solution
-
----
+- `/prd-draft` -> before building, when there are no requirements to build against
+- `/napkin-sketch` -> before building, when layout has not been settled
+- `/design-direction` -> before building, when the visual tone has not been set
+- `/interview-guide` -> before building, when you do not know who you are designing for
+- `/generate-ai-prototype` -> when you want a tool-specific prompt instead of an in-session build
+- `/prototype-feedback` -> after building, for structured review and the next iteration
+- `/user-interview` -> when the prototype needs testing with real users
+- `/create-tickets` -> when the approved prototype becomes engineering work
 
 ## Output Quality Self-Check
 
@@ -594,38 +581,9 @@ Before presenting the prototype or prompt, verify:
 
 ---
 
-### Related Skills
-
-**Before this:**
-- `/prd-draft` - Clear requirements
-- `/napkin-sketch` - Quick wireframe first
-- `/generate-ai-prototype` - AI behavior prompts
-
-**After this:**
-- `/prototype-feedback` - Structured review loop
-- `/create-tickets` - Engineering handoff
-- `/feature-results` - Measure impact post-launch
-
-**Parallel use:**
-- `/user-interview` - Test with real users
-- `/ralph-wiggum` - Challenge the solution approach
-
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

@@ -1,8 +1,8 @@
 ---
 name: routine-responder
 description: Turn a routine's notification thread into a two-way conversation. Discovers reply threads from active routines, picks up genuine user replies, and continues the underlying skill treating the reply as input.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -27,7 +27,7 @@ This skill is example-worthy scaffolding, not a single-purpose tool: any routine
 
 ---
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|-----------------|
@@ -37,6 +37,9 @@ This skill is example-worthy scaffolding, not a single-purpose tool: any routine
 | Notifier config | `config/notifier-example.md` (or your adapter) | Credentials and identity for reading/posting |
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -99,17 +102,21 @@ Before finishing a sweep, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads this file's `evals.md` in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
+
+## References
+
+- `references/protocols/routines.md`
+- `references/protocols/notifications.md`
+- `setup/routine-setup.md`
 
 ---
 
 ## Cross-Skill Links
 
-**Before this:** any routine under `routines/` that has posted at least one notification
-
-**After this:** none — this is the terminal step of a reply cycle
-
-**Related:** `references/protocols/routines.md`, `references/protocols/notifications.md`, `setup/routine-setup.md`
+<!-- No Cross-Skill Links: the upstream is whatever routine fired, resolved at runtime from routines/, and this is the terminal step of a reply cycle. A static list would be stale as soon as a routine is added. See references/protocols/routines.md. -->
 
 ## When to Use
 

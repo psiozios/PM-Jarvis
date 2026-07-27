@@ -1,6 +1,8 @@
 ---
 name: meeting-agenda
-description: Create structured meeting agendas for effective collaboration
+description: Draft the agenda for an upcoming meeting — purpose, timeboxed topics, pre-reads, and named outcomes — but first checks whether the meeting needs to exist and offers an async alternative if it does not. Handles recurring cadences, one-offs, 1-on-1s, and difficult negotiations.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -61,7 +63,7 @@ For recurring meetings, check `context-library/meetings/` and `outputs/meeting-n
 
 ---
 
-## When to Use This Skill
+## When to Use
 
 - Before scheduling any meeting (if no agenda, don't schedule)
 - Converting vague meeting requests into structured discussions
@@ -501,7 +503,7 @@ For meetings where tension or disagreement is expected:
 - Brainstorm 3-5 initial ideas on your own before the meeting: 5 min
 ```
 
-## Output Format
+## Output Template
 
 ```markdown
 # [Meeting Title]
@@ -626,7 +628,7 @@ Results: [Link to responses]
 Meeting focuses on discussing concerns, not rehashing basics.
 ```
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ No time limits (topics expand to fill time)
 ✅ Strict time boxes for each section
@@ -655,14 +657,13 @@ Meeting focuses on discussing concerns, not rehashing basics.
 
 ## Cross-Skill Links
 
-**After the meeting:**
-- `/meeting-notes` - Document outcomes and action items
-- `/meeting-cleanup` - Process batch of meetings from one day
-- `/decision-doc` - Formalize decisions made in meeting
-
-**Before the meeting:**
-- `/prd-draft` - Create spec to review in meeting
-- `/status-update` - Pre-read for stakeholder meetings
+- `/meeting-prep` -> before the agenda, when you need attendee context and real talking points rather than a topic list
+- `/status-update` -> before the meeting, when stakeholders need a pre-read
+- `/meeting-notes` -> after the meeting, to capture decisions and action items
+- `/meeting-cleanup` -> after a day of back-to-back meetings, to process them in one pass
+- `/decision-doc` -> when a decision made in the meeting will otherwise get relitigated
+- `/meeting-feedback` -> when the meeting is recurring and keeps underdelivering
+- `/stakeholder-tactics` -> when the meeting is a difficult negotiation, not a working session
 
 ## Questions to Ask Before Creating Agenda
 
@@ -752,18 +753,11 @@ Remember: A great agenda is half the battle. The other half is actually sticking
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/meeting-agenda`, I automatically:
 
@@ -804,6 +798,9 @@ When the PM uses `/meeting-agenda`, I automatically:
 - Decision made in meeting: Route to `/decision-doc` if it needs formal documentation
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Mode: --oneonone (Structured 1:1 Agenda)
 

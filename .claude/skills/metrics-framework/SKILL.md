@@ -1,8 +1,8 @@
 ---
 name: metrics-framework
-description: Set up leading vs lagging indicators for product decisions. Framework for metric selection and tracking.
-disable-model-invocation: false
+description: Build a metric hierarchy for a product or team — lagging outcomes quarterly, leading indicators weekly, input metrics daily — with green, yellow, and red alert thresholds and a dashboard layout, validating that the leading metrics really do predict the lagging one. Use when you need early signal before results land.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # Metrics Framework: Leading vs Lagging Indicators
@@ -18,11 +18,11 @@ user-invocable: true
 3. I will ask about your North Star (lagging metric), product stage, and decision speed needs
 4. We build a metric hierarchy: Lagging (quarterly) -> Leading (weekly) -> Input (daily)
 5. For each key metric, we define alert thresholds (green/yellow/red) and a dashboard layout
-6. Output goes to `outputs/metrics-framework-[date].md`
+6. Output goes to `outputs/analyses/metrics-framework-[date].md`
 
 **Key principle:** Leading metrics should PREDICT lagging metrics. If they do not, you are tracking the wrong thing. We always validate the correlation before committing to a leading indicator.
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
@@ -41,13 +41,10 @@ When this skill is invoked, immediately check:
 3. Historical trend data THIRD
 4. Feature-specific metrics FOURTH
 
-**Cross-Skill Links:**
-- If defining North Star → Link to `/define-north-star`
-- If setting up feature success → Link to `/feature-metrics` for STEDII framework
-- If tracking product health → Link to `/retention-analysis` and `/activation-analysis`
-- If analyzing test results → Link to `/feature-results`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Understanding Your Metric System
 
@@ -656,16 +653,16 @@ For products with multiple value streams (e.g., separate features for creation, 
 
 ---
 
-## Cross-Skill Links
-
-### Where Files Go
+## Where Files Go
 
 **Metric framework documentation:**
-- Active work: `outputs/metrics-framework-[date].md` (living document for your team)
+- Active work: `outputs/analyses/metrics-framework-[date].md` (living document for your team)
 - When finalized: Move to `context-library/metrics/metric-hierarchy-[quarter].md` for historical reference
 - Dashboard spec: Share with analytics team for instrumentation
 
-### Link to Other Work
+---
+
+## Link to Other Work
 
 After building your framework:
 - **Reference in strategy** - "Our metric hierarchy connects [lagging] to [leading] to [input]"
@@ -673,31 +670,17 @@ After building your framework:
 - **Guide experiments** - Teams use leading metrics to evaluate experiments faster
 - **Inform roadmap** - Identify which product work drives which leading metrics
 
-### Cross-Skill Integration
-
-**Feeds into:**
-- `/define-north-star` - Your lagging metric becomes (or informs) the North Star
-- `/feature-metrics` - Feature success metrics are leading indicators in this framework
-- `/retention-analysis` - Leading metrics for retention are identified here
-- `/activation-analysis` - Activation metrics are leading indicators for engagement
-
-**Pulls from:**
-- `/write-prod-strategy` - Strategy determines what you're optimizing for
-- `context-library/metrics/` - Historical data validates correlations
-- `/define-north-star` - What is your ultimate success metric?
-
 ---
 
-### Related Skills
+## Cross-Skill Links
 
-- `/define-north-star` - Choose your North Star (lagging metric)
-- `/activation-analysis` - Find leading activation indicators
-- `/feature-metrics` - Choose experiment metrics with STEDII
-- `/retention-analysis` - Analyze retention predictors
-
----
-
----
+- `/define-north-star` -> when the lagging metric at the top of the hierarchy is not settled
+- `/activation-analysis` -> when activation rates are the leading indicators you need
+- `/retention-analysis` -> when retention predictors are the leading indicators you need
+- `/feature-metrics` -> when a feature's success metric needs to slot in as a leading indicator
+- `/analytics-instrumentation` -> when the hierarchy names metrics nothing currently captures
+- `/write-prod-strategy` -> when what you are optimizing for has not been decided
+- `/okr-planning` -> when Key Results should be drawn from this hierarchy
 
 ## Output Quality Self-Check
 
@@ -721,14 +704,7 @@ Before delivering the metrics framework, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

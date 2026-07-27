@@ -1,6 +1,8 @@
 ---
 name: create-tickets
-description: Create tickets via Linear/Jira MCP or generate formatted ticket text
+description: Break a PRD, spec, or list of action items into engineering tickets with acceptance criteria, effort estimates, dependencies, and labels. Creates them directly in the issue tracker when one is connected, otherwise gives copy-paste text. Commits a team to work, so a commitment gate runs before anything is created.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 # Create Tickets Skill
@@ -23,7 +25,7 @@ Generate engineering tickets from PRDs, feature specs, or task lists. Supports d
 
 **Commitment gate:** Before creating tickets that commit a team to work, run the five checks in `references/protocols/commitment-gate.md`.
 
-## When to Use This Skill
+## When to Use
 
 - Breaking down PRDs into implementation tickets
 - Converting feature specs into actionable tasks
@@ -303,7 +305,7 @@ Body:
   - Rollback plan: [How to revert if needed]
 ```
 
-## Cross-Skill Links
+## MCP Integration
 
 ### Linear MCP
 ```python
@@ -372,7 +374,7 @@ Priority: Medium
 ...
 ```
 
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ❌ Vague titles: "Fix preferences"
 ✅ Specific titles: "[API] Fix: Preferences endpoint returns 500 on missing user"
@@ -401,7 +403,7 @@ Remember: Great tickets save engineering hours. Invest time upfront to create cl
 
 ---
 
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/create-tickets`, I automatically:
 
@@ -438,6 +440,9 @@ When the PM uses `/create-tickets`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before delivering tickets, verify:
@@ -461,14 +466,7 @@ If any check fails, fix it before delivering. Bad tickets slow engineering down 
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -583,3 +581,14 @@ So that [outcome or benefit].
 | Estimable | Can engineering size this after reading it? | |
 | Small | Completable in one sprint? | |
 | Testable | Are acceptance criteria specific and verifiable? | |
+
+---
+
+## Cross-Skill Links
+
+- `/prd-draft` -> before ticketing, when there is no spec to break down
+- `/execution-plan` -> before ticketing, when the work needs phasing first
+- `/sprint-planning` -> after ticketing, when the created tickets need committing to a sprint
+- `/backlog-groom` -> when the board is cluttered enough that new tickets will get lost
+- `/code-review` -> when the tickets originate from confirmed review findings
+- `/meeting-notes` -> when the tickets come from meeting action items

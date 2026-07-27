@@ -1,8 +1,8 @@
 ---
 name: loose-threads
 description: Open-loop radar. Finds stalled two-way conversations the user may be dropping — across threads they're in and their own posts awaiting reply — verified before flagging, bucketed by age, framed as triage not a scorecard.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,7 +24,7 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
@@ -33,6 +33,9 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Email | `<EMAIL_SOURCE>` | Threads awaiting the user's reply or awaiting someone else's |
 | Calendar | `<CALENDAR>` | Cross-check: did a loop resolve in a meeting instead of in-thread? |
 | Sibling sweep | `action-sweep` output | Dedupe — don't re-flag something `action-sweep` already surfaced as an action item |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -69,7 +72,7 @@ Fresh (0-2 days) / This week (3-7 days) / Aging (8-13 days) / Stale (14+ days).
 
 For "yours" items only, propose a task in `<TASK_TRACKER>` as a numbered list awaiting confirmation — never auto-created (discipline #4).
 
-## Output Format
+## Output Template
 
 ```markdown
 # Loose Threads — <DATE>
@@ -108,11 +111,16 @@ Natural fit for a scheduled routine — see `references/protocols/routines.md` a
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `action-sweep` (dedupe target), `daily-plan`, `references/protocols/skill-patterns.md` (Pattern 1)
+- `/action-sweep` -> when a thread carries an action item; dedupe against its output before flagging either
+- `/daily-plan` -> when the surviving threads need sequencing into today
+- `/chat-ingest` -> when a thread carries durable knowledge worth filing, not just a reply owed
+- `/slack-message` -> when the next move on a thread is drafting the reply
 
 ## When to Use
 

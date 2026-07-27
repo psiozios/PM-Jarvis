@@ -1,8 +1,8 @@
 ---
 name: autoresearch
 description: Autonomous iterative experimentation loop inspired by Karpathy's autoresearch. Use when Claude should run repeated hypothesis-test cycles for any product, strategy, research, analytics, or code problem with a measurable objective, keep improvements, discard regressions, and log evidence until stopped or a cap is reached.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /autoresearch - Autonomous Experiment Loops
@@ -29,7 +29,7 @@ Cadence: [how many iterations or "run until I stop you"]
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -48,15 +48,10 @@ Cadence: [how many iterations or "run until I stop you"]
 3. Live MCP data (if connected)
 4. External research only for unresolved gaps
 
-**Cross-Skill Links:**
-- Problem diagnosis unclear -> `/root-cause-analysis`
-- Need experiment metric quality check -> `/experiment-metrics`
-- Need A/B decision framing -> `/experiment-decision`
-- Code-heavy optimization -> `/explore-codebase` then `/code-first-draft`
-- Competitor-driven hypothesis -> `/competitor-analysis`
-- Convert winning direction into plan -> `/execution-plan`
-
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Step 0: Build the Research Charter
 
@@ -318,14 +313,7 @@ Save final synthesis to:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -337,14 +325,11 @@ See `references/protocols/skill-evals.md`.
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/root-cause-analysis` -> when the problem is not yet diagnosed well enough to form a hypothesis
+- `/experiment-metrics` -> when the objective metric may not be trustworthy enough to steer on
+- `/experiment-decision` -> when a winning direction needs an A/B framing before rollout
+- `/explore-codebase` -> when the optimization loop is code-heavy, then `/code-first-draft` to implement
+- `/competitor-analysis` -> when hypotheses should be seeded from competitor behavior
+- `/execution-plan` -> when the winning direction becomes work to schedule

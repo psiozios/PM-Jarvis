@@ -1,8 +1,8 @@
 ---
 name: decision-doc
-description: Document important product decisions. Creates decision logs with rationale, alternatives, and trade-offs.
-disable-model-invocation: false
+description: Write down a product decision so it stops getting relitigated — how it was framed, the options with honest trade-offs, the recommendation, and what would change our mind. Use for build-versus-buy, competing approaches, architecture direction, or anything someone will question three months from now.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /decision-doc - Document Strategic Decisions That Stick
@@ -21,7 +21,7 @@ When the PM types `/decision-doc`, create decision documents that get stakeholde
 
 ---
 
-## How It Works
+## Workflow
 
 This is a 4-step process:
 
@@ -298,375 +298,11 @@ Let's build this...
 
 ---
 
-## Standard Decision Doc Template
+## Templates
 
-```markdown
-# Decision Document: [Decision Title]
+The full standard template, plus the one-way-door, lightweight, and approval-style variants: `.claude/skills/decision-doc/references/templates.md`. Read it when drafting the artifact — it carries every section body verbatim.
 
-**Date:** [Date]
-**Owner:** [Your name]
-**Status:** [Proposed / Approved / Implemented]
-**Decision Deadline:** [When we need to decide by]
-
----
-
-## TL;DR
-
-**Decision:** [One sentence: What we're deciding]
-
-**Recommendation:** [One sentence: What you recommend]
-
-**Impact:** [One sentence: Why this matters]
-
----
-
-## Context
-
-### Why We're Making This Decision
-
-[Background and situation that created the need for this decision]
-
-**What triggered this:**
-- [Event/data/feedback that forced the decision]
-
-**Current state:**
-- [Where things stand today]
-- [What's not working]
-- [What's at stake]
-
-**Example:**
-- **Trigger:** 45% of our traffic is now from mobile devices, up from 25% 
-  a year ago
-- **Current state:** Mobile web experience has 35% bounce rate vs. 18% on 
-  desktop
-- **At stake:** Losing 2,000+ potential users per month due to poor mobile 
-  experience
-
-### Scope
-
-**In scope:**
-- [What this decision covers]
-
-**Out of scope:**
-- [What this decision does NOT cover]
-- [Related decisions that will be made separately]
-
-**Example:**
-- **In scope:** Whether to build native iOS/Android apps
-- **Out of scope:** Specific features for v1 (separate PRD), launch timing 
-  (separate decision)
-
-### Constraints
-
-**Technical:**
-- [Technology limitations]
-
-**Resource:**
-- [Budget/people limitations]
-
-**Timeline:**
-- [Time constraints]
-
-**Business:**
-- [Strategic or market constraints]
-
----
-
-## Options Considered
-
-[Full breakdown of each option using the framework from Step 2]
-
-### Option 1: [Name]
-[Complete analysis]
-
-### Option 2: [Name]
-[Complete analysis]
-
-### Option 3: [Name]
-[Complete analysis]
-
----
-
-## Decision Criteria
-
-**How we're evaluating options:**
-
-| Criteria | Weight | Option 1 | Option 2 | Option 3 |
-|----------|--------|----------|----------|----------|
-| [Criterion 1] | High | 8/10 | 5/10 | 6/10 |
-| [Criterion 2] | High | 6/10 | 9/10 | 7/10 |
-| [Criterion 3] | Medium | 7/10 | 7/10 | 9/10 |
-| **Total** | | **XXX** | **XXX** | **XXX** |
-
-**Criteria definitions:**
-- **[Criterion 1]:** [What this means and why it matters]
-- **[Criterion 2]:** [What this means and why it matters]
-
-**Example Criteria:**
-- **User Impact** (High): How much this improves core user experience
-- **Time to Value** (High): How quickly we can ship and see results
-- **Resource Efficiency** (Medium): How efficiently this uses our limited resources
-- **Strategic Alignment** (Medium): How well this supports our Q2 strategy
-
----
-
-## Recommendation
-
-[Complete recommendation using the framework from Step 3]
-
----
-
-## Stakeholder Input
-
-### Consulted
-
-**Engineering:**
-- [Name]: [Their input/concerns]
-- [Name]: [Their input/concerns]
-
-**Design:**
-- [Name]: [Their input/concerns]
-
-**Leadership:**
-- [Name]: [Their input/concerns]
-
-### Key Concerns Raised
-
-**Concern 1:** [Stakeholder concern]
-**Response:** [How you're addressing it]
-
-**Concern 2:** [Stakeholder concern]
-**Response:** [How you're addressing it]
-
-### Unresolved Disagreements
-
-[If anyone strongly disagrees, document it]
-
-**[Name] believes:** [Their position]
-**My reasoning for proceeding anyway:** [Why you're still recommending this]
-
----
-
-## Success Metrics
-
-**How we'll measure success:**
-
-**Primary Metric:**
-- [Metric]: [Current] → [Target] by [Date]
-
-**Secondary Metrics:**
-- [Metric]: [Current] → [Target] by [Date]
-- [Metric]: [Current] → [Target] by [Date]
-
-**Guardrail Metrics** (must not decline):
-- [Metric]: Must stay above [threshold]
-- [Metric]: Must stay above [threshold]
-
-**Example:**
-- **Primary:** Mobile user retention: 45% → 65% by end of Q3
-- **Secondary:** 
-  - Mobile DAU: 50K → 80K by end of Q3
-  - Time in app: 12 min → 20 min by end of Q3
-- **Guardrails:**
-  - Overall retention must stay >60%
-  - NPS must stay >40
-
-### Leading Indicators (Early Signals)
-
-**After 1 month:**
-- [What we should see]
-
-**After 3 months:**
-- [What we should see]
-
-**Example:**
-- **After 1 month:** 2 mobile engineers hired, tech stack decided
-- **After 3 months:** MVP in beta with 1,000 users, NPS >45
-
----
-
-## Implementation Plan
-
-### Timeline
-
-| Phase | Milestone | Owner | Target Date |
-|-------|-----------|-------|-------------|
-| Phase 1 | [Milestone] | @[Owner] | [Date] |
-| Phase 2 | [Milestone] | @[Owner] | [Date] |
-| Phase 3 | [Milestone] | @[Owner] | [Date] |
-
-### Next Steps
-
-**Immediate (This Week):**
-1. [Action item] - @[Owner]
-2. [Action item] - @[Owner]
-
-**Short-term (Next 2 Weeks):**
-1. [Action item] - @[Owner]
-2. [Action item] - @[Owner]
-
-**Medium-term (Next Month):**
-1. [Action item] - @[Owner]
-
-### Dependencies
-
-**Blockers:**
-- [What must happen before we start]
-
-**Parallel Work:**
-- [What can happen at the same time]
-
----
-
-## Risks & Mitigation
-
-| Risk | Impact | Likelihood | Mitigation | Owner |
-|------|--------|------------|------------|-------|
-| [Risk 1] | High/Med/Low | High/Med/Low | [Plan] | @[Owner] |
-| [Risk 2] | High/Med/Low | High/Med/Low | [Plan] | @[Owner] |
-
----
-
-## Decision Log
-
-**Proposed:** [Date] by [Name]
-**Discussed:** [Date] in [Meeting/Channel]
-**Approved:** [Date] by [Name]
-**Implemented:** [Date]
-**Reviewed:** [Date] - [Outcome]
-
----
-
-## Appendix
-
-### Supporting Data
-- [Link to research]
-- [Link to analysis]
-- [Link to competitive intel]
-
-### References
-- [Related PRDs]
-- [Related decisions]
-- [Research documents]
-
-### FAQ
-
-**Q: [Common question]**
-A: [Answer]
-
-**Q: [Common question]**
-A: [Answer]
-```
-
----
-
-## Alternative Formats
-
-### DACI Format (When You Need Clear Roles)
-
-```markdown
-# DACI: [Decision Title]
-
-## Roles
-
-**Driver (owns the decision):** @[Name]
-**Approver (makes the final call):** @[Name]
-**Contributors (provide input):** @[Name], @[Name], @[Name]
-**Informed (need to know outcome):** @[Name], @[Name]
-
-## Decision
-[What we're deciding]
-
-## Recommendation
-[Driver's recommendation]
-
-## Context & Options
-[Summary of situation and options]
-
-## Approval Status
-- [ ] Approver has reviewed
-- [ ] Approver approves recommendation
-- [ ] Decision communicated to Informed group
-- [ ] Implementation started
-
-**Date Approved:** [Date]
-**Approver Comments:** [Any caveats or conditions]
-```
-
-### One-Way Door Format (For Irreversible Decisions)
-
-```markdown
-# One-Way Door Decision: [Title]
-
-**Type:** ONE-WAY DOOR (Hard to reverse)
-
-## Why This Is One-Way
-
-[Explanation of why this decision is hard or impossible to reverse]
-
-**Examples:**
-- Architecture choices that lock us into a tech stack
-- Partnerships with long-term contracts
-- Decisions that create customer expectations
-- Resource commitments that can't be unwound
-
-## Extra Scrutiny Required
-
-Because this is one-way, we're applying extra rigor:
-
-**Questions we MUST answer:**
-1. [Critical question 1]
-2. [Critical question 2]
-3. [Critical question 3]
-
-**Validation we MUST do before deciding:**
-- [Proof point 1]
-- [Proof point 2]
-- [Proof point 3]
-
-**Dissenting voices we MUST hear from:**
-- [Skeptic 1]: [Their concern]
-- [Skeptic 2]: [Their concern]
-
-**Example:**
-- **Must answer:** Can we build this with our current team's skill set?
-- **Must validate:** Talk to 3 companies who made similar decision - what 
-  do they wish they knew?
-- **Must hear from:** VP Eng (concerns about tech debt) and Lead Designer 
-  (concerns about user impact)
-
-## [Rest of standard decision doc]
-```
-
-### Lightweight Format (For Smaller Decisions)
-
-```markdown
-# Quick Decision: [Title]
-
-**Date:** [Date]
-**Owner:** [Name]
-
-## The Decision
-[What we're deciding in 1-2 sentences]
-
-## Options
-1. **[Option A]:** [Pro/Con in one line each]
-2. **[Option B]:** [Pro/Con in one line each]
-
-## Recommendation
-**Go with [Option X]** because [one sentence reasoning].
-
-## Next Steps
-- [Action 1] - @[Owner] - [Date]
-- [Action 2] - @[Owner] - [Date]
-
-## How We'll Know It Worked
-[One metric or signal]
-```
-
----
-
-## Common Mistakes to Avoid
+## Common Mistakes
 
 ### ❌ Mistake 1: Analysis Without Recommendation
 
@@ -760,7 +396,7 @@ I'll create:
 
 ---
 
-## Integration With Other Commands
+## Handoff Details
 
 ### Informed by Competitive Analysis
 
@@ -798,43 +434,11 @@ I'll reference:
 
 ---
 
-## Pro Tips
+## Practice Notes
 
-### 1. Write It Before the Meeting
+How to run the process well (write before the meeting, steel-man the alternatives, document disagreement, set review dates): `.claude/skills/decision-doc/references/practice-notes.md`. Read it when the user asks how to run the decision, not what the doc looks like.
 
-Don't start the decision doc during the meeting. Write it before, circulate for async review, use meeting time for discussion.
-
-### 2. Make Your Recommendation Clear
-
-Don't hedge. Even if you're only 60% confident, make a clear call and explain your confidence level.
-
-### 3. Steel-Man the Alternatives
-
-Make the strongest possible case for options you're NOT choosing. This builds credibility and shows you thought it through.
-
-### 4. Use Data, But Tell a Story
-
-Numbers matter, but humans make decisions based on narratives. Weave data into a compelling story.
-
-### 5. Document Disagreement
-
-If someone strongly disagrees, document their position respectfully. Don't pretend everyone agrees.
-
-### 6. Set Review Dates Up Front
-
-Decide now when you'll check if this was the right call. Put it on the calendar.
-
-### 7. Keep It Alive
-
-Link to this doc in PRDs, Slack threads, and other places. Make it easy to find when people ask "why did we do this?"
-
----
-
-**Remember:** The point of a decision doc isn't to be right—it's to be clear about what you're deciding, why you're deciding it, and how you'll know if it worked.
-
----
-
-## Context Routing Strategy
+## Context Routing
 
 When the PM uses `/decision-doc`, I automatically:
 
@@ -877,6 +481,9 @@ When the PM uses `/decision-doc`, I automatically:
 
 ---
 
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
 ## Output Quality Self-Check
 
 Before presenting output to the PM, verify:
@@ -895,14 +502,7 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -982,7 +582,7 @@ Hybrid options:
 
 ---
 
-## Cross-Skill Links
+## Second Brain
 
 **Before framing the decision:** query the `decisions` focus area for related past decisions. Don't re-litigate a debate that was already settled — reference it. Run equivalent of `/second-brain query "past decisions about <topic>" --focus=decisions` and surface any matches with `[Source:]` citations.
 
@@ -1000,3 +600,14 @@ If yes, ingest into the `decisions` focus area:
 Invoke `/second-brain ingest` with the decision doc as the source. If `decisions` doesn't exist yet, offer `/second-brain init decisions` first.
 
 The brain is where decisions go to be remembered. The outputs folder is where they go to be found once; the brain is where they go to inform every future decision.
+
+---
+
+## Cross-Skill Links
+
+- `/second-brain` -> before framing, query the `decisions` focus area so a settled debate is not relitigated; after, `ingest` to file this decision
+- `/stakeholder-tactics` -> when the decision needs alignment before it will hold
+- `/ralph-wiggum` -> when the rationale needs adversarial pressure before you publish it
+- `/meeting-notes` -> when the decision came out of a meeting that also needs writing up
+- `/status-update` -> when the decision changes what stakeholders were expecting
+- `/pre-mortem` -> when a go/no-go decision needs failure modes surfaced first

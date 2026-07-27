@@ -1,8 +1,8 @@
 ---
 name: peer-review
-description: Cross-model code review verification. Evaluate another AI's findings against actual code.
-disable-model-invocation: false
+description: Verify a code review that came from another AI (ChatGPT, Gemini, Copilot, Codex) against the actual code, giving each finding a verdict of confirmed, false positive, partially valid, or needs investigation. Use when you have a review you do not trust; use code-review to get a fresh review instead.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /peer-review - Trust But Verify
@@ -27,7 +27,7 @@ Output: outputs/analyses/peer-review-[scope]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -35,14 +35,12 @@ Output: outputs/analyses/peer-review-[scope]-[date].md
 | Past Reviews | `outputs/analyses/code-review-*.md` | same files, same issues | Prior Claude reviews for comparison |
 | PRDs | `context-library/prds/*.md` | requirements, intent | Whether "issues" are actually intended behavior |
 
-**Cross-Skill Links:**
-- Pair with → `/code-review` for Claude's own primary review
-- Confirmed issues → `/create-tickets --quick` to log fixes
-- Architecture questions → `/explore-codebase` for deeper investigation
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - After getting a code review from another AI tool (ChatGPT, Gemini, Copilot, Codex)
 - When triaging a long list of AI-generated review comments
@@ -89,7 +87,7 @@ Statistics, detailed evaluations, and prioritized action plan.
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **ALWAYS read the actual code before evaluating.** This is the whole point.
 - **Be honest about false positives.** AIs frequently misread code. Don't confirm an issue just because another model said it exists.
@@ -184,25 +182,12 @@ Statistics, detailed evaluations, and prioritized action plan.
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/code-review` -> when you want a fresh primary review instead of verifying someone else's
+- `/explore-codebase` -> when verifying a finding requires understanding more of the system
+- `/create-tickets --quick` -> when confirmed findings need logging as fixes

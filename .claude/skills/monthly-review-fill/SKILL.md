@@ -1,8 +1,8 @@
 ---
 name: monthly-review-fill
 description: Middle tier of the periodic-review cascade. Links and rolls up the month's completed weekly-review-fill entries into a synthesized monthly assessment — never re-derives from raw task activity. Pre-fills, asks only judgment questions, forward-creates.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,13 +24,16 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. This is the middle tier of a nested cascade — see `weekly-review-fill` (the tier it rolls up) and `quarterly-review-fill` (the tier that rolls this one up in turn).
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Reviews store | `<REVIEWS_STORE>` | This month's existing entry, and every `weekly-review-fill` entry whose date range falls inside the month |
 | Task tracker | `<TASK_TRACKER>` | Only used as a fallback for a week with no filled entry yet — see step 2 |
 | Calendar | `<CALENDAR>` | Month boundaries, computed in local time |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -58,7 +61,7 @@ Everything derivable from the rolled-up weeks is auto-filled. Only ask what the 
 
 Same discipline as `weekly-review-fill` steps 5-8: table before the draft, nothing written until confirmed, delta-only write, next N months forward-created with dedupe.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Month <YYYY-MM> Review Draft
@@ -97,15 +100,16 @@ A natural monthly-cadence routine — see `references/protocols/routines.md` and
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Rolls up:** `weekly-review-fill` (required lower tier)
-
-**Rolled up by:** `quarterly-review-fill`
-
-**Related:** `weekly-review` (deeper weekly narrative, feeds this tier indirectly via its own second-brain filing)
+- `/weekly-review-fill` -> required lower tier; run it for any week in the month that is still unfilled
+- `/quarterly-review-fill` -> when three months are complete and the quarter can be rolled up
+- `/weekly-review` -> when a month's narrative needs the deeper weekly reflections behind it
+- `/iterate-document` -> when the month's learning should update the plan or OKRs it rolls against
 
 ## When to Use
 

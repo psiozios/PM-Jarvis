@@ -1,8 +1,8 @@
 ---
 name: iterate-document
 description: Iterate a source-of-truth doc (plan, OKRs, strategy, roadmap, PRD, periodic review) based on what was learned since its last revision. Surgical deltas, not a rewrite. Validates numeric targets against the data source and confirms before any fundamental rewrite.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,13 +24,16 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice, and honors whatever writing rules the target doc itself already carries (a PRD's own section conventions, a strategy doc's own format). This skill carries no independent voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Target doc | local file or external store (`<DOCS_HUB>`) | Current content, last-revised date if tracked |
 | Metrics source | `<METRICS_SOURCE>` | Live values for any numeric target the doc states, to validate before restating |
 | What's new | user input for this run | The specific learning driving the iteration |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -62,7 +65,7 @@ If the requested change is large enough that a surgical delta isn't really possi
 
 Once the delta is confirmed, apply it directly to the source doc (local file or external store) — this skill's whole purpose is keeping the source of truth current, not producing a separate draft copy.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Iteration — <doc name>
@@ -91,11 +94,16 @@ Can run as a routine when the trigger is periodic (e.g., re-validate numeric tar
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `editing-assistant` (voice/clarity/audience edits on any doc; this skill is for content updates driven by new learning, not prose polish — chain them: iterate first, then polish)
+- `/editing-assistant` -> after this run, when the updated prose needs voice, clarity, or audience polish
+- `/sync-doc` -> when the task is reconciling two copies of one doc, not evolving one from new learning
+- `/weekly-review-fill` or `/monthly-review-fill` -> when the doc being iterated is a periodic-review entry
+- `/okr-planning` -> when the iteration changes a quarterly target rather than a detail
 
 ## When to Use
 

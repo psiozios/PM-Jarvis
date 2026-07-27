@@ -1,6 +1,8 @@
 ---
 name: prd-review-panel
-description: Multi-agent PRD review (7 perspectives)
+description: Put a PRD in front of seven reviewer personas at once — engineering, design, executive, legal, UX research, skeptic, and customer voice — to surface gaps, challenged assumptions, and where the perspectives conflict before real stakeholders see it. Produces feedback; the PRD itself is not edited.
+user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Purpose
@@ -9,7 +11,7 @@ Get comprehensive feedback on your PRD from 7 different perspectives in parallel
 
 Catches gaps, challenges assumptions, and surfaces conflicts before stakeholder review.
 
-## Usage
+## Quick Start
 
 - `/prd-review-panel` - Review a PRD with all 7 sub-agents
 - `/prd-review-panel [prd-name]` - Review specific PRD
@@ -36,6 +38,9 @@ Catches gaps, challenges assumptions, and surfaces conflicts before stakeholder 
 7. **customer-voice.md** - Simulate user perspective
 
 ---
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -745,22 +750,13 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ## Cross-Skill Links
 
-**Before `/prd-review-panel`:**
-- `/prd-draft` - Create the initial PRD
-- `/user-interview` - Gather research to validate PRD
-- `/impact-sizing` - Quantify expected value
-
-**After `/prd-review-panel`:**
-- `/decision-doc` - Document decisions on conflicting perspectives
-- `/prd-draft` - Update PRD based on feedback
-- `/prototype` - Build prototype for validation
-- `/launch-checklist` - Plan the launch
-
-**Iterative use:**
-- Run review at each PRD stage (Team Kickoff, Planning, Solution, Launch)
-- Each review focuses on stage-appropriate concerns
-
----
+- `/prd-draft` -> before the panel, to create the PRD; after, to revise it against the findings
+- `/impact-sizing` -> when the executive reviewer flags the value claim as unquantified
+- `/user-research-synthesis` -> when the UXR reviewer flags the hypothesis as unevidenced
+- `/decision-doc` -> when reviewer perspectives conflict and someone has to make the call
+- `/ralph-wiggum` -> when you want the skeptic pass alone rather than all seven
+- `/prototype` -> when the panel's open questions are answerable only by building something
+- `/launch-checklist` -> when the PRD clears review and the launch needs planning
 
 ## Tips for Best Results
 
@@ -784,21 +780,6 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-### Related Skills
-
-**Before this:**
-- `/prd-draft` - Create the PRD
-- `/user-research-synthesis` - Validate with research
-- `/impact-sizing` - Quantify value
-
-**After this:**
-- `/decision-doc` - Document key decisions
-- `/prototype` - Build based on feedback
-- `/launch-checklist` - Prepare for launch
-
-**Complements:**
-- `/competitor-analysis` - Inform strategic review
-- `/status-update` - Share review results
 
 ---
 
@@ -815,14 +796,7 @@ Before presenting output to the PM, verify:
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
@@ -833,9 +807,3 @@ See `references/protocols/skill-evals.md`.
 ## When NOT to Use
 
 - When a different skill better fits the task. Check Cross-Skill Links for alternatives.
-
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes

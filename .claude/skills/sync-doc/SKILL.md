@@ -1,8 +1,8 @@
 ---
 name: sync-doc
 description: Reconcile a pasted or exported external doc into its local counterpart. Applies only substantive changes, ignores formatting noise, and preserves richer local context the external copy lacks.
-disable-model-invocation: false
 user-invocable: true
+disable-model-invocation: false
 ---
 
 ## Quick Start
@@ -24,12 +24,15 @@ user-invocable: true
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
-## Context Routing Logic
+## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | External docs tool | `<DOCS_HUB>` (pasted/exported content) | The doc's current state as the external source of truth for content that originates there |
 | Local file | path given by the user | Current local content, including any local-only context to preserve |
+
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
 ## Workflow
 
@@ -49,7 +52,7 @@ If the external and local versions disagree on the same fact (a status, a number
 
 Show exactly what would change before writing anything. Apply only on confirmation.
 
-## Output Format
+## Output Template
 
 ```markdown
 # Doc Sync — <local file>
@@ -81,11 +84,15 @@ If the external doc updates on a predictable cadence, this can run as a schedule
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** See `references/protocols/skill-evals.md`. Eval agent reads `evals.md` in this directory in a clean context window.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+
+See `references/protocols/skill-evals.md`.
 
 ## Cross-Skill Links
 
-**Related:** `iterate-document` (this skill reconciles two copies of the same content; `iterate-document` evolves a source-of-truth doc based on new learning — different job, similar surgical-edit discipline)
+- `/iterate-document` -> when the job is evolving a source-of-truth doc from new learning, not reconciling two copies
+- `/editing-assistant` -> after reconciling, when the merged prose needs polish
+- `/update-docs` -> when the doc to reconcile is code documentation driven by a git diff
 
 ## When to Use
 

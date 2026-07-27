@@ -1,13 +1,15 @@
 ---
 name: code-review
-description: Comprehensive code review checking production readiness, error handling, security, and architecture
-disable-model-invocation: false
+description: Review changed or specified code across error handling, types, production readiness, security, performance, architecture, and testing — every finding tagged with a severity and a suggested fix, plus an overall ship or hold call. Reports findings for you to apply rather than editing the code.
 user-invocable: true
+disable-model-invocation: false
 ---
 
 # /code-review - Catch It Before It Ships
 
 Comprehensive code review across 8 dimensions. Finds real issues, skips nitpicks, and gives you a clear pass/fail recommendation with severity-tagged findings.
+
+**Boundary — this is not the harness built-in.** This skill reviews code *against the PRD that specified it*: it reads `context-library/prds/` and writes a durable report to `outputs/analyses/`. That product-intent grounding is what it knows and the built-ins do not. If you want a plain diff or PR review with no PRD context, use the harness `/review`. For a dedicated security pass, use `/security-review` — dimension 6 below is a PM-level security screen, not a substitute for it. For code-quality-only cleanup with no bug hunt, use `/simplify`.
 
 ## Quick Start
 
@@ -28,7 +30,7 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 
 ---
 
-## Context Routing Logic (Internal - for Claude)
+## Context Routing
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
@@ -37,15 +39,12 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 | Past Reviews | `outputs/analyses/code-review-*.md` | issues, patterns | Recurring problems |
 | Codebase | Project source files | patterns, conventions | What "correct" looks like here |
 
-**Cross-Skill Links:**
-- After → `/code-first-draft` to review generated code
-- Pair with → `/peer-review` to verify findings from another AI
-- Issues found → `/create-tickets` or `/create-tickets --quick` to log fixes
-- Pre-launch → `/launch-checklist` includes review as a gate
-
 ---
 
-## When to Use This Skill
+
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+## When to Use
 
 - Before merging a PR or shipping code
 - After `/code-first-draft` generates a feature
@@ -185,7 +184,7 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 
 ---
 
-## Behavioral Rules
+## Binding Rules
 
 - **Read the full context** before flagging an issue. A pattern that looks wrong in one file might be intentional given the broader architecture.
 - **Be specific.** "[File:line] - missing null check on user.email before toLowerCase()" beats "potential null reference."
@@ -209,25 +208,14 @@ Output: outputs/analyses/code-review-[scope]-[date].md
 
 ## Formal Eval
 
-**Runs automatically after every skill invocation.** After generating output:
-
-1. Run the informal Output Quality Self-Check above (fast, same agent)
-2. Spawn a separate eval agent in a clean context window to run `evals.md` (same directory)
-3. Eval agent reads: the output, this skill's evals.md, and `config/house-style.md`
-4. If any eval returns FAIL → eval agent returns remediation instructions → original agent applies fixes → re-submit for eval
-5. Loop until zero FAILs
-6. Log final results in the Eval Results Log table in `evals.md`
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 
-## Common Mistakes
-
-- Skipping context: not reading relevant workspace files before generating output
-- Generic output: producing content that could apply to any company instead of using specific context from your workspace
-- Missing the handoff: not offering the logical next skill when this one completes
-
 ## Cross-Skill Links
 
-**Before:** Check relevant context files and run any prerequisite skills
-**After:** See `references/skill-chains.md` for recommended next steps
-**Related:** See skill category peers in CLAUDE.md
+- `/code-first-draft` -> when the code under review was just generated and needs reworking
+- `/peer-review` -> when another AI already produced a review whose findings need verifying
+- `/create-tickets` -> when confirmed issues will not be fixed in this pass; `--quick` for fast capture
+- `/launch-checklist` -> when this review is the pre-launch quality gate
+- `/update-docs` -> when the reviewed change makes existing documentation wrong
