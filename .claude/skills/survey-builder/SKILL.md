@@ -30,6 +30,8 @@ Output: outputs/surveys/survey-[type]-[topic]-[date].md
 
 ## Context Routing
 
+**Survey questions are outward content** — customers read them. Read the brand or style system live before wording anything, and treat any local copy as a dated mirror (`references/protocols/register.md`). Validated instruments are the exception: never reword a standard NPS, CSAT, CES, or Van Westendorp question to fit a brand voice, because the wording is what makes the score comparable. Brand voice governs the surrounding copy instead.
+
 **Automatic Context Checks:**
 When this skill is invoked, immediately check:
 

@@ -34,7 +34,8 @@ Give structured, credible design feedback on existing products, competitor UIs, 
 
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
-| Brand Context | `context-library/business-info-template.md` | Brand guidelines, visual identity, product personality |
+| Brand system (authority) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Guidelines, tokens, components, visual identity. Audit against this, not against a local copy |
+| Brand mirror (fallback) | `context-library/business-info-template.md` or any local brand file | Used **only** when the live system is unreachable, and any finding drawn from it says which snapshot it came from — see `references/protocols/register.md` |
 | Design Direction | `outputs/prototypes/*-design-direction.md` | Target parameters if direction was already set |
 | Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | Design requirements, acceptance criteria |
 | User Research | `context-library/research/*.md` | User expectations, accessibility requirements, pain points |

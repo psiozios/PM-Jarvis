@@ -39,16 +39,20 @@ Output: outputs/content/[type]-[feature]-[date].md
 
 | Source | Files/Folders | Search Terms | What to Extract |
 |--------|---------------|--------------|-----------------|
+| **Brand system (register authority)** | The connected brand or style system, read live — route via `references/mcp-routing.md` | voice, vocabulary, product naming | **Read before drafting.** Everything below loses to this on register |
+| Brand mirror (fallback only) | Any local brand or style file | — | Used only when the live system is unreachable; cite its snapshot date and say the draft was built on a mirror |
 | PRDs | `context-library/prds/*.md` | feature name, user story, benefit | What the feature does and for whom |
-| Writing Style | `context-library/writing-style-*.md` | tone, voice, audience | Voice and style preferences |
+| Writing Style | `context-library/writing-style-*.md` | tone, voice, audience | Voice and style preferences, where no brand system exists |
 | Research | `context-library/research/*.md` | user quote, pain point, outcome | Real customer language to borrow |
 | Launches | `context-library/launches/*.md` | messaging, positioning, GTM | Prior launch context |
-| Strategy | `context-library/strategy/*.md` | positioning, value prop, North Star | Strategic framing |
+| Strategy | `context-library/strategy/*.md` | positioning, value prop, North Star | **Claims only, never voice** — positioning is not tone of voice and carries no register authority |
 
 ---
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+
+**Everything this skill produces is outward content**, so the content-authority rules in `references/protocols/register.md` bind every mode below: read the brand system live before drafting, treat any local copy as a dated mirror, and remember the authority does not reach `CLAUDE.md`'s absolute rules or `config/house-style.md` — a brand system cannot license a banned word or an unsourced number.
 
 ## Mode: --announce (Launch Announcement)
 

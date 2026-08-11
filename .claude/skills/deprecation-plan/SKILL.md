@@ -129,6 +129,8 @@ The most common deprecation mistake is under-communicating. Err toward over-comm
 
 ### Communication Templates
 
+Every template below is outward content read by a customer. Read the brand or style system live before drafting and treat any local copy as a dated mirror — `references/protocols/register.md`. Deprecation copy is the worst place for a register mismatch, since the reader is already being told something they did not ask for.
+
 **Initial announcement (long lead):**
 ```
 Subject: [Feature name] is changing on [date]

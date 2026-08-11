@@ -41,7 +41,8 @@ Help PMs articulate "how it should feel" and communicate that direction to desig
 
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
-| Brand Context | `context-library/business-info-template.md` | Brand colors, typography, visual identity, product personality |
+| Brand system (authority) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Colors, typography, tokens, components, product personality. This is the authority; read it before drafting |
+| Brand mirror (fallback) | `context-library/business-info-template.md` or any local brand file | Used **only** when the live system is unreachable. A dated snapshot, never the authority — see `references/protocols/register.md` |
 | Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | Feature requirements, target users, success metrics |
 | User Research | `context-library/research/*.md` | User expectations, audience demographics, accessibility needs |
 | Competitor Analysis | `context-library/research/competitive-*.md` | Competitor visual approaches, differentiation opportunities |

@@ -36,6 +36,28 @@ The advice survives only when it is **restated onto a real axis**, and it usuall
 
 **Why this is worth the churn.** Rank-keyed register fails in both directions. It over-formalizes writing to senior readers, who mostly want it shorter and more direct, and it licenses sloppiness toward everyone else. Neither error is about seniority — both are axis-two mistakes wearing a rank label.
 
+## Content Authority for Outward Writing
+
+**Outward content** is anything a customer, user, prospect, or the public reads: marketing copy, launch announcements, changelogs, release notes, in-app and onboarding copy, help docs, case studies, customer email.
+
+**Where the org has a brand or style system reachable as a tool, that system is the register authority for outward content, and it is read live before drafting.** A design system, a brand-guidelines service, a content style guide behind an API — if it can be queried, query it. Route through `references/mcp-routing.md`. Reading it after drafting is not reading it: the point is that it constrains the draft, not that it is cited underneath one.
+
+**A local mirror is a dated snapshot, never the authority.** A copy of the brand rules living in this workspace is evidence of what the system said on the day it was copied, and it is used only when the live system is unreachable. It carries its snapshot date, it is cited as a snapshot, and a draft built on it says so. When the mirror and the live system disagree, **the live system wins without discussion** — a mirror that has drifted is a stale file, not a competing opinion. See `references/protocols/freshness-provenance.md` rule 2.
+
+**The authority does not reach the absolute rules or the anti-slop standard.** A brand system governs register: voice, vocabulary, what the product is called, how warm the copy runs. It does not license a banned word from `config/house-style.md` §3, an unsourced number, an invented attribution, or a slop pattern. Where a brand system's own examples break those rules, follow the register and fix the prose — and where the conflict is real and repeated, tell the user rather than quietly resolving it every time.
+
+**Positioning is not tone of voice.** Competitive positioning, messaging frameworks, category claims, and differentiation language answer *what we say about where we sit*. Register answers *how this sentence sounds*. They are different questions, they are usually owned by different people, and a positioning doc **never inherits the register authority** no matter how much voice-adjacent language it contains. Take claims from positioning; take voice from the brand system.
+
+## Propagating a Rule Change
+
+A register rule reversing — a new brand authority replacing an old one, or a house rule in `config/house-style.md` flipping to its opposite — is not a one-line edit. Two obligations:
+
+**1. Propagate the flip through every table.** The same rule is usually encoded in several places: a substitution table, a checklist row, an eval criterion, a worked example, a "before / after" pair. Grep for the rule's *terms* rather than its statement, and change every encoding of it. A flip applied to the statement and not to the table underneath it produces a file that contradicts itself, and agents will follow whichever half they read first.
+
+**2. Add the sense-dependent cases a blind find-and-replace would break.** A reversed rule almost always has exceptions that only appear once you look at real sentences: the banned word in its literal domain sense, the verbatim quote under the quote carve-out, the proper noun that happens to contain the term, the case where the old form was correct for a reason unrelated to the rule. Write these into the table **as part of the same change**, with an example of each. A reversal that ships without them is a find-and-replace waiting to happen, and the damage it does is invisible until someone reads the output closely.
+
+Both obligations are subject to `config/house-style.md` §9: reversing a rule takes the same corpus evidence as writing one.
+
 ## Cross-References
 
 - `config/house-style.md` — quality inside the register choice; §9 is the evidence requirement above every rule in this file

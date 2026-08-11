@@ -47,6 +47,15 @@ Trigger phrases: "competitor doing", "how does X compare"
 
 - Check `context-library/research/competitive-*.md` first, then web search
 
+### Outward Content --> Brand / Design System MCPs (Figma, brand or style-guide services)
+
+Trigger phrases: "launch copy", "announcement", "changelog", "release notes", "in-app copy", "onboarding copy", "help doc", "case study", "customer email"
+
+- **Read the brand or style system live, before drafting.** It is the register authority for outward content — see `references/protocols/register.md`
+- If a design system MCP is connected, query it for voice, vocabulary, and product naming rather than inferring them
+- **Fallback:** a local mirror in `context-library/`, used only when the live system is unreachable, cited with its snapshot date, and never treated as the authority
+- Positioning and messaging docs are **not** a fallback for voice — they answer a different question
+
 ### Strategy / Decisions --> Context Library
 
 Trigger phrases: "why did we decide", "strategy for", "decision log"
