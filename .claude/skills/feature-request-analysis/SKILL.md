@@ -49,6 +49,8 @@ Before analyzing raw requests:
 2. Check `context-library/strategy/` for current roadmap priorities — filter requests against strategic bets
 3. Check `context-library/prds/` for in-flight work — remove duplicates
 
+Each of these three removes candidates, so discipline #9 of `references/protocols/skill-patterns.md` binds: write the ledger before the cluster list exists, give each request its own targeted lookup keyed on its own nouns rather than relying on the sweep, and report the killed rows beside the clusters. "Already covered by X" is a `KILL` only with X named and its evidence quoted.
+
 ---
 
 ## Step 1: Cluster by Job-to-Be-Done

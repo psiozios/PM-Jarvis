@@ -88,7 +88,7 @@ For each meeting processed, verify:
 
 1. **All decisions have clear owners** -- if a decision was made but no one owns execution, flag it: "Decision made but no owner assigned -- who drives this?"
 2. **All action items have deadlines** -- if an action item lacks a date, assign a reasonable default and flag it: "No deadline stated -- defaulting to [date], confirm?"
-3. **No duplicate action items across meetings** -- if the same action appears in multiple meetings, consolidate into one entry and note which meetings referenced it
+3. **No duplicate action items across meetings** -- if the same action appears in multiple meetings, consolidate into one entry and note which meetings referenced it. Consolidation is a merge, not a drop: per discipline #9 of `references/protocols/skill-patterns.md`, every merged item keeps a ledger row, and two items that merely sound alike stay separate until the evidence says otherwise
 4. **Conflicting decisions across meetings are flagged** -- if Meeting 1 decided "launch in March" and Meeting 3 discussed "push to April," flag the conflict explicitly
 5. **Strategic alignment is noted for each decision** -- tie decisions to strategic pillars from `context-library/strategy/` when relevant
 

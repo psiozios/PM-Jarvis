@@ -8,7 +8,7 @@ These are worked examples of a broader class, not the only class. If a new task 
 
 ## Cross-Cutting Disciplines
 
-Every skill in this class — anything that searches across sources and proposes a write-back — follows these eight rules:
+Every skill in this class — anything that searches across sources and then proposes, surfaces, or writes back a list — follows these nine rules. Read-only skills are in scope: proposing nothing does not exempt a skill from having to be right about what it dropped.
 
 ### 1. A search hit is a pointer, never an answer
 
@@ -41,6 +41,29 @@ Every flag survives a skeptic's pass before it ships: a long-lived thread is not
 ### 8. Never mutate a shared system you don't own
 
 A skill in this class does the judgment work and hands back an **execute-not-decide** artifact — a checklist, a ranked shortlist, a drafted comment — for a human to apply. It does not click the button, move the card, or edit the shared doc itself.
+
+### 9. Deduplication is an artifact, not a judgment
+
+**Write the ledger before the list exists.** Any run that will drop, merge, or suppress candidates first writes a ledger file to `outputs/ledgers/<skill>-<date>.md` — one row per candidate, no exceptions, including the ones that look obviously fine and the ones that look obviously dead. Then **re-read that file** and derive the proposal list from it mechanically. The list is a transcription of the ledger, not a second act of judgment.
+
+| Column | Holds |
+|--------|-------|
+| Candidate | The item as it appeared in the source |
+| Lookup run | The **targeted** query for this candidate, keyed on **its own nouns** — its ticket ID, its feature name, the person who owns it. Recorded as run, not as intended. |
+| Evidence | What came back, **verbatim**. A paraphrase is not evidence. |
+| Verdict | `PROPOSE` / `KILL` / `UNPROVEN` |
+
+**The root cause this closes.** Reading a source for the window and checking one candidate are **different operations**. Sweeping the last thirty days of a channel tells you what happened in that channel; it does not tell you whether *this* commitment was met, because the answer may live somewhere the sweep never went. Substituting the sweep for the per-candidate lookup is the failure — and it is invisible from the outside, because the output looks identical either way. One lookup per candidate, keyed on that candidate's own nouns, or the row is `UNPROVEN`.
+
+**No `PROPOSE` row, no proposal.** Nothing reaches the user that does not have a row. **Counts come off the file**, never off recall: to say "eleven items", count eleven rows.
+
+**The error asymmetry, which runs against intuition.** A false proposal costs the reader one line they scan and dismiss. A false kill silently loses a real commitment — nobody ever learns it was dropped, because a killed item leaves no trace to notice. The costs are nowhere near symmetric, so the burden of proof sits entirely on the kill: **an unproven kill is not a kill.** `UNPROVEN` ships as a proposal, flagged, and never as a silent drop. Confidence that something is already handled is not evidence that it is.
+
+**Report the kills beside the proposals.** Every output carries its killed rows with their evidence, next to the list. This is the check the reader runs on the run itself — **a list with no kills beside it is unverified**, not clean, and should be read as a run that skipped this discipline.
+
+**Volume caps trigger a re-check, never a truncation.** A cap that bites means the run found more than expected, which is information about the ledger, not permission to cut its tail. Re-read the rows, look for the merge or the wrong-verdict cluster that inflated the count, and report the real number either way. Dropping rows to hit a number is a silent kill of every row below the line.
+
+**Carried rows age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
 
 ## Named Archetypes
 
@@ -93,3 +116,4 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 - `references/protocols/context-acquisition.md` — the "read freely" half of discipline #1-3 above
 - `references/protocols/knowledge-capture.md` — the "write on confirm" half of discipline #4-5 above
 - `references/protocols/routines.md` — every pattern above is a natural candidate to ship as a scheduled routine (a radar or periodic-review cascade in particular); see `setup/routine-setup.md` to wire one up
+- `references/file-creation-rules.md` — where discipline #9's ledger file goes (`outputs/ledgers/`)

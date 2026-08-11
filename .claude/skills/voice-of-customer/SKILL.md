@@ -77,6 +77,8 @@ Then cluster by theme — not by channel. The goal is to see what users care abo
 
 **Noise:** Single data point, cannot be corroborated, or contradicted by other data
 
+Sorting a theme into Noise kills it, so discipline #9 of `references/protocols/skill-patterns.md` binds: each candidate theme gets a ledger row with its own targeted lookup before the report exists, and "cannot be corroborated" means a lookup was run and came back empty — not that none was run. Report the noise rows beside the themes.
+
 **Frequency vs. intensity distinction:**
 - High frequency but low intensity: Annoyance. Worth fixing if cheap. Don't overweight.
 - Low frequency but high intensity: Potential deal-breaker for a segment. Investigate.

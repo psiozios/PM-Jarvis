@@ -97,6 +97,7 @@ Every `evals.md` carries `eval-version` (an integer) and `last-updated` in its f
 |----|-------|----------|
 | E13 | Verify-before-flag | Every flagged item carries a `Checked:` line naming a real cross-referenced source |
 | E14 | Comprehensive-not-delta | The full sweep window was re-examined, not narrowed to new-since-last-run items |
+| E15 | Ledger-derived list | A ledger exists in `outputs/ledgers/`, every proposed item has a `PROPOSE` row, killed rows are reported beside the proposals with their evidence, and no row was dropped to satisfy a volume cap |
 ```
 
 Bump `eval-version: 1` → `eval-version: 2`, set `last-updated` to the date of the change, and append the new category after Category 4 in that skill's `evals.md`. Do not renumber existing E-IDs — new checks always get the next unused number.

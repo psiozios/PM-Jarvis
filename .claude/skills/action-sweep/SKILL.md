@@ -49,9 +49,9 @@ Read `.last-sweep`. If present, sweep from that timestamp to now. If absent (fir
 
 Pull candidate action items from every source in the routing table. For the chat platform and email specifically, sweep **both directions**: things asked of the user, and things the user committed to doing. Read every candidate thread to resolution — a search hit is a pointer, not an answer (see `references/protocols/skill-patterns.md` discipline #1).
 
-### 3. Apply exclusions
+### 3. Apply exclusions, on the record
 
-Drop anything that's clearly not the user's action: FYI-only mentions, items explicitly delegated away, items already closed out in the same thread.
+Open the ledger now, before any candidate is dropped — one row per candidate, its own targeted lookup, verbatim evidence, verdict (`references/protocols/skill-patterns.md` discipline #9). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a flagged proposal.
 
 ### 4. Verify live state
 
@@ -59,7 +59,7 @@ For each remaining candidate, check whether it's already been handled since it a
 
 ### 5. Dedupe against the task tracker
 
-Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRACKER>` by title/description similarity. A near-match is treated as the same item, not a duplicate proposal.
+Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRACKER>` by title/description similarity. A near-match is treated as the same item, not a duplicate proposal. Fuzzy-matching is a pointer, not a verdict: record the matched task in the ledger row as the evidence, and where the match is only plausible, the row is `UNPROVEN` rather than `KILL`.
 
 ### 6. Present the reconciliation table
 

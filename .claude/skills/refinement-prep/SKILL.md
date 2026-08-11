@@ -53,6 +53,8 @@ Filter to items that plausibly fit the stated theme. Within that set, rank by li
 
 A refinement ceremony has limited time. Cap the shortlist to what the ceremony can realistically cover — don't hand over the whole filtered set.
 
+**A cap that bites is a re-check, not a truncation** (`references/protocols/skill-patterns.md` discipline #9). If more items clear the theme filter than the ceremony can hold, re-read the ledger for the merge or wrong-verdict cluster that inflated the count before cutting anything, and report the real number either way. Everything below the line goes into "Cut From Shortlist" with its reason — never dropped silently to hit a number.
+
 ### 5. Draft each item's enrichment
 
 For each shortlisted item, draft what it needs to enter refinement ready: a clearer description, acceptance criteria, a sizing note — whatever's missing, drafted inline and ready to paste.

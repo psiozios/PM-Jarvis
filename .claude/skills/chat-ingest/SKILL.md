@@ -25,7 +25,7 @@ disable-model-invocation: false
 
 ## Binding Rules
 
-Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Integrates with `second-brain` — this skill is the chat-platform-specific ingestion path into it.
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Integrates with `second-brain` — this skill is the chat-platform-specific ingestion path into it. Signal-filtering drops candidates, so discipline #9 of `references/protocols/skill-patterns.md` binds: ledger first, discarded threads carry their evidence, and an unproven discard is not a discard.
 
 ## Context Routing
 
