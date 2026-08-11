@@ -68,6 +68,7 @@ Load only what the current task requires. Do not read everything upfront.
 |------|--------|
 | Company and product context | `context-library/business-info-template.md` |
 | House style (anti-slop standard) | `config/house-style.md` |
+| Evidence behind a voice rule | `references/<subject>-corpus.md` (start one from `templates/corpus-template.md`) |
 | File shape and conformance checks | `references/protocols/prompt-architecture.md` |
 | Absolute-rule lookup tables | `references/absolute-rules.md` |
 | Interaction persona | `config/persona.md` |

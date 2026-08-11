@@ -4,7 +4,7 @@ The anti-slop standard. Agents read this **before drafting prose**, not after. T
 
 ## 1. Precedence
 
-`CLAUDE.md` Absolute Rules → **this file, including its "Your own rules" section** → `context-library/writing-style-*.md` (per-audience register) → the skill's own instructions. Higher wins on conflict.
+`CLAUDE.md` Absolute Rules → **this file, including its "Your own rules" section** → `context-library/writing-style-*.md` (per-audience register) → the skill's own instructions. Higher wins on conflict. Evidence sits beneath all four rather than in the order: every voice rule at every level traces to a corpus quote (§9).
 
 **Register is chosen first.** Pick what the medium and audience want, then apply these rules inside that choice. "Concise" is not the same as "good" — a two-line reply that omits the decision is worse than a six-line one that lands it.
 
@@ -122,6 +122,16 @@ Score six dimensions **PASS / PARTIAL / FAIL / N/A**. For anything that is not a
 
 **Two output rules, about the report and not the draft:** never assign a slop score, and never state or imply that a passage was AI-written. Detectors are not in this loop and their verdicts cannot be checked. **Name the defect, never the author.**
 
+## 9. Corpus first
+
+**No voice rule ships without evidence under it.** Before writing or revising any rule in this file, in `context-library/writing-style-*.md`, or in a skill's artifact-quality section, mine the real history: sweep what was actually written and record it as a dated evidence snapshot at `references/<subject>-corpus.md`. Copy `templates/corpus-template.md` to start one. Mine, read the snapshot back, then write rules from what it says — recalling what the history "generally looks like" is not mining it, and that substitution is the failure this section exists to stop.
+
+**Every rule traces to a quote.** A rule in a register file carries the quote IDs it rests on. A rule with nothing behind it is taste, not a standard, and goes to the user as a question instead of into the file. Revisions bind as hard as new rules: cutting or reversing a rule takes the same evidence as writing one.
+
+**The quote carve-out.** Quotes inside a corpus file are reproduced verbatim — typos, casing, and broken formatting kept — and a quote breaking a rule in this file is preserved and **flagged** with the rule it breaks, never edited to conform. This extends §3's verbatim exemption to the whole file, for corpus files only, and grants nothing to prose written anywhere else.
+
+**Corpus files are workspace-private.** They quote real people out of real history. The method ships; a filled-in corpus does not.
+
 ## Your own rules
 
 Nothing here yet. When empty, dimension 6 of §8 scores N/A on the "your own rules" half.
@@ -144,3 +154,4 @@ Absolute Rules zone instead - that file is always in context. -->
 
 - **2026-07-26** — Created. Consolidated the 14-word tripwire carried identically in `references/protocols/skill-evals.md`, `templates/skill-evals-template.md`, and all 87 `evals.md` (no drift found between them) plus the 8-word commented example previously in this file, into the 29-word §3 list. The `writing-style-*.md` files carried no word lists to merge — their per-audience phrase examples are register and stay where they are. §5 adapted from `petergyang/no-ai-slop`. **Deliberate divergences from upstream, do not restore on a future reconciliation:** P13 is delete-only (upstream permits rewriting the kicker); §4 is capped at PARTIAL; the N/A verdict and the no-slop-score / no-authorship-claim rules in §8 are additions.
 - **2026-07-26** — Hardened after two adversarial verification runs (one scoring this file against its own §8, one applying it to a draft seeded with 32 known defects across all tiers). Both independently found §4 had no scoring home; §8 now has six dimensions, not five. Other fixes, each closing a place two agents following this file would diverge: the **mention-vs-use** exemption in §3 (without it this file's own §3 list fails §3); **P18** added for prose contradicting the artifact's own tables — the seeded draft's worst real-world defect and the one the catalog was blindest to; the **overlap rule** and per-instance counting in §5; the **carve-out list is now the grant** (the previous "a skill claiming a carve-out states it in its own file" clause voided all six carve-outs, since none of the six declares one — verified); the **F2 vs §2 scaffolding tiebreaker**; the **Case A/B provenance test**; the **keep-test** no longer turns on "rhythm changed", which every deletion satisfies; the false-positive exemptions in §5, including the blameless-passive exception that `/post-mortem` depends on; and the no-double-counting rule between dimensions 3 and 5. The "Your own rules" worked example is now marked EXAMPLE ONLY — in raw text it read as a live em-dash ban. **This file is 145 lines against a generic layer-1 ceiling of 130.** The ceiling was wrong for a catalog standard, not the file; `references/protocols/prompt-architecture.md` §3 now carries a dedicated row (target 130, ceiling 160) with the reasoning.
+- **2026-08-10** — §9 added: voice rules are mined from a dated corpus before they are written, and every register rule traces to a quote in one. Closes the gap that let a rule enter a register file on taste alone, with no evidence anyone could check or overturn. The quote carve-out is the load-bearing half — without it, mining a corpus and then obeying §3 inside it would silently edit the evidence. Method only: `templates/corpus-template.md` ships, filled-in corpus files never do.
