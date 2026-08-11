@@ -1,6 +1,6 @@
 ---
 name: proactive-gaps
-description: Two-horizon product-alpha scan answering "what should I be worried about?" — present-state problems needing action now, forward inflections nobody is preparing for, and a contrarian pass on what the team over-indexes on. Surface-only, evidence-backed, run from an elevated posture but landed in the user's actual lane.
+description: Two-horizon product-alpha scan answering "where is the upside?" — present and forward opportunities to make more money, move more volume, or build advantage a competitor cannot copy, plus a contrarian pass on what the team over-indexes on. Every item sized; defects qualify only with a number attached. Surface-only, evidence-backed, landed in the user's lane.
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -13,7 +13,7 @@ disable-model-invocation: false
 /proactive-gaps               → full two-horizon scan
 ```
 
-**What you get:** A tight, ranked, evidence-backed list of present-state alpha, forward alpha, and a contrarian read on what the team over-indexes on — every item landed back in something the user can actually act on. Surface-only: nothing is created, nothing is sent.
+**What you get:** A tight, ranked, sized list of present-state and forward upside, at most one constraint item, and a contrarian read on what the team over-indexes on — every item landed back in something the user can actually act on. Surface-only: nothing is created, nothing is sent.
 
 **Time:** A few minutes to read evidence, longer if the workspace is thin and evidence has to be gathered from multiple sources.
 
@@ -23,14 +23,24 @@ disable-model-invocation: false
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own. Realizes Pattern 4 (Multi-Horizon "Alpha Engine" Scan) from `references/protocols/skill-patterns.md` — read that first for the mechanics this skill instantiates.
 
+**The upside gate — every candidate passes it or does not ship.** If the reader acts on this item, does the business **make more money, move more volume, or gain advantage a competitor cannot copy?** One of the three, named explicitly. An item that only prevents something from getting worse has not passed.
+
+**A defect qualifies only once a number attaches.** Broken things are not alpha by default. A bug, a regression, a piece of debt, a normalized failure mode enters this scan only when a revenue or volume figure is attached to it — what it is costing, or what fixing it would release. Without the number it is a ticket, and it belongs in the tracker rather than here.
+
+**Three upside items minimum, one constraint item maximum.** The floor and the cap are both hard. A run that produces four constraints and one opportunity has drifted back into being a defect list, which is the failure this gate exists to stop.
+
+**Size everything or cut it.** Every item carries a magnitude — revenue, volume, or share, with its derivation shown and graded to its evidence. An item nobody can size is an item nobody can rank, and it does not ship.
+
+**Nothing qualifying is a fact about the run, not about the business.** If fewer than three items clear the gate, say so plainly and name what the scan could not reach — thin sources, no metrics access, a window with nothing in it. Never pad the list with constraints to fill the space, and never conclude the business has no upside because one scan did not find it.
+
 ## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
-| Customer insights | `<CALL_TRANSCRIPT_SOURCE>`, `context-library/second-brain/customer-insights/`, `context-library/research/` | Unsolved problem patterns, normalized failure modes users have stopped mentioning |
-| Incidents/exceptions | `context-library/decisions/`, `context-library/launches/`, error/incident logs if present | Fuzzy requirements that caused rework, repeated failure classes |
-| Metrics | `<METRICS_SOURCE>` | Quant signals nobody is actively watching |
-| Competitor intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Competitive gaps, moves the team hasn't reacted to |
+| Customer insights | `<CALL_TRANSCRIPT_SOURCE>`, `context-library/second-brain/customer-insights/`, `context-library/research/` | Willingness to pay, jobs users are hiring something else for, what they asked to buy and could not |
+| Incidents/exceptions | `context-library/decisions/`, `context-library/launches/`, error/incident logs if present | Repeated failure classes **with a cost attached** — the number is what makes them eligible |
+| Metrics | `<METRICS_SOURCE>` | Volume the business is leaving on the table; segments converting far above or below the mean |
+| Competitor intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Positions a competitor structurally cannot take, and what it would take to hold one |
 | Recent meetings | `outputs/meeting-notes/`, `context-library/meetings/` | What the team is currently spending its attention on (for the contrarian pass) |
 | The product itself | codebase/product surface, if accessible | Direct evidence of unsolved problems, not just what's reported |
 
@@ -43,51 +53,69 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 Read across all sources in the routing table. This is a surface-only skill, so breadth of evidence matters more than depth in any one source — read to resolution on each candidate signal, but don't over-invest in one channel at the expense of scanning the rest (see `references/protocols/skill-patterns.md` discipline #1).
 
-### 2. Present-state alpha
+### 2. Present-state upside
 
-Identify problems that need action **now**: unsolved customer-problem patterns (issues raised repeatedly that never got fixed), normalized failure modes (something broken so long it stopped being reported as broken), fuzzy requirements that are actively causing rework, competitive gaps already costing deals or users, and quant signals nobody is watching.
+Find money and volume available **now**: demand the product is turning away, a segment converting far above the mean that nobody has tried to grow, a job customers are hiring a competitor or a spreadsheet to do, pricing left on the table, a position the team already half-holds and could lock. Run the upside gate on each one before it goes further.
 
-### 3. Forward alpha
+### 3. Forward upside
 
-Identify inflections **nobody is preparing for**: dated events with no prep started, a trajectory about to cross a threshold or cliff, the bet the market appears to be bending toward that the team hasn't placed yet.
+Find advantage available **next**: a dated event the team could be first to, a trajectory about to cross a threshold in the business's favour, a bet the market is bending toward that is still cheap to place, a capability that would compound into something a competitor cannot copy.
 
-### 4. Contrarian pass
+### 4. The single constraint slot
 
-Identify what the team is currently over-indexing on — using the recent-meetings evidence to see where attention is actually going — and name the tension between that and what steps 2-3 surfaced.
+At most **one** item, and only if it outranks a real opportunity on size. It must carry a revenue or volume number — what the constraint is costing, or what removing it would release. No number, no slot; the item goes to the tracker instead. Leaving this slot empty is a valid and common outcome.
 
-### 5. Run from an elevated posture, land in the user's lane
+### 5. Contrarian pass
+
+Identify what the team is currently over-indexing on — using the recent-meetings evidence to see where attention is actually going — and name the tension between that and what steps 2-4 surfaced.
+
+### 6. Run from an elevated posture, land in the user's lane
 
 Adopt a head-of-product/CEO-level vantage point when scanning for what matters — but every single item in the output must connect back to something the user, in their actual IC role, can act on or flag. An item that only makes sense from a CEO's chair and gives the user nothing to do with it is noise, not alpha.
 
-### 6. Rank and cap
+### 7. Size, then rank by size × claimability
 
-Rank by impact. Cap the list tight — this skill's value is in forcing a small, sharp list, not an exhaustive audit.
+Size every surviving item — revenue, volume, or share — showing the derivation and grading it to its evidence per the absolute rules. Anything that cannot be sized is cut here, not carried.
+
+Then rank by **size × claimability**, not size alone. Claimability is the honest odds this team, with what it has, actually captures the thing: a $2M opportunity the team is structurally unable to claim ranks below a $300k one it can take this quarter. State both factors per item so the reader can disagree with either.
+
+Check the floor and the cap before shipping: three upside items minimum, one constraint maximum. If the floor is not met, report that as a finding about the run.
 
 ## Output Template
 
 ```markdown
 # Proactive Gaps Scan — <DATE>
 
-## Present-State Alpha
-1. **<item>** — <evidence, cited> — **Your lane:** <what the user can do with this>
+## Present-State Upside
+1. **<item>** — **Gate:** money / volume / uncopyable advantage — **Size:** <figure, derivation, evidence grade> — **Claimability:** <honest odds this team takes it, and why> — <evidence, cited> — **Your lane:** <what the user can do with this>
 
-## Forward Alpha
-1. **<item>** — <evidence, cited> — **Your lane:** <what the user can do with this>
+## Forward Upside
+1. **<item>** — **Gate:** money / volume / uncopyable advantage — **Size:** <figure, derivation, evidence grade> — **Claimability:** <...> — <evidence, cited> — **Your lane:** <...>
+
+## Constraint (max 1, omit if none qualified)
+1. **<item>** — **Cost or release:** <revenue or volume figure> — <evidence, cited> — **Your lane:** <...>
 
 ## Contrarian Read
 <what the team is over-indexing on right now, and why that tension matters>
+
+## Run Quality
+<Only if fewer than three upside items cleared the gate: what the scan could not reach, and what would let the next run reach it. This is a statement about the run, not about the business.>
 ```
 
 ## Runs as a Routine
 
-A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly cadence suits the "what should I be worried about" framing better than daily.
+A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly cadence suits the "where is the upside" framing better than daily — opportunities of this size do not appear overnight.
 
 ## Output Quality Self-Check
 
+- [ ] Every item names which gate it passed: more money, more volume, or advantage a competitor cannot copy
+- [ ] Every item carries a size with its derivation shown and graded to evidence — nothing unsized shipped
+- [ ] Three upside items minimum; at most one constraint item, and it carries a revenue or volume number
+- [ ] Ranked by size × claimability, with both factors stated per item
 - [ ] Every item cites real evidence from a workspace source, not a speculative claim
 - [ ] Every item states what the user, specifically, can do with it
-- [ ] The list is ranked and capped, not an exhaustive dump
 - [ ] The contrarian pass is grounded in actual recent-meeting evidence, not a generic observation
+- [ ] If the floor was missed, the Run Quality section says what the scan could not reach
 - [ ] Nothing was created, drafted-for-sending, or written — this skill only surfaces
 
 ## Formal Eval
@@ -114,6 +142,9 @@ See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
+- **Returning a defect list.** The most common drift: broken things are easy to find and feel like insight. A defect without a number attached is a ticket, not alpha
+- **Padding with constraints** to reach three items when the upside search came up short
+- Shipping an item nobody sized, or ranking by size while ignoring whether this team can claim it
 - Surfacing an item with no evidence behind it
 - Framing an item purely from an elevated vantage point with nothing the user can actually do
-- Producing an exhaustive list instead of a tight, ranked one
+- Concluding the business has no upside when what actually happened is that one run found none

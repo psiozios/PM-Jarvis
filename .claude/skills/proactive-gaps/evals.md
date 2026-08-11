@@ -1,8 +1,8 @@
 ---
 skill: proactive-gaps
 archetype: Analysis
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-08-10
 ---
 
 # Evals: /proactive-gaps
@@ -17,8 +17,8 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Two-horizon structure | Output separates Present-State Alpha, Forward Alpha, and a Contrarian Read — not a merged list |
-| E2 | Ranked and capped | Items within each horizon are ranked by impact and the list is tight, not exhaustive |
+| E1 | Two-horizon structure | Output separates Present-State Upside, Forward Upside, and a Contrarian Read — not a merged list |
+| E2 | Ranked by size × claimability | Items are ranked on both factors with each stated per item, not by size alone |
 | E3 | "Your lane" stated per item | Every item explicitly states what the user can do with it |
 
 ### Quality & Voice
@@ -44,6 +44,16 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Elevated-posture-but-landed | Every item connects a broad/elevated observation back to something concrete in the user's actual IC lane |
 | E11 | Contrarian pass grounded | The over-indexing claim is backed by actual recent-meeting evidence, not a generic assertion |
 | E12 | Surface-only honored | No task was created, no message drafted for sending, nothing written beyond the scan output itself |
+
+### Category 5: Upside Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Upside gate named per item | Every item states which gate it passed — more money, more volume, or advantage a competitor cannot copy. FAIL on any item that only prevents deterioration |
+| E14 | Everything sized | Every item carries a magnitude with its derivation shown and graded to evidence. An unsized item is a FAIL, not a PARTIAL |
+| E15 | Floor and cap held | At least three upside items; at most one constraint item, and that item carries a revenue or volume number |
+| E16 | Not a defect list | No defect appears without a number attached. Constraints were not used to pad toward the floor |
+| E17 | Empty run reported honestly | If fewer than three items cleared the gate, the output says what the scan could not reach and frames it as a fact about the run, not about the business |
 
 ## Scoring
 

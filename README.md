@@ -336,7 +336,7 @@ These skills are built to run on a schedule as **routines** (see below), though 
 |---------|-------------|
 | `/action-sweep` | Sweep every connected source for open action items, reconcile against the tracker, execute or propose each |
 | `/loose-threads` | Open-loop radar — surface stalled two-way conversations you may be dropping |
-| `/proactive-gaps` | Two-horizon "what should I be worried about?" scan (present problems + forward inflections) |
+| `/proactive-gaps` | Two-horizon "where is the upside?" scan (money and volume now + advantage next), every item sized |
 | `/weekly-readahead` | Draft and publish a weekly read-ahead for a recurring cross-team meeting |
 | `/weekly-review-fill` | Base tier of the periodic-review cascade — pre-fills the week's review from completed work |
 | `/monthly-review-fill` | Rolls up the month's weekly reviews into a synthesized monthly assessment |

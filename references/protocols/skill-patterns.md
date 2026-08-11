@@ -103,9 +103,11 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 ### Pattern 4 — Multi-Horizon "Alpha Engine" Scan
 
-**Job:** Answer "what should I actually be worried about?" across two time horizons at once — present problems that need action now, and forward inflections nobody on the team is preparing for yet — plus a contrarian pass on what the team is currently over-indexing on.
+**Job:** Answer "where is the upside?" across two time horizons at once — money and volume available now, and advantage available next — plus a contrarian pass on what the team is currently over-indexing on.
 
 **Mechanics:** Run from a deliberately elevated posture (zoom out further than the user's day-to-day view would), but land every single item back in the user's actual lane — a horizon-scan that doesn't connect to something the user can act on is not useful, it's just anxiety. Surface-only: this pattern proposes nothing and writes nothing, it only reports.
+
+**Gate the horizon, or it decays into a defect list.** This is the pattern's characteristic failure and it is gradual: broken things are the easiest thing to find in any workspace, they feel like insight, and a scan with no gate fills up with them until it is a bug list with a strategic preamble. The gate: if the reader acts, does the business make more money, move more volume, or gain advantage a competitor cannot copy? A defect passes only with a revenue or volume number attached. Enforce a floor of upside items against a hard cap of one constraint item, size everything or cut it, and rank by size × claimability rather than size alone. When nothing clears the gate, that is a finding about the run — thin sources, no metrics access — and never a conclusion about the business.
 
 **Eval archetype:** Analysis or Research-Synthesis, depending on framing.
 
@@ -115,5 +117,5 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 - `references/protocols/context-acquisition.md` — the "read freely" half of discipline #1-3 above
 - `references/protocols/knowledge-capture.md` — the "write on confirm" half of discipline #4-5 above
-- `references/protocols/routines.md` — every pattern above is a natural candidate to ship as a scheduled routine (a radar or periodic-review cascade in particular); see `setup/routine-setup.md` to wire one up
 - `references/file-creation-rules.md` — where discipline #9's ledger file goes (`outputs/ledgers/`)
+- `references/protocols/routines.md` — every pattern above is a natural candidate to ship as a scheduled routine (a radar or periodic-review cascade in particular); see `setup/routine-setup.md` to wire one up
