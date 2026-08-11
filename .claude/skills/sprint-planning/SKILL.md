@@ -207,7 +207,7 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 - `/refinement-prep` -> before planning, to slate and enrich the shortlist the ceremony works from
 - `/prioritize` -> when priorities are contested and need LNO classification first
 - `/prd-draft` or `/prd-lite` -> when a candidate has no spec to estimate against
-- `/create-tickets` -> when sprint items need formatting with acceptance criteria; `--stories` for INVEST
+- `/create-tickets` -> when sprint items need writing up properly first; it shapes and sources them but does not size them — sizing happens here, with the engineers
 - `/okr-planning` -> when the sprint goal needs to ladder to a Key Result
 - `/meeting-notes` -> after the sprint, to process review and retro
 

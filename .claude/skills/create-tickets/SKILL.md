@@ -1,468 +1,120 @@
 ---
 name: create-tickets
-description: Break a PRD, spec, or list of action items into engineering tickets with acceptance criteria, effort estimates, dependencies, and labels. Creates them directly in the issue tracker when one is connected, otherwise gives copy-paste text. Commits a team to work, so a commitment gate runs before anything is created.
+description: Break a PRD, spec, or list of action items into engineering tickets — one per domain change, shaped by issue type, every behavioral claim sourced. Creates them in the issue tracker when one is connected, otherwise gives copy-paste text. Does not size or schedule work; engineering does that. Commits a team to work, so a commitment gate runs first.
 user-invocable: true
 disable-model-invocation: false
 ---
 
-# Create Tickets Skill
-
-Generate engineering tickets from PRDs, feature specs, or task lists. Supports direct creation via Linear/Jira MCP or formatted text output.
+Turn a PRD, spec, or action-item list into tickets engineering can pick up. The skill decides ticket boundaries, fills the section set for each issue type, and sources every claim it makes about how the product behaves.
 
 ## Quick Start
 
-1. Point me to the source: PRD, feature spec, meeting action items, or describe the work
-2. I break it down into well-structured tickets with acceptance criteria
-3. Each ticket gets an effort estimate, dependencies, and component label
-4. If Linear/Jira MCP is connected, I create tickets directly; otherwise, I generate copy-paste text
-5. I provide a dependency summary and sprint assignment suggestion
+**What to provide:** A source — a PRD path, a spec, meeting action items, or a description of the work. Say which tracker and project if one is connected.
 
-**Example:** "Create tickets from outputs/prds/checkout-redesign.md targeting a March 15 launch"
+```
+/create-tickets outputs/prds/checkout-redesign.md
+/create-tickets --quick "Login button broken on mobile Safari"
+/create-tickets --stories
+```
 
-**Output:** Tickets created in Linear/Jira, or saved to `outputs/analyses/[feature]-tickets.md`
+**What you get:** Tickets created in the tracker, or copy-paste text saved to `outputs/analyses/[feature]-tickets.md`.
 
-**Time:** 15-30 minutes depending on PRD complexity
+**Commitment gate:** Creating tickets commits a team to work. Run the five checks in `references/protocols/commitment-gate.md` before anything is created.
 
-**Commitment gate:** Before creating tickets that commit a team to work, run the five checks in `references/protocols/commitment-gate.md`.
+## Binding Rules
+
+Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
+
+**Ticket shape comes from a corpus, not from taste.** Before setting or revising the shape of a ticket here, mine the team's existing tickets into `references/tickets-corpus.md` — the ones engineers actually picked up without asking questions, and the ones that generated a thread of clarifications. Every shape rule traces to a quote in it (`config/house-style.md` §9, template at `templates/corpus-template.md`). The section sets in this skill's `references/ticket-templates.md` are a starting shape and lose to the corpus wherever the two disagree.
+
+**One ticket per domain change, not one per surface.** A single change to how something behaves is one ticket, even when landing it touches the schema, an endpoint, and a screen. Splitting by surface manufactures dependency chains, spreads one "done" across three tickets so none of them is independently shippable, and leaves nobody owning the behavior. Split when the *domain* splits — two changes that could ship in either order, or ship separately and still make sense.
+
+**Never prescribe implementation.** Say what must be true when it is done and what constrains it. Do not name the table, the endpoint, the library, or the pattern. Engineering owns how, and a PM's guess at it reads as a requirement.
+
+**Every behavioral claim carries its source.** Any assertion about how the product behaves, what users do, or what was decided carries an inline pointer — PRD section, dated thread, ticket ID, research quote, metrics query. Unsourced behavioral claims are the expensive defect: engineering builds against them and nobody can check them later.
+
+**No acceptance-criteria floor.** No minimum count, and no requirement that a ticket have criteria at all. Write them where the "done" boundary is genuinely unclear; leave them out where the summary settles it. Padding to a count produces criteria that restate the title.
+
+**No estimating, no sprint assignment.** Do not attach t-shirt sizes, story points, day ranges, or a sprint — not in the body, not in tracker fields, not as a suggestion. **Engineering sizes its own work.** A PM-supplied estimate either gets treated as a commitment nobody made, or gets silently corrected and teaches everyone to ignore the field. Flag a ticket that looks too large to be one ticket by saying it may cover more than one domain change, which is a scope observation rather than a size.
 
 ## When to Use
 
-- Breaking down PRDs into implementation tickets
-- Converting feature specs into actionable tasks
-- Batch ticket creation from roadmap items
-- Generating ticket text for manual entry
-
-## Prerequisites
-
-**Optional but Recommended:**
-- Linear MCP configured (for direct ticket creation)
-- Jira MCP configured (for direct ticket creation)
-
-**Fallback:**
-- Generates formatted ticket text for manual copy-paste
-
-## Workflow
-
-### Step 1: Gather Context
-
-Ask the PM:
-1. **Source document:** PRD, feature spec, or task list?
-2. **Target system:** Linear, Jira, or text output?
-3. **Project/Team:** Which project/team should receive tickets?
-4. **Ticket type:** Story, Task, Bug, Epic?
-5. **Priority level:** High, Medium, Low?
-
-### Step 2: Analyze Source Material
-
-Read the source document and identify:
-- **User-facing features** (frontend work)
-- **API/Backend work** (backend work)
-- **Data migrations** (data engineering)
-- **Infrastructure changes** (DevOps)
-- **Testing requirements** (QA)
-- **Documentation needs** (docs)
-
-### Step 3: Create Ticket Structure
-
-For each ticket, generate:
-
-**Title Format:**
-```
-[Component] Action: Brief description
-```
-Examples:
-- `[API] Add endpoint for user preferences`
-- `[Frontend] Build preference selection UI`
-- `[DB] Create user_preferences table`
-
-**Ticket Body:**
-
-```markdown
-## Context
-[Link to PRD or parent epic]
-
-## Objective
-[What this ticket accomplishes]
-
-## Acceptance Criteria
-- [ ] Specific outcome 1
-- [ ] Specific outcome 2
-- [ ] Specific outcome 3
-
-## Technical Notes
-[API contracts, data schemas, edge cases]
-
-## Dependencies
-- Blocked by: [Other ticket]
-- Blocks: [Other ticket]
-
-## Testing Requirements
-- [ ] Unit tests
-- [ ] Integration tests
-- [ ] Manual QA steps
-
-## Resources
-- Design: [Figma link]
-- API Spec: [Swagger/OpenAPI]
-- Related PRD: [Link]
-```
-
-### Step 4: Create or Output Tickets
-
-**If Linear MCP available:**
-```
-Use Linear MCP to create tickets directly
-Set project, team, priority, labels
-Link related tickets
-```
-
-**If Jira MCP available:**
-```
-Use Jira MCP to create tickets
-Set epic, sprint, story points
-Add components and labels
-```
-
-**Fallback - Text Output:**
-```
-Generate formatted ticket text
-Number tickets sequentially
-Provide copy-paste instructions
-```
-
-## Bulk Creation
-
-When creating 5+ tickets:
-
-1. **Create Epic first** (if applicable)
-2. **Group by component** (Frontend, Backend, Data, etc.)
-3. **Order by dependency** (foundation tickets first)
-4. **Add estimates** (if PM provides sizing)
-5. **Link tickets** (blockers, related work)
-
-## Effort Estimation Framework
-
-For each ticket, include an effort estimate using T-shirt sizing:
-
-| Size | Time | Description | Example |
-|------|------|-------------|---------|
-| **XS** | <2 hours | Config change, copy update, simple fix | Update error message text |
-| **S** | Half day | Single-file change, straightforward logic | Add input validation to a form |
-| **M** | 1-2 days | Multi-file change, moderate complexity | Build a new API endpoint with tests |
-| **L** | 3-5 days | Cross-component work, integration needed | Build complete CRUD feature with UI |
-| **XL** | 1-2 weeks | Large scope, multiple systems involved | New authentication system |
-
-**Estimation rules:**
-- If the PM provides estimates, use them. If not, suggest one based on typical complexity for the work type.
-- Always flag **XL tickets as candidates for splitting.** Suggest how to break them down: "This XL ticket could be split into [DB migration (M)] + [API layer (M)] + [Frontend (L)]."
-- Include estimate in the ticket metadata, not buried in the body.
-- When in doubt, round up. Underestimates erode trust; overestimates create buffer.
-
-### Alternative: Story Points
-
-Some teams prefer story points over T-shirt sizes. If the team uses story points:
-
-| Points | Complexity | Roughly Equivalent To |
-|--------|-----------|----------------------|
-| 1 | Trivial change, well-understood | XS (few hours) |
-| 2 | Small change, minimal unknowns | S (half day - 1 day) |
-| 3 | Medium change, some unknowns | M (1-2 days) |
-| 5 | Significant change, moderate unknowns | L (3-5 days) |
-| 8 | Large change, many unknowns | XL (1-2 weeks) |
-| 13 | Very large, high uncertainty | Split this ticket |
-
-**Which to use:** Ask the PM or check existing tickets in the project management tool. Default to T-shirt sizes if unknown -- they're more intuitive for non-engineers.
-
-**Ticket format with estimate:**
-```
-=== TICKET 1 ===
-Title: [API] Add CRUD endpoints for user preferences
-Estimate: M (1-2 days)
-...
-```
-
-## Sprint/Milestone Assignment
-
-If the PM has a target launch date, work backwards from the deadline to suggest sprint assignments.
-
-**Sprint grouping logic:**
-
-```
-Sprint 1 (Foundation & Blockers):
-- Database migrations
-- API contracts and core endpoints
-- Infrastructure/DevOps setup
-- Tickets that block everything else
-
-Sprint 2 (Core Functionality):
-- Frontend components
-- Business logic implementation
-- Integration between frontend and backend
-- Core user flow working end-to-end
-
-Sprint 3 (Polish & Edge Cases):
-- Error handling and edge cases
-- Performance optimization
-- Accessibility fixes
-- Documentation and help content
-- QA and testing tickets
-```
-
-**Capacity check:**
-- Assume 6-8 productive hours per developer per day
-- Assume 80% utilization (meetings, reviews, context-switching)
-- Sum ticket estimates per sprint and compare to available developer-days
-- If estimated effort exceeds sprint capacity, flag: "Sprint 2 is overloaded by ~3 days. Consider moving [ticket X] to Sprint 3 or adding capacity."
-
-## Handling Early-Stage or Partial PRDs
-
-When the PRD is at Team Kickoff or Planning Review stage (requirements are still fuzzy):
-
-**Adjust ticket creation:**
-- Create "Spike" tickets for areas with high uncertainty: "[Spike] Investigate feasibility of [unclear requirement] -- Timebox: 2 days"
-- Mark fuzzy requirements with a [TBD] tag: "Acceptance criteria TBD pending design review"
-- Use wider T-shirt size ranges: "M-L (1-5 days) -- depends on API complexity once spike is complete"
-- Add a "Requirements Checkpoint" ticket: "Review updated PRD with engineering before starting implementation"
-
-**What NOT to do:**
-- Don't create detailed acceptance criteria for fuzzy requirements (they'll change)
-- Don't estimate with false precision (don't say "3 days" when you mean "1-2 weeks, maybe")
-- Don't skip the tickets entirely -- even fuzzy work needs tracking
-
-**Flag it:** Start the ticket breakdown with: "Note: PRD is at [Stage] stage. Some tickets have [TBD] acceptance criteria that will be refined as requirements solidify."
-
-## Dependency Mapping
-
-Identify and mark dependencies between tickets. Use explicit notation in each ticket:
-
-```
-## Dependencies
-- **Blocked by:** TICKET-3 (DB schema must exist before API can be built)
-- **Blocks:** TICKET-7 (Frontend needs this API to integrate)
-```
-
-**After generating all tickets, provide a dependency summary:**
-
-```
-## Dependency Summary
-
-TICKET-1 [DB Schema] --> TICKET-3 [API Endpoints] --> TICKET-5 [Frontend Integration]
-TICKET-2 [Auth Setup] --> TICKET-4 [Protected Routes] --> TICKET-5 [Frontend Integration]
-TICKET-5 [Frontend Integration] --> TICKET-6 [E2E Tests]
-
-Critical path: TICKET-1 --> TICKET-3 --> TICKET-5 --> TICKET-6
-Estimated critical path duration: 7-10 days
-
-Independent tickets (can be done in parallel):
-- TICKET-7 [Documentation] -- no blockers
-- TICKET-8 [Analytics instrumentation] -- no blockers
-```
-
-**Dependency rules:**
-- Every ticket should state its dependencies (even if "None")
-- Circular dependencies are a red flag -- restructure the tickets
-- If a ticket has 3+ blockers, consider whether it should be split
-
-## Ticket Quality Checklist
-
-Before creating tickets, verify:
-- ✅ Title is clear and specific
-- ✅ Acceptance criteria are testable
-- ✅ Technical context is sufficient for engineers
-- ✅ Dependencies are identified
-- ✅ Edge cases are documented
-- ✅ Testing requirements are clear
-- ✅ Links to designs/specs included
-
-## Common Ticket Patterns
-
-### Feature Work
-```
-Epic: User Preferences System
-  ├── [DB] Create user_preferences table
-  ├── [API] Add CRUD endpoints for preferences
-  ├── [Frontend] Build preferences UI
-  └── [QA] Test preferences end-to-end
-```
-
-### Bug Fixes
-```
-Title: [Component] Fix: Description of bug
-Body:
-  - Current behavior: [What's broken]
-  - Expected behavior: [What should happen]
-  - Repro steps: [How to reproduce]
-  - Root cause: [If known]
-```
-
-### Infrastructure
-```
-Title: [DevOps] Setup: Description
-Body:
-  - Current state: [What exists]
-  - Desired state: [What we need]
-  - Migration plan: [How to get there]
-  - Rollback plan: [How to revert if needed]
-```
-
-## MCP Integration
-
-### Linear MCP
-```python
-# Create epic
-epic = linear.create_issue({
-  "title": "User Preferences System",
-  "description": "[Epic description]",
-  "teamId": "team_id",
-  "priority": 1
-})
-
-# Create child tickets
-for ticket in tickets:
-  linear.create_issue({
-    "title": ticket.title,
-    "description": ticket.body,
-    "teamId": "team_id",
-    "parentId": epic.id,
-    "priority": ticket.priority
-  })
-```
-
-### Jira MCP
-```python
-# Create epic
-epic = jira.create_issue({
-  "project": "PROJ",
-  "issuetype": "Epic",
-  "summary": "User Preferences System",
-  "description": "[Epic description]"
-})
-
-# Create stories
-for ticket in tickets:
-  jira.create_issue({
-    "project": "PROJ",
-    "issuetype": "Story",
-    "summary": ticket.title,
-    "description": ticket.body,
-    "epic_link": epic.key
-  })
-```
-
-## Pro Tips
-
-1. **One ticket, one thing:** Avoid "also do X" tickets
-2. **Size appropriately:** 1-3 days ideal, split if larger
-3. **Clear acceptance criteria:** Engineers know when done
-4. **Link liberally:** PRDs, designs, related tickets
-5. **Front-load context:** Engineers shouldn't hunt for info
-6. **Call out edge cases:** "What happens if X?"
-7. **Include examples:** API requests, UI states, data samples
-
-## Output Format (Text Fallback)
-
-```
-=== TICKET 1 ===
-Title: [Component] Action: Description
-Project: [Project Name]
-Type: Story
-Priority: Medium
-
-[Full ticket body]
-
-=== TICKET 2 ===
-...
-```
-
-## Common Mistakes
-
-❌ Vague titles: "Fix preferences"
-✅ Specific titles: "[API] Fix: Preferences endpoint returns 500 on missing user"
-
-❌ No acceptance criteria
-✅ Clear checklist of outcomes
-
-❌ Missing dependencies
-✅ "Blocked by PROJ-123, Blocks PROJ-125"
-
-❌ No technical context
-✅ API contracts, data schemas, edge cases documented
-
-❌ Orphan tickets (no epic/parent)
-✅ Linked to parent epic or PRD
-
-## Questions to Ask Before Creating
-
-1. **Scope clarity:** Is this ticket too big/small?
-2. **Dependencies clear:** What must happen first?
-3. **Edge cases documented:** What could go wrong?
-4. **Testing defined:** How will we verify this works?
-5. **Rollback plan:** Can we undo if needed?
-
-Remember: Great tickets save engineering hours. Invest time upfront to create clear, actionable work items.
-
----
+- Breaking a PRD or spec into work engineering can pick up
+- Turning meeting action items into tracked tickets
+- Capturing a bug or request mid-flow (`--quick`)
+
+## When NOT to Use
+
+- To size or schedule work — that is `/sprint-planning`, with the engineers in the room
+- To clean up an existing board — that is `/backlog-groom`
+- When there is no spec yet — run `/prd-lite` or `/prd-draft` first
 
 ## Context Routing
 
-When the PM uses `/create-tickets`, I automatically:
+| Source | Location | What to extract |
+|--------|----------|-----------------|
+| Source spec | The named PRD, `context-library/prds/` | Requirements, non-goals, open questions, and the section IDs to cite as sources |
+| Ticket corpus | `references/tickets-corpus.md` | The team's real ticket shape; overrides the starting templates |
+| Existing tracker state | `<TASK_TRACKER>` | Open epics and project structure; existing tickets covering the same domain change |
+| Related in-flight work | `context-library/prds/`, `outputs/prds/` | Domain changes elsewhere that this one depends on or duplicates |
+| Metrics and research | `<METRICS_SOURCE>`, `context-library/research/` | The evidence behind any behavioral or impact claim a ticket makes |
 
-### 1. Extract Source Material Understanding
-**Source:** PRDs in `context-library/prds/`, or uploaded documents
-- **What I look for:** Acceptance criteria, technical requirements, design context
-- **How I use it:** Generate detailed tickets with full context
-- **Example:** "PRD says 'mobile-first', I'll note that in every ticket's technical notes"
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
 
-### 2. Query Project Management MCPs
-**Source:** Linear MCP, Jira MCP (if connected)
-- **What I look for:** Existing epics, project structure, team assignments
-- **How I use it:** Auto-link tickets to correct epic, assign to right teams
-- **Example:** "Epic 'Voice Feature' exists, I'll link all tickets to it automatically"
+## Workflow
 
-### 3. Check Dependencies Across Roadmap
-**Source:** `context-library/prds/`, related PRDs
-- **What I look for:** What else is being built that might block this
-- **How I use it:** Surface dependency tickets
-- **Example:** "Notification system ships next sprint, Voice Feature depends on it"
+### 1. Read the source to resolution
 
-### 4. Extract Acceptance Criteria from Success Metrics
-**Source:** PRDs, `/feature-metrics` or `/impact-sizing` outputs
-- **What I look for:** Testable success criteria
-- **How I use it:** Convert metrics into ticket acceptance criteria
-- **Example:** "Success metric 'adoption >60%' → AC: Feature instrumented to track adoption"
+Read the whole spec, not the requirements list. Non-goals and open questions determine ticket boundaries as much as requirements do.
 
-### 5. Route to Task/Ticket System
-**Routing logic:**
-- **Linear connected:** Create tickets directly in Linear
-- **Jira connected:** Create tickets directly in Jira
-- **Neither connected:** Generate formatted ticket text for manual entry
-- **Complex dependencies:** Suggest ticket structure first before creation
+### 2. Cut by domain change
 
----
+List the distinct changes in behavior. Each one is a candidate ticket. Resist the surface split — if the schema, the endpoint, and the screen all move so that one behavior changes, that is one ticket. Then check each candidate against the tracker: a domain change already covered by an open ticket is not a new ticket.
 
+### 3. Pick the type, then fill its section set
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+Bug, behavior change, chore, or spike — each has its own sections. Read `references/ticket-templates.md` for the four section sets, the type-selection table, and the rules that bind all of them.
+
+### 4. Source every claim as you write it
+
+Attach the pointer at the moment you write the sentence. Sourcing afterward is where invented citations come from. Where the source is genuinely a person's recollection, say so and name them rather than dressing it as a spec reference.
+
+### 5. Name the open questions
+
+Every ambiguity the spec did not settle goes into the ticket's Open questions with **who can answer it**. These are the writeback targets below, and a ticket that hides its ambiguities relocates them into a thread nobody will find later.
+
+### 6. Create or emit
+
+Read `references/modes-and-integration.md` for tracker creation, field-mapping cautions, dependency reporting, and the `--quick` and `--stories` modes. Nothing is created until the user approves the batch.
+
+## The Writeback Loop
+
+**An answer that resolves a ticket's ambiguity lands in the ticket before the thread that produced it closes.**
+
+Ambiguities in tickets get resolved somewhere else — a chat thread, a hallway answer, a design review, a comment on a different ticket. The answer arrives, everyone present understands it, the thread goes quiet, and the ticket still says `[TBD]`. Whoever picks the work up later finds the question and not the answer, and asks it again.
+
+The loop:
+
+1. A ticket ships with an Open question naming who can answer it.
+2. When that question gets answered anywhere, **edit the ticket description first** — before replying in the thread, before closing it, before moving on.
+3. Write the answer into the description as a resolved statement with its source: who answered, where, and when. Do not leave it as a comment; comments are not read by whoever picks up the ticket.
+4. Only then close the thread.
+
+The ordering is the whole rule. Reply-then-update becomes reply-and-forget within one context switch, and the thread — which is the only remaining copy of the answer — is exactly the thing that gets archived.
+
+When this skill runs and finds a ticket whose Open question was answered in a source it has read, it proposes the description edit as part of its output. Per `references/protocols/knowledge-capture.md` the edit is proposed and never written unprompted, since a ticket is a shared system other people are acting on.
 
 ## Output Quality Self-Check
 
-Before delivering tickets, verify:
-
-- [ ] **Every ticket has a clear, specific title** -- "[Component] Action: Description" format, no vague titles like "Fix stuff"
-- [ ] **Every ticket has testable acceptance criteria** -- At least 2-3 checkboxes that define "done"
-- [ ] **Every ticket has an effort estimate** -- T-shirt size (XS/S/M/L/XL) assigned to each
-- [ ] **XL tickets flagged for splitting** -- Any ticket estimated at 1-2 weeks has a suggested breakdown
-- [ ] **Dependencies mapped** -- "Blocked by" and "Blocks" noted; dependency summary provided at the end
-- [ ] **Sprint/milestone assignment suggested** -- If launch date provided, tickets grouped into Sprint 1/2/3
-- [ ] **Capacity checked** -- If sprint assignments given, total effort compared to available developer-days
-- [ ] **Critical path identified** -- Longest dependency chain highlighted with duration estimate
-- [ ] **PRD requirements fully covered** -- Every PRD acceptance criterion maps to at least one ticket
-- [ ] **No orphan tickets** -- All tickets linked to parent epic or PRD
-- [ ] **Technical context sufficient** -- Engineers should not need to ask "what exactly do you want?" after reading the ticket
-
-If any check fails, fix it before delivering. Bad tickets slow engineering down more than no tickets at all.
-
----
-
+- [ ] **Cut by domain change** — no ticket exists only because a change touched another surface
+- [ ] **Type chosen and its section set used** — not a universal body across all four types
+- [ ] **Every behavioral claim sourced** — inline pointer to PRD section, thread, ticket, research, or query
+- [ ] **No implementation prescribed** — outcomes and constraints, never tables, endpoints, or libraries
+- [ ] **No estimate, no story points, no sprint** — in the body or in any tracker field
+- [ ] **Acceptance criteria only where "done" is ambiguous** — none padded to hit a count
+- [ ] **Open questions carry an owner** — each names who can answer it
+- [ ] **Dependencies stated where real** — with no duration attached to the chain
+- [ ] **Nothing created before approval** — the commitment gate ran and the user said go
 
 ## Formal Eval
 
@@ -470,125 +122,20 @@ If any check fails, fix it before delivering. Bad tickets slow engineering down 
 
 See `references/protocols/skill-evals.md`.
 
-## Mode: --quick (Fast Issue Capture)
+## Common Mistakes
 
-Use `/create-tickets --quick` to capture a bug or feature request mid-development without the full ticket ceremony. You're in the zone and thought of something. Log it fast, get back to work.
-
-```
-/create-tickets --quick
-/create-tickets --quick "Login button broken on mobile Safari"
-```
-
-**Time:** Under 60 seconds.
-
-### What Gets Captured
-
-The skill captures exactly 5 fields:
-
-1. **Title:** One-line description (auto-formatted to `[Component] Action` style)
-2. **TL;DR:** 1-2 sentences on what's happening
-3. **Current vs Expected:** What's broken vs what should happen (bugs) or what's missing vs what's needed (features)
-4. **Relevant Files:** Files involved (auto-detected from current context if in a codebase, max 3)
-5. **Priority:** Critical / High / Medium / Low (default: Medium)
-
-### How It Works
-
-- **Ask only what's missing.** If the user gives a one-liner like "login broken on mobile", ask 1-2 targeted follow-up questions, not a checklist.
-- **Auto-detect files** from the current working context when possible.
-- **Default priority to Medium** unless the user says otherwise.
-- **Skip everything else.** No acceptance criteria, no effort estimation, no dependency mapping. That comes later during sprint planning.
-
-### Output
-
-**If Linear/Jira MCP connected:** Creates ticket directly with a "triage" label.
-
-**If not connected:** Appends to `outputs/analyses/quick-issues-[date].md` as a running log:
-
-```markdown
----
-
-### [Title]
-**Type:** Bug / Feature / Improvement
-**Priority:** Medium
-**TL;DR:** [1-2 sentences]
-**Current:** [What happens now]
-**Expected:** [What should happen]
-**Files:** `path/to/file.ts`, `path/to/other.ts`
-**Logged:** [timestamp]
-
----
-```
-
-### Rules
-- No acceptance criteria (this is capture, not specification)
-- No effort estimation (that comes during `/sprint-planning`)
-- No dependency mapping (too slow for quick capture)
-- Auto-tag with "triage" label so the team knows it needs refinement
-- Total interaction: 1-2 messages max, under 60 seconds
-- Be conversational and brief. Respect the PM's flow.
-
----
-
-## Mode: --stories (User Story Format)
-
-Use `/create-tickets --stories` to generate tickets specifically as user stories with INVEST criteria — focused on outcomes, not implementation.
-
-```
-/create-tickets --stories
-
-Tell me:
-1. Feature or epic name
-2. User type(s) involved (which personas)
-3. The job they're trying to accomplish
-
-I'll generate stories in "As a / I want / So that" format with acceptance criteria in Given/When/Then.
-```
-
-### User Story Template
-
-```
-## Story: [Title in action format]
-
-**User story:**
-As a [specific user type],
-I want [specific action or capability],
-So that [outcome or benefit].
-
-**Acceptance criteria:**
-- Given [context/precondition], when [user action], then [expected result]
-- Given [context], when [edge case], then [expected behavior]
-- Given [error condition], when [action], then [graceful failure]
-
-**Definition of Done:**
-- [ ] Functionality works as described
-- [ ] Edge cases from AC are handled
-- [ ] Analytics events fire correctly (see tracking plan)
-- [ ] No regression in related features
-- [ ] Design QA completed
-
-**Estimate:** [S / M / L / XL]
-**Dependencies:** [None / Blocked by: ticket X]
-**Notes for engineering:** [Any technical context, API docs, or implementation hints]
-```
-
-### INVEST Criteria Check (per story)
-
-| Criterion | Question | Pass? |
-|-----------|---------|-------|
-| Independent | Can this be worked on without waiting for other stories? | |
-| Negotiable | Is scope flexible if needed? | |
-| Valuable | Does this deliver value to the user on its own? | |
-| Estimable | Can engineering size this after reading it? | |
-| Small | Completable in one sprint? | |
-| Testable | Are acceptance criteria specific and verifiable? | |
-
----
+- Splitting one behavior across `[Frontend]` / `[API]` / `[DB]` tickets, then reporting the dependency chain it created as if it were a finding
+- Writing "users expect X" with nothing behind it
+- Specifying the schema or the endpoint shape, which reads as a requirement engineering has to argue out of
+- Filling in a sizing field because the tracker marks it required
+- Generating three acceptance criteria that restate the title
+- Leaving `[TBD]` in a ticket after the answer arrived in a thread
 
 ## Cross-Skill Links
 
-- `/prd-draft` -> before ticketing, when there is no spec to break down
+- `/prd-draft` or `/prd-lite` -> before ticketing, when there is no spec to break down
 - `/execution-plan` -> before ticketing, when the work needs phasing first
-- `/sprint-planning` -> after ticketing, when the created tickets need committing to a sprint
+- `/sprint-planning` -> after ticketing, when the tickets need sizing and committing with the engineers
 - `/backlog-groom` -> when the board is cluttered enough that new tickets will get lost
+- `/meeting-notes` -> when the tickets come from meeting action items, or when a meeting answered a ticket's open question
 - `/code-review` -> when the tickets originate from confirmed review findings
-- `/meeting-notes` -> when the tickets come from meeting action items

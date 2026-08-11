@@ -298,7 +298,7 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 ### Development and Execution (18)
 | Command | What it does |
 |---------|-------------|
-| `/create-tickets` | Create tickets via Linear/Jira MCP or formatted text (supports `--quick`, `--stories`) |
+| `/create-tickets` | Create tickets via Linear/Jira MCP or formatted text — one per domain change, sourced, unsized (supports `--quick`, `--stories`) |
 | `/autoresearch` | Run autonomous keep/discard experiment loops against a measurable metric across code, analytics, and PM workflows |
 | `/launch-checklist` | Comprehensive launch planning (supports `--testplan`) |
 | `/pre-mortem` | Structured pre-mortem before launches or major decisions |
