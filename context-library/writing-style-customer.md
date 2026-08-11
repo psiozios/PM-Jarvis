@@ -7,6 +7,8 @@
 
 Use for product marketing, help docs, customer communications.
 
+**Register basis:** `references/protocols/register.md`. The rules below are **axis two** — outward content is read cold, by someone with no shared context, and that is what sets the structure. Rules should trace to corpus quotes (`config/house-style.md` §9); the starter rules below are placeholders until you mine your own.
+
 ## Characteristics
 
 **Tone:** Friendly, helpful, clear

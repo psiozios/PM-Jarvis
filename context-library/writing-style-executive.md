@@ -7,10 +7,12 @@
 
 Use for board updates, leadership communication, strategy docs.
 
+**Register basis:** `references/protocols/register.md`. Every rule below is **axis two** — it applies because these documents get forwarded, quoted, and decided from, not because of who reads them. The same rules govern a one-line chat message that a decision will be made from. **Nothing here is a formality dial.** Do not scrub contractions, lowercase, or a writer's own phrasing to make a piece "executive-ready"; that is axis one, it belongs to the named person, and scrubbing it makes the match worse. Rules should trace to corpus quotes (`config/house-style.md` §9) — the starter rules below are placeholders until you mine your own.
+
 ## Characteristics
 
-**Tone:** Strategic, concise, data-driven
-**Audience:** Executives, board members, investors
+**Structure:** Front-loaded, quantified, decision-shaped
+**Applies when:** The piece may be forwarded, quoted, or decided from
 **Goal:** Drive decisions with clear recommendations
 
 ## Rules
@@ -22,7 +24,7 @@ Start with the answer, then explain.
 - Better: "Recommendation: Invest in Solution A. Expected ROI: [X]%. Details below."
 
 ### 2. Be Concise
-Executives are busy. Get to the point.
+A forwarded reader reads the first line and may read no further. Get to the point.
 - 1 page > 3 pages
 - Bullets > paragraphs
 - Data > adjectives

@@ -7,6 +7,8 @@
 
 Use this when writing for engineers, technical documentation, or API docs.
 
+**Register basis:** `references/protocols/register.md`. The rules below are **axis two** — precision and completeness because these documents get read out of context, not because of who reads them. Orthography stays axis one. Rules should trace to corpus quotes (`config/house-style.md` §9); the starter rules below are placeholders until you mine your own.
+
 ## Characteristics
 
 **Tone:** Precise, detailed, unambiguous

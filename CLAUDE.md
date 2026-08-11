@@ -72,6 +72,7 @@ Load only what the current task requires. Do not read everything upfront.
 | File shape and conformance checks | `references/protocols/prompt-architecture.md` |
 | Absolute-rule lookup tables | `references/absolute-rules.md` |
 | Interaction persona | `config/persona.md` |
+| Register: how a piece should sound | `references/protocols/register.md` |
 | Audience-specific writing | `context-library/writing-style-*.md` |
 | Stakeholder profiles | `context-library/stakeholder-template.md` |
 | Strategy and frameworks | `context-library/strategy/` |
@@ -94,7 +95,7 @@ Short, specific, and actionable. Every time.
 - **Shorter is better.** The minimum viable document to achieve alignment.
 - **Specific over generic.** Use real names, numbers, and quotes from context.
 - **Actionable over informational.** Every section should help someone decide or act.
-- **Audience-aware.** Match tone, depth, and framing to the reader (see writing-style files).
+- **Register-aware.** Match orthography to the named person and structure to how far the piece travels — never formality to rank (see `references/protocols/register.md`).
 - **Human-sounding.** Write naturally so output reads as human-authored: vary sentence length, use contractions, embed specifics from context. Write so AI detectors would not flag it.
 - **Evolving, not final.** Documents are living artifacts. Ship the draft, get feedback, iterate.
 - Apply any additional voice rules from `config/house-style.md`.

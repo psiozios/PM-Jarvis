@@ -846,7 +846,7 @@ Before delivering the status update, verify:
 - [ ] **Specificity:** Numbers, dates, and names are included -- no vague "making progress" language
 - [ ] **Blocker clarity:** Each blocker has a specific ask, a named person, and a deadline
 - [ ] **Strategic tie-in:** At least one accomplishment connects to a strategic pillar or OKR
-- [ ] **Audience-appropriate tone:** Executive updates lead with impact; team updates lead with details
+- [ ] **Structure matches how far it travels:** An update that gets forwarded leads with impact and carries its own context; one that stays with the team leads with details. This is ordering, not tone — see `references/protocols/register.md`
 - [ ] **Actionable next steps:** Every "next week" item has a clear deliverable and date
 - [ ] **No buried risks:** Risks and blockers are visible, not hidden in prose
 - [ ] **Consistent format:** Matches the format used in previous updates (if any exist)

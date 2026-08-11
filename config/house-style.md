@@ -6,7 +6,7 @@ The anti-slop standard. Agents read this **before drafting prose**, not after. T
 
 `CLAUDE.md` Absolute Rules → **this file, including its "Your own rules" section** → `context-library/writing-style-*.md` (per-audience register) → the skill's own instructions. Higher wins on conflict. Evidence sits beneath all four rather than in the order: every voice rule at every level traces to a corpus quote (§9).
 
-**Register is chosen first.** Pick what the medium and audience want, then apply these rules inside that choice. "Concise" is not the same as "good" — a two-line reply that omits the decision is worse than a six-line one that lands it.
+**Register is chosen first**, on the two axes in `references/protocols/register.md` — the named person sets orthography, artifact-versus-conversational-turn sets structure, and rank sets neither. Choose there, then apply these rules inside that choice. "Concise" is not the same as "good" — a two-line reply that omits the decision is worse than a six-line one that lands it.
 
 ## 2. Scope: prose only
 

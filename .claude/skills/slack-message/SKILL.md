@@ -76,7 +76,7 @@ Don't worry about structure - just tell me what happened and what you need.
 **Tone Options:**
 - 📘 **Direct** - Get to the point, minimal fluff
 - 👋 **Friendly** - Warm and collaborative
-- 🎩 **Formal** - Professional, executive-ready
+- 🎩 **Formal** - Reasoning stated, context restated for a forwarded reader
 - 🚨 **Urgent** - Time-sensitive, needs attention now
 - 🎉 **Celebratory** - Sharing good news
 - 🤝 **Tactful** - Sensitive topic, needs careful wording
@@ -404,7 +404,7 @@ Based on your situation, I'll automatically:
 **If following up on overdue items:**
 - Check how long overdue
 - Suggest escalation path if >1 week
-- Adjust tone based on seniority and relationship
+- Restate the original ask, since the reader has lost the thread
 
 **If requesting from someone busy:**
 - Acknowledge their workload
@@ -431,20 +431,22 @@ I'll check `context-library/stakeholder-template.md` (and any profiles you add) 
 - Link to supporting documents
 - Anticipate follow-up questions
 
-**For busy executives:**
+**For stakeholders with no time to read:**
 - Ultra-concise (3-4 sentences max)
 - Clear ask upfront
 - Use "if I don't hear back" to unblock yourself
 
-**For collaborative teammates:**
-- Warmer tone, more emoji
+**For stakeholders you work with daily:**
 - Invite their input
 - Frame as "our" work, not "my" work
+- Assume the shared context rather than restating it
 
-**For external stakeholders:**
-- More formal tone
+**For stakeholders outside the company:**
 - Spell out acronyms
 - Provide more company context
+- State the reasoning that insiders would infer
+
+**Match orthography to the named person, never to their rank** — `references/protocols/register.md` axis one. These four groupings are axis two (structure and length), and none of them is a formality dial.
 
 ### Multi-Message Threads
 
@@ -582,7 +584,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 Before presenting output to the PM, verify:
 
-- [ ] **Tone matches recipient and context:** The message tone (direct, friendly, formal, urgent, tactful) is appropriate for the recipient's seniority, relationship, and the topic sensitivity
+- [ ] **Register matches on both axes:** Orthography matches the named recipient's own habits, not their rank; structure matches whether this may be forwarded, quoted, or decided from. Nothing was scrubbed to signal respect. See `references/protocols/register.md`
 - [ ] **Message has clear ask or action item:** The message contains a specific request, decision needed, or next step (not just information with no call to action)
 - [ ] **No corporate jargon:** The message avoids jargon and follows any word-choice rules from `config/house-style.md`
 - [ ] **Length appropriate for Slack:** The main message is 5 sentences or fewer; any additional detail is suggested as a thread reply or linked document

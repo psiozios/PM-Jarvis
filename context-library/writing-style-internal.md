@@ -7,6 +7,8 @@
 
 Use for team communication, PRDs, internal memos.
 
+**Register basis:** `references/protocols/register.md`. The rules below are **axis two** — they describe how internal writing is *built*, and none of them is keyed to who outranks whom. Orthography comes from axis one, the named person, and belongs in that person's stakeholder profile rather than here. Every rule in this file should trace to a quote in a corpus (`config/house-style.md` §9); the starter rules below trace to nothing and are placeholders until you mine your own.
+
 ## Characteristics
 
 **Tone:** Direct, collaborative, practical
@@ -16,7 +18,7 @@ Use for team communication, PRDs, internal memos.
 ## Rules
 
 ### 1. Be Direct
-No need to be overly formal with colleagues.
+State the ask and the reason. Hedging costs the reader a round-trip to find out what you actually want.
 
 - Avoid: "I would like to suggest that we might consider..."
 - Better: "Let's do X because Y"
@@ -36,10 +38,10 @@ Don't hint. Be explicit about what you need.
 - Avoid: "It would be great if someone could look into this"
 - Better: "@[Name] - can you review by [Day]?"
 
-### 4. Use Casual Tone
-- Contractions are fine (we're, it's, don't)
-- Short sentences
-- Bullet points over paragraphs
+### 4. Don't Add Structure the Piece Doesn't Need
+- Contractions, short sentences, and bullets are the default here — not a concession
+- A message that won't be forwarded needs no headings and no restated context
+- If it *will* be forwarded or decided from, it is an artifact: add the structure, keep the orthography
 
 ### 5. Link Context
 Reference past discussions, docs, tickets.
