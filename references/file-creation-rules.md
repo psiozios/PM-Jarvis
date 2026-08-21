@@ -38,7 +38,7 @@ Once the user finalizes work from `outputs/`, they can move it to `context-libra
 | `outputs/weekly-reviews/` | Weekly retrospectives | `/weekly-review` |
 | `outputs/mcp-integration-logs/` | MCP connection logs | `/connect-mcps` |
 | `outputs/skill-test-results/` | Skill test output | testing |
-| `outputs/ledgers/` | Per-candidate dedup ledgers, written **before** any proposal list | any skill under discipline #9 of `references/protocols/skill-patterns.md` |
+| `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | any skill under `references/protocols/evidence-ledger.md` |
 
 ## Context Library Taxonomy
 

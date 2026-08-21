@@ -54,7 +54,7 @@ For each candidate: **yours** (the user owes the next move), **theirs** (someone
 
 ### 4. Verify before flagging
 
-Open every candidate and read to resolution — a search hit is a pointer, not an answer (discipline #1). Cross-check the task tracker, calendar, and other threads: a thread with no in-channel reply but a resolved ticket, or a decision made live in a meeting, is not stalled. Emit a `Checked:` line per item naming what was cross-referenced (discipline #2).
+Open every candidate and read to resolution — a search hit is a pointer, not an answer (discipline #1). Cross-check the task tracker, calendar, and other threads: a thread with no in-channel reply but a resolved ticket, or a decision made live in a meeting, is not stalled. Emit a `Checked:` line per item naming what was cross-referenced (discipline #2). That line is a join, not a summary: it names a query the lookup log already carries, and where the log holds nothing for this item the line stands empty rather than being written from recall (`references/protocols/evidence-ledger.md`).
 
 ### 5. False-positive pass
 
@@ -104,7 +104,7 @@ Natural fit for a scheduled routine — see `references/protocols/routines.md` a
 
 - [ ] Full window re-swept, not narrowed by prior-run state
 - [ ] Both directions covered — inbound and the user's own outbound posts
-- [ ] Every item has a real `Checked:` line, not a placeholder
+- [ ] Every item has a real `Checked:` line joined to a logged query, not a placeholder
 - [ ] No item duplicated from `action-sweep`'s most recent output
 - [ ] Framing is non-accusatory — triage, not a scorecard
 - [ ] Follow-ups proposed only for "yours" items, and only as a numbered list

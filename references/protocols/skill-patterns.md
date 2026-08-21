@@ -44,26 +44,9 @@ A skill in this class does the judgment work and hands back an **execute-not-dec
 
 ### 9. Deduplication is an artifact, not a judgment
 
-**Write the ledger before the list exists.** Any run that will drop, merge, or suppress candidates first writes a ledger file to `outputs/ledgers/<skill>-<date>.md` — one row per candidate, no exceptions, including the ones that look obviously fine and the ones that look obviously dead. Then **re-read that file** and derive the proposal list from it mechanically. The list is a transcription of the ledger, not a second act of judgment.
+**Write the log and the ledger before the list exists.** Any run that will drop, merge, or suppress candidates appends one line per lookup as it returns, writes one ledger row per candidate, and then derives the proposal list from those two files mechanically. The list is a transcription, not a second act of judgment.
 
-| Column | Holds |
-|--------|-------|
-| Candidate | The item as it appeared in the source |
-| Lookup run | The **targeted** query for this candidate, keyed on **its own nouns** — its ticket ID, its feature name, the person who owns it. Recorded as run, not as intended. |
-| Evidence | What came back, **verbatim**. A paraphrase is not evidence. |
-| Verdict | `PROPOSE` / `KILL` / `UNPROVEN` |
-
-**The root cause this closes.** Reading a source for the window and checking one candidate are **different operations**. Sweeping the last thirty days of a channel tells you what happened in that channel; it does not tell you whether *this* commitment was met, because the answer may live somewhere the sweep never went. Substituting the sweep for the per-candidate lookup is the failure — and it is invisible from the outside, because the output looks identical either way. One lookup per candidate, keyed on that candidate's own nouns, or the row is `UNPROVEN`.
-
-**No `PROPOSE` row, no proposal.** Nothing reaches the user that does not have a row. **Counts come off the file**, never off recall: to say "eleven items", count eleven rows.
-
-**The error asymmetry, which runs against intuition.** A false proposal costs the reader one line they scan and dismiss. A false kill silently loses a real commitment — nobody ever learns it was dropped, because a killed item leaves no trace to notice. The costs are nowhere near symmetric, so the burden of proof sits entirely on the kill: **an unproven kill is not a kill.** `UNPROVEN` ships as a proposal, flagged, and never as a silent drop. Confidence that something is already handled is not evidence that it is.
-
-**Report the kills beside the proposals.** Every output carries its killed rows with their evidence, next to the list. This is the check the reader runs on the run itself — **a list with no kills beside it is unverified**, not clean, and should be read as a run that skipped this discipline.
-
-**Volume caps trigger a re-check, never a truncation.** A cap that bites means the run found more than expected, which is information about the ledger, not permission to cut its tail. Re-read the rows, look for the merge or the wrong-verdict cluster that inflated the count, and report the real number either way. Dropping rows to hit a number is a silent kill of every row below the line.
-
-**Carried rows age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
+The full process — the log's fields, the join that builds the evidence table, the three verdicts, and what an empty cell means — is `references/protocols/evidence-ledger.md`. Read it **before the first lookup of any run that will drop a candidate**, not when the table is being written; by then the run it governs is already over.
 
 ## Named Archetypes
 
@@ -117,5 +100,6 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 - `references/protocols/context-acquisition.md` — the "read freely" half of discipline #1-3 above
 - `references/protocols/knowledge-capture.md` — the "write on confirm" half of discipline #4-5 above
-- `references/file-creation-rules.md` — where discipline #9's ledger file goes (`outputs/ledgers/`)
+- `references/protocols/evidence-ledger.md` — the log-then-ledger-then-list process behind discipline #9
+- `references/file-creation-rules.md` — where the ledger file goes (`outputs/ledgers/`)
 - `references/protocols/routines.md` — every pattern above is a natural candidate to ship as a scheduled routine (a radar or periodic-review cascade in particular); see `setup/routine-setup.md` to wire one up

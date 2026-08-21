@@ -51,7 +51,7 @@ Pull candidate action items from every source in the routing table. For the chat
 
 ### 3. Apply exclusions, on the record
 
-Open the ledger now, before any candidate is dropped — one row per candidate, its own targeted lookup, verbatim evidence, verdict (`references/protocols/skill-patterns.md` discipline #9). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a flagged proposal.
+Open the log and the ledger now, before any candidate is dropped — one appended line per lookup as it returns, one ledger row per candidate carrying its own targeted lookup, verbatim evidence, and verdict (`references/protocols/evidence-ledger.md`). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a flagged proposal.
 
 ### 4. Verify live state
 
@@ -104,6 +104,7 @@ This is a strong candidate for a scheduled routine — see `references/protocols
 - [ ] Window correctly resolved from `.last-sweep`, with the first-run-of-day fallback applied when relevant
 - [ ] Both directions swept on the chat platform and email, not just inbound
 - [ ] Every verified-done item cites where the resolution was found
+- [ ] Lookup log appended as each lookup returned, and every evidence cell joined back to a query in it
 - [ ] Dedupe checked against currently open tracker items before proposing anything new
 - [ ] Nothing was created or marked done without the reconciliation table being approved first
 - [ ] Outward-to-others items are drafts, not sent messages

@@ -17,6 +17,7 @@
 | **1** | `references/protocols/knowledge-capture.md` | Write-on-confirm protocol | When a run yields a durable learning |
 | **1** | `references/protocols/skill-evals.md` | Eval protocol | Every skill invocation; when creating a skill |
 | **1** | `references/protocols/skill-patterns.md` | Reusable skill archetypes | Before building a radar / review / grooming skill |
+| **1** | `references/protocols/evidence-ledger.md` | Lookup log, ledger, verdicts | Before the first lookup of a run that will drop a candidate |
 | **1** | `references/protocols/routines.md` | Scheduled-work protocol | When defining or running a routine |
 | **1** | `references/protocols/notifications.md` | Notifier contract | When a routine reports out |
 | **1** | `references/protocols/commitment-gate.md` | Commitment gating | Before acting on a user commitment |
@@ -35,7 +36,7 @@
 
 **Path convention.** Two directories in this repo are called `references/`. Inside a `SKILL.md`, a bare `references/<file>.md` means **that skill's own** directory. A path starting `references/protocols/` or `references/<file>.md` written from the repo root means the **layer-1** protocol layer. A skill needing both in one file writes the layer-1 path in full from the repo root.
 
-**The layer-1 split is historical.** Eight files sit under `references/protocols/` and five directly under `references/`. The table above is the index. **Do not move these files to tidy the split** — they are referenced by path from routine prompts, from `CLAUDE.md`, and from every skill, and a move breaks all of them silently.
+**The layer-1 split is historical.** Eleven files sit under `references/protocols/` and seven directly under `references/`. The table above is the index. **Do not move these files to tidy the split** — they are referenced by path from routine prompts, from `CLAUDE.md`, and from every skill, and a move breaks all of them silently.
 
 ## 2. The nine rules
 
