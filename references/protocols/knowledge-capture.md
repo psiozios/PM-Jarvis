@@ -54,6 +54,10 @@ Propose the write-back as a one-tap action. Do not write until the user confirms
 
 When a skill produces something intended for others (a Slack message, a ticket, an email), always produce a draft in `outputs/` first. Never send, post, or publish without explicit confirmation.
 
+**A reply carries new information, or it is not a reply.** Restating what they said, asking them to clarify, and handing their question back all carry nothing — each one moves the work back across the table. Retrieve what the question is about before drafting anything. If the retrieval leaves nothing to say that the reader does not already have, the deliverable is the retrieval — what was looked up and what it showed — rather than a drafted message.
+
+**Test the premise before answering it.** A senior stakeholder's question is not automatically the right question. Where retrieval shows the premise is off, saying so is new information, and it is usually the most useful thing the reply can carry.
+
 ## The Governing Boundary
 
 **READ FREELY, WRITE ON CONFIRM.**

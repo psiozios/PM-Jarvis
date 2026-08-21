@@ -9,6 +9,8 @@ disable-model-invocation: false
 
 When the PM types `/slack-message`, craft Slack messages that match their voice, include the right context, and get the response they need.
 
+**Retrieve before you draft.** When the message is a reply, look up what the other person is asking about before writing a word of it. If the retrieval leaves nothing they don't already have, hand back what you found rather than a message — a reply that restates their question, asks them to clarify, or bounces it back carries nothing (`references/protocols/knowledge-capture.md`).
+
 ## When to Use
 
 - Asking for status updates without seeming pushy

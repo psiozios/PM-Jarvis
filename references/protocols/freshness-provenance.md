@@ -31,6 +31,8 @@ A document other people can open must cite only sources those people can also op
 
 The local-to-shared boundary runs one way: content can move from local/private into a shared artifact once verified, but a shared artifact should never depend on something only the author can see. A citation nobody else can follow isn't a citation — it's an assertion wearing a citation's clothes.
 
+**"Cannot verify" is a claim about the authoritative live source, never about your copy of it.** A local file derived from a live page — an extract, an analysis, a summary written last month — is research output, not the authority, and it starts dating the moment it is saved. Retrieve the live page first, and report cannot-verify only once the authoritative source has been asked and could not answer. `references/protocols/register.md` carries the outward-content instance: the brand system is read live, and any local mirror of it is a dated copy.
+
 ## Side B: Eval Enforcement
 
 `references/protocols/skill-evals.md` already carries four universal checks (E4-E7: no AI slop, house style, human-sounding, context-grounded) that every skill's `evals.md` inherits verbatim. This protocol adds a **fifth universal check — durability** — for any skill whose output is a document meant to persist or be shared, not a one-off draft consumed once.
