@@ -61,9 +61,9 @@ For each remaining candidate, check whether it's already been handled since it a
 
 Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRACKER>` by title/description similarity. A near-match is treated as the same item, not a duplicate proposal. Fuzzy-matching is a pointer, not a verdict: record the matched task in the ledger row as the evidence, and where the match is only plausible, the row is `UNPROVEN` rather than `KILL`.
 
-### 6. Present the reconciliation table
+### 6. Deliver the questions, then the reconciliation table
 
-Show proposed new tasks and verified-done items as one numbered table (see Output Format). Nothing is written until this is approved.
+Send the questions the moment they exist — they are what the user, and only the user, can answer, and they should not wait on the verification still running (`references/protocols/skill-patterns.md` discipline #10). Then show proposed new tasks and verified-done items as one numbered table (see Output Template). Nothing is written until that table is approved.
 
 ### 7. Execute on approval
 
@@ -80,6 +80,9 @@ After the reconciliation is applied (or explicitly declined), write `.last-sweep
 
 ```markdown
 # Action Sweep — <DATE> (since <WINDOW START>)
+
+## Questions (shipped first — each is one line, and the run is blocked on nothing else)
+- <the `UNPROVEN` item, as a question only the user can answer>
 
 ## Proposed New Tasks
 | # | Item | Source | Checked | Proposed Task |
@@ -106,6 +109,7 @@ This is a strong candidate for a scheduled routine — see `references/protocols
 - [ ] Every verified-done item cites where the resolution was found
 - [ ] Lookup log appended as each lookup returned, and every evidence cell joined back to a query in it
 - [ ] Dedupe checked against currently open tracker items before proposing anything new
+- [ ] Questions shipped ahead of the table, and no item appears in two sections
 - [ ] Nothing was created or marked done without the reconciliation table being approved first
 - [ ] Outward-to-others items are drafts, not sent messages
 - [ ] `.last-sweep` only advanced after the run completed or was explicitly declined

@@ -8,7 +8,7 @@ These are worked examples of a broader class, not the only class. If a new task 
 
 ## Cross-Cutting Disciplines
 
-Every skill in this class — anything that searches across sources and then proposes, surfaces, or writes back a list — follows these nine rules. Read-only skills are in scope: proposing nothing does not exempt a skill from having to be right about what it dropped.
+Every skill in this class — anything that searches across sources and then proposes, surfaces, or writes back a list — follows these ten rules. Read-only skills are in scope: proposing nothing does not exempt a skill from having to be right about what it dropped.
 
 ### 1. A search hit is a pointer, never an answer
 
@@ -38,6 +38,8 @@ If a skill's main output is a batch of writes, dry-run by default. Show what wou
 
 Before surfacing something as new, check whether a sibling skill already surfaced it. Two radars flagging the same stalled thread from different angles is noise, not signal — cross-check before adding.
 
+**Dedupe across sections too, not only inside the list.** One item can appear once as flagged-for-awareness and once as could-not-verify, and neither section looks duplicated from inside itself, because the duplicate lives on the boundary between them. Run the check across the whole output before it ships.
+
 ### 7. False-positive discipline
 
 Every flag survives a skeptic's pass before it ships: a long-lived thread is not automatically a stalled one; a deliberately light-touch document is not automatically a thin one; two similar-sounding items are not automatically duplicates. When confidence is genuinely low, mark the item low-confidence explicitly, or drop it rather than force a verdict.
@@ -51,6 +53,12 @@ A skill in this class does the judgment work and hands back an **execute-not-dec
 **Write the log and the ledger before the list exists.** Any run that will drop, merge, or suppress candidates appends one line per lookup as it returns, writes one ledger row per candidate, and then derives the proposal list from those two files mechanically. The list is a transcription, not a second act of judgment.
 
 The full process — the log's fields, the join that builds the evidence table, the three verdicts, and what an empty cell means — is `references/protocols/evidence-ledger.md`. Read it **before the first lookup of any run that will drop a candidate**, not when the table is being written; by then the run it governs is already over.
+
+### 10. Deliver in checkpoints, one topic to one section
+
+**Split the output where the reader's involvement splits.** The half that needs an answer from them — the questions, the `UNPROVEN` one-liners, anything blocked on a fact only they hold — ships as soon as it is ready and never waits behind the half still being verified. Two deliveries with a gap between them beat one that lands after the reader has moved on.
+
+**Pick each item's section by what the reader does with it**, not by which check produced it. Where a second section has a caveat about the same item, fold the caveat into the line carrying the action — **fold rather than delete**, so the caveat survives at the point of use.
 
 ## Named Archetypes
 
