@@ -24,6 +24,8 @@ Verification runs on a budget, so spend it in rank order: rank the candidates fi
 
 A skill that runs repeatedly over a rolling window (a radar, a periodic sweep) re-sweeps the **full** window every run. Prior-run state is used only to mark items new-vs-carried for the user's benefit — never to narrow the search or suppress items from being re-examined. Narrowing the sweep based on "we already looked at this" is how a radar quietly stops catching things that changed since the last pass.
 
+**Carry forward means re-check, not re-present.** A carried item re-runs its own lookups as if it had never been seen, and the bucket it sits in exempts it from nothing — every gate that applies to a new item applies to it. Where this run's evidence closes it, close it yourself: one line naming the quote that closed it, and the item leaves the list. Handing back a stale list for the user to adjudicate is the same defect as listing an unchecked item, only deferred onto them.
+
 ### 4. Surface, then propose, then create-on-approval
 
 Reading is free — do it liberally. A durable write to the user's own store (their tracker, their notes, their calendar) is proposed as a numbered list and only executed on explicit approval. Anything outward-to-others (a message, an email, a comment visible to someone else) is draft-only, always — see `references/protocols/knowledge-capture.md`.

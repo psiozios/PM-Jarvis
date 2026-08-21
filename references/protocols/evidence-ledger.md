@@ -53,7 +53,7 @@ Build the table by joining the log to the candidate list on the candidate key. *
 
 **Volume caps trigger a re-check, never a truncation.** A cap that bites means the run found more than expected, which is information about the ledger, not permission to cut its tail. Re-read the rows, look for the merge or the wrong-verdict cluster that inflated the count, and report the real number either way. Dropping rows to hit a number is a silent kill of every row below the line.
 
-**Carried rows age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
+**A carried row gets a fresh row and a fresh lookup every run.** Last run's evidence cell is not evidence this run — reusing it is indistinguishable from never having looked. **Carried rows also age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
 
 ## Cross-References
 

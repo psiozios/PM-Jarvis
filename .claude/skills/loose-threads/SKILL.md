@@ -41,7 +41,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ### 1. Full-window, from-scratch sweep
 
-Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3).
+Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3). A carried thread is re-opened and re-checked like any other candidate; where this run's evidence shows it closed, close it here in one line with the quote rather than carrying it into another bucket.
 
 ### 2. Sweep both directions
 
@@ -103,6 +103,7 @@ Natural fit for a scheduled routine — see `references/protocols/routines.md` a
 ## Output Quality Self-Check
 
 - [ ] Full window re-swept, not narrowed by prior-run state
+- [ ] Carried items re-checked with their own fresh lookups, and any the evidence closes are closed here
 - [ ] Both directions covered — inbound and the user's own outbound posts
 - [ ] Every item has a real `Checked:` line joined to a logged query, not a placeholder
 - [ ] No item duplicated from `action-sweep`'s most recent output

@@ -58,7 +58,7 @@ Read the board's own field vocabulary first — which priorities, labels, status
 
 ### 4. Apply hard false-positive discipline
 
-Before flagging: a long-lived item is not automatically stale (check for a design reason it's meant to sit), a deliberately terse item is not automatically thin (check whether terseness was intentional for that item type), a similar-sounding item is not automatically a duplicate (check scope, not just title) — see discipline #7. Drop or downgrade anything that doesn't survive this check.
+Before flagging: a long-lived item is not automatically stale (check for a design reason it's meant to sit), a deliberately terse item is not automatically thin (check whether terseness was intentional for that item type), a similar-sounding item is not automatically a duplicate (check scope, not just title) — see discipline #7. A completed row sitting beside an open row of the same name is multi-day work carried forward, not a duplicate: say nothing about it. Drop or downgrade anything that doesn't survive this check.
 
 ### 5. Draft the fix inline
 

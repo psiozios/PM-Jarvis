@@ -57,7 +57,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 Check for `outputs/weekly-reviews/[last-week]-weekly-review.md`:
 
 If exists, extract:
-- **Carried over items** - What didn't get done?
+- **Carried over items** - What didn't get done? Check each against its live source before listing it; one already closed elsewhere is reported closed, not handed back to be adjudicated.
 - **Learnings** - What worked/didn't work?
 - **Momentum** - Which initiatives are advancing?
 - **Stalled items** - What needs unblocking?
