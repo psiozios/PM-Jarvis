@@ -124,12 +124,15 @@ pm-jarvis/
 ├── references/                     # On-demand reference files
 │   ├── protocols/                  # Global protocols: context-acquisition, knowledge-capture,
 │   │                               #   routines, notifications, skill-evals, skill-patterns,
-│   │                               #   commitment-gate, freshness-provenance
+│   │                               #   evidence-ledger, commitment-gate, freshness-provenance,
+│   │                               #   register, prompt-architecture
 │   ├── skill-chains.md             # Multi-skill workflow sequences
 │   ├── mcp-routing.md              # Tool routing rules
 │   ├── file-creation-rules.md      # Output directory taxonomy
+│   ├── absolute-rules.md           # Lookup tables behind the absolute rules
+│   ├── skill-categories.md         # Skill category breakdown
 │   ├── sub-agents.md               # Sub-agent roster
-│   └── capabilities.md             # Parallel execution, plan mode, etc.
+│   └── capabilities.md             # Parallel execution, spawn gate, plan mode
 │
 ├── setup/                          # Installation guides (incl. routine-setup.md)
 ├── advanced/                       # Advanced workflows and automation
@@ -209,6 +212,10 @@ See `references/protocols/routines.md` and `setup/routine-setup.md` to build one
 ### Skill Quality and Governance
 
 Every skill ships as three files: `SKILL.md` (the method), `evals.md` (pass/fail criteria that run each invocation), and `skill-memory.md` (a living improvement journal). Reusable archetypes for radar, periodic-review, and grooming skills live in `references/protocols/skill-patterns.md`.
+
+Any skill that drops, merges, or suppresses candidates works off a written record rather than recall. It appends one line per lookup as the lookup returns, keeps one ledger row per candidate, and builds its evidence table by joining the two — a cell with no logged query behind it stays empty. A verdict of `UNPROVEN` ships as a one-line question rather than a proposal, because a search that found nothing is not proof the item is dead or alive. See `references/protocols/evidence-ledger.md`.
+
+`references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep.
 
 ## Available Skills (87 Total)
 
