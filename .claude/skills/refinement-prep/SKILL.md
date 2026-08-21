@@ -47,7 +47,7 @@ Pull the current board state from `<TASK_TRACKER>`. Strictly read-only, same as 
 
 ### 3. Rank by theme-fit, then live priority, then readiness
 
-Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, judged live rather than from a stale doc. Break remaining ties by readiness (how close the item already is to refinement-ready).
+Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, read live this run — the values the board offers and the way the user's recent items use them, never a prior note about either. Break remaining ties by readiness (how close the item already is to refinement-ready).
 
 ### 4. Cap the shortlist
 

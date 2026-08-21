@@ -51,7 +51,7 @@ Pull candidate action items from every source in the routing table. For the chat
 
 ### 3. Apply exclusions, on the record
 
-Open the log and the ledger now, before any candidate is dropped — one appended line per lookup as it returns, one ledger row per candidate carrying its own targeted lookup, verbatim evidence, and verdict (`references/protocols/evidence-ledger.md`). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a flagged proposal.
+Open the log and the ledger now, before any candidate is dropped — one appended line per lookup as it returns, one ledger row per candidate carrying its own targeted lookup, verbatim evidence, and verdict (`references/protocols/evidence-ledger.md`). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a one-line question, since the run cannot show the item is live either.
 
 ### 4. Verify live state
 

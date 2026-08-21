@@ -12,6 +12,8 @@ Status — what's live, what's dropped, what's currently gating what — stales 
 
 Treat strategy and plan documents as **directional**, not a status oracle. A roadmap says where the team intends to go; it does not reliably say what's true right now. If a status claim can't be confirmed fresh at the moment of use, say so explicitly — "unconfirmed" is a correct and useful answer; a confident guess is not.
 
+**A snapshot of a live system is not a rule about it.** Twice, a file here recorded that one value in a tracker's vocabulary — a priority, a label, a status — looked unused on the day it was checked, and the tooling downstream then stopped emitting that value at all. An observation about one day's distribution had become a standing constraint without anyone deciding it should. Read the live vocabulary at the start of every run: which values exist now, and how the owner's own recent rows actually use them. **Those rows are the ground truth**, ahead of any note about what once looked unused.
+
 ### 2. Evergreen vs. ephemeral durability test
 
 Before a line of content enters a living or shared document, classify it: **durable-external** (true regardless of who's watching it right now — a decision's rationale, a customer's stated need, a framework) or **ephemeral-internal** (true only as of right now — who's currently assigned, what sprint something is in, what the current blocker is).

@@ -52,9 +52,9 @@ For every item, check each triage dimension:
 - **Thin epic** — an epic with no meaningfully scoped children
 - **Thin description** — too vague to action without asking the author
 
-### 3. Establish priority live
+### 3. Establish the live vocabulary, then priority
 
-Judge priority and ordering from the board's current state at run time — never from a stale doc or an assumed prior ranking.
+Read the board's own field vocabulary first — which priorities, labels, statuses, and sprints exist right now, and how the user's recent items actually use them. A value that looks unused today is still a value; only the tracker says what is available, and only the user's recent rows say what is normal (`references/protocols/freshness-provenance.md`). Then judge priority and ordering from the board's current state at run time — never from a stale doc or an assumed prior ranking.
 
 ### 4. Apply hard false-positive discipline
 
@@ -101,6 +101,7 @@ Pairs naturally with `refinement-prep` on a recurring cadence — hygiene betwee
 - [ ] Checklist grouped by UI action, not by item
 - [ ] Every text-based fix has drafted replacement text ready to paste
 - [ ] Every flagged item survived the false-positive check
+- [ ] Field vocabulary and its live distribution were read this run, not carried from a prior note
 - [ ] Priority judgments reflect the board's current live state, not a cached ranking
 
 ## Formal Eval
