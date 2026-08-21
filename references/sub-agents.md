@@ -32,3 +32,5 @@ When spawning sub-agents for review:
 ## Parallel Execution
 
 When reviewing from multiple perspectives, spawn agents in parallel rather than sequentially. This is faster and prevents later agents from being biased by earlier feedback.
+
+**A fixed panel is not a per-item fan-out.** The seven personas above are a bounded set reading one document, and each returns a perspective the others cannot. Spawning one agent per candidate down a list of thirty is a different shape with a different cost — see the spawn gate in `references/capabilities.md` before building one.

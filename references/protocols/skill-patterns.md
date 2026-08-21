@@ -18,6 +18,8 @@ A match from a search (a keyword hit, a title match, a snippet) tells you where 
 
 Cross-check each candidate against orthogonal sources — a calendar, a tracker, an issue board, an email thread, a sibling skill's output — and emit a per-item `Checked:` line naming what was cross-referenced. Silence in one channel is not proof of anything; the absence of a follow-up in Slack doesn't mean the loop closed, it might mean the reply happened somewhere else entirely.
 
+Verification runs on a budget, so spend it in rank order: rank the candidates first, gate the top N, and state the ungated count rather than implying the whole list was checked. What that gate may cost — one inline batch by default, a spawned agent only where a false positive is expensive — is in `references/capabilities.md`.
+
 ### 3. From-scratch re-discovery for standing radars
 
 A skill that runs repeatedly over a rolling window (a radar, a periodic sweep) re-sweeps the **full** window every run. Prior-run state is used only to mark items new-vs-carried for the user's benefit — never to narrow the search or suppress items from being re-examined. Narrowing the sweep based on "we already looked at this" is how a radar quietly stops catching things that changed since the last pass.
