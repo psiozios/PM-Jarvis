@@ -4,6 +4,8 @@ Four issue types, four section sets. **Use the set that matches the type; do not
 
 **These are starting shapes, not the standard.** The standard is your team's own corpus — mine `references/tickets-corpus.md` first (`config/house-style.md` §9) and reshape these sections to match what your engineers actually read and write. Ship whichever sections the corpus supports and delete the rest.
 
+**Every section set below is a menu, not a form.** A section with nothing to say is deleted **together with its header** — a bare header is worse than the section's absence, because the reader stops to work out whether it was considered and came back empty or simply forgotten. Deleting one is the correct and common outcome and needs no note. The body's length budget is the corpus median, measured rather than assumed. Both rules: `references/protocols/tracker-writes.md` §§5-6.
+
 ## Rules that bind every type
 
 **Never prescribe implementation.** State what must be true when the work is done, and what constraints hold. Do not name the table, the endpoint shape, the library, the file, or the pattern. Engineering owns how. Where a technical fact is a genuine *constraint* rather than a preference — a contract another team already ships against, a compliance requirement — state it as a constraint and cite where it came from.

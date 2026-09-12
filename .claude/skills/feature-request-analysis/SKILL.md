@@ -42,6 +42,8 @@ Output: outputs/analyses/feature-requests-[area]-[date].md
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
+Bulk reference in this skill's own `references/`: `scoring-scale.md` — read at Step 2, before scoring any cluster.
+
 ## Step 0: Context Check
 
 Before analyzing raw requests:
@@ -83,17 +85,9 @@ Underlying job: As a [user type], when [situation], I need [outcome], so that [w
 
 ## Step 2: Score Each Cluster
 
-| Dimension | Score (1-5) | What to measure |
-|-----------|-------------|-----------------|
-| **Frequency** | 5 = top 10% of all requests | How often does this come up? |
-| **Intensity** | 5 = users threaten to churn | How upset are users when it's missing? |
-| **Strategic fit** | 5 = directly enables a current OKR | Does this move a Key Result? |
-| **Scope clarity** | 5 = clear solution path | Can engineering estimate this? |
-| **Breadth** | 5 = affects all user types | Is this niche or universal? |
+Score each cluster on four dimensions against **fixed anchors** — a 5 must mean the same thing in a thin month as in a heavy one, or clusters from different periods cannot be ranked together. Write the factors into the tracker's own fields and let it compute; never type a computed score. An unassessed dimension stays empty and drops out of the denominator rather than scoring 1.
 
-**Weighted score:** (Frequency × 2 + Intensity × 2 + Strategic fit × 3 + Breadth × 1) / 8
-
-Flag anything scoring above 4.0 as P0 consideration.
+The dimensions, the anchors, the weighted formula, and the 4.0 threshold: `references/scoring-scale.md`. Governing rules: `references/protocols/tracker-writes.md` §§1-4.
 
 ---
 
@@ -139,9 +133,10 @@ Before escalating to roadmap:
 ### 1. [Cluster Name] — Score: [X.X]
 
 **Job:** As a [user], when [situation], I need [outcome].
-**Frequency:** [High/Med/Low] — [N] requests from [N] unique sources
-**Intensity:** [Critical / Frustrating / Nice-to-have]
-**Strategic fit:** [Direct / Adjacent / Outside] — [which OKR it maps to]
+**Frequency:** [1-5, or empty if unassessed] — [N] requests from [N] unique accounts
+**Intensity:** [1-5, or empty] — [what the anchor was: churn conversation, nice-to-have, …]
+**Strategic fit:** [1-5, or empty] — [which Key Result it moves, or none]
+**Breadth:** [1-5, or empty] — [which user types]
 
 **What users are saying:**
 - "[Direct quote]" — [Source, date]
@@ -187,7 +182,9 @@ Before escalating to roadmap:
 
 - [ ] **Clustered by job, not by feature:** Groups reflect underlying needs, not literal requests
 - [ ] **Each cluster has a JTBD statement:** "As a [user], when [situation], I need [outcome]"
-- [ ] **Scores calculated:** Every cluster has a weighted score, not just subjective "high/medium/low"
+- [ ] **Scores calculated:** Every cluster carries its four factor values and a weighted score — the numbers the formula consumes, not a subjective "high/medium/low" beside them
+- [ ] **Anchors are fixed, not batch-relative:** A 5 means the same thing this month as last quarter, and the anchors are written down beside the scale
+- [ ] **Unassessed dimensions left empty:** Dropped from the denominator, never scored 1 or 0 to fill the gap
 - [ ] **Direct quotes included:** At least 2 verbatim requests per top cluster
 - [ ] **Already-in-flight items flagged:** No recommending what's already being built
 - [ ] **Declined requests explained:** Clear reasoning, not just "not prioritized"

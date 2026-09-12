@@ -47,7 +47,7 @@ Pull the current board state from `<TASK_TRACKER>`. Strictly read-only, same as 
 
 ### 3. Rank by theme-fit, then live priority, then readiness
 
-Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, read live this run — the values the board offers and the way the user's recent items use them, never a prior note about either. Break remaining ties by readiness (how close the item already is to refinement-ready).
+Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — read from the board's own fields against fixed anchors, never re-scored relative to today's shortlist (`references/protocols/tracker-writes.md` §1) — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, read live this run — the values the board offers and the way the user's recent items use them, never a prior note about either. Break remaining ties by readiness (how close the item already is to refinement-ready).
 
 ### 4. Cap the shortlist
 
@@ -57,7 +57,9 @@ A refinement ceremony has limited time. Cap the shortlist to what the ceremony c
 
 ### 5. Draft each item's enrichment
 
-For each shortlisted item, draft what it needs to enter refinement ready: a clearer description, acceptance criteria, a sizing note — whatever's missing, drafted inline and ready to paste.
+For each shortlisted item, draft what it needs to enter refinement ready: a clearer description, acceptance criteria, the question engineering will need answered — whatever's missing, drafted inline and ready to paste, within the corpus-median body budget (`references/protocols/tracker-writes.md` §5).
+
+**No sizing note.** Drafting one here and handing it to the ceremony is a PM-supplied estimate wearing a preparation label, and `/create-tickets` forbids the same thing on the way in. What belongs here is what makes the item *sizeable* — the scope boundary, the unknown that would change the answer — so the engineers can size it in the room. Empty sections are deleted with their headers rather than drafted into (§6).
 
 ### 6. Surface the unknowns
 
@@ -71,7 +73,7 @@ For each shortlisted item, identify the 1-2 genuine unknowns that would cause re
 
 ## Shortlist (ranked)
 1. **[<item>](<link>)** — theme-fit: <why> | priority: <live rank> | readiness: <ready / needs enrichment>
-   **Enrichment drafted:** <description / AC / sizing note, ready to paste>
+   **Enrichment drafted:** <description / AC / scope boundary, ready to paste — no sizing note>
    **Unknowns that would cause rework:** <1-2 items, or "none identified">
 
 2. ...

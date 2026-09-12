@@ -94,7 +94,7 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Mechanics:**
 - **Hygiene pass:** emits a checklist grouped by the actual click the human will make — close, reorder, re-allocate, tag, fix a description — with drafted replacement text inline where relevant, so applying the fix is a paste, not a rewrite.
-- **Slate pass:** asks what the period's theme is first, then ranks a capped shortlist of candidates for the next ceremony (planning meeting, review, triage session), drafts each shortlisted item's enrichment (description, acceptance criteria, sizing note), and surfaces the 1-2 genuine unknowns that would cause rework if guessed wrong instead of asked.
+- **Slate pass:** asks what the period's theme is first, then ranks a capped shortlist of candidates for the next ceremony (planning meeting, review, triage session), drafts each shortlisted item's enrichment (description, acceptance criteria, scope boundary — never a sizing note, which is engineering's to give in the room), and surfaces the 1-2 genuine unknowns that would cause rework if guessed wrong instead of asked.
 
 Both passes are strictly read-only (discipline #8) and both establish priority live at run time, never from a stale cached ranking. They're designed as a paired cadence — hygiene keeps the board clean between ceremonies, slate prepares the next one.
 

@@ -54,7 +54,7 @@ For every item, check each triage dimension:
 
 ### 3. Establish the live vocabulary, then priority
 
-Read the board's own field vocabulary first — which priorities, labels, statuses, and sprints exist right now, and how the user's recent items actually use them. A value that looks unused today is still a value; only the tracker says what is available, and only the user's recent rows say what is normal (`references/protocols/freshness-provenance.md`). Then judge priority and ordering from the board's current state at run time — never from a stale doc or an assumed prior ranking.
+Read the board's own field vocabulary first — which priorities, labels, statuses, and sprints exist right now, and how the user's recent items actually use them. A value that looks unused today is still a value; only the tracker says what is available, and only the user's recent rows say what is normal (`references/protocols/freshness-provenance.md`). Then judge priority and ordering from the board's current state at run time — never from a stale doc or an assumed prior ranking. Judge each item against the scale's own fixed anchors, not against the rest of today's board: a re-ranking that only holds within this sitting is not a ranking (`references/protocols/tracker-writes.md` §1). An item whose priority field is empty is unassessed, not lowest — say so rather than sorting it to the bottom (§4).
 
 ### 4. Apply hard false-positive discipline
 
@@ -62,7 +62,7 @@ Before flagging: a long-lived item is not automatically stale (check for a desig
 
 ### 5. Draft the fix inline
 
-For any text-based fix (a rewritten description, a suggested tag, a suggested parent), draft the replacement text directly in the checklist — ready to paste, not a note that it needs fixing.
+For any text-based fix (a rewritten description, a suggested tag, a suggested parent), draft the replacement text directly in the checklist — ready to paste, not a note that it needs fixing. A rewritten description lands inside the corpus-median budget, and a section with nothing to say is deleted with its header rather than drafted into (`references/protocols/tracker-writes.md` §§5-6).
 
 ### 6. Group by UI action
 
