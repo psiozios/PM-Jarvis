@@ -5,6 +5,10 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
+Start your day with a comprehensive plan that pulls together everything you need: meetings with attendee context, active PRDs, open tasks, metrics to monitor, and stakeholder intelligence.
+
+Inspired by personal operating system patterns but tailored specifically for Product Managers.
+
 ## Quick Start
 
 **What to provide:** Nothing required. Just run it.
@@ -38,20 +42,6 @@ Which would you prefer?
 ```
 
 **If no same-day plan exists:** Proceed normally.
-
----
-
-## Purpose
-
-Start your day with a comprehensive plan that pulls together everything you need: meetings with attendee context, active PRDs, open tasks, metrics to monitor, and stakeholder intelligence.
-
-Inspired by personal operating system patterns but tailored specifically for Product Managers.
-
-### Usage
-
-- `/daily-plan` - Create today's daily plan (compact mode by default)
-- `/daily-plan full` - Full daily plan with all sections
-- `/daily-plan tomorrow` - Preview tomorrow (evening planning)
 
 ---
 
@@ -108,7 +98,6 @@ If no integrations available, I'll:
 3. Generate plan with placeholders you can fill in
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -563,7 +552,6 @@ Before presenting the daily plan, verify:
 
 ---
 
-
 ## Formal Eval
 
 **Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it the output (or its absolute path), this skill's `evals.md`, `config/house-style.md`, and the sources the output cites — E7 cannot be scored without them, and scoring it from plausibility is a vacuous PASS. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
@@ -871,7 +859,6 @@ Total time: 2 minutes
 | Stakeholder profiles (a file, not a source) | Build the meeting list without context; suggest filling out the profiles |
 
 ---
-
 
 ---
 

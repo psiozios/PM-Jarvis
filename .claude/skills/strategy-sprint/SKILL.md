@@ -49,7 +49,7 @@ Escalate when any of these appear during your 1-week sprint:
 
 ---
 
-## Overview
+## The Three Timeframes
 
 Strategy doesn't always need to be a month-long exercise. Depending on your timeline and context, you can create effective strategy in three different timeframes:
 

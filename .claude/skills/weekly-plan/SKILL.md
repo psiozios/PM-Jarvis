@@ -5,8 +5,6 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-## Purpose
-
 Plan your week forward with clear priorities tied to quarterly goals. Sets the foundation for effective daily planning and ensures strategic alignment.
 
 ## Quick Start
@@ -33,7 +31,6 @@ Plan your week forward with clear priorities tied to quarterly goals. Sets the f
 **Fallback:** File-based planning using strategy docs and PRD pipeline.
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -455,7 +452,6 @@ Before presenting output to the PM, verify:
 - [ ] **LNO classification applied:** Key tasks are tagged as Leverage, Neutral, or Overhead to ensure the week is weighted toward high-leverage work
 - [ ] **Dependencies and blockers identified:** Each priority lists what it depends on (people, decisions, deliverables) and any known blockers with mitigation plans
 - [ ] **Carry-over items from last week addressed:** If `outputs/weekly-reviews/` or `outputs/weekly-plans/` contain incomplete items from last week, they are explicitly acknowledged as carried over, deferred, or dropped with reasoning
-
 
 ## Formal Eval
 

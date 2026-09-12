@@ -136,7 +136,7 @@ These baselines inform where to focus.
 
 ---
 
-## Overview
+## The Setup → Aha → Habit Framework
 
 Activation is the bridge between signup and retention.
 

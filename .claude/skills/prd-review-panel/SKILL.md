@@ -5,8 +5,6 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-## Purpose
-
 Get comprehensive feedback on your PRD from 7 different perspectives in parallel: Engineering, Design, Executive, Legal, UX Research, Skeptic, and Customer Voice.
 
 Catches gaps, challenges assumptions, and surfaces conflicts before stakeholder review.
@@ -38,7 +36,6 @@ Catches gaps, challenges assumptions, and surfaces conflicts before stakeholder 
 7. **customer-voice.md** - Simulate user perspective
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -786,7 +783,6 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 
 ---
 
-
 ---
 
 ## Output Quality Self-Check
@@ -800,7 +796,6 @@ Before presenting output to the PM, verify:
 - [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
 - [ ] **Every blocker confirmed against the PRD itself:** Each Critical Blocker and Important Gap was checked by reopening the PRD at the named section — not accepted from the reviewer's report, quote included
 - [ ] **A zero-blocker panel with heavy rewording was re-gated:** Not reported as a clean pass on the strength of the kill count alone
-
 
 ## Formal Eval
 

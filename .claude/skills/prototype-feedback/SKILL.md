@@ -39,7 +39,7 @@ Rapidly iterate on prototypes using AI-powered building and automated feedback c
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
-## Overview
+## Tools and Timing
 
 **Tools:** v0/Lovable/Bolt + NotebookLM + Claude
 **When:** Validating new features before full build

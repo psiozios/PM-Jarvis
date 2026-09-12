@@ -5,7 +5,14 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
+End-of-week synthesis reviewing what you accomplished, what you learned, and what needs attention. Feeds into next week's planning and builds institutional memory.
+
 ## Quick Start
+
+```
+/weekly-review              → review the current or most recent week
+/weekly-review last-week    → review the previous week, if you forgot
+```
 
 1. Run `/weekly-review` on Friday afternoon (best time) or Monday morning
 2. I will scan your workspace: weekly plans, daily plans, PRDs, meeting notes, decisions, and launches from the past 7 days
@@ -14,17 +21,6 @@ disable-model-invocation: false
 5. After the review, I will suggest running `/weekly-plan` to plan next week
 
 **Default output is focused (~150 lines max).** Say "full review" if you want the expanded version with stakeholder pulse, task-level execution metrics, and pattern analysis.
-
-## Purpose
-
-End-of-week synthesis reviewing what you accomplished, what you learned, and what needs attention. Feeds into next week's planning and builds institutional memory.
-
-### Usage
-
-- `/weekly-review` - Review current/past week
-- `/weekly-review last-week` - Review previous week (if you forgot)
-
----
 
 ## Context Routing
 
@@ -47,7 +43,6 @@ End-of-week synthesis reviewing what you accomplished, what you learned, and wha
 **Fallback:** File-based analysis of PM Jarvis workspace + manual input for completions.
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -684,7 +679,6 @@ After generating review, prompt user with contextual suggestions:
 
 ---
 
-
 ---
 
 ## Output Quality Self-Check
@@ -719,7 +713,6 @@ For stakeholder patterns specifically, also ingest into `stakeholders`. For deci
 Invoke `/second-brain ingest` with the review as the source. If `domain-knowledge` doesn't exist yet, offer `/second-brain init domain-knowledge` first.
 
 Weekly reviews without accumulation are confessional journaling. Weekly reviews that feed the brain become your personal operating manual — one that gets sharper every Friday.
-
 
 ## Formal Eval
 

@@ -5,7 +5,16 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
+Connect to codebase and build initial implementation of a feature. Single-pass development with manual iteration.
+
 ## Quick Start
+
+```
+/code-first-draft                        → build the feature from a PRD
+/code-first-draft <prd-name>             → build a specific PRD
+/code-first-draft --explore-only         → explore the codebase, write no code
+/code-first-draft --from-plan <file>     → execute step by step from an execution plan
+```
 
 1. Point me to a PRD or describe the feature to build
 2. I explore your codebase (framework, patterns, structure) or switch to Prototype Mode if no codebase exists
@@ -19,19 +28,6 @@ disable-model-invocation: false
 
 **Time:** 1-3 hours depending on feature complexity
 
-## Purpose
-
-Connect to codebase and build initial implementation of a feature. Single-pass development with manual iteration.
-
-### Usage
-
-- `/code-first-draft` - Build feature from PRD
-- `/code-first-draft [prd-name]` - Build specific PRD
-- `/code-first-draft --explore-only` - Just explore codebase, don't write code yet
-- `/code-first-draft --from-plan [plan-file]` - Execute step-by-step from an execution plan
-
----
-
 ## Context Routing
 
 **Check first:**
@@ -40,7 +36,6 @@ Connect to codebase and build initial implementation of a feature. Single-pass d
 3. Codebase (`.git` directory, source files)
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -353,7 +348,6 @@ Before delivering the first draft, verify:
 - [ ] **Completeness enforced** -- No `// TODO` placeholder comments, no `...` ellipsis abbreviations, no "add your logic here" stubs, no partial implementations. Every function body is complete. If token limits are hit, pause at a natural breakpoint and continue in the next turn rather than compressing or abbreviating code.
 
 If any check fails, fix it before delivering. A first draft with failing tests or missing accessibility is not ready to share.
-
 
 ## Formal Eval
 

@@ -5,6 +5,12 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
+A routine (see `references/protocols/routines.md`) posts a notification and stops. Without this skill, that's a one-way broadcast. `routine-responder` is the receive side: it watches every routine's notification thread for a reply from the user and, when it finds one, continues the conversation — running the routine's skill again with the reply as input, or just answering the question directly.
+
+This skill is example-worthy scaffolding, not a single-purpose tool: any routine that ships an "on-reply continuation" section can be picked up by this responder without a code change here.
+
+---
+
 ## Quick Start
 
 **What to provide:** Nothing required. Run it standalone, or wire it as the on-reply continuation for any routine under `routines/`.
@@ -19,14 +25,6 @@ disable-model-invocation: false
 
 ---
 
-## Purpose
-
-A routine (see `references/protocols/routines.md`) posts a notification and stops. Without this skill, that's a one-way broadcast. `routine-responder` is the receive side: it watches every routine's notification thread for a reply from the user and, when it finds one, continues the conversation — running the routine's skill again with the reply as input, or just answering the question directly.
-
-This skill is example-worthy scaffolding, not a single-purpose tool: any routine that ships an "on-reply continuation" section can be picked up by this responder without a code change here.
-
----
-
 ## Context Routing
 
 | Source | Location | What to Extract |
@@ -37,7 +35,6 @@ This skill is example-worthy scaffolding, not a single-purpose tool: any routine
 | Notifier config | `config/notifier-example.md` (or your adapter) | Credentials and identity for reading/posting |
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 

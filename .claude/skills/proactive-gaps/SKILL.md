@@ -94,7 +94,7 @@ Then check: three upside items minimum, **at least one of them forward**, one co
 
 Adopt a head-of-product/CEO-level vantage point when scanning — but every item must connect back to something the user, in their actual IC role, can act on or flag. An item that only makes sense from a CEO's chair and gives the user nothing to do with it is noise, not alpha.
 
-## Output
+## Output Template
 
 Template, the three class bars, the ranking rule, the composition check, and the three deliberate divergences from the evidence ledger: `references/item-classes.md` — read before scoring the first candidate.
 

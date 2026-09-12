@@ -5,7 +5,15 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
+Generate comprehensive launch checklist ensuring nothing falls through the cracks. Covers pre-launch prep, launch execution, and post-launch monitoring.
+
 ## Quick Start
+
+```
+/launch-checklist                                   → checklist for a feature or product
+/launch-checklist <prd-name>                        → for a specific PRD
+/launch-checklist --template small|major|regulatory → pick the template
+```
 
 1. Tell me what you are launching (feature name, PRD link, or description)
 2. I check the PRD, past launches, and stakeholder profiles for context
@@ -19,18 +27,6 @@ disable-model-invocation: false
 
 **Time:** 15-20 minutes to generate, then ongoing tracking
 
-## Purpose
-
-Generate comprehensive launch checklist ensuring nothing falls through the cracks. Covers pre-launch prep, launch execution, and post-launch monitoring.
-
-### Usage
-
-- `/launch-checklist` - Create checklist for a feature/product
-- `/launch-checklist [prd-name]` - Create for specific PRD
-- `/launch-checklist --template small|major|regulatory` - Use specific template
-
----
-
 ## Context Routing
 
 **Check these files first:**
@@ -41,7 +37,6 @@ Generate comprehensive launch checklist ensuring nothing falls through the crack
 5. `templates/launch-checklist-template.md` - Base template (if exists)
 
 ---
-
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
@@ -382,7 +377,6 @@ Before delivering the launch checklist, verify:
 If any check fails, fix it before delivering. A launch checklist with missing owners or unclear dependencies creates false confidence.
 
 ---
-
 
 ## Formal Eval
 
