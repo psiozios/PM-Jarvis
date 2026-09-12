@@ -572,7 +572,7 @@ Before creating any wireframe, check these sources:
 **Priority:** PRD requirements first (the wireframe must match the spec), then user research (ground the design in real pain points), then past prototypes (maintain consistency).
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Questions to Ask Before Wireframing
 

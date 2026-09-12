@@ -30,7 +30,15 @@ echo $<BOT_TOKEN_ENV_VAR_NAME>   # should print something — never share the ou
 
 Never print secret values into chat or commit them to a file. Confirming the variable is *set* (non-empty) is enough — don't echo it into a shared transcript.
 
-✅ **Mark complete when:** all four files exist and your notifier's bot-token env var, user id, and channel are filled into your copy of `config/notifier-example.md`.
+Then register a check for every source this routine will read, in `config/source-preflight.json`, and run it once by hand:
+
+```bash
+python3 hooks/preflight_sources.py
+```
+
+A set variable is not a working credential — the check has to make a real call. This matters most for anything on OAuth: the refresh needs a browser, a scheduled run has none, and the source will answer with an empty result rather than an error. Registering the check now is what turns that into a named `reauth-interactive` line in the digest instead of a section that quietly goes blank. See `references/protocols/source-preflight.md`.
+
+✅ **Mark complete when:** all four files exist, your notifier's bot-token env var, user id, and channel are filled into your copy of `config/notifier-example.md`, and every source the routine reads has an enabled check that reports `live`.
 
 ---
 
@@ -106,16 +114,17 @@ Verify the next-run time the scheduler reports, the same way you verified it in 
 
 ## Step 7: First-fire verification
 
-**What we're testing:** The routine actually behaves per the eight disciplines on a real run.
+**What we're testing:** The routine actually behaves per the nine disciplines on a real run.
 
 Trigger the routine once (manually, or wait for its first scheduled fire) and confirm:
 
+- [ ] The notification body names which sources were swept, and names any unavailable source with its reason
 - [ ] The self-notification lands in the expected thread
 - [ ] The dated output file and `.last-*` pointer were written **only after** the notification was confirmed delivered — not before
 - [ ] If run headless/unattended, any write-to-others call (message to someone besides you, ticket, shared doc edit) was blocked and stopped rather than sent
 - [ ] Catch-up-on-wake works: clear the `.last-*` pointer, re-run, and confirm it produces a fresh run for the owed period rather than skipping
 
-✅ **Mark complete when:** all four checks pass on a real trigger.
+✅ **Mark complete when:** all five checks pass on a real trigger.
 
 ---
 

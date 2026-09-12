@@ -42,13 +42,13 @@ cd pm-jarvis
 claude
 ```
 
-### 3. Install the Memory Hook
+### 3. Install the Hooks
 ```bash
-# Copy the settings template to enable persistent memory
+# Copy the settings template to enable persistent memory and the source preflight
 cp config/settings-template.json .claude/settings.json
 ```
 
-This wires up a hook that injects your memory index each session. See `hooks/README.md` for details.
+Two hooks: one injects your memory index each turn, the other reports every connected source as live, bad, or missing at the top of each session, so a dead credential surfaces before a sweep quietly omits that source. The preflight stays silent until you register a check in `config/source-preflight.json`. See `hooks/README.md` for details.
 
 ### 4. Configure Your Workspace
 Fill out these files to personalize the system:
@@ -108,11 +108,13 @@ pm-jarvis/
 ├── config/                         # User-configurable settings
 │   ├── house-style.md              # Writing voice rules (configure me)
 │   ├── persona.md                  # Interaction style (configure me)
+│   ├── source-preflight.json       # Per-source credential checks (configure me)
 │   ├── notifier-example.md         # Notifier adapter reference (routines report back)
 │   └── settings-template.json      # Hook wiring (copy to .claude/settings.json)
 │
 ├── hooks/                          # Claude Code hook scripts
-│   └── user-prompt-submit.sh       # Memory injection hook
+│   ├── inject_memory.py            # Memory injection (UserPromptSubmit)
+│   └── preflight_sources.py        # Source credential check (SessionStart)
 │
 ├── memory/                         # Persistent cross-session memory
 │   ├── MEMORY.md                   # Index (injected per-turn via hook)
@@ -214,6 +216,8 @@ See `references/protocols/routines.md` and `setup/routine-setup.md` to build one
 Every skill ships as three files: `SKILL.md` (the method), `evals.md` (pass/fail criteria that run each invocation), and `skill-memory.md` (a living improvement journal). Reusable archetypes for radar, periodic-review, and grooming skills live in `references/protocols/skill-patterns.md`.
 
 Any skill that drops, merges, or suppresses candidates works off a written record rather than recall. It appends one line per lookup as the lookup returns, keeps one ledger row per candidate, and builds its evidence table by joining the two — a cell with no logged query behind it stays empty. A verdict of `UNPROVEN` ships as a one-line question rather than a proposal, because a search that found nothing is not proof the item is dead or alive. See `references/protocols/evidence-ledger.md`.
+
+A skill that reads a live source checks it before reading it. A connected source is not a working source — tokens expire, scopes get revoked, and an OAuth refresh needs a browser a scheduled run does not have — and in all three cases the tool answers with an empty result rather than an error. A `SessionStart` hook reports every registered source as live, bad, or missing before work starts, and a source that failed is named with its reason and never counted among the sources a run swept. See `references/protocols/source-preflight.md`.
 
 `references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep.
 

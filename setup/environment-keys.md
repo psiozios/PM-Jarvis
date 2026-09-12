@@ -45,10 +45,10 @@ $env:ANTHROPIC_API_KEY='sk-ant-api03-...'
 
 ### Verify
 ```bash
-echo $ANTHROPIC_API_KEY
+[ -n "$ANTHROPIC_API_KEY" ] && echo "set" || echo "not set"
 ```
 
-Should print your key.
+Confirming the variable is non-empty is enough. Don't echo the key itself — it lands in your shell history and in any transcript you share.
 
 ---
 
@@ -128,6 +128,17 @@ MCPs (Model Context Protocols) let Claude access external tools. Use the `/conne
 **GitHub:**
 - Personal access token from GitHub settings
 - Needed for: Code reviews, issue tracking, documentation
+
+### OAuth Tools Are a Separate Class
+
+A token either works or returns an error you can read. OAuth has a third state, and it is the one that causes trouble: the access token expires, the refresh needs a browser and a human, and **a scheduled run has neither**. Worse, most tools answer an expired OAuth session with an empty result rather than an error — so the source drops out of a sweep and the run looks like a day when nothing happened.
+
+Two consequences for setup:
+
+1. **Record which tools are OAuth-only.** Slack, Google Drive, Google Calendar, and Gmail all are, in their usual configurations. Put `oauth` in the Auth column of the registry in `references/mcp-routing.md`.
+2. **Register a real check per source** in `config/source-preflight.json`, and run it from a session start rather than trusting setup-day. The check makes the cheapest real call the tool offers and prints one reason word — `reauth-interactive` is the OAuth case, and it means no run can fix this without you.
+
+See `references/protocols/source-preflight.md` for the check contract and what a run must say about a source that failed.
 
 ### Store MCP Keys Securely
 
@@ -217,35 +228,15 @@ Store this file in a password manager like 1Password, LastPass, or Bitwarden.
 
 ## Testing Your Setup
 
-Run this command to verify all keys:
+Register each source's check in `config/source-preflight.json`, then run the preflight:
 
 ```bash
-# Test Anthropic
-echo "Testing Anthropic..."
-claude "Say hello"
-
-# Test OpenAI (if set up)
-if [ ! -z "$OPENAI_API_KEY" ]; then
-    echo "Testing OpenAI..."
-    curl https://api.openai.com/v1/models \
-      -H "Authorization: Bearer $OPENAI_API_KEY" \
-      --silent | grep -q "gpt-4" && echo "✓ OpenAI working" || echo "✗ OpenAI failed"
-fi
-
-# Test Google (if set up)
-if [ ! -z "$GOOGLE_API_KEY" ]; then
-    echo "Testing Google..."
-    echo "✓ Google key set (manual test required)"
-fi
-
-echo "Environment check complete!"
+python3 hooks/preflight_sources.py
 ```
 
-Save as `test-keys.sh`, make executable, and run:
-```bash
-chmod +x test-keys.sh
-./test-keys.sh
-```
+It prints one row per registered source: `live`, `bad`, or `missing`, with a reason on anything that failed. Wire it to `SessionStart` (see `hooks/README.md`) and it runs at the top of every session, so you find out the tracker is dead before a sweep silently omits it rather than after.
+
+**Checking that a variable is set is not a test.** `echo $SOME_TOKEN` proves a string exists, not that the other end accepts it — and it puts a secret in your scrollback. A check makes the cheapest real call the source offers, exits non-zero on failure, and prints a reason word rather than the credential.
 
 ---
 

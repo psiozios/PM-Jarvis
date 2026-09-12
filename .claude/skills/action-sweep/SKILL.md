@@ -37,7 +37,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Sweep state | `.last-sweep` (this skill's own state file) | Window start for "since last sweep" |
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 
@@ -45,9 +45,9 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 Read `.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed.
 
-### 2. Sweep every source, both directions
+### 2. Preflight, then sweep every source that answered, both directions
 
-Pull candidate action items from every source in the routing table. For the chat platform and email specifically, sweep **both directions**: things asked of the user, and things the user committed to doing. Read every candidate thread to resolution — a search hit is a pointer, not an answer (see `references/protocols/skill-patterns.md` discipline #1).
+Check the sources before reading them (`references/protocols/source-preflight.md`). Keep the two lists the coverage line needs: what answered, and what came back `bad` or `missing` with its reason. Then pull candidate action items from every source that answered. For the chat platform and email specifically, sweep **both directions**: things asked of the user, and things the user committed to doing. Read every candidate thread to resolution — a search hit is a pointer, not an answer (see `references/protocols/skill-patterns.md` discipline #1).
 
 ### 3. Apply exclusions, on the record
 
@@ -81,6 +81,9 @@ After the reconciliation is applied (or explicitly declined), write `.last-sweep
 ```markdown
 # Action Sweep — <DATE> (since <WINDOW START>)
 
+**Swept:** <the sources that answered>
+**Unavailable:** <source — state, reason, and what repairs it; "none" when every source answered>
+
 ## Questions (shipped first — each is one line, and the run is blocked on nothing else)
 - <the `UNPROVEN` item, as a question only the user can answer>
 
@@ -105,6 +108,7 @@ This is a strong candidate for a scheduled routine — see `references/protocols
 ## Output Quality Self-Check
 
 - [ ] Window correctly resolved from `.last-sweep`, with the first-run-of-day fallback applied when relevant
+- [ ] Coverage line present, naming what was swept and what was unavailable with its reason — it ships even when nothing failed
 - [ ] Both directions swept on the chat platform and email, not just inbound
 - [ ] Every verified-done item cites where the resolution was found
 - [ ] Lookup log appended as each lookup returned, and every evidence cell joined back to a query in it
@@ -138,6 +142,7 @@ See `references/protocols/skill-evals.md`.
 ## Common Mistakes
 
 - Sweeping only inbound asks and missing the user's own outbound commitments
+- Claiming "every source" when one was dead, or killing a candidate on the silence of a source that never answered
 - Surfacing an item as open when it was already resolved elsewhere
 - Creating tasks or marking items done before the reconciliation table was approved
 - Sending an outward message automatically instead of drafting it

@@ -35,7 +35,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Docs hub | `<DOCS_HUB>` | Where the read-ahead publishes, and the prior week's read-ahead for continuity |
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 

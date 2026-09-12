@@ -131,13 +131,15 @@ Enter your Project ID: [you paste here]
 
 **Note:** Your credentials are handled by the MCP system securely. I don't store them in files.
 
-### Step 5: Test Connection & Discover Tools
+### Step 5: Test Connection, Discover Tools, Register a Preflight Check
 
 Once credentials are provided:
-- Test the connection to verify it works
+- Test the connection to verify it works — a real call, not a status flag
 - Query the MCP server to discover available tools
 - Extract tool names, descriptions, and parameters
 - Document capabilities for routing
+- **Record the auth type** (`oauth` / `token` / `none`) in the registry's Auth column. OAuth matters because its refresh needs a browser, so an unattended run can never repair it
+- **Register a preflight check** for the source in `config/source-preflight.json`, keyed on the placeholder the skills route on (`<TASK_TRACKER>`, `<CALENDAR>`, and so on). A connection tested today says nothing about a token three weeks from now; the check is what makes the failure visible instead of silent. See `references/protocols/source-preflight.md`
 
 Example discovered tools for Amplitude:
 - `query_insights` - Query product analytics data
@@ -1254,6 +1256,8 @@ Before confirming an MCP connection is complete, verify:
 - [ ] **Routing logic updated** -- Natural language query patterns are mapped to this MCP in CLAUDE.md
 - [ ] **Integration log saved** -- Detailed log written to `outputs/mcp-integration-logs/[timestamp]-[tool].md`
 - [ ] **Fallback documented** -- Skills note what to do when this MCP is unavailable
+- [ ] **Auth type recorded** -- `oauth` / `token` / `none` in the registry's Auth column
+- [ ] **Preflight check registered** -- an enabled entry in `config/source-preflight.json` that makes a real call and reports `live`
 - [ ] **No duplicate entries** -- MCP is not listed twice in registry or skill files
 - [ ] **PM knows how to use it** -- Example natural language queries provided so the PM can start using the MCP immediately
 

@@ -116,6 +116,7 @@ These checks appear in every skill's evals.md regardless of archetype.
 - **Human-sounding**: Varied sentence lengths, contractions used naturally, no formulaic paragraph openings
 - **Context-grounded**: References specific data from context sources — not generic placeholder language
 - **Durability** (Document-Writer, Analysis, and Research-Synthesis archetypes — see `references/protocols/freshness-provenance.md`): No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent
+- **Source coverage** (any skill that reads a live source — see `references/protocols/source-preflight.md`): The output names which sources answered and, separately, any source that was unavailable with its reason. A source that never answered is never listed as swept, and its silence never kills a candidate. **A run where a source failed and the output does not say so is a FAIL**, not a PARTIAL — the reader has no other way to know
 
 ## Skill Archetypes
 

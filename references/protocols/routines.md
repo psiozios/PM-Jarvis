@@ -4,9 +4,9 @@
 
 A routine turns an existing skill (or short chain of skills) into something that fires on a schedule, checks its own state, and reports back through a notification. This protocol is the discipline every routine follows, regardless of what it schedules or how often it fires.
 
-See `references/protocols/notifications.md` for the outbound-notification contract routines use to report back, and `setup/routine-setup.md` for the guided walkthrough that turns this protocol into a working routine.
+See `references/protocols/notifications.md` for the outbound-notification contract routines use to report back, `references/protocols/source-preflight.md` for the source check that runs before anything else, and `setup/routine-setup.md` for the guided walkthrough that turns this protocol into a working routine.
 
-## The Eight Disciplines
+## The Nine Disciplines
 
 ### 1. Thin wrapper
 
@@ -67,9 +67,19 @@ Compute ALL time in the machine's local timezone — never a hardcoded zone. Thi
 
 A routine hardcoded to UTC (or to the timezone of whoever wrote it) silently misfires for a user in a different timezone — it fires at the wrong wall-clock hour, or worse, computes the wrong day-key entirely near midnight.
 
+### 9. Preflight before the guard
+
+**A routine checks its sources before it checks whether it already ran.** Preflight is step one, ahead of the idempotency guard, because the answer changes what the run should say about itself: a run that reaches four of five sources produces a four-source digest, and the reader needs to know which four.
+
+Run the registered checks per `references/protocols/source-preflight.md`. Then:
+
+- A source that comes back `bad` or `missing` is **named in the notification with its reason** and excluded from any list of sources swept. The run continues on what answered.
+- **An OAuth-only source is never retried unattended.** The refresh needs a browser and there isn't one. Report `reauth-interactive` once and move on; a retry loop against a consent screen burns the run and still ends with no data. Re-auth is the user's action, and the notification's job is to tell them it is waiting.
+- A run where **every** source failed still reports. A silent routine is indistinguishable from a routine that stopped firing, which is the failure mode discipline #2 exists to prevent.
+
 ## Worked Example
 
-`routines/example-daily-digest/SKILL.md` is a fully commented skeleton implementing all eight disciplines. Copy it as the starting point for a new routine — see `setup/routine-setup.md` for the guided walkthrough.
+`routines/example-daily-digest/SKILL.md` is a fully commented skeleton implementing all nine disciplines. Copy it as the starting point for a new routine — see `setup/routine-setup.md` for the guided walkthrough.
 
 ## Durable Enforcement
 

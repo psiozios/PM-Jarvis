@@ -40,21 +40,25 @@ Orchestrates: `<SKILL_NAME>` (cite it — see discipline #1, thin wrapper. Do no
 
 ### 1. Bind rules
 
-Read `references/protocols/routines.md`, `references/protocols/notifications.md`, and your notifier config (`config/notifier-example.md` or equivalent).
+Read `references/protocols/routines.md`, `references/protocols/notifications.md`, `references/protocols/source-preflight.md`, and your notifier config (`config/notifier-example.md` or equivalent).
 
-### 2. Guard
+### 2. Preflight
+
+Run the registered source checks (discipline #9). Record which sources came back `live`, and which came back `bad` or `missing` with the reason. Continue on whatever answered — but carry the unavailable list into the notification body, and never count a failed source among the sources swept. An `oauth` source reporting `reauth-interactive` is not retried here; say it needs the user and move on.
+
+### 3. Guard
 
 Compute the current period key in local time. Check it against `.last-run-<period>` (discipline #3: local state only, never chat history or downstream tool state). Missing/stale key → proceed, including catch-up for a missed prior period (discipline #4).
 
-### 3. Gather
+### 4. Gather
 
 Read context per `<SKILL_NAME>`'s own Context Routing Logic table — don't duplicate that table here.
 
-### 4. Decide
+### 5. Decide
 
 Run `<SKILL_NAME>` per its definition.
 
-### 5. Execute
+### 6. Execute
 
 Apply the autonomy gate (discipline #7) to any proposed write:
 
@@ -62,11 +66,11 @@ Apply the autonomy gate (discipline #7) to any proposed write:
 - No approval → list and stop.
 - Write-to-others (anyone but the user, email, ticket, shared doc, invite) → never call unattended.
 
-### 6. Deliver
+### 7. Deliver
 
 See SENDING / THREADING below.
 
-### 7. Stamp
+### 8. Stamp
 
 Only after the send is confirmed: write the dated output, advance `.last-run-<period>`.
 

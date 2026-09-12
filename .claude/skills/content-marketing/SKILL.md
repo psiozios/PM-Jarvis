@@ -50,7 +50,7 @@ Output: outputs/content/[type]-[feature]-[date].md
 ---
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 **Everything this skill produces is outward content**, so the content-authority rules in `references/protocols/register.md` bind every mode below: read the brand system live before drafting, treat any local copy as a dated mirror, and remember the authority does not reach `CLAUDE.md`'s absolute rules or `config/house-style.md` — a brand system cannot license a banned word or an unsourced number.
 

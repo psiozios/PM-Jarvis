@@ -72,6 +72,7 @@ Load only what the current task requires. Do not read everything upfront.
 | File shape and conformance checks | `references/protocols/prompt-architecture.md` |
 | Absolute-rule lookup tables | `references/absolute-rules.md` |
 | Interaction persona | `config/persona.md` |
+| Whether a live source is actually reachable | `references/protocols/source-preflight.md` |
 | Register: how a piece should sound | `references/protocols/register.md` |
 | Audience-specific writing | `context-library/writing-style-*.md` |
 | Stakeholder profiles | `context-library/stakeholder-template.md` |
@@ -138,7 +139,7 @@ See `references/file-creation-rules.md` for the full output directory taxonomy a
 
 ## Tools & MCPs
 
-MCP integrations extend skills with live data. All skills degrade gracefully when MCPs are absent, falling back to context-library files and manual input.
+MCP integrations extend skills with live data. All skills degrade gracefully when MCPs are absent, falling back to context-library files and manual input. Degrading is not the same as staying quiet about it: a source that failed is named as unavailable with its reason and is never listed among the sources a run swept (`references/protocols/source-preflight.md`).
 
 See `references/mcp-routing.md` for query routing rules and connection instructions. Use `/connect-mcps connect to [tool]` for guided setup.
 

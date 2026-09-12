@@ -35,7 +35,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
 | E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
-| E9 | | |
+| E9 | Source coverage declared *(any skill that reads a live source — delete this row for skills that read only local files)* | The output names which sources answered and, separately, any source that was unavailable with its reason. A source that never answered is never counted as swept, and its silence never kills a candidate. See `references/protocols/source-preflight.md`. |
 
 ### Completeness & Context
 

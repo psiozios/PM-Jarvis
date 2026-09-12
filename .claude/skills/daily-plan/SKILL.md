@@ -110,7 +110,7 @@ If no integrations available, I'll:
 ---
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 
@@ -135,10 +135,12 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
    - If exists: Extract this week's Top 3 priorities
    - If missing: Note that week isn't planned (suggest `/weekly-plan`)
 
-4. **MCP availability check:**
-   - Attempt to query each MCP silently
-   - Note which MCPs are connected
-   - Plan graceful fallback for missing MCPs
+4. **Source preflight** (`references/protocols/source-preflight.md`):
+   - Run each source's registered check before gathering, not a status flag
+   - Record which answered, and which came back `bad` or `missing` with the reason
+   - Plan the fallback for each source that failed
+   - Put the unavailable ones in the plan itself, by name and reason. An `oauth` source returning `reauth-interactive` needs the user, and no run can fix it
+   - A silently skipped section is the defect this replaces: it reads as "nothing to report" when the real answer is "nobody asked"
 
 ---
 

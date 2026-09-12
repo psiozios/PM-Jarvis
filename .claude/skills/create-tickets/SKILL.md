@@ -59,7 +59,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Related in-flight work | `context-library/prds/`, `outputs/prds/` | Domain changes elsewhere that this one depends on or duplicates |
 | Metrics and research | `<METRICS_SOURCE>`, `context-library/research/` | The evidence behind any behavioral or impact claim a ticket makes |
 
-For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 

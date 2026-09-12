@@ -36,9 +36,12 @@ When reporting status of anything (a metric, a decision, a task), verify against
 
 ## Graceful Degradation
 
-- **MCP unavailable:** Fall back to `context-library/` files for the same data type.
+- **Live source failed** (a credential expired, a scope was revoked, an OAuth refresh needs a browser the run doesn't have): fall back, and **report it unavailable by name with the reason it gave**. It does not appear in any list of sources the run covered. See `references/protocols/source-preflight.md` — a failed source and a source with nothing to say look identical in the data and mean opposite things.
+- **MCP not connected at all:** Fall back to `context-library/` files for the same data type, and say once that you did.
 - **File empty or missing:** Proceed without it. Note what's missing in your output.
 - **Multiple sources conflict:** Flag the conflict. Cite both sources. Use the more recent one unless the user says otherwise.
+
+**Degradation is disclosed, not silent.** Reading around a dead source is fine; letting the output imply that source was consulted is not.
 
 ## Anti-Patterns
 
@@ -46,3 +49,4 @@ When reporting status of anything (a metric, a decision, a task), verify against
 - Asking the user for information that's already in a file (lazy)
 - Skipping context reads entirely and producing generic output (careless)
 - Reading files sequentially when parallel reads are possible (slow)
+- Listing a source as covered when it never answered (dishonest, and the defect is invisible from outside the run)

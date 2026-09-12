@@ -4,6 +4,25 @@ This directory contains hook scripts that extend Claude Code's behavior.
 
 ## Available Hooks
 
+### preflight_sources.py
+
+**Purpose:** Reports every registered live source as `live`, `bad`, or `missing` at the top of the session, before any work starts.
+
+**Why:** A connected source is not a working source. Tokens expire, scopes get revoked, and an OAuth refresh needs a browser — which a scheduled run does not have. In all three cases the tool answers with an empty result rather than an error, so the source drops out of a sweep and the output looks exactly like a run where that source had nothing to report. Checking up front turns a silent gap into a named one.
+
+**How it works:**
+
+1. On session start, the hook reads `config/source-preflight.json`
+2. It runs each enabled source's check command — the cheapest real call that source offers, not an environment-variable test
+3. Exit 0 is `live`; a non-zero exit is `bad` or `missing`, and the check's own output names the reason
+4. It prints a state table and an explicit unavailable list inside `<source-preflight>` tags
+
+**What the assistant does with it:** reports an unavailable source by name and reason, excludes it from any list of sources swept, and never reads its silence as evidence about a candidate. The rule lives in `references/protocols/source-preflight.md`; the hook only supplies the facts.
+
+**Setup:** copy `config/source-preflight.json`, fill in a real check per source, and set `enabled` to true. With nothing enabled the hook prints nothing and costs nothing.
+
+**Secrets:** checks print a reason word and never a credential. Do not write an `echo $TOKEN` into one.
+
 ### inject_memory.py
 
 **Purpose:** Injects only the *universal* tier of the memory index into every conversation turn so the assistant is aware of persistent facts and preferences without growing per-turn cost.
@@ -48,11 +67,17 @@ Stub pointing to `inject_memory.py`. Safe to delete.
 
 2. If you already have a `.claude/settings.json`, merge the `hooks` section from `config/settings-template.json` into your existing file.
 
-3. Verify the hook works by starting Claude Code and checking that memory context appears in the conversation.
+3. Verify the hooks work by starting Claude Code: memory context should appear in the conversation, and a source table should appear at the top of the session once you have enabled at least one check.
+
+4. Both hooks can be run by hand to see their output before you trust them:
+   ```bash
+   python3 hooks/preflight_sources.py
+   ```
 
 ## Creating Your Own Hooks
 
 Claude Code supports hooks on these events:
+- `SessionStart` - runs once when a session begins, before the first turn
 - `UserPromptSubmit` - runs when the user sends a message
 - `PreToolUse` - runs before a tool executes
 - `PostToolUse` - runs after a tool executes

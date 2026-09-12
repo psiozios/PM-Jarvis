@@ -4,14 +4,16 @@ This file defines how natural-language queries route to the right MCP server or 
 
 ## Connected MCPs
 
-| MCP | Purpose | Category | Used In | Key Tools |
-|-----|---------|----------|---------|-----------|
-| _None connected yet_ | Run `/connect-mcps connect to [tool]` to get started | - | - | - |
+| MCP | Purpose | Category | Auth | Used In | Key Tools |
+|-----|---------|----------|------|---------|-----------|
+| _None connected yet_ | Run `/connect-mcps connect to [tool]` to get started | - | - | - | - |
 
 <!-- After connecting MCPs, entries appear like:
-| Amplitude | Product analytics | Analytics | feature-metrics, impact-sizing, retention-analysis | query_insights, get_funnels, cohort_analysis |
-| Linear | Project management | PM Tools | create-tickets, meeting-notes, status-update | create_issue, update_issue, search_issues |
+| Amplitude | Product analytics | Analytics | token | feature-metrics, impact-sizing, retention-analysis | query_insights, get_funnels, cohort_analysis |
+| Linear | Project management | PM Tools | oauth | create-tickets, meeting-notes, status-update | create_issue, update_issue, search_issues |
 -->
+
+**The Auth column is load-bearing.** An `oauth` source cannot repair itself in an unattended run — the refresh needs a browser and a human, and the failure arrives as an empty result rather than an error. Record the auth type when you connect the tool and register a check for it in `config/source-preflight.json`. See `references/protocols/source-preflight.md`.
 
 ## Query Routing Rules
 
@@ -76,10 +78,13 @@ Use `/connect-mcps connect to [tool name]` for guided setup.
 
 **After connecting:**
 1. Test the connection and discover available tools
-2. Map the MCP to relevant skills
-3. Update this routing table
-4. Save integration log to `outputs/mcp-integration-logs/`
+2. Record the auth type, and register a preflight check for the source in `config/source-preflight.json`
+3. Map the MCP to relevant skills
+4. Update this routing table
+5. Save integration log to `outputs/mcp-integration-logs/`
 
 ## Graceful Degradation
 
 All skills work without MCPs by falling back to context-library files and manual user input. MCPs are optional enhancements, not requirements.
+
+**Three failure modes, not one.** *Not connected* is the case this file was written for. *Connected but failing* — an expired token, a revoked scope, an OAuth refresh with no browser — is the dangerous one, because the tool answers with an empty result and the source leaves the run without saying so. *Connected and empty* is a real zero and a finding about the window. Only the last of the three may be read as data. `references/protocols/source-preflight.md` carries the check contract and the rule that a failed source is named with its reason and never counted as swept.

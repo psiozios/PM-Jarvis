@@ -12,7 +12,7 @@ identity and cron schedule are still workspace-specific). The three skills
 below are real, shipped skills — this routine is runnable as-is once your
 notifier config and tool placeholders in those skills are filled in.
 
-This skeleton implements all eight disciplines from
+This skeleton implements all nine disciplines from
 `references/protocols/routines.md`. Read that file first; the comments below
 point at which discipline each block satisfies but do not restate it.
 
@@ -44,26 +44,30 @@ Every run executes these steps in order. Do not reorder; do not skip the guard.
 
 ### 1. Bind rules
 
-Read `references/protocols/routines.md` and `references/protocols/notifications.md` into context. Read `config/notifier-example` (or your real notifier config) for credentials and identity — never print secret values.
+Read `references/protocols/routines.md`, `references/protocols/notifications.md`, and `references/protocols/source-preflight.md` into context. Read `config/notifier-example` (or your real notifier config) for credentials and identity — never print secret values.
 
-### 2. Guard (idempotency check — discipline #3)
+### 2. Preflight the sources (discipline #9)
+
+Run the registered checks in `config/source-preflight.json` before the guard, because the result changes what this digest can honestly claim. Keep two lists: the sources that answered, and the ones that came back `bad` or `missing` with their reason. The three chained skills all read from that same set, so a source that failed here is unavailable to every one of them — it goes into the digest's unavailable line by name and reason, and never appears among the sources a section swept. A `<CALENDAR>` or `<EMAIL_SOURCE>` on OAuth returning `reauth-interactive` is not retried: this run has no browser, so the digest says the user needs to re-consent and carries on with what is left.
+
+### 3. Guard (idempotency check — discipline #3)
 
 Compute today's period key in local time (discipline #8). Check `.last-run-<period>` against that key.
 
 - If the key matches an already-recorded run for this period: STOP. Do not re-run. Do not consult chat history, prior notifications, or downstream tool state to make this decision — local state only.
 - If the key is missing, older than the current period, or was cleared: proceed. This also covers catch-up-on-wake (discipline #4) — a missed period runs on next wake, keyed to the period it was owed for, not the day the routine happens to wake up.
 
-### 3. Gather
+### 4. Gather
 
 Each of the three skills reads its own context per its own Context Routing Logic table. Do not duplicate those tables here — read them from the skills.
 
-### 4. Decide (run the chain in order)
+### 5. Decide (run the chain in order)
 
 Run `meeting-prep` per its definition. Then run `action-sweep` per its definition. Then run `loose-threads` per its definition. Capture each skill's output section — this routine does not reimplement any of their internal logic, it just sequences them and combines what they produce into one digest body.
 
 If `meeting-prep` finds no upcoming meeting today, note that plainly and continue to `action-sweep` — a skipped section is not a failed run.
 
-### 5. Execute
+### 6. Execute
 
 If any skill's output implies a write to the user's own systems (their own tracker, their own draft folder — e.g. `action-sweep`'s task creation/mark-done step), apply the autonomy gate (discipline #7):
 
@@ -71,9 +75,9 @@ If any skill's output implies a write to the user's own systems (their own track
 - No standing approval → list the proposed write and stop. Do not guess.
 - Under no circumstances call a write-to-others tool (message to anyone but <USER_ID>, email, ticket, shared doc edit, calendar invite) unattended. That class of call is blocked at the tool layer regardless of what this prompt says.
 
-### 6. Deliver (see SENDING block below)
+### 7. Deliver (see SENDING block below)
 
-### 7. Stamp
+### 8. Stamp
 
 Only after the notification send is CONFIRMED (per `notifications.md` item 2):
 
@@ -95,7 +99,8 @@ notifier.send(
   identity   = <BOT_IDENTITY>,          # bot identity, never "send as the user"
   target     = <USER_ID>,               # the user's own surface — self-notification only
   thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 3
-  body       = <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections
+  body       = <sources swept, and any unavailable with its reason — discipline #9>
+             + <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections
   notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 4>,
 )
 ```

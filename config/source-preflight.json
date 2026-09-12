@@ -1,0 +1,42 @@
+{
+  "_README": [
+    "Registry for the source preflight. See references/protocols/source-preflight.md.",
+    "One entry per source key — use the same <PLACEHOLDER> keys the skills already",
+    "route on: <TASK_TRACKER>, <CALENDAR>, <CHAT_PLATFORM>, <EMAIL_SOURCE>,",
+    "<METRICS_SOURCE>, <DOCS_HUB>, <CALL_TRANSCRIPT_SOURCE>, <REVIEWS_STORE>.",
+    "",
+    "  label   Human name for the table.",
+    "  auth    'oauth' | 'token' | 'none'. Mark 'oauth' when the refresh needs a",
+    "          browser — those cannot be repaired by an unattended run.",
+    "  check   Shell command. Exit 0 = live. Non-zero = failed, and the command",
+    "          prints one reason word from the closed list on stdout or stderr:",
+    "          no-credential expired reauth-interactive scope-missing unreachable",
+    "          rate-limited unknown",
+    "          Make the cheapest REAL call the source offers — one record, one page.",
+    "          A set environment variable is not a working credential.",
+    "  timeout Seconds before the check is abandoned and scored 'unreachable'.",
+    "  fix     One line telling the user how to repair it. Shown on failure.",
+    "  enabled Set true once you have filled in a real check.",
+    "",
+    "Never print a secret from a check. Print the reason word, nothing else.",
+    "The two entries below are shape examples and are disabled."
+  ],
+  "sources": {
+    "<TASK_TRACKER>": {
+      "label": "Task tracker",
+      "auth": "token",
+      "check": "curl -sf -m 8 -o /dev/null -H \"Authorization: $TRACKER_TOKEN\" \"$TRACKER_API/issues?limit=1\" || { [ -z \"$TRACKER_TOKEN\" ] && echo no-credential || echo unreachable; exit 1; }",
+      "timeout": 10,
+      "fix": "Re-run /connect-mcps connect to <your tracker>, or refresh TRACKER_TOKEN.",
+      "enabled": false
+    },
+    "<CALENDAR>": {
+      "label": "Calendar",
+      "auth": "oauth",
+      "check": "python3 scripts/check_calendar.py",
+      "timeout": 15,
+      "fix": "OAuth refresh needs a browser. Run the check by hand once from an interactive session to re-consent.",
+      "enabled": false
+    }
+  }
+}

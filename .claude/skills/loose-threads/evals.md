@@ -1,8 +1,8 @@
 ---
 skill: loose-threads
 archetype: Workflow-Orchestration
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /loose-threads
@@ -44,6 +44,12 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Correct whose-court classification | Each item's court call is defensible from the thread content, not guessed |
 | E11 | Propose-not-auto-create | No task was created in the tracker without an explicit confirmation step |
 | E12 | Deduped against action-sweep | No item duplicates something already surfaced in `action-sweep`'s most recent output |
+
+### Source Coverage
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Source coverage declared | The output names which sources answered and, separately, any source that was unavailable with its reason. FAIL on a coverage claim that includes a source which never answered, and on any candidate killed by the silence of an unavailable source. See `references/protocols/source-preflight.md` |
 
 ## Scoring
 

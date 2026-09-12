@@ -35,13 +35,13 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Sibling sweep | `action-sweep` output | Dedupe — don't re-flag something `action-sweep` already surfaced as an action item |
 
 
-For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected.
+For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 
-### 1. Full-window, from-scratch sweep
+### 1. Preflight, then full-window, from-scratch sweep
 
-Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3). A carried thread is re-opened and re-checked like any other candidate; where this run's evidence shows it closed, close it here in one line with the quote rather than carrying it into another bucket.
+Check the sources first (`references/protocols/source-preflight.md`) and hold what answered against what did not, with reasons — a thread cannot be judged stalled off a channel that never replied to the query. Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3). A carried thread is re-opened and re-checked like any other candidate; where this run's evidence shows it closed, close it here in one line with the quote rather than carrying it into another bucket.
 
 ### 2. Sweep both directions
 
@@ -77,6 +77,9 @@ For "yours" items only, propose a task in `<TASK_TRACKER>` as a numbered list aw
 ```markdown
 # Loose Threads — <DATE>
 
+**Swept:** <the sources that answered>
+**Unavailable:** <source — state, reason, and what repairs it; "none" when every source answered>
+
 ## Fresh (0-2 days)
 - **[<thread title>](<deep link>)** — <whose court>: <one line on what's owed>
   Checked: <cross-reference>
@@ -102,6 +105,7 @@ Natural fit for a scheduled routine — see `references/protocols/routines.md` a
 
 ## Output Quality Self-Check
 
+- [ ] Coverage line present, naming what was swept and what was unavailable with its reason — it ships even when nothing failed
 - [ ] Full window re-swept, not narrowed by prior-run state
 - [ ] Carried items re-checked with their own fresh lookups, and any the evidence closes are closed here
 - [ ] Both directions covered — inbound and the user's own outbound posts
@@ -135,6 +139,7 @@ See `references/protocols/skill-evals.md`.
 ## Common Mistakes
 
 - Flagging a thread as stalled without cross-checking whether it resolved elsewhere
+- Treating a dead source's silence as evidence a loop is open, or listing that source as swept
 - Narrowing the sweep window based on what a previous run already found
 - Auto-creating follow-up tasks instead of proposing them
 - Re-flagging something `action-sweep` already surfaced
