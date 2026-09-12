@@ -72,7 +72,7 @@ Inherit the action rules from the routine's own autonomy gate (`references/proto
 
 ### 5. Post and mark
 
-Post the reply in-thread with the notifier's mention token (per `references/protocols/notifications.md` item 4 — this is a material update, so it notifies).
+Post the reply in-thread with the notifier's mention token (per `references/protocols/notifications.md` item 5 — this is a material update, so it notifies).
 
 **Only after the send is confirmed:**
 1. Advance `.last-reply-processed` for that thread to the message just handled.

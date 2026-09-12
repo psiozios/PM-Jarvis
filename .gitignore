@@ -7,6 +7,15 @@ __pycache__/
 .claude/settings.local.json
 .claude/settings.json
 
+# Routine and sweep run state. Per-user, and the thread pointers carry real
+# thread ids from the user's own chat platform. The marker files are also the
+# already-ran guard, so committing one ships somebody else's "already ran".
+routines/*/.last-*
+routines/*/.thread-pointer.json
+routines/*/outputs/
+.last-sweep
+.last-ingest
+
 # Memory (personal entries are user-specific; index, docs, and placeholders ship with the repo)
 memory/*.md
 !memory/MEMORY.md

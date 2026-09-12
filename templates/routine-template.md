@@ -32,9 +32,9 @@ Orchestrates: `<SKILL_NAME>` (cite it — see discipline #1, thin wrapper. Do no
 
 | File | Purpose |
 |---|---|
-| `routines/<ROUTINE_NAME>/outputs/YYYY-MM-DD-<slug>.md` | Dated output |
-| `routines/<ROUTINE_NAME>/.last-run-<period>` | Already-ran guard |
-| `routines/<ROUTINE_NAME>/.thread-pointer.json` | Notification thread anchor(s) |
+| `routines/<ROUTINE_NAME>/outputs/YYYY-MM-DD-<slug>.md` | Dated output — evidence the work happened, never a guard |
+| `routines/<ROUTINE_NAME>/.last-run-<period>` | Already-ran guard — written only on confirmed delivery |
+| `routines/<ROUTINE_NAME>/.thread-pointer.json` | Notification thread anchor(s) — copy-only, pruned per `notifications.md` item 7 |
 
 ## Step Skeleton
 
@@ -68,11 +68,11 @@ Apply the autonomy gate (discipline #7) to any proposed write:
 
 ### 7. Deliver
 
-See SENDING / THREADING below.
+In order: write the dated output, render the summary in the conversation, then post. Rendering before posting matters — the notification must not arrive before the thing it points at exists (`notifications.md` item 3). See SENDING / THREADING below.
 
 ### 8. Stamp
 
-Only after the send is confirmed: write the dated output, advance `.last-run-<period>`.
+Advance `.last-run-<period>` **only on the transport's confirmation of delivery**. The marker is the only already-ran signal; the dated output is evidence the work happened and is never a guard (discipline #2). Unconfirmed send → marker untouched, period still owed.
 
 ## SENDING
 
@@ -82,7 +82,7 @@ notifier.send(
   target     = <USER_ID>,
   thread_key = "<period>|<anchor-id>",
   body       = <rendered output summary>,
-  notify     = <true | false>,   # material update vs no-op — notifications.md item 4
+  notify     = <true | false>,   # material update vs no-op — notifications.md item 5
 )
 ```
 
@@ -98,7 +98,7 @@ else:
 notifier.reply_in_thread(anchor.thread_id, body, notify=<see SENDING>)
 ```
 
-Self-heal on a missing anchor per `notifications.md` item 6: re-post, overwrite the pointer, retry once.
+Self-heal on a missing anchor per `notifications.md` item 8: re-post, overwrite the pointer, retry once.
 
 ## Fill These
 

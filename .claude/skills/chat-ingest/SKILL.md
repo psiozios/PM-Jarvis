@@ -67,7 +67,7 @@ Hand off confirmed threads to `second-brain`'s own `ingest` mode, one at a time 
 
 ### 6. Stamp
 
-After a daily catch-all run completes (or is explicitly declined), write `.last-ingest` to the current timestamp.
+After a daily catch-all run completes (or is explicitly declined), write `.last-ingest` to the current timestamp — **not before**, so a partial or aborted run re-reads the same window next time rather than skipping it forever. The marker goes on the confirmation, never on the work having been done.
 
 ## Output Template
 

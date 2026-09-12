@@ -120,11 +120,12 @@ Trigger the routine once (manually, or wait for its first scheduled fire) and co
 
 - [ ] The notification body names which sources were swept, and names any unavailable source with its reason
 - [ ] The self-notification lands in the expected thread
-- [ ] The dated output file and `.last-*` pointer were written **only after** the notification was confirmed delivered — not before
+- [ ] The summary appeared in the conversation **before** the outbound post, not after
+- [ ] The `.last-*` marker was advanced **only after** the transport confirmed delivery. The dated output file may be written earlier — it is evidence, never the guard
 - [ ] If run headless/unattended, any write-to-others call (message to someone besides you, ticket, shared doc edit) was blocked and stopped rather than sent
-- [ ] Catch-up-on-wake works: clear the `.last-*` pointer, re-run, and confirm it produces a fresh run for the owed period rather than skipping
+- [ ] Catch-up-on-wake works: clear the `.last-*` marker while **leaving the dated output file in place**, re-run, and confirm it produces a fresh run for the owed period. If the leftover file suppresses the run, the guard is reading the wrong thing (discipline #2) — this is the exact failure a run that dies mid-send would hit forever
 
-✅ **Mark complete when:** all five checks pass on a real trigger.
+✅ **Mark complete when:** all six checks pass on a real trigger.
 
 ---
 

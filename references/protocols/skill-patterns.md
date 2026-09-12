@@ -62,6 +62,8 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Pick each item's section by what the reader does with it**, not by which check produced it. Where a second section has a caveat about the same item, fold the caveat into the line carrying the action — **fold rather than delete**, so the caveat survives at the point of use.
 
+**Render the checkpoint before you post it anywhere.** Where a checkpoint also goes out through a notifier, an email, or a message, the reader's own copy has to exist first: a tool call finishes before your prose does, so posting first means the ping lands and the reader opens a session with nothing waiting in it. Order it per checkpoint — write, render, post — and see `references/protocols/notifications.md` item 3 for the outbound half.
+
 **Fold a caveat; re-gate an answer.** The fold rule covers a caveat that qualifies an item without settling it — a low-confidence source, a partial window, an owner who may have moved. It does not cover evidence bearing on whether the item is **done**. That evidence sends the item back through its own gate with the source read directly, and the gate's new verdict is what ships. Folding it in as a caveat leaves a proposal standing next to a note saying it might already be handled, which is the shape that gets acted on and then found to have been closed a week ago.
 
 ## Named Archetypes

@@ -17,9 +17,9 @@ This skeleton implements all nine disciplines from
 point at which discipline each block satisfies but do not restate it.
 
 State files this routine owns (discipline #2 — one owner per file):
-  routines/example-daily-digest/outputs/YYYY-MM-DD-digest.md   (dated output)
-  routines/example-daily-digest/.last-run-<period>              (already-ran guard)
-  routines/example-daily-digest/.thread-pointer.json             (notification thread — see notifications.md)
+  routines/example-daily-digest/outputs/YYYY-MM-DD-digest.md   (dated output — evidence, never a guard)
+  routines/example-daily-digest/.last-run-<period>              (already-ran guard — confirmed delivery only)
+  routines/example-daily-digest/.thread-pointer.json             (notification thread, copy-only — prune per notifications.md item 7)
 -->
 
 ## What This Routine Does
@@ -75,16 +75,17 @@ If any skill's output implies a write to the user's own systems (their own track
 - No standing approval → list the proposed write and stop. Do not guess.
 - Under no circumstances call a write-to-others tool (message to anyone but <USER_ID>, email, ticket, shared doc edit, calendar invite) unattended. That class of call is blocked at the tool layer regardless of what this prompt says.
 
-### 7. Deliver (see SENDING block below)
+### 7. Deliver, in this order (see SENDING block below)
+
+1. **Write the dated output file.** It is the artifact, and the notification can point at it. It is never the already-ran guard.
+2. **Render the digest in the conversation.** Before the outbound call, not after — the tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3).
+3. **Post the notification.**
 
 ### 8. Stamp
 
-Only after the notification send is CONFIRMED (per `notifications.md` item 2):
+Advance `.last-run-<period>` to the current period key **only once the transport has confirmed delivery** (per `notifications.md` item 2). The marker is the one thing that means "already ran."
 
-1. Write the dated output file.
-2. Advance `.last-run-<period>` to the current period key.
-
-If the send is not confirmed, do not write either file — next wake retries this period from scratch (discipline #2).
+If delivery is not confirmed, leave the marker where it was. The dated output file stays — it is evidence the work happened — and next wake still owes this period, because the marker and not the file is what the guard reads (discipline #2). A run that dies between writing the file and confirming the send must come back, not report itself done forever.
 
 ## SENDING
 
@@ -98,7 +99,7 @@ adapter (Slack reference adapter provided) without touching this routine.
 notifier.send(
   identity   = <BOT_IDENTITY>,          # bot identity, never "send as the user"
   target     = <USER_ID>,               # the user's own surface — self-notification only
-  thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 3
+  thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 4
   body       = <sources swept, and any unavailable with its reason — discipline #9>
              + <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections
   notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 4>,
@@ -125,7 +126,7 @@ else:
 notifier.reply_in_thread(anchor.thread_id, body, notify=<see SENDING>)
 ```
 
-If the anchor was deleted (thread/message not found on send), re-post per `notifications.md` item 6: mint a new anchor, overwrite the pointer, retry the reply once.
+If the anchor was deleted (thread/message not found on send), re-post per `notifications.md` item 8: mint a new anchor, overwrite the pointer, retry the reply once.
 
 ## Formal Eval
 

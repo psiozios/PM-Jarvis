@@ -208,6 +208,7 @@ A **routine** is a thin schedule wrapped around a skill — it never restates th
 Two guardrails matter for a shared team setup:
 - **Notifications are self-notifications.** A routine posts to your own surface from a bot identity — never as you, never to a shared channel unless it explicitly exists to.
 - **Unattended runs can't write to others.** Headless routines get read access and can notify you, but sending messages, creating tickets, or editing shared docs always stops for explicit approval.
+- **"Already ran" means delivered, not written.** The already-ran marker is stamped on the transport's own confirmation. The dated output file is evidence the work happened and is never the guard — otherwise a run that dies between writing the file and sending the message answers already-ran forever, and the only symptom is silence.
 
 See `references/protocols/routines.md` and `setup/routine-setup.md` to build one, and `config/notifier-example.md` for the notifier contract.
 

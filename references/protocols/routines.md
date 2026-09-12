@@ -18,13 +18,17 @@ The routine owns the scheduling contract (when it runs, what state it checks, ho
 
 Each routine owns its own state, and only its own state:
 
-- A dated output (the artifact the run produced)
-- One or more `.last-*` pointer files (what "already ran" means)
+- A dated output — the artifact the run produced. **Evidence the work happened. Never a guard.**
+- One or more `.last-*` markers — **the only thing that means "already ran"**
 - A thread pointer (where its notifications live — see `notifications.md`)
 
 One owner per file. Never let two routines write the same state file.
 
-Write the dated output and advance the `.last-*` pointer **only after a confirmed notification send**. This ordering matters in both directions: a missed stamp (notification failed) cannot cause a false "already ran," so the routine retries next wake instead of silently going dark. And a cleared state directory (user wants a fresh start) always produces a fresh run, because there is nothing local telling the routine otherwise.
+**The marker goes on the transport's own confirmation of delivery, and on nothing else.** The dated output is written when the work is finished, which is before the send — so it proves the work happened, not that anyone saw it. Treating its existence as the already-ran signal costs a run the moment one dies in between: the file is on disk, the notification never landed, and every later wake reads the file and answers already-ran, forever. Nobody finds out, because the symptom is silence.
+
+So: write the output, render it, post it, and stamp the marker only once the transport says the message is delivered (`references/protocols/notifications.md` item 2). A missed stamp then means exactly one thing — this period is still owed — and the next wake retries it rather than going quietly dark. A cleared state directory produces a fresh run for the same reason: nothing local claims otherwise.
+
+The mirror-image rule holds too. The notification surface is output and never input to the guard (discipline #3), and neither is the output file.
 
 ### 3. Idempotency from local state only
 
@@ -36,7 +40,7 @@ The notification surface is OUTPUT. It is never INPUT to the idempotency check. 
 
 A routine that missed its scheduled fire (laptop closed, process restarted, cron didn't trigger) runs its missed occurrence the next time it wakes — but keyed to the intended PERIOD, not the fire date.
 
-Guard by the period's dated output, not by day-of-week. A daily routine that should have fired Tuesday but wakes Wednesday morning still owes Tuesday's output if Tuesday's dated file doesn't exist yet — it does not silently skip to today and pretend Tuesday never happened.
+Guard by the period key in the marker, not by day-of-week and **not by whether the dated output file exists** (discipline #2). A daily routine that should have fired Tuesday but wakes Wednesday morning still owes Tuesday if no confirmed-delivery marker carries Tuesday's key — it does not silently skip to today and pretend Tuesday never happened, and a Tuesday output file sitting there unsent does not count as Tuesday having happened.
 
 ### 5. Cloud default, local interim
 
