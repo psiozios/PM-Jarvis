@@ -146,6 +146,9 @@ Weighted quality score: [Calculate]
 Pass threshold: [X.X]
 ```
 
+**Set the weights and the threshold before you score anything, and anchor the 1-5.** A rubric whose levels are undefined produces a number that means whatever the last rater thought — and a threshold chosen after seeing the scores is not a threshold. Write down what a 1 and a 5 look like for each dimension against fixed, external conditions, fix the weights, and fix the pass bar, all in advance (`references/protocols/tracker-writes.md` §1). An unassessed dimension stays empty and leaves the denominator rather than scoring 1 (§4).
+
+
 ### LLM-as-Judge (fast evaluation at scale)
 
 When you have many outputs to evaluate, use an LLM to score them against your rubric. This is approximate but fast.

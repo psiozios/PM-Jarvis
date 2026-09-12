@@ -56,7 +56,36 @@ Deleting a section is the correct, common outcome and needs no note.
 
 **The body never appears in the chat.** Its home is the tracker. Rendering it doubles the reading cost for no gain, and the two copies start diverging the moment anyone edits the real one.
 
-## 8. Where the boundary sits: PM factors, engineering effort
+## 8. One priority vocabulary, and what the tiers mean
+
+Five vocabularies were in use across the tree with one definition between them — and that definition was incident severity, which is a different axis. `P0` meant "top of the backlog" in one skill and "all users down" in another. A tier nobody has defined is a label, not a priority.
+
+**Pick one vocabulary per tracker and define its tiers where the tracker can see them.** The default below is a starting point; replace the anchors with your own and keep the shape.
+
+| Tier | Means | Test |
+|------|-------|------|
+| P0 | Drop other work | Someone is blocked right now, or the window closes this week |
+| P1 | This cycle | Committed for the current sprint or month |
+| P2 | Next cycle | Real, sequenced, nobody is waiting on it today |
+| P3 | Someday | Kept for the record; no cycle claimed |
+
+**Severity is a separate axis and keeps its own labels.** An incident's P0 is about blast radius, not about queue position — `/post-mortem` owns that scale and it does not map onto this one. A ticket can be severity-low and priority-P0, or the reverse, and collapsing the two loses both.
+
+**`High / Medium / Low` and `Critical / High / Medium` are the same axis under different names.** Where a skill hands its output to a tracker, translate to the tracker's own live vocabulary at the point of write (`references/protocols/freshness-provenance.md`: read the values the board actually offers, every run). Do not invent a fourth spelling.
+
+**`/prioritize`'s Leverage / Neutral / Overhead is not a priority tier** and never maps onto one. It classifies where a person's time goes, not what a team does next, and an L does not imply a P0.
+
+## 9. Empty sections: delete, say so, or fail — which applies where
+
+Three skills answered this differently and all three were right about their own artifact. The rule is about who reads the gap:
+
+- **A tracker item: delete the section with its header** (§6). The reader is picking up work and a bare header costs them a stop.
+- **A document with a fixed section set the reader expects — a prep doc, a read-ahead, a review entry: say the section is empty.** A missing section reads as an omission, and "no movement this week" is information. Where it is empty because the source was unavailable rather than quiet, say which (`references/protocols/source-preflight.md`).
+- **A structural artifact whose sections are its method — a journey map's stages, a canvas's blocks: an empty one is a genuine gap and the check should fail.** The section is not optional content, it is a piece of the analysis that did not get done.
+
+The test: **delete it where the artifact is a menu, name it where the reader is counting sections, fail it where the section is the method.**
+
+## 10. Where the boundary sits: PM factors, engineering effort
 
 The PM owns the factors that describe **value** — how many are affected, what it is worth, how it fits the current strategy, how badly it hurts today. Engineering owns **effort**, and that does not change because a formula has a slot for it.
 

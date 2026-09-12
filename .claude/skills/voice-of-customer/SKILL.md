@@ -173,11 +173,13 @@ Any mentions of cancellation intent, switching, or active churn in this period:
 
 ## Product Implications (Prioritized)
 
-| Theme | Urgency | Effort (rough) | Recommended action |
-|-------|---------|----------------|-------------------|
-| [Theme 1] | Critical | Small | Fix in current sprint |
-| [Theme 2] | High | Medium | Add to backlog as P1 |
-| [Theme 3] | Medium | Large | Investigate before committing |
+| Theme | Urgency | Corroboration | Recommended action |
+|-------|---------|---------------|-------------------|
+| [Theme 1] | Critical | 7 accounts, 3 channels | Raise for the current sprint — engineering sizes it |
+| [Theme 2] | High | 4 accounts, 2 channels | Propose for the backlog |
+| [Theme 3] | Medium | 3 accounts, 1 channel | Investigate before committing |
+
+**No effort column, and no priority tier.** This skill reads customer feedback; it does not know what anything costs to build, and a rough size guessed here gets treated downstream as a commitment nobody made (`/create-tickets`, no-estimating rule). Corroboration count replaces it, because that is the thing this skill actually measured. Recommending a sprint or a tier is likewise not this skill's call — it hands over urgency and evidence, and the prioritization happens where the cost is known.
 
 ---
 

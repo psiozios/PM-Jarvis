@@ -125,6 +125,8 @@ Ask: "If this metric tanks, can I quickly understand what happened?"
 - ❌ Metrics with 5+ variables
 - ❌ Black box ML model outputs
 
+**This ban is about a metric you will call an experiment on, not about every composite number.** A weighted formula makes a poor experiment metric because you cannot tell which input moved, which is exactly what the D in STEDII asks. A weighted **prioritization score** is a different object: nobody runs a significance test on it, its job is to order a backlog, and its inputs are meant to be inspected one by one — see `references/protocols/tracker-writes.md`, where the tracker computes it from named fields precisely so the derivation stays visible. `/feature-request-analysis` and `/ai-quality-debug` define such scores legitimately. Neither may be used to call an experiment.
+
 ---
 
 ## 5. Interpretable (Easy to Understand and Explain)

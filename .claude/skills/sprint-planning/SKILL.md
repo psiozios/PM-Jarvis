@@ -140,7 +140,7 @@ A ticket is ready to pull when it meets these criteria:
 - **I — Independent:** Can be worked on without waiting for other tickets
 - **N — Negotiable:** Scope can be adjusted if needed
 - **V — Valuable:** Clear outcome for the user or system
-- **E — Estimable:** Engineer can give a rough estimate after reading it
+- **E — Estimable:** Engineer can give a rough estimate after reading it. **Checked here and deliberately not in `/create-tickets`** — that skill writes the ticket and a PM ruling on estimability there is the same overreach as supplying the estimate. Here the engineers are present, so they answer it themselves
 - **S — Small:** Completable in a sprint (if not, break it down)
 - **T — Testable:** Clear acceptance criteria — how will we know it's done?
 
@@ -218,7 +218,8 @@ The PM decides what to build. The engineers decide how long it takes. Grooming w
 - [ ] **Load % reasonable:** 60-80% for sustainable pace, flagged if over 85%
 - [ ] **Not-this-sprint documented:** Explicit deprioritization with reasons
 - [ ] **Dependencies flagged:** Each dependency has an owner and expected resolution date
-- [ ] **For grooming: AC added:** Every reviewed ticket has testable acceptance criteria
+- [ ] **For grooming: the engineers were in the room.** Estimates were given by the people who will do the work, not drafted for them. A groom run without them produces fictional estimates — this skill's own Mistake 5 — and the correct output in that case is the readiness pass with the estimate fields left empty
+- [ ] **For grooming: AC added:** Every reviewed ticket has testable acceptance criteria, and none was padded to fill the field
 - [ ] **Output saved:** `outputs/analyses/sprint-[number]-plan-[date].md`
 
 

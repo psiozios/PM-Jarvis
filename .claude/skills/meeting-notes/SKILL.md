@@ -473,7 +473,7 @@ Only trigger this when an experiment is decided but the specifics are missing. I
 
 ---
 
-### Auto-Create Follow-Up Tasks
+### Offer the Follow-Ups
 
 After processing, I'll offer:
 
@@ -481,7 +481,7 @@ After processing, I'll offer:
 Notes processed! I extracted 7 action items.
 
 **Want me to:**
-- [ ] Create Linear/Jira tickets for each action item?
+- [ ] Hand the action items to /create-tickets to write them up properly?
 - [ ] Draft a Slack update to share with the team?
 - [ ] Schedule a follow-up meeting?
 - [ ] Add insights to your PRD or context library?
@@ -489,6 +489,10 @@ Notes processed! I extracted 7 action items.
 
 Just let me know what you need.
 ```
+
+**This skill does not create tickets itself, and the heading used to say "auto-create".** Ticket creation commits a team to work, so it runs the commitment gate, picks an issue type and its section set, sources every behavioral claim, and sets a priority on a frozen scale — all of which lives in `/create-tickets`. Offering it here and then writing tickets from an action-item row skips every one of those. Hand the items over instead.
+
+The action-item table's own `Priority` and `Status` columns are **meeting-note scaffolding for the reader of these notes**, not tracker fields. They do not travel: `/create-tickets` sets priority from its own factors against the board's live vocabulary (`references/protocols/tracker-writes.md` §§1-3, 8), and status belongs to the tracker.
 
 ---
 
