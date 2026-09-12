@@ -372,7 +372,7 @@ Before delivering the launch checklist, verify:
 - [ ] **Kill criteria defined** -- Specific metric thresholds that would stop the launch
 - [ ] **All stakeholder groups covered** -- Engineering, design, legal, support, sales, marketing, and comms are represented
 - [ ] **Post-launch monitoring planned** -- Dashboards, alerts, and review cadence are specified
-- [ ] **Customized to launch type** -- Small features have a streamlined checklist; major launches have expanded sections
+- [ ] **Customized to launch type** -- Small features have a short checklist; major launches have expanded sections
 
 If any check fails, fix it before delivering. A launch checklist with missing owners or unclear dependencies creates false confidence.
 

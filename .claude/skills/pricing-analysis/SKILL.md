@@ -141,7 +141,7 @@ Good packaging makes the right tier obvious for each customer segment.
 1. **Each tier targets a different buyer persona** — don't design tiers by feature count, design by customer job
 2. **Middle tier is the hero** — most customers should land here; it has the highest margin
 3. **Free tier drives volume, not revenue** — if your free tier is too good, paid doesn't convert
-4. **Enterprise tier unlocks trust** — security, SSO, contracts, dedicated support, custom terms
+4. **Enterprise tier is where trust gets bought** — security, SSO, contracts, dedicated support, custom terms
 
 ### Tier Template
 

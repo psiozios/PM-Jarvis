@@ -4,7 +4,7 @@ Configure API keys for the tools you'll use with your PM Jarvis.
 
 ## Why You Need This
 
-The PM Jarvis can integrate with various services to supercharge your workflow:
+PM Jarvis can integrate with other services so skills read live data instead of asking you to paste it:
 - **OpenAI** - For testing prompts across GPT models
 - **Google Gemini** - Alternative LLM for comparison
 - **MCP Servers** - Connect to Slack, Google Drive, Reddit, etc.

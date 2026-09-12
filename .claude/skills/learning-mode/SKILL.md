@@ -36,6 +36,16 @@ You control the depth. Stop at any level, or go all the way through.
 - You want to understand a pattern before deciding whether to use it
 - Onboarding to a new technology or framework
 
+## Context Routing
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| The codebase | the working directory, if a codebase is present | A real occurrence of the concept, so the example is from their own code |
+| Prior explorations | `outputs/analyses/explore-*.md` | Architecture already mapped, so the explanation lands in their stack |
+| Second brain | `context-library/second-brain/` | Whether this concept was already explained once, and what stuck |
+
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
+
 ## When NOT to Use
 
 - You want to implement something (use `/code-first-draft`)

@@ -339,7 +339,7 @@ quarter: Q[X] YYYY
 **Status:** ✅ Complete / 🟡 Partial / ❌ Not started
 
 **Key outcome:**
-- [What this unlocked or enabled]
+- [What this made possible next]
 
 **Learning:**
 - [What went well or what to change]

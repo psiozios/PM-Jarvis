@@ -127,7 +127,7 @@ If no MCP exists, you can still use the tool manually and store outputs in `cont
 
 
 
-1. **Connect MCPs during initial setup** - The first-time workspace setup will prompt you to connect your tools. Do it then for a seamless experience.
+1. **Connect MCPs during initial setup** - The first-time workspace setup will prompt you to connect your tools. Do it then, so no skill hits a missing source on its first run.
 
 2. **Use natural language after setup** - Don't think about which MCP to call. Just ask your question naturally and I'll figure out the routing.
 

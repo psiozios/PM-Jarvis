@@ -434,7 +434,7 @@ Example:
 **Benchmarks:**
 - 100%+ = Good (expansion offsets churn)
 - 110%+ = Great (growth from existing customers)
-- 120%+ = Exceptional (best-in-class SaaS)
+- 120%+ = Exceptional (top decile for SaaS)
 
 ---
 

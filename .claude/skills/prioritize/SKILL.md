@@ -143,7 +143,7 @@ Before you work on something, ask:
 - If yes → Do it yourself, invest deeply
 
 **Is this Neutral?**
-- Is this necessary but not game-changing?
+- Is this necessary but not something that moves the needle?
 - Can I do "good enough" instead of perfect?
 - If yes → Timebox it, aim for B- quality
 

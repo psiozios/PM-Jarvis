@@ -484,7 +484,7 @@ You've successfully set up and tested your PM Jarvis. You now have:
 - ✅ An AI assistant that understands PM work
 - ✅ Ready-to-use commands for common tasks
 - ✅ Templates and examples to learn from
-- ✅ Workflows to streamline your process
+- ✅ Workflows that cut steps out of your process
 
 **Time to build great products!**
 

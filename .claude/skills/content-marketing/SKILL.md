@@ -206,7 +206,7 @@ Good: "Add your logo so reports look like they're from your team"
 
 **Success message / confirmation:**
 ```
-[Acknowledge] + [next step or benefit unlocked]
+[Acknowledge] + [next step, or the benefit they now have]
 Bad: "Report created successfully."
 Good: "Your report is ready. Share it with your team or schedule a weekly digest."
 ```

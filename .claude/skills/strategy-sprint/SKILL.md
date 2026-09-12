@@ -59,6 +59,17 @@ Strategy doesn't always need to be a month-long exercise. Depending on your time
 
 ---
 
+## Context Routing
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Existing strategy | `context-library/strategy/` | Current objective, pillars and OKRs — the 1-day tier starts from these, never from a blank page |
+| User research | `context-library/research/` | Validated pain points the strategy has to answer to |
+| Competitive intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Market structure, and positions a competitor cannot take |
+| Metrics | `<METRICS_SOURCE>` | Where the business actually is today, against where the strategy says it is going |
+
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
+
 ## The Framework
 
 ### 1-Day Strategy (Snap Strategy)
@@ -173,7 +184,7 @@ Strategy doesn't always need to be a month-long exercise. Depending on your time
    - What are we NOT doing as a result?
 
 3. **7 Powers Analysis**
-   - Which power(s) does this unlock?
+   - Which power(s) does this depend on?
    - Network effects, brand, scale, switching costs?
    - Reference: `@context-library/strategy/7-powers-framework.md`
 
@@ -224,7 +235,7 @@ Strategy doesn't always need to be a month-long exercise. Depending on your time
 
 ---
 
-## How to Use This Skill
+## Choosing a Tier
 
 ### Step 1: Determine Your Timeline
 

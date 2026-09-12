@@ -50,6 +50,17 @@ Create optimized prompts for AI prototyping tools (v0.dev, Lovable, Bolt.new) to
 - **Limits:** Simpler apps, less customization
 - **Cost:** Free
 
+## Context Routing
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Source PRD | the named PRD, `outputs/prds/`, `context-library/prds/` | Requirements, non-goals, the states the prototype has to cover |
+| Design direction | `context-library/` brand or design files, a design-system tool if connected | Visual vocabulary, component names, product naming |
+| User research | `context-library/research/` | Who this is for and what they are trying to do |
+| Prior prototypes | `outputs/prototypes/` | What was already tried, so the prompt does not repeat it |
+
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
+
 ## Workflow
 
 ### Step 1: Gather Requirements

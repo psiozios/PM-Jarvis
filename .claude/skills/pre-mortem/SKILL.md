@@ -7,7 +7,7 @@ disable-model-invocation: false
 
 # /pre-mortem - Surface Risks Before They Happen
 
-A pre-mortem is the most underused tool in a PM's toolkit. Instead of asking "what could go wrong?" (which produces vague answers), it asks "this failed spectacularly — what happened?" Thinking in past tense unlocks honest, specific failure modes people are reluctant to name in optimistic forward-looking planning sessions.
+A pre-mortem is the most underused tool in a PM's toolkit. Instead of asking "what could go wrong?" (which produces vague answers), it asks "this failed spectacularly — what happened?" Thinking in past tense gets honest, specific failure modes out of people are reluctant to name in optimistic forward-looking planning sessions.
 
 ## Quick Start
 

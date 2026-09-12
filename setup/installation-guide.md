@@ -73,7 +73,7 @@ Visit: https://cursor.sh
 - Great markdown preview
 - Git integration
 - File tree navigation
-- Works seamlessly with Claude Code
+- Works with Claude Code out of the box
 
 ### Alternative
 You can use any text editor you prefer:

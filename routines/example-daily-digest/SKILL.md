@@ -45,7 +45,7 @@ Every run executes these steps in order. Do not reorder; do not skip the guard.
 
 ### 1. Bind rules
 
-Read `references/protocols/routines.md`, `references/protocols/notifications.md`, and `references/protocols/source-preflight.md` into context. Read `config/notifier-example` (or your real notifier config) for credentials and identity — never print secret values.
+Read `references/protocols/routines.md`, `references/protocols/notifications.md`, and `references/protocols/source-preflight.md` into context. Read `config/notifier-example.md` (or your real notifier config) for credentials and identity — never print secret values.
 
 ### 2. Preflight the sources (discipline #9)
 

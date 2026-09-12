@@ -72,6 +72,16 @@ For user research interview prep, use /interview-guide instead.
 ### 5. Product Design Interview
 **What they test:** User-centric thinking, wireframing, usability, design critique
 
+## Context Routing
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Prior debriefs | `outputs/interview-feedback/` | Which dimensions scored low last time — this round's prep targets those |
+| Company and role research | web search, the company's own site and filings | Product, market, recent moves, the metrics they would care about |
+| Calendar | `<CALENDAR>` | Round dates and who is on each panel |
+
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
+
 ## Workflow
 
 ### Step 1: Research the Company (2-3 hours, 1 week before)

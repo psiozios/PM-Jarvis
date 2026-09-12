@@ -41,6 +41,16 @@ Output: outputs/interview-feedback/[date]-[company]-debrief.md
 - When you advance to next round (capture what worked)
 - When you get rejected (learn for next time)
 
+## Context Routing
+
+| Source | Location | What to Extract |
+|--------|----------|------------------|
+| Prior debriefs | `outputs/interview-feedback/` | Scores and improvement plans from earlier rounds, for the trend |
+| The role and company | whatever the user gathered in `/interview-prep` | What was being assessed, so the scoring is against the right bar |
+| Calendar | `<CALENDAR>` | When the interview happened, and what round it was |
+
+For live tool data, route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
+
 ## Workflow
 
 ### Step 0: Emotional Check-In
