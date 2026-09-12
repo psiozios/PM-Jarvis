@@ -26,6 +26,8 @@ Any run that will drop, merge, or suppress candidates builds two artifacts befor
 
 **A zero-hit query containing a space is suspect until it has been re-run one term at a time.** Log the re-runs; the suspect zero is not a `Hits: 0` row until the single-term queries have also come back empty.
 
+Nothing here is in tension with `config/house-style.md` P9, which says to pick one noun and repeat it. That governs **prose**, where renaming a referent confuses the reader. This governs **retrieval**, where the tool's index and not the reader decides what matches. Vary the query; keep the writing consistent.
+
 **A tool's query dialect is a property to verify, never assume, and every dialect rule is scoped to the tool it was verified on.** Whether terms AND or OR by default, whether quotes make a phrase, whether `OR` is an operator or a literal word, whether punctuation is stripped or significant — none of that carries from one tool to the next. Record what you verified in `references/mcp-routing.md` under Search Dialects, with the date you verified it.
 
 ## 2. The ledger

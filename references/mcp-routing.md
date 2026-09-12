@@ -8,6 +8,8 @@ This file defines how natural-language queries route to the right MCP server or 
 |-----|---------|----------|------|---------|-----------|
 | _None connected yet_ | Run `/connect-mcps connect to [tool]` to get started | - | - | - | - |
 
+**An empty registry is the correct shipped state, not a defect.** This is a template; no tool is connected until the user connects one. The routing rules below work on trigger phrases and fall back to `context-library/` files, so a skill pointing here with nothing connected degrades rather than breaks.
+
 <!-- After connecting MCPs, entries appear like:
 | Amplitude | Product analytics | Analytics | token | feature-metrics, impact-sizing, retention-analysis | query_insights, get_funnels, cohort_analysis |
 | Linear | Project management | PM Tools | oauth | create-tickets, meeting-notes, status-update | create_issue, update_issue, search_issues |

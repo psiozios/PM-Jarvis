@@ -1,6 +1,6 @@
 ---
 name: connect-mcps
-description: Set up a live tool connection (analytics, issue tracker, docs hub, chat) so skills pull real data instead of asking you for it — finds the server, walks you through credentials, tests the connection. Modifies your workspace, editing skill files and the CLAUDE.md routing registry as part of setup.
+description: Set up a live tool connection (analytics, issue tracker, docs hub, chat) so skills pull real data instead of asking you for it — finds the server, walks you through credentials, tests it, probes its search dialect, and registers a preflight check. Modifies your workspace, editing skill files and the mcp-routing registry as part of setup.
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -17,7 +17,7 @@ Tell me which tool to connect (e.g., "connect to Amplitude") and I will guide yo
 2. I search for official MCP servers (remote first, then local)
 3. I guide you through credentials and authentication
 4. I test the connection and discover available tools
-5. I update your PM Jarvis skills and CLAUDE.md routing automatically
+5. I update your PM Jarvis skills and the `references/mcp-routing.md` registry automatically
 
 **Example:** `/connect-mcps connect to linear`
 
@@ -56,7 +56,7 @@ When you run `/connect-mcps connect to [tool name]`, I will:
 4. **Guide credential entry** - Prompt you for required credentials
 5. **Test connection** - Verify the connection works and discover available tools
 6. **Map to skills** - Automatically determine which PM Jarvis skills benefit from this MCP
-7. **Update workspace** - Add integration instructions to relevant skills and update CLAUDE.md registry
+7. **Update workspace** - Add integration instructions to relevant skills and update the registry in `references/mcp-routing.md`
 8. **Enable intelligent routing** - Your natural language queries will automatically route to the right MCP
 
 **Priority Order:**
@@ -215,17 +215,19 @@ amplitude.query_insights({
 4. Write the updated SKILL.md back to disk
 5. Log the change for the integration summary
 
-### Step 8: Update CLAUDE.md Registry
+### Step 8: Update the Registry in `references/mcp-routing.md`
 
-I update two critical sections in CLAUDE.md:
+The registry lives in **one** place, `references/mcp-routing.md`. `CLAUDE.md` carries a pointer to it and no table of its own — writing one there would put the registry at two addresses, and they would disagree within a week. Three sections of that file get updated:
 
-**A) MCP Registry Table** - Lists all connected MCPs
+**A) Connected MCPs** - every connected MCP, with its auth type
 
-| MCP | Purpose | Category | Used In | Key Tools |
-|-----|---------|----------|---------|-----------|
-| Amplitude | Product analytics | Analytics | feature-metrics, impact-sizing | query_insights, get_funnels |
+| MCP | Purpose | Category | Auth | Used In | Key Tools |
+|-----|---------|----------|------|---------|-----------|
+| Amplitude | Product analytics | Analytics | token | feature-metrics, impact-sizing | query_insights, get_funnels |
 
-**B) Intelligent Query Routing Logic** - Maps query patterns to MCPs
+**B) Search Dialects** - what this tool's search actually does, dated, from the four probes
+
+**C) Query Routing Rules** - maps query patterns to MCPs
 
 This enables me to automatically understand queries like:
 - "Give me metrics on the login feature" → Route to Amplitude
@@ -365,7 +367,7 @@ search, browse, web, internet, competitor, market research
 
 This ensures MCP integration info appears early but doesn't interrupt the skill's primary instructions.
 
-### CLAUDE.md Registry Format
+### Registry Format (`references/mcp-routing.md`)
 
 **Registry Table:**
 ```markdown
@@ -478,7 +480,7 @@ Testing connection... ✓ Connected successfully!
 ✓ metrics-framework updated
 ✓ experiment-metrics updated
 
-**Updating CLAUDE.md registry...**
+**Updating the registry in references/mcp-routing.md...**
 ✓ MCP registry table updated
 ✓ Query routing logic updated
 
@@ -539,7 +541,7 @@ Testing connection... ✓ Connected successfully!
 ✓ status-update updated
 ✓ prioritize updated
 
-**Updating CLAUDE.md registry...**
+**Updating the registry in references/mcp-routing.md...**
 ✓ MCP registry updated
 ✓ Query routing logic updated
 
@@ -614,7 +616,7 @@ Once MCPs are connected, you can ask questions naturally and I'll route them aut
 User: Give me metrics on the login feature in the last 2 weeks
 
 Me:
-[Checks CLAUDE.md registry]
+[Checks the registry in references/mcp-routing.md]
 [Finds: Amplitude connected for analytics]
 [Routes to: Amplitude MCP query_insights tool]
 
@@ -828,7 +830,7 @@ Me: [maps to both skill groups]
 
 ❌ **Don't assume immediate availability** - After connecting, I'll tell you it's ready. Don't start querying until you see the success message.
 
-❌ **Don't manually edit CLAUDE.md** - Let me update the registry automatically. Manual edits can break the routing logic.
+❌ **Don't hand-edit the registry** - Let me update `references/mcp-routing.md` automatically. Manual edits break the routing logic and can leave the auth type or the dialect row stale.
 
 ❌ **Don't connect duplicate MCPs** - If you already have Amplitude connected, don't run `/connect-mcps connect to amplitude` again unless you're reconfiguring.
 
@@ -880,7 +882,7 @@ If no MCP exists, you can still use the tool manually and store outputs in `cont
 
 **Solution:** Currently, to disconnect:
 1. Remove the MCP from your system (uninstall server/remove credentials)
-2. Edit `CLAUDE.md` to remove the MCP from the registry table
+2. Edit `references/mcp-routing.md` to remove the MCP from the registry table
 3. Optionally, remove MCP sections from skill files
 
 (Future enhancement: `/mcp disconnect [tool]` command)
@@ -1227,7 +1229,7 @@ When you run `/connect-mcps connect to amplitude`:
 7. **I map** to relevant skills (feature-metrics, impact-sizing, etc.)
 8. **I read** each skill file to find insertion points
 9. **I add** MCP integration sections to each skill
-10. **I update** CLAUDE.md with registry entry and routing logic
+10. **I update** `references/mcp-routing.md` with the registry entry, the dialect row, and the routing logic
 11. **I create** an integration log with full details
 12. **I confirm** success and show you how to use it
 
@@ -1253,8 +1255,8 @@ Before confirming an MCP connection is complete, verify:
 - [ ] **Tools discovered and documented** -- Available MCP tools are listed with descriptions
 - [ ] **Category correctly assigned** -- MCP is mapped to the right category (Analytics, PM, Research, etc.)
 - [ ] **Relevant skills updated** -- All skills that benefit from this MCP have integration sections added
-- [ ] **CLAUDE.md registry updated** -- MCP appears in the registry table with purpose, category, used-in skills, and key tools
-- [ ] **Routing logic updated** -- Natural language query patterns are mapped to this MCP in CLAUDE.md
+- [ ] **Registry updated** -- the MCP appears in the `references/mcp-routing.md` table with purpose, category, auth type, used-in skills, and key tools. `CLAUDE.md` holds no registry table; it points at that file, and writing a table into it would put the registry at two addresses
+- [ ] **Routing logic updated** -- Natural language query patterns are mapped to this MCP in `references/mcp-routing.md`
 - [ ] **Integration log saved** -- Detailed log written to `outputs/mcp-integration-logs/[timestamp]-[tool].md`
 - [ ] **Fallback documented** -- Skills note what to do when this MCP is unavailable
 - [ ] **Auth type recorded** -- `oauth` / `token` / `none` in the registry's Auth column

@@ -190,8 +190,7 @@ Extract:
 - Decisions waiting on you
 - Context for today's meetings
 
-If Gmail MCP not available:
-- Skip this section or ask: "Any important emails I should know about?"
+If the email source is unavailable, **say so in the plan and ask** — never skip the section silently. One shape for every source: name it, give the reason, then ask for what only the user can supply. "I couldn't reach email (reauth needed) — anything important I should factor in?" is useful; a missing section is indistinguishable from a quiet inbox (`references/protocols/source-preflight.md`).
 
 ---
 
@@ -500,7 +499,7 @@ Skip this section when:
 - PM's role level is unclear -- ask before including: "Do you manage any direct reports? I can add delegation suggestions if helpful."
 
 When including, add a brief note explaining why: *"Including delegation suggestions because you manage [X] direct reports."*
-When excluding, no note needed -- just omit the section silently.
+When excluding, no note needed — omit the section. **This is a relevance judgment, not a coverage gap**, and it is the one case in this skill where a section leaves without comment: an IC with no reports is not missing delegation context, they have no use for it. Do not read this as licence to drop a section whose source failed — that always gets named.
 
 These tasks from today's list could be handled by someone on your team:
 
@@ -861,26 +860,15 @@ Total time: 2 minutes
 
 ## MCP Graceful Degradation
 
-**If Calendar MCP not connected:**
-- Prompt: "I don't have calendar access. What meetings do you have today?"
-- Or: "I can read from a manual calendar file if you have one."
-- Offer: "Want to connect Google Calendar? Run `/connect-mcps connect to google-calendar`"
+**Every unavailable source gets the same three moves: name it, give the reason, then substitute.** No source is ever dropped silently — the plan says which sources it is missing and why, because a missing section reads as "nothing there" when the truth is "nobody asked" (`references/protocols/source-preflight.md`). The substitution differs by source; the disclosure never does.
 
-**If Gmail MCP not connected:**
-- Skip email section or ask: "Any important emails I should factor into today's plan?"
-- Offer: "Want email context in future? Run `/connect-mcps connect to gmail`"
-
-**If Linear/Jira MCP not connected:**
-- Scan `outputs/meeting-notes/` for unchecked action items
-- Ask: "What tasks are on your plate today?"
-
-**If Analytics MCP not connected:**
-- Note: "Metrics check needed for [Feature] - I don't have analytics access"
-- Suggest: "Check your dashboard for [Feature] metrics manually"
-
-**If Stakeholder profiles don't exist:**
-- Generate basic meeting list without context
-- Suggest: "Want richer meeting context? Fill out stakeholder profiles in `context-library/`"
+| Source unavailable | Substitute with |
+|---|---|
+| Calendar | Ask what meetings today, or read a manual calendar file. Offer `/connect-mcps connect to google-calendar` |
+| Email | Ask what's waiting that matters today. Offer `/connect-mcps connect to gmail` |
+| Task tracker | Scan `outputs/meeting-notes/` for unchecked action items, then ask what's on their plate |
+| Analytics | Name the feature whose metrics are unchecked and point them at the dashboard |
+| Stakeholder profiles (a file, not a source) | Build the meeting list without context; suggest filling out the profiles |
 
 ---
 

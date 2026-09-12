@@ -142,7 +142,7 @@ See `references/protocols/source-preflight.md` for the check contract and what a
 
 ### Store MCP Keys Securely
 
-Create a `.env` file in your pm-jarvis folder:
+Create a `.env` file in your pm-jarvis folder. **This is the one file that holds real values** — everything else references the variables rather than copying them:
 
 ```bash
 # .env (DO NOT COMMIT TO GIT!)
@@ -178,27 +178,21 @@ source .env
 
 ### Organization Tips
 
-Create a **keys-template.txt** file (NOT committed):
+**Keep an inventory, not a second copy of the keys.** Rule 4 above says use environment variables rather than hardcoding — a `keys-template.txt` holding the literal values is exactly the hardcoded file that rule forbids, and "don't commit it" is a weaker guarantee than "it does not exist". The `.env` above is the one file that holds real values, because something has to.
+
+What is genuinely useful is a record of **which** keys exist, where they came from, and when they were rotated — with no secret in it:
+
 ```
-# API Keys for PM Jarvis
-# Last updated: [date]
+# Key inventory for PM Jarvis — NO VALUES IN THIS FILE
+# Last reviewed: [date]
 
-ANTHROPIC_API_KEY=sk-ant-api03-...
-OPENAI_API_KEY=sk-proj-...
-GOOGLE_API_KEY=AIza...
-
-# MCP Servers
-SLACK_TOKEN=xoxb-...
-GOOGLE_DRIVE_CLIENT_ID=...
-JIRA_TOKEN=...
-
-# Notes
-# - Anthropic key: Personal account, updated Jan 2025
-# - OpenAI key: Company account, shared billing
-# - Slack token: Personal workspace, read-only
+ANTHROPIC_API_KEY   personal account        rotated [date]
+OPENAI_API_KEY      company account         rotated [date]   shared billing
+SLACK_TOKEN         personal workspace      rotated [date]   read-only scopes
+JIRA_TOKEN          Atlassian account       rotated [date]
 ```
 
-Store this file in a password manager like 1Password, LastPass, or Bitwarden.
+The values themselves live in your password manager (1Password, Bitwarden, or similar) and in `.env`, and nowhere else. Store the inventory wherever you like — it gives away nothing.
 
 ---
 
