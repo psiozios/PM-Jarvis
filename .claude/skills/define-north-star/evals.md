@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Alternatives considered | At least 2 alternative metrics evaluated and rejected with reasoning |
 | E9 | Input metrics mapped | Shows 3-5 input metrics that teams can directly influence to move the North Star |
 

@@ -34,6 +34,7 @@ Each skill directory contains three files:
    - The skill output file
    - The skill's `evals.md`
    - `config/house-style.md` (for voice checks)
+   - **The sources the output cites**, where a check turns on whether the output is grounded in them
 4. Eval agent evaluates each criterion independently → PASS / FAIL / PARTIAL
 5. Eval agent returns a results table to the original agent
 6. **If any FAIL:** eval agent includes specific remediation instructions → original agent applies fixes → re-submits for eval
@@ -114,6 +115,8 @@ These checks appear in every skill's evals.md regardless of archetype.
 - **E5 — House style compliance**: Conforms to `config/house-style.md`, including any rules the user has set in its "Your own rules" section. The formatting rules (§6) apply to **prose only**, per the prose test in §2 — **artifact scaffolding is exempt by design, not a violation**. Template headings, table structure, checklists, status columns, ticket fields, and genuinely parallel lists are intentional structure; flagging them is a false positive.
 
 **`config/house-style.md` is live and the check is real.** There is no auto-PASS. An eval agent that cannot read the file scores E5 **PARTIAL** and says so explicitly ("could not read `config/house-style.md`"). It never assumes compliance and never records a vacuous PASS. Use **N/A** only for checks needing an input the agent genuinely does not have — see §8 of the standard.
+
+**E7 needs a fourth input, and for a long time it did not get one.** "Context-grounded" asks whether the output's names, numbers, and quotes come from the sources — a question the output cannot answer about itself. An agent handed only the output, the rubric, and the style file was scoring E7 from plausibility, which by `config/house-style.md` §8 is a vacuous PASS. So: **hand the eval agent the sources the output cites**, and it spot-checks the specific claims rather than the general impression. Where a source genuinely cannot be reached — a live tool the eval agent has no access to — E7 is **N/A with the reason named**, never PASS. A check that cannot run says it could not run.
 
 - **Human-sounding**: Varied sentence lengths, contractions used naturally, no formulaic paragraph openings
 - **Context-grounded**: References specific data from context sources — not generic placeholder language

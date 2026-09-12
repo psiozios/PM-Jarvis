@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Dependencies noted | Cross-ticket dependencies explicitly listed with blocking/blocked relationships, and no duration attached to the chain |
 | E9 | Cut by domain change | No ticket exists only because one behavior change touched an extra surface. FAIL on a `[Frontend]`/`[API]`/`[DB]` split of a single behavior |
 

@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | PRD requirements mapped | Each requirement from the PRD or spec is addressed in the implementation |
 | E9 | Error handling included | Edge cases and error paths handled, not just the happy path |
 

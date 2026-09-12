@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Communication plan detailed | Specifies who gets notified, when, through which channels, with what messaging |
 | E9 | Migration path clear | Step-by-step migration guide for affected users — not just 'switch to X' |
 

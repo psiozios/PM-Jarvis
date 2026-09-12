@@ -47,6 +47,8 @@ If this is the first run for this meeting, ask for the section set (or accept `-
 
 For each configured section, pull the relevant material: shipped work from `<TASK_TRACKER>`, decisions from `context-library/decisions/`, metric movement from `<METRICS_SOURCE>`, risks from recent meeting notes.
 
+**No configured section is silently dropped for lack of content.** A section the reader expects and cannot find reads as an omission; a section that says "no movement this week" is information they can act on. Where a section is empty because its source was unavailable rather than quiet, say which — those are opposite facts (`references/protocols/source-preflight.md`). This rule was scored by `evals.md` before it was ever written here, so a run had no way to see it.
+
 ### 3. Write a so-what per section
 
 Every section leads with why it matters to this specific audience, not a bare list of what happened. A shipped-work bullet without an impact statement is incomplete.
@@ -82,7 +84,7 @@ A strong weekly-cadence routine candidate, timed to land before the meeting — 
 
 ## Formal Eval
 
-**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it three things: the output (or its absolute path), this skill's `evals.md`, and `config/house-style.md`. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
+**Do not present the output until this has run.** Spawn a separate eval agent in a clean context window and hand it the output (or its absolute path), this skill's `evals.md`, `config/house-style.md`, and the sources the output cites — E7 cannot be scored without them, and scoring it from plausibility is a vacuous PASS. It returns a PASS / PARTIAL / FAIL / N-A table with remediation for every FAIL. Loop until zero FAILs, then log the run in the Eval Results Log in `evals.md`.
 
 See `references/protocols/skill-evals.md`.
 

@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Confidence levels on assumptions | Every assumption has an explicit confidence level (high/medium/low) with reasoning |
 | E9 | Sensitivity analysis present | Shows how the estimate changes when top 2-3 assumptions are wrong by 2x |
 

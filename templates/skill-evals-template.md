@@ -9,7 +9,7 @@ last-updated: YYYY-MM-DD
 
 ## How to Run
 
-Runs automatically on every skill invocation, per `references/protocols/skill-evals.md` — that file owns the loop. The eval agent is handed this file, the skill output, and `config/house-style.md`, and the loop runs until zero FAILs.
+Runs automatically on every skill invocation, per `references/protocols/skill-evals.md` — that file owns the loop. The eval agent is handed this file, the skill output, `config/house-style.md`, and the sources the output cites, and the loop runs until zero FAILs. Without the sources, E7 is **N/A with the reason named** — never PASS.
 
 ## Eval Criteria
 
@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Durability *(Document-Writer / Analysis / Research-Synthesis only — delete this row for other archetypes)* | No volatile point-in-time status is asserted as standing fact. Ephemeral state is either dated ("as of `<DATE>`"), routed to its live source, or absent — never baked into the document as if it were permanent. See `references/protocols/freshness-provenance.md`. |
 | E9 | Source coverage declared *(any skill that reads a live source — delete this row for skills that read only local files)* | The output names which sources answered and, separately, any source that was unavailable with its reason. A source that never answered is never counted as swept, and its silence never kills a candidate. See `references/protocols/source-preflight.md`. |
 

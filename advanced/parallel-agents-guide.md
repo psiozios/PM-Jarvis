@@ -52,6 +52,10 @@ Instead of one AI doing tasks sequentially, you run multiple AI instances workin
 
 ### Bad Use Cases ❌
 
+**The spawn gate comes first, and it lives in `references/capabilities.md`.** Read it before building any fan-out described below. Two of its rules are load-bearing and are not in this file's list: *one inline batch by default; spawn only where a false positive is expensive*, and *parallel reads are free but spawned agents are not* — each costs a fresh context window that re-derives what the session already knows. A fan-out that returns no kills across several runs and produces only rewording is refinement, and it gets folded inline and dropped. This guide shows the **shapes**; that file decides **whether**.
+
+**And a spawned agent never holds a verdict.** Delegate the fetching and the refuting; the read a verdict rests on is yours, because what comes back is a report and a report about a source is not the source.
+
 **Sequential Dependencies:**
 - Need output of Agent 1 before Agent 2 can start
 - Just run them in sequence instead
@@ -375,6 +379,9 @@ Then: Combine into yearly report
 
 ### Solution 2: Synthesis Agent
 
+**A synthesis agent is given reports, so it can reconcile wording but cannot check a claim.** Anything it produces that becomes a verdict goes back to the source, read by you. See `references/capabilities.md`.
+
+
 **After parallel agents complete:**
 - Run a 5th agent to synthesize
 - Resolves conflicts
@@ -454,9 +461,9 @@ Level 4 - Synthesis:
 Roll up all findings into executive summary
 ```
 
-**When to use:** Massive research projects, unlimited time/budget
+**When to use:** Almost never, and not on the strength of this example. Per-item fan-out multiplies a fresh context window by the length of the list, and recursive fan-out multiplies it again — this shape is four levels and seventeen agents to answer one question. Before building it, instrument the run you already have (time to first delivery, tool calls) so the total is visible rather than each stage looking justified on its own. See the spawn gate in `references/capabilities.md`; the example stands as a shape, not a recommendation.
 
-**Warning:** Can get expensive fast with API costs
+**Warning:** Can get expensive fast with API costs, and the cost is not only money — a synthesis agent fed only other agents' output has nobody left who read a source.
 
 ---
 

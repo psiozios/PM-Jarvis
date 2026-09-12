@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Durability | Every restated numeric target is validated against `<METRICS_SOURCE>` before being asserted, with any discrepancy flagged rather than silently trusted. See `references/protocols/freshness-provenance.md`. |
 | E9 | Surgical, not wholesale | Only sections affected by the new learning changed; unrelated content is untouched |
 

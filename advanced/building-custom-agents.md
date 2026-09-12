@@ -449,6 +449,9 @@ Flag risks early.
 
 ## Advanced: Agent Orchestration
 
+**Gate the orchestration before you build it** — `references/capabilities.md` carries the spawn gate: one inline batch by default, a separate agent only where a false positive is expensive, and the whole loop compared against the whole loop rather than at the run boundary. A reviewer chain whose verdicts rest on other agents' reports needs one more step: the parent re-reads the source for anything it promotes to a blocker.
+
+
 **Agents working together:**
 
 **Example: Feature Development Workflow**

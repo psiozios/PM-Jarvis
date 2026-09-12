@@ -33,7 +33,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
+| E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Durability | Any status-like claim proposed for ingestion is either dated or routed to `second-brain`'s citation convention — not asserted as timeless fact. See `references/protocols/freshness-provenance.md`. |
 | E9 | Signal-filtering correctness | Low-signal candidates (acks, small talk, one-liners) were excluded from the preview, not just deprioritized |
 

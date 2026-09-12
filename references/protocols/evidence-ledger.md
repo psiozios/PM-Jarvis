@@ -51,6 +51,14 @@ Build the table by joining the log to the candidate list on the candidate key. *
 
 **Absence of a trace neither closes an item nor proves it open.** People decide things in rooms, and no tool logs that. A lookup that returned nothing supports exactly one verdict.
 
+**When a null result must be reported, and when it must be suppressed.** The tree legislates silence in both directions and the boundary is about *whose* silence:
+
+- **A lookup that came back empty is always reported** — as a `Hits: 0` row, and as `UNPROVEN` on the candidate it was for. That silence is about one item, and suppressing it loses the item.
+- **A whole run that found nothing to act on ships nothing** — no digest, no "nothing to report" message (`.claude/skills/routine-responder/` is the worked case). That silence is about the run, and reporting it trains the reader to stop opening the notification.
+- **The user's silence is never an answer.** It is not approval, not a no, not a signal that a proposal was seen (`references/protocols/routines.md` discipline #7).
+
+The test: report the empty **lookup**, suppress the empty **run**, and never read anything into a **person** not replying.
+
 **The error asymmetry, which runs against intuition.** A false proposal costs the reader one line they scan and dismiss. A false kill silently loses a real commitment — nobody ever learns it was dropped, because a killed item leaves no trace to notice. The costs are nowhere near symmetric, so the burden of proof sits entirely on the kill: **an unproven kill is not a kill.** Confidence that something is already handled is not evidence that it is.
 
 **`UNPROVEN` ships as a one-line question — never as a proposal, never as a silent drop.** A proposal asserts the item is live, and that is precisely what is unproven. A question puts the one fact the user holds and the tools do not where it costs them a line to answer.
