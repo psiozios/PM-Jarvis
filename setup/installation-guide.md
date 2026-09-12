@@ -190,7 +190,8 @@ Now you can just type `pm` to start a PM session!
 ```
 pm-jarvis/
 ├── CLAUDE.md                 ← Master context (read this first!)
-├── .claude/skills/           ← slash command skills (see all-skills.md for the current list)
+├── .claude/skills/           ← slash command skills (one directory each; the frontmatter
+│                                `description` in every SKILL.md is the current list)
 ├── routines/                 ← scheduled wrappers around skills (see setup/routine-setup.md)
 ├── setup/                    ← You are here
 ├── context-library/          ← Fill these out for your situation
