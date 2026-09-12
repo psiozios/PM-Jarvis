@@ -1,8 +1,8 @@
 ---
 skill: proactive-gaps
 archetype: Analysis
-eval-version: 2
-last-updated: 2026-08-10
+eval-version: 3
+last-updated: 2026-09-11
 ---
 
 # Evals: /proactive-gaps
@@ -17,8 +17,8 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Two-horizon structure | Output separates Present-State Upside, Forward Upside, and a Contrarian Read — not a merged list |
-| E2 | Ranked by size × claimability | Items are ranked on both factors with each stated per item, not by size alone |
+| E1 | Class-separated structure | Output carries a Framing Delta, then Forward Upside, Book Upside, Outside-In Hypotheses, the Contrarian Read, and a Cut list — not a merged list |
+| E2 | Ranked on two stated factors | Size × claimability where both exist; window × claimability for an unsized forward item. Both factors stated per item, never ranked on one |
 | E3 | "Your lane" stated per item | Every item explicitly states what the user can do with it |
 
 ### Quality & Voice
@@ -35,7 +35,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language |
 | E8 | Durability | Evidence cited for each item is either dated or points to a live source, never asserted as an unchanging fact. See `references/protocols/freshness-provenance.md`. |
-| E9 | Evidence-backed, not speculative | Every item cites a real workspace source; nothing is included on pure inference with no evidence trail |
+| E9 | Evidence-backed, and graded to its class | Book and forward items cite a real source. An outside-in item is allowed to run ahead of the data and is graded visibly as a hypothesis. FAIL on inference presented as fact; do **not** fail a forward or outside-in item for lacking workspace transaction data — that is what its own bar exists for |
 
 ### Completeness & Context
 
@@ -45,15 +45,18 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E11 | Contrarian pass grounded | The over-indexing claim is backed by actual recent-meeting evidence, not a generic assertion |
 | E12 | Surface-only honored | No task was created, no message drafted for sending, nothing written beyond the scan output itself |
 
-### Category 5: Upside Discipline
+### Category 5: Class Bars and Scan Order
 
 | ID | Check | Criteria |
 |----|-------|----------|
 | E13 | Upside gate named per item | Every item states which gate it passed — more money, more volume, or advantage a competitor cannot copy. FAIL on any item that only prevents deterioration |
-| E14 | Everything sized | Every item carries a magnitude with its derivation shown and graded to evidence. An unsized item is a FAIL, not a PARTIAL |
-| E15 | Floor and cap held | At least three upside items; at most one constraint item, and that item carries a revenue or volume number |
-| E16 | Not a defect list | No defect appears without a number attached. Constraints were not used to pad toward the floor |
-| E17 | Empty run reported honestly | If fewer than three items cleared the gate, the output says what the scan could not reach and frames it as a fact about the run, not about the business |
+| E14 | Each item held to its own class bar | Book: a money or volume figure with derivation and grade. Forward: a real date from a real source plus one named dependency. Outside-in: a named test and a falsifier. **FAIL on a forward item cut for being unsized** — the money bar does not apply to it |
+| E15 | Floor, forward rule, and cap held | At least three upside items, **at least one of them forward**, at most one constraint carrying a revenue or volume number |
+| E16 | Not a defect list, and not a back-book review | No defect without a number. Constraints were not used to pad toward the floor. And the run did not stop at three sized book items without reaching the forward class |
+| E17 | Empty run reported honestly | Where a bar went unmet — and always where no forward item survived — Run Quality says what the scan could not reach and frames it as a fact about the run, not about the business |
+| E18 | Framing delta ran first, on dated quotes | The output opens on the internal-vs-external comparison, each side carrying a dated quote from a named source. "No delta" is acceptable only when it names the two sources compared and their dates |
+| E19 | Scan order held | Forward landscape read before book upside, and outside-in last. FAIL where the evidence shows the money was read first and the forward class filled in afterward |
+| E20 | Cut list populated | Every candidate that missed a bar appears in Cut with the bar it missed. An empty Cut list beside a full shortlist means the bars were not applied |
 
 ## Scoring
 

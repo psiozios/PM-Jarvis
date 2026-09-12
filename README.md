@@ -352,7 +352,7 @@ These skills are built to run on a schedule as **routines** (see below), though 
 |---------|-------------|
 | `/action-sweep` | Sweep every connected source for open action items, reconcile against the tracker, execute or propose each |
 | `/loose-threads` | Open-loop radar — surface stalled two-way conversations you may be dropping |
-| `/proactive-gaps` | Two-horizon "where is the upside?" scan (money and volume now + advantage next), every item sized |
+| `/proactive-gaps` | Where is the upside — forward landscape first, then the money, then the outside-in reads, each on its own bar |
 | `/weekly-readahead` | Draft and publish a weekly read-ahead for a recurring cross-team meeting |
 | `/weekly-review-fill` | Base tier of the periodic-review cascade — pre-fills the week's review from completed work |
 | `/monthly-review-fill` | Rolls up the month's weekly reviews into a synthesized monthly assessment |
@@ -402,7 +402,7 @@ Monday `/weekly-plan` → daily workflow → Friday `/weekly-review` → `/statu
 weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the weeks) → quarterly `/quarterly-review-fill` (rolls up the months)
 
 **Stay-on-top Radar (run as routines):**
-`/action-sweep` (open items across sources) + `/loose-threads` (dropped conversations) + `/proactive-gaps` (what to worry about) — schedule these so they land in your notifier without you asking
+`/action-sweep` (open items across sources) + `/loose-threads` (dropped conversations) + `/proactive-gaps` (where the upside is) — schedule these so they land in your notifier without you asking
 
 ## Pro Tips
 

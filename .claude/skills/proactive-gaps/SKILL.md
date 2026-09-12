@@ -1,6 +1,6 @@
 ---
 name: proactive-gaps
-description: Two-horizon product-alpha scan answering "where is the upside?" — present and forward opportunities to make more money, move more volume, or build advantage a competitor cannot copy, plus a contrarian pass on what the team over-indexes on. Every item sized; defects qualify only with a number attached. Surface-only, evidence-backed, landed in the user's lane.
+description: Product-alpha scan answering "where is the upside?" — reads the forward landscape first, then the money, then the outside-in reads, each held to its own bar: a figure for book items, a date and a dependency for forward ones, a test and a falsifier for a hypothesis. Opens on a leadership framing delta. Surface-only, landed in the user's lane.
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -13,9 +13,7 @@ disable-model-invocation: false
 /proactive-gaps               → full two-horizon scan
 ```
 
-**What you get:** A tight, ranked, sized list of present-state and forward upside, at most one constraint item, and a contrarian read on what the team over-indexes on — every item landed back in something the user can actually act on. Surface-only: nothing is created, nothing is sent.
-
-**Time:** A few minutes to read evidence, longer if the workspace is thin and evidence has to be gathered from multiple sources.
+**What you get:** A framing delta, then a ranked list across three classes — forward, book, and outside-in — at most one constraint, and a contrarian read, every item landed in something the user can act on. Surface-only: nothing is created, nothing is sent. Takes a few minutes, longer where the forward evidence has to be gathered from outside the workspace.
 
 ---
 
@@ -25,13 +23,19 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 
 **The upside gate — every candidate passes it or does not ship.** If the reader acts on this item, does the business **make more money, move more volume, or gain advantage a competitor cannot copy?** One of the three, named explicitly. An item that only prevents something from getting worse has not passed.
 
+**Each class is held to its own bar. One bar for everything deletes a class.** Read `references/item-classes.md` before scoring any candidate — it carries the three classes, their bars, the ranking rule, and the output shape.
+
+- **Book** — money and volume in the business you already have. **Bar: a money or volume figure**, derivation shown, graded to evidence.
+- **Forward** — growth gated on a licence, a partnership, a market-structure shift, a dated event. **Bar: a date and a dependency**, both from a real source. A forward item is **not** required to carry a figure.
+- **Outside-in hypothesis** — a read on the market the workspace has no data for. **Bar: a named test and a falsifier.**
+
+**Size-or-cut applies to the book class only.** Holding a forward item to a transaction-backed figure is how this scan becomes a back-book review: where growth is gated on licensing, partnerships, or market structure, there is no transaction history behind it yet, so a money-first bar deletes the entire class before it reaches the page.
+
 **A defect qualifies only once a number attaches.** Broken things are not alpha by default. A bug, a regression, a piece of debt, a normalized failure mode enters this scan only when a revenue or volume figure is attached to it — what it is costing, or what fixing it would release. Without the number it is a ticket, and it belongs in the tracker rather than here.
 
-**Three upside items minimum, one constraint item maximum.** The floor and the cap are both hard. A run that produces four constraints and one opportunity has drifted back into being a defect list, which is the failure this gate exists to stop.
+**Three upside items minimum, at least one of them forward, one constraint item maximum.** The floor, the forward rule, and the cap are all hard. A run that produces four constraints and one opportunity has drifted back into being a defect list; a run that produces three book items and nothing forward has read the money first and stopped.
 
-**Size everything or cut it.** Every item carries a magnitude — revenue, volume, or share, with its derivation shown and graded to its evidence. An item nobody can size is an item nobody can rank, and it does not ship.
-
-**Nothing qualifying is a fact about the run, not about the business.** If fewer than three items clear the gate, say so plainly and name what the scan could not reach — thin sources, no metrics access, a window with nothing in it. Never pad the list with constraints to fill the space, and never conclude the business has no upside because one scan did not find it.
+**Nothing qualifying is a fact about the run, not about the business.** If a bar goes unmet, say so plainly and name what the scan could not reach — thin sources, no metrics access, no dated filings, no visibility into the partnership pipeline. Never pad with constraints to fill the space, and never conclude the business has no upside because one scan did not find it.
 
 ## Context Routing
 
@@ -43,79 +47,73 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Competitor intel | `context-library/second-brain/competitive-intelligence/`, `context-library/research/` | Positions a competitor structurally cannot take, and what it would take to hold one |
 | Recent meetings | `outputs/meeting-notes/`, `context-library/meetings/` | What the team is currently spending its attention on (for the contrarian pass) |
 | The product itself | codebase/product surface, if accessible | Direct evidence of unsolved problems, not just what's reported |
+| Leadership, internal | `context-library/strategy/`, `context-library/meetings/`, all-hands and exec notes | Dated quotes on where growth is expected to come from |
+| Leadership, external | `<DOCS_HUB>`, the company's public site, press, filings, web search | Dated public statements on the same question — the other half of the framing delta |
+| Forward landscape | web search, regulatory and licensing sources, partnership and channel announcements, competitor filings and job postings | Dated events, licences, approvals, market-structure shifts — the evidence the forward class runs on |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
 
-### 1. Gather the freshest evidence, in parallel
+**The order is the method.** Reading the money first ends the scan before the forward class is written down: three sized book items arrive, the floor is met, nobody looks further. Forward first, money second, narrative last.
 
-Read across all sources in the routing table. This is a surface-only skill, so breadth of evidence matters more than depth in any one source — read to resolution on each candidate signal, but don't over-invest in one channel at the expense of scanning the rest (see `references/protocols/skill-patterns.md` discipline #1).
+### 1. Leadership framing delta
 
-### 2. Present-state upside
+Before any candidate exists, put what leadership says **internally** beside what the company says **externally**, each on a dated quote from a real source. Where the two diverge is the most useful signal in the run: a bet named in an all-hands but absent from the public story is a direction the team is already moving on quietly, and a public claim with no internal work behind it is a commitment someone will have to meet.
 
-Find money and volume available **now**: demand the product is turning away, a segment converting far above the mean that nobody has tried to grow, a job customers are hiring a competitor or a spreadsheet to do, pricing left on the table, a position the team already half-holds and could lock. Run the upside gate on each one before it goes further.
+Run this first because it tells you where to point the forward read. "No delta found" is a real result — say which two sources you compared and their dates, so the reader can see it was actually checked (`references/protocols/freshness-provenance.md`: a quote carries its date, and a strategy doc is directional rather than a status oracle).
 
-### 3. Forward upside
+### 2. Forward landscape
 
-Find advantage available **next**: a dated event the team could be first to, a trajectory about to cross a threshold in the business's favour, a bet the market is bending toward that is still cheap to place, a capability that would compound into something a competitor cannot copy.
+Find growth gated on something not yet in the book: a licence or approval opening a market, a partnership or channel changing who can be sold to, a competitor exiting, a platform opening, a regulation landing, a dated event the team could be first to. Hold each to the forward bar — a real date from a real source, and one named dependency someone could go and check.
 
-### 4. The single constraint slot
+### 3. Book upside
 
-At most **one** item, and only if it outranks a real opportunity on size. It must carry a revenue or volume number — what the constraint is costing, or what removing it would release. No number, no slot; the item goes to the tracker instead. Leaving this slot empty is a valid and common outcome.
+Now the money and volume available in the business you already have: demand being turned away, a segment converting far above the mean that nobody has grown, a job customers pay someone else to do, pricing left on the table. Every one carries a figure with its derivation and evidence grade, or it is cut.
 
-### 5. Contrarian pass
+### 4. Outside-in hypotheses
 
-Identify what the team is currently over-indexing on — using the recent-meetings evidence to see where attention is actually going — and name the tension between that and what steps 2-4 surfaced.
+The narrative reads the workspace holds no data for — where demand is moving, what a competitor's hiring implies. Each carries a named test and a falsifier, and is graded visibly as a hypothesis.
 
-### 6. Run from an elevated posture, land in the user's lane
+### 5. The single constraint slot
 
-Adopt a head-of-product/CEO-level vantage point when scanning for what matters — but every single item in the output must connect back to something the user, in their actual IC role, can act on or flag. An item that only makes sense from a CEO's chair and gives the user nothing to do with it is noise, not alpha.
+At most **one**, and only if it outranks a real opportunity once both are ranked in step 7. It carries a revenue or volume number — what it costs, or what removing it releases. No number, no slot. Leaving this empty is valid and common.
 
-### 7. Size, then rank by size × claimability
+### 6. Contrarian pass
 
-Size every surviving item — revenue, volume, or share — showing the derivation and grading it to its evidence per the absolute rules. Anything that cannot be sized is cut here, not carried.
+Name what the team is over-indexing on — from the recent-meetings evidence, not from impression — and the tension between that and what steps 2-4 surfaced. The framing delta usually sharpens this: attention going somewhere neither the internal nor the external story justifies is the finding.
 
-Then rank by **size × claimability**, not size alone. Claimability is the honest odds this team, with what it has, actually captures the thing: a $2M opportunity the team is structurally unable to claim ranks below a $300k one it can take this quarter. State both factors per item so the reader can disagree with either.
+### 7. Rank, then check the composition
 
-Check the floor and the cap before shipping: three upside items minimum, one constraint maximum. If the floor is not met, report that as a finding about the run.
+Rank by size × claimability where both exist. Where a forward item carries no figure, rank it on how soon its window closes against claimability. State both factors per item either way.
 
-## Output Template
+Then check: three upside items minimum, **at least one of them forward**, one constraint maximum. Everything that failed its class bar goes to the Cut list with the bar it missed — a cut list with nothing in it means the bars were not applied. If no forward item survived, that goes in Run Quality as a finding about the run.
 
-```markdown
-# Proactive Gaps Scan — <DATE>
+### 8. Run from an elevated posture, land in the user's lane
 
-## Present-State Upside
-1. **<item>** — **Gate:** money / volume / uncopyable advantage — **Size:** <figure, derivation, evidence grade> — **Claimability:** <honest odds this team takes it, and why> — <evidence, cited> — **Your lane:** <what the user can do with this>
+Adopt a head-of-product/CEO-level vantage point when scanning — but every item must connect back to something the user, in their actual IC role, can act on or flag. An item that only makes sense from a CEO's chair and gives the user nothing to do with it is noise, not alpha.
 
-## Forward Upside
-1. **<item>** — **Gate:** money / volume / uncopyable advantage — **Size:** <figure, derivation, evidence grade> — **Claimability:** <...> — <evidence, cited> — **Your lane:** <...>
+## Output
 
-## Constraint (max 1, omit if none qualified)
-1. **<item>** — **Cost or release:** <revenue or volume figure> — <evidence, cited> — **Your lane:** <...>
-
-## Contrarian Read
-<what the team is over-indexing on right now, and why that tension matters>
-
-## Run Quality
-<Only if fewer than three upside items cleared the gate: what the scan could not reach, and what would let the next run reach it. This is a statement about the run, not about the business.>
-```
+Template, the three class bars, the ranking rule, and the composition check: `references/item-classes.md` — read before scoring the first candidate, not when the list is being written.
 
 ## Runs as a Routine
 
-A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly cadence suits the "where is the upside" framing better than daily — opportunities of this size do not appear overnight.
+A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly suits "where is the upside" better than daily; opportunities this size do not appear overnight.
 
 ## Output Quality Self-Check
 
+- [ ] The framing delta ran **first** on dated quotes from both sides, and the forward landscape was read **before** the money — or the output names which two sources were compared and found no delta
 - [ ] Every item names which gate it passed: more money, more volume, or advantage a competitor cannot copy
-- [ ] Every item carries a size with its derivation shown and graded to evidence — nothing unsized shipped
+- [ ] Each item was held to **its own class bar** — figure for book, date and dependency for forward, test and falsifier for outside-in
+- [ ] At least one forward item survived, or Run Quality says what the forward read could not reach
 - [ ] Three upside items minimum; at most one constraint item, and it carries a revenue or volume number
-- [ ] Ranked by size × claimability, with both factors stated per item
-- [ ] Every item cites real evidence from a workspace source, not a speculative claim
+- [ ] Ranked with both factors stated per item — size × claimability, or window × claimability for an unsized forward item
+- [ ] Every item cites real evidence, and every outside-in item is graded visibly as a hypothesis
 - [ ] Every item states what the user, specifically, can do with it
 - [ ] The contrarian pass is grounded in actual recent-meeting evidence, not a generic observation
-- [ ] If the floor was missed, the Run Quality section says what the scan could not reach
+- [ ] The Cut list carries every item that missed a bar, with the bar it missed
 - [ ] Nothing was created, drafted-for-sending, or written — this skill only surfaces
 
 ## Formal Eval
@@ -142,7 +140,9 @@ See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
-- **Returning a defect list.** The most common drift: broken things are easy to find and feel like insight. A defect without a number attached is a ticket, not alpha
+- **Returning a back-book review.** Reading the money first, meeting the floor on three sized book items, and never reaching the forward class. Where growth is gated on licensing, partnerships, or market structure, this answers the wrong question competently
+- **Holding a forward item to a money bar** it could not possibly clear, then cutting it for being unsized
+- **Returning a defect list.** The other common drift: broken things are easy to find and feel like insight. A defect without a number attached is a ticket, not alpha
 - **Padding with constraints** to reach three items when the upside search came up short
 - Shipping an item nobody sized, or ranking by size while ignoring whether this team can claim it
 - Surfacing an item with no evidence behind it
