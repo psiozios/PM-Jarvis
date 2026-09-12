@@ -22,6 +22,8 @@ Example routing table (from a skill's SKILL.md):
 
 Read all declared sources in parallel. Do not read sequentially. Do not read the entire context library. Only read what the routing table specifies.
 
+**A `Search Terms` column is a list of queries, not one query.** Forty-five skills carry a routing table with a comma-separated term list. Each term is sent on its own, and a term containing a space is sent again word by word if it comes back empty — the combining behaviour belongs to the tool, and most of them AND. See `references/protocols/evidence-ledger.md` for the rule and `references/mcp-routing.md` for what each tool was verified to do.
+
 ### 3. Synthesize
 
 Combine what you found into a working context for the task. Note gaps and contradictions.

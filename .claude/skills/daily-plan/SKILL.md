@@ -731,7 +731,7 @@ curl https://api.linear.app/graphql \
 **For Gmail:**
 
 ```
-1. Search: is:unread OR is:important (in Gmail)
+1. Search: is:unread OR is:important (in Gmail — uppercase `OR` is an operator in Gmail's dialect specifically; do not carry that syntax to another tool without probing it, per `references/mcp-routing.md`)
 2. Screenshot the list
 3. Share with me
 4. I'll identify which emails need attention today

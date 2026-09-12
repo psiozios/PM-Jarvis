@@ -58,6 +58,9 @@ One paragraph on what this skill does and the job it is for. No heading — the 
 | <what this skill needs> | `context-library/<path>.md` | when <condition> |
 | Live source data | `references/mcp-routing.md` | when the task wants live tool data |
 
+<!-- If you add a Search Terms column, each term is its own query — one distinctive
+     noun at a time, punctuation variants separately. See evidence-ledger.md. -->
+
 ## Workflow
 
 1. **<Step name>** — what the agent does, concretely.

@@ -15,6 +15,30 @@ This file defines how natural-language queries route to the right MCP server or 
 
 **The Auth column is load-bearing.** An `oauth` source cannot repair itself in an unattended run — the refresh needs a browser and a human, and the failure arrives as an empty result rather than an error. Record the auth type when you connect the tool and register a check for it in `config/source-preflight.json`. See `references/protocols/source-preflight.md`.
 
+## Search Dialects
+
+**Verified per tool, dated, never assumed.** Two search tools that both take a string do not behave the same way, and the difference is invisible until a query returns a wrong answer with no error. Fill a row in only once you have run the probes; an unverified row is worse than an empty one.
+
+| Source | Terms combine as | `OR` supported | Quoted phrase | Punctuation | Verified |
+|--------|-----------------|----------------|---------------|-------------|----------|
+| _None verified yet_ | - | - | - | - | - |
+
+<!-- After probing, entries look like:
+| Linear | AND (every term must match) | no — `OR` matches literally | no | hyphens stripped, `on-boarding` = `onboarding` | 2026-09-11 |
+| Gmail | AND | yes, uppercase `OR` | yes, `"..."` | dots ignored in addresses | 2026-09-11 |
+-->
+
+**The four probes.** Against one record you know exists, in this order:
+
+1. **One distinctive term from it** — establishes the tool answers at all. Zero hits here means the tool is broken or the record is not indexed; stop and find that out before reading anything into probes 2-4.
+2. **Two terms, both present in that record** — a hit means terms are combined permissively or the tool ANDs and both matched; proceed to 3.
+3. **Two terms, one present and one absent** — a hit means OR-ish, zero means AND. This is the probe that matters most, because an AND-only tool turns a multi-term query into a false zero.
+4. **The same two terms joined with `OR`** — if this returns zero while probe 1 returned hits, `OR` is being matched as a literal word, not read as an operator.
+
+Then probe punctuation: the closed, hyphenated, and spaced spellings of one noun you know appears, each as its own query. Different hit counts mean the spellings are not interchangeable and each is a separate query for the rest of time.
+
+**Why this is not optional.** An AND-only tool given a boolean returns zero hits and no error, and that zero reads exactly like a real null. The consequence lands downstream in `references/protocols/evidence-ledger.md` — a candidate killed on a false zero is a commitment silently dropped, and nobody ever learns it was dropped.
+
 ## Query Routing Rules
 
 ### Analytics Queries --> Analytics MCPs (Amplitude, Mixpanel, Posthog, Pendo)
@@ -79,9 +103,10 @@ Use `/connect-mcps connect to [tool name]` for guided setup.
 **After connecting:**
 1. Test the connection and discover available tools
 2. Record the auth type, and register a preflight check for the source in `config/source-preflight.json`
-3. Map the MCP to relevant skills
-4. Update this routing table
-5. Save integration log to `outputs/mcp-integration-logs/`
+3. Run the four probes above and fill in this tool's Search Dialects row, dated
+4. Map the MCP to relevant skills
+5. Update this routing table
+6. Save integration log to `outputs/mcp-integration-logs/`
 
 ## Graceful Degradation
 

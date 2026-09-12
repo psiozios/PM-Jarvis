@@ -140,6 +140,7 @@ Once credentials are provided:
 - Document capabilities for routing
 - **Record the auth type** (`oauth` / `token` / `none`) in the registry's Auth column. OAuth matters because its refresh needs a browser, so an unattended run can never repair it
 - **Register a preflight check** for the source in `config/source-preflight.json`, keyed on the placeholder the skills route on (`<TASK_TRACKER>`, `<CALENDAR>`, and so on). A connection tested today says nothing about a token three weeks from now; the check is what makes the failure visible instead of silent. See `references/protocols/source-preflight.md`
+- **Probe the search dialect and record it**, dated, in the Search Dialects table in `references/mcp-routing.md`. Run the four probes that file specifies against a record you know exists. Probe 3 is the one that matters: if two terms where only one matches returns zero, the tool ANDs, and every multi-term query sent to it from now on is a false zero waiting to be read as a real one
 
 Example discovered tools for Amplitude:
 - `query_insights` - Query product analytics data
@@ -1258,6 +1259,7 @@ Before confirming an MCP connection is complete, verify:
 - [ ] **Fallback documented** -- Skills note what to do when this MCP is unavailable
 - [ ] **Auth type recorded** -- `oauth` / `token` / `none` in the registry's Auth column
 - [ ] **Preflight check registered** -- an enabled entry in `config/source-preflight.json` that makes a real call and reports `live`
+- [ ] **Search dialect probed and dated** -- the four probes run, and this tool's row filled into the Search Dialects table
 - [ ] **No duplicate entries** -- MCP is not listed twice in registry or skill files
 - [ ] **PM knows how to use it** -- Example natural language queries provided so the PM can start using the MCP immediately
 

@@ -20,7 +20,13 @@ Any run that will drop, merge, or suppress candidates builds two artifacts befor
 
 **Strike an unsupported claim; never back-fill it.** Running the missing query now and presenting the result as contemporaneous is the same defect wearing a fix's clothes. The claim goes.
 
-**Expand every distinctive noun into its closed, hyphenated, and spaced forms in one query.** One word to a reader is three searches to a tool, and a miss because only one spelling was tried is a manufactured absence, not a finding.
+**One distinctive noun per query. Punctuation variants are separate queries.** Pick the single most distinctive noun the candidate owns — a ticket ID, a feature name, a surname — and send it alone. Closed, hyphenated, and spaced spellings go as their own queries, one after another, not combined into one.
+
+**This corrects the earlier rule, which said to expand every noun into one query.** That rule assumed the tool would treat the variants as alternatives. One search tool here ANDs every term it is given and supports no OR at all, so a multi-variant query asks for a document containing all three spellings at once — which nothing does. It returns zero hits and no error. The zero is then indistinguishable from a real null, and three runs shipped items that had already been handled on the strength of exactly that. **A false zero is more expensive than a missed spelling, because it looks like evidence.**
+
+**A zero-hit query containing a space is suspect until it has been re-run one term at a time.** Log the re-runs; the suspect zero is not a `Hits: 0` row until the single-term queries have also come back empty.
+
+**A tool's query dialect is a property to verify, never assume, and every dialect rule is scoped to the tool it was verified on.** Whether terms AND or OR by default, whether quotes make a phrase, whether `OR` is an operator or a literal word, whether punctuation is stripped or significant — none of that carries from one tool to the next. Record what you verified in `references/mcp-routing.md` under Search Dialects, with the date you verified it.
 
 ## 2. The ledger
 
@@ -58,5 +64,6 @@ Build the table by joining the log to the candidate list on the candidate key. *
 ## Cross-References
 
 - `references/protocols/skill-patterns.md` — discipline #9 is the pointer into this file; the surrounding disciplines say when a skill is in this class
+- `references/mcp-routing.md` — the Search Dialects table: what each tool's search actually does, per tool, dated
 - `references/file-creation-rules.md` — where the ledger file goes (`outputs/ledgers/`)
 - `references/protocols/knowledge-capture.md` — what may be proposed once a row says `PROPOSE`

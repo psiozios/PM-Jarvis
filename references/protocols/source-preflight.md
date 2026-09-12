@@ -56,7 +56,18 @@ This is the half that matters to the reader. A sweep that names five sources and
 - **No candidate is killed on the silence of an unavailable source.** The lookup did not run, so the row is `UNPROVEN`, not `KILL` (`references/protocols/evidence-ledger.md`). An empty result from a dead source is not evidence; it is the absence of a lookup wearing a lookup's clothes.
 - **Coverage is stated, not implied.** "Swept every source" is a claim, and it is false in any run where a source was down. Name the ones that answered.
 
-## 6. Degradation has three modes, not one
+## 6. Before calling a system unreachable, check where its notifications land
+
+Plenty of systems copy themselves into other systems. A tracker emails on assignment, a docs hub sends a digest, a chat platform forwards mentions to the inbox, a CI service posts to a channel. When the primary source is `bad` or `missing`, **check whether its notifications land somewhere you can already read** before reporting that the system could not be reached at all.
+
+What that changes:
+
+- **The reason is more precise.** "Tracker unreachable" and "tracker unreachable, but its assignment mails are in the inbox and cover the window" are different facts, and the second one lets the run continue on real evidence.
+- **The mirror is a mirror, and says so.** Content read out of a notification is a dated derivative of the source, not the source — the same rule that governs any local mirror (`references/protocols/freshness-provenance.md`). Cite it as the notification, name the window it covers, and never present it as having read the system.
+- **It does not repair coverage.** The source still appears in the unavailable list with its reason. A notification stream is usually partial — it carries what was pushed, not what is true — so a run built on one says which part it could see.
+- **It is never the idempotency input.** A routine's own notification is output, never state (`references/protocols/routines.md` discipline #3). This rule is about reading *other systems'* notifications as a fallback for their data, and it does not touch that boundary.
+
+## 7. Degradation has three modes, not one
 
 The fallback most skills carry — *degrade to the local files when a tool is not connected* — covers only the case where the user never connected anything. Two more exist, and they matter more because they are silent:
 
