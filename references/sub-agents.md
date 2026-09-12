@@ -22,6 +22,7 @@ When spawning sub-agents for review:
 2. **Give each agent** the specific document or task to review
 3. **Synthesize feedback** across all agents at the end
 4. **Flag conflicts** between perspectives (e.g., engineer says "too complex" while designer says "need more features")
+5. **Re-read the document yourself for anything that becomes a verdict.** A persona's job is to refute — to find the objection you would not have raised. The finding it hands back is a pointer, and promoting one to a blocker means opening the document at that section and confirming it says what the report says it says. A report about a document is not the document (`references/capabilities.md`), and a quoted line inside a report is the most persuasive part of it, not the most checked.
 
 ## When to Use
 

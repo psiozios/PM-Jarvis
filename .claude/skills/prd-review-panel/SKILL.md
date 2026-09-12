@@ -406,9 +406,15 @@ Write from first person ("I") as the user. Be honest about whether you'd use thi
 
 ---
 
-### Step 4: Collect & Synthesize Reviews
+### Step 4: Collect Reviews, Then Confirm Every Blocker Against the PRD
 
 Once all 7 agents complete (wait for all Task outputs):
+
+**A review is a pointer, not a finding.** Seven personas were spawned to refute the PRD, and refuting is the right job to delegate. Their reports are not. Before any finding is written down as a blocker, **open the PRD at the section it names and confirm the PRD says what the report says it says.** A report that quotes a line reads as already checked, which is exactly why it isn't — the quote is the persuasive part, not the verified part (`references/capabilities.md`, `references/sub-agents.md`).
+
+The read is cheap and bounded: only findings being promoted to Critical Blockers or Important Gaps need it, and only at the sections they name. Downgrade anything the PRD does not support, and say which reviewer raised it and what the PRD actually says.
+
+**If the panel produced no blockers but reshaped several sections' worth of feedback, re-gate before reporting a clean pass.** A panel that kills nothing while rewording a lot is telling you it found real problems and then graded every one of them cosmetic.
 
 **Read each review and extract:**
 1. ✅ Strengths (what's working well)
@@ -792,6 +798,8 @@ Before presenting output to the PM, verify:
 - [ ] **Conflicting perspectives between reviewers explicitly flagged:** Any disagreements between agents (e.g., Engineering wants simplicity while Design wants richness) are called out in the "Conflicting Perspectives" section with both positions stated
 - [ ] **Synthesis section prioritizes feedback items:** The TL;DR and summary sections rank issues by severity (Critical Blockers > Important Gaps > Enhancements) with a clear recommended next step
 - [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
+- [ ] **Every blocker confirmed against the PRD itself:** Each Critical Blocker and Important Gap was checked by reopening the PRD at the named section — not accepted from the reviewer's report, quote included
+- [ ] **A zero-blocker panel with heavy rewording was re-gated:** Not reported as a clean pass on the strength of the kill count alone
 
 
 ## Formal Eval

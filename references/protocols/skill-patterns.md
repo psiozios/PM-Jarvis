@@ -14,6 +14,8 @@ Every skill in this class — anything that searches across sources and then pro
 
 A match from a search (a keyword hit, a title match, a snippet) tells you where to look, not what's there. Open every candidate and read it to resolution before classifying it as anything. Never report a search result as a finding without having read the underlying content.
 
+**An agent's report about a source is a pointer too.** A spawned agent that read the thread and handed back a summary — quotes included — has told you where to look, not what is there. Delegate the fetching and the refuting; never delegate the read a verdict rests on (`references/capabilities.md`). This form is harder to catch than a bare search hit, because a report with a quote in it reads as work already done.
+
 ### 2. Verify before surfacing
 
 Cross-check each candidate against orthogonal sources — a calendar, a tracker, an issue board, an email thread, a sibling skill's output — and emit a per-item `Checked:` line naming what was cross-referenced. Silence in one channel is not proof of anything; the absence of a follow-up in Slack doesn't mean the loop closed, it might mean the reply happened somewhere else entirely.
@@ -59,6 +61,8 @@ The full process — the log's fields, the join that builds the evidence table, 
 **Split the output where the reader's involvement splits.** The half that needs an answer from them — the questions, the `UNPROVEN` one-liners, anything blocked on a fact only they hold — ships as soon as it is ready and never waits behind the half still being verified. Two deliveries with a gap between them beat one that lands after the reader has moved on.
 
 **Pick each item's section by what the reader does with it**, not by which check produced it. Where a second section has a caveat about the same item, fold the caveat into the line carrying the action — **fold rather than delete**, so the caveat survives at the point of use.
+
+**Fold a caveat; re-gate an answer.** The fold rule covers a caveat that qualifies an item without settling it — a low-confidence source, a partial window, an owner who may have moved. It does not cover evidence bearing on whether the item is **done**. That evidence sends the item back through its own gate with the source read directly, and the gate's new verdict is what ships. Folding it in as a caveat leaves a proposal standing next to a note saying it might already be handled, which is the shape that gets acted on and then found to have been closed a week ago.
 
 ## Named Archetypes
 

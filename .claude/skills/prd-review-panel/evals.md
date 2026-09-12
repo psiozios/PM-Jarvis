@@ -1,8 +1,8 @@
 ---
 skill: prd-review-panel
 archetype: Communication-Draft
-eval-version: 1
-last-updated: 2026-06-23
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /prd-review-panel
@@ -44,6 +44,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Conflicting perspectives flagged | When reviewers disagree, the conflict is explicitly surfaced |
 | E11 | Action items extracted | Concrete action items pulled from across all reviews into a prioritized list |
 | E12 | Sub-agents spawned in parallel | All 7 reviewers run as parallel sub-agents for clean independent review |
+| E13 | Blockers confirmed against the PRD | Every Critical Blocker and Important Gap was verified by reading the PRD at the section it names, not accepted from a reviewer's report. FAIL on any blocker traceable only to an agent summary. See `references/capabilities.md` |
 
 ## Scoring
 

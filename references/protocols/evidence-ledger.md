@@ -36,7 +36,7 @@ Written to `outputs/ledgers/<skill>-<date>.md` before any candidate is dropped �
 |--------|-------|
 | Candidate | The item as it appeared in the source |
 | Lookup run | The **targeted** query for this candidate, keyed on **its own nouns** — its ticket ID, its feature name, the person who owns it. Recorded as run, not as intended. |
-| Evidence | What came back, **verbatim**. A paraphrase is not evidence. |
+| Evidence | What came back, **verbatim**. A paraphrase is not evidence, and an agent's summary of the source is a paraphrase — quotes in it included. |
 | Verdict | `PROPOSE` / `KILL` / `UNPROVEN` |
 
 **The root cause this closes.** Reading a source for the window and checking one candidate are **different operations**. Sweeping the last thirty days of a channel tells you what happened in that channel; it does not tell you whether *this* commitment was met, because the answer may live somewhere the sweep never went. Substituting the sweep for the per-candidate lookup is the failure — and it is invisible from the outside. One lookup per candidate, keyed on that candidate's own nouns, or the row is `UNPROVEN`.
@@ -58,6 +58,8 @@ Build the table by joining the log to the candidate list on the candidate key. *
 **Report the kills beside the proposals.** Every output carries its killed rows with their evidence, next to the list. This is the check the reader runs on the run itself — **a list with no kills beside it is unverified**, not clean, and should be read as a run that skipped this protocol.
 
 **Volume caps trigger a re-check, never a truncation.** A cap that bites means the run found more than expected, which is information about the ledger, not permission to cut its tail. Re-read the rows, look for the merge or the wrong-verdict cluster that inflated the count, and report the real number either way. Dropping rows to hit a number is a silent kill of every row below the line.
+
+**Evidence arriving after the verdict re-runs the gate.** A lookup that comes back bearing on whether the item is done does not become a caveat on the existing row — the row goes back through the verdict test with that source read directly, and whatever comes out is the verdict. A `PROPOSE` row carrying a note that the item may already be handled is the worst of the three outcomes: it asserts the item is live while telling the reader it might not be.
 
 **A carried row gets a fresh row and a fresh lookup every run.** Last run's evidence cell is not evidence this run — reusing it is indistinguishable from never having looked. **Carried rows also age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
 
