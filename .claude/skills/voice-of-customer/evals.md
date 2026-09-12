@@ -1,8 +1,8 @@
 ---
 skill: voice-of-customer
 archetype: Research-Synthesis
-eval-version: 1
-last-updated: 2026-06-23
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /voice-of-customer
@@ -44,6 +44,12 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Segment patterns noted | Identifies if certain themes cluster by user segment, plan, or tenure |
 | E11 | Trend over time shown | Compares current themes to previous period where data available |
 | E12 | Priority recommendations | Themes ranked by business impact, not just volume |
+
+### Ledger Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Ledger-derived list | A ledger exists at `outputs/ledgers/voice-of-customer-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 
 ## Scoring
 

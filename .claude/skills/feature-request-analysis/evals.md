@@ -1,8 +1,8 @@
 ---
 skill: feature-request-analysis
 archetype: Research-Synthesis
-eval-version: 1
-last-updated: 2026-06-23
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /feature-request-analysis
@@ -44,6 +44,12 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Revenue or retention signal | Notes if requestors are high-value accounts, churned users, or prospects |
 | E11 | Existing solution gaps noted | States whether current product partially addresses the need and where it falls short |
 | E12 | Prioritization recommendation | Suggests priority order with reasoning tied to strategy, not just volume |
+
+### Ledger Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Ledger-derived list | A ledger exists at `outputs/ledgers/feature-request-analysis-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 
 ## Scoring
 

@@ -1,8 +1,8 @@
 ---
 skill: chat-ingest
 archetype: Research-Synthesis
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /chat-ingest
@@ -44,6 +44,12 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Correct focus-area routing | Each candidate's proposed focus area is defensible from its content, and unclear fits are flagged rather than forced |
 | E11 | Write-on-confirm honored | No thread was ingested into the second brain before the user confirmed |
 | E12 | dm-threads mapping correct | In `dm-threads` mode, partners were matched against existing `stakeholders` profiles, not left unmapped when a profile exists |
+
+### Ledger Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Ledger-derived list | A ledger exists at `outputs/ledgers/chat-ingest-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 
 ## Scoring
 

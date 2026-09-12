@@ -19,6 +19,7 @@ point at which discipline each block satisfies but do not restate it.
 State files this routine owns (discipline #2 — one owner per file):
   routines/example-daily-digest/outputs/YYYY-MM-DD-digest.md   (dated output — evidence, never a guard)
   routines/example-daily-digest/.last-run-<period>              (already-ran guard — confirmed delivery only)
+  routines/example-daily-digest/.last-checkpoint-<period>-<name> (one per checkpoint; this digest pings once a day, so it writes none)
   routines/example-daily-digest/.thread-pointer.json             (notification thread, copy-only — prune per notifications.md item 7)
 -->
 
@@ -77,9 +78,8 @@ If any skill's output implies a write to the user's own systems (their own track
 
 ### 7. Deliver, in this order (see SENDING block below)
 
-1. **Write the dated output file.** It is the artifact, and the notification can point at it. It is never the already-ran guard.
-2. **Render the digest in the conversation.** Before the outbound call, not after — the tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3).
-3. **Post the notification.**
+1. **Write the dated output file** — the artifact the notification can point at, never the already-ran guard.
+2. **Render the digest in the conversation**, before the outbound call. A tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3). Then **post**.
 
 ### 8. Stamp
 

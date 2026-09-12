@@ -33,6 +33,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Email | `<EMAIL_SOURCE>` | Threads awaiting the user's reply or awaiting someone else's |
 | Calendar | `<CALENDAR>` | Cross-check: did a loop resolve in a meeting instead of in-thread? |
 | Sibling sweep | `action-sweep` output | Dedupe — don't re-flag something `action-sweep` already surfaced as an action item |
+| Carried-item counter | `outputs/state/carried-loose-threads.json` (this skill's own file) | How many consecutive runs each item has been carried. Marks new-vs-carried, and triggers the third-run park-or-drop — **never narrows the sweep** |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
@@ -41,7 +42,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ### 1. Preflight, then full-window, from-scratch sweep
 
-Check the sources first (`references/protocols/source-preflight.md`) and hold what answered against what did not, with reasons — a thread cannot be judged stalled off a channel that never replied to the query. Re-sweep the entire window every run. Prior-run state marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3). A carried thread is re-opened and re-checked like any other candidate; where this run's evidence shows it closed, close it here in one line with the quote rather than carrying it into another bucket.
+Check the sources first (`references/protocols/source-preflight.md`) and hold what answered against what did not, with reasons — a thread cannot be judged stalled off a channel that never replied to the query. Re-sweep the entire window every run. The carried-item counter in `outputs/state/carried-loose-threads.json` marks items new-vs-carried for the user's benefit only — it never narrows what gets swept (see `references/protocols/skill-patterns.md` discipline #3). A carried thread is re-opened and re-checked like any other candidate; where this run's evidence shows it closed, close it here in one line with the quote rather than carrying it into another bucket.
 
 ### 2. Sweep both directions
 
@@ -110,6 +111,7 @@ Natural fit for a scheduled routine — see `references/protocols/routines.md` a
 - [ ] Coverage line present, naming what was swept and what was unavailable with its reason — it ships even when nothing failed
 - [ ] Full window re-swept, not narrowed by prior-run state
 - [ ] Carried items re-checked with their own fresh lookups, and any the evidence closes are closed here
+- [ ] Third-consecutive-run items got their park-or-drop line and left the list, per the persisted counter
 - [ ] Both directions covered — inbound and the user's own outbound posts
 - [ ] Every item has a real `Checked:` line joined to a logged query, not a placeholder — and no `Checked:` rests on an unre-run spaced zero
 - [ ] No item duplicated from `action-sweep`'s most recent output

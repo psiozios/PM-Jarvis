@@ -1,7 +1,7 @@
 ---
 skill: loose-threads
 archetype: Workflow-Orchestration
-eval-version: 2
+eval-version: 3
 last-updated: 2026-09-11
 ---
 
@@ -51,6 +51,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E13 | Source coverage declared | The output names which sources answered and, separately, any source that was unavailable with its reason. FAIL on a coverage claim that includes a source which never answered, and on any candidate killed by the silence of an unavailable source. See `references/protocols/source-preflight.md` |
 | E14 | Queries built to the tool's dialect | Each lookup sent one distinctive noun, with punctuation variants as separate queries. Any zero-hit query containing a space was re-run term by term before being logged as a zero. FAIL on a multi-term query whose zero was read as a real null |
+| E15 | Ledger-derived list | A ledger exists at `outputs/ledgers/loose-threads-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 
 ## Scoring
 

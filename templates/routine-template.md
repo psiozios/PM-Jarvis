@@ -34,6 +34,7 @@ Orchestrates: `<SKILL_NAME>` (cite it — see discipline #1, thin wrapper. Do no
 |---|---|
 | `routines/<ROUTINE_NAME>/outputs/YYYY-MM-DD-<slug>.md` | Dated output — evidence the work happened, never a guard |
 | `routines/<ROUTINE_NAME>/.last-run-<period>` | Already-ran guard — written only on confirmed delivery |
+| `routines/<ROUTINE_NAME>/.last-checkpoint-<period>-<name>` | One per checkpoint, for a routine that pings more than once a period (`notifications.md` item 6). Omit the file if this routine pings once |
 | `routines/<ROUTINE_NAME>/.thread-pointer.json` | Notification thread anchor(s) — copy-only, pruned per `notifications.md` item 7 |
 
 ## Step Skeleton

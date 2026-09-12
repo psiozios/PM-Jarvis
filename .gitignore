@@ -13,8 +13,7 @@ __pycache__/
 routines/*/.last-*
 routines/*/.thread-pointer.json
 routines/*/outputs/
-.last-sweep
-.last-ingest
+outputs/state/
 
 # Memory (personal entries are user-specific; index, docs, and placeholders ship with the repo)
 memory/*.md

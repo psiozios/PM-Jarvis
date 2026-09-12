@@ -1,8 +1,8 @@
 ---
 skill: refinement-prep
 archetype: Workflow-Orchestration
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-09-11
 ---
 
 # Evals: /refinement-prep
@@ -44,6 +44,12 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Correct ranking order | Ranking demonstrably applied theme-fit first, then live priority, then readiness — not an arbitrary order |
 | E11 | Shortlist genuinely capped | The shortlist is smaller than the full filtered candidate set, sized to what a ceremony can cover |
 | E12 | Rework-causing unknowns only | Surfaced unknowns are ones that would cause rework if unresolved, not a dump of every open question |
+
+### Ledger Discipline
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Ledger-derived list | A ledger exists at `outputs/ledgers/refinement-prep-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 
 ## Scoring
 

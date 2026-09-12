@@ -10,7 +10,7 @@ disable-model-invocation: false
 **What to provide:** Nothing required — it sweeps since the last run by default.
 
 ```
-/action-sweep               → sweep since .last-sweep, reconcile against the task tracker
+/action-sweep               → sweep since the last run, reconcile against the task tracker
 /action-sweep --since 3d    → override the window
 ```
 
@@ -34,7 +34,8 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Calendar | `<CALENDAR>` | Meetings that likely produced commitments (cross-check against notes) |
 | Issue tracker | `<TASK_TRACKER>` | Current open tasks, for dedupe and mark-done matching |
 | Call-transcript source | `<CALL_TRANSCRIPT_SOURCE>` | Action items surfaced in calls not yet in meeting notes |
-| Sweep state | `.last-sweep` (this skill's own state file) | Window start for "since last sweep" |
+| Sweep state | `outputs/state/.last-sweep` (this skill's own file) | Window start for "since last sweep" |
+| Carried-item counter | `outputs/state/carried-action-sweep.json` | How many consecutive runs each item has been carried, for the third-run park-or-drop (`references/protocols/evidence-ledger.md`) |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
@@ -43,7 +44,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ### 1. Determine the window
 
-Read `.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed.
+Read `outputs/state/.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed.
 
 ### 2. Preflight, then sweep every source that answered, both directions
 
@@ -61,7 +62,7 @@ For each remaining candidate, check whether it's already been handled since it a
 
 Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRACKER>` by title/description similarity. A near-match is treated as the same item, not a duplicate proposal. Fuzzy-matching is a pointer, not a verdict: record the matched task in the ledger row as the evidence, and where the match is only plausible, the row is `UNPROVEN` rather than `KILL`.
 
-**Query the tracker one noun at a time.** This is where the false zeros bite: a tracker that ANDs every term turns a multi-word query into zero hits with no error, and a run then proposes an item that is already sitting open on the board. Send the candidate's most distinctive noun alone, punctuation variants as separate queries, and **treat any zero-hit query containing a space as suspect until it has been re-run one term at a time** (`references/protocols/evidence-ledger.md`). Check what this tracker's search was actually verified to do in `references/mcp-routing.md` rather than assuming it supports a boolean.
+**Query the tracker one noun at a time.** This is where the false zeros bite: a tracker that ANDs every term turns a multi-word query into zero hits with no error, and a run then proposes an item already sitting open on the board. Send the candidate's most distinctive noun alone, punctuation variants as separate queries, and **treat any zero-hit query containing a space as suspect until it has been re-run one term at a time** (`references/protocols/evidence-ledger.md`). Check this tracker's verified dialect in `references/mcp-routing.md` rather than assuming a boolean works.
 
 ### 6. Deliver the questions, then the reconciliation table
 
@@ -76,7 +77,7 @@ Send the questions the moment they exist — they are what the user, and only th
 
 ### 8. Stamp
 
-After the reconciliation is applied (or explicitly declined), write `.last-sweep` to the current timestamp — not before, so a partial or aborted run retries the same window next time.
+After the reconciliation is applied (or explicitly declined), write `outputs/state/.last-sweep` to the current timestamp — not before, so a partial or aborted run retries the same window next time.
 
 ## Output Template
 
@@ -109,16 +110,15 @@ This is a strong candidate for a scheduled routine — see `references/protocols
 
 ## Output Quality Self-Check
 
-- [ ] Window correctly resolved from `.last-sweep`, with the first-run-of-day fallback applied when relevant
-- [ ] Coverage line present, naming what was swept and what was unavailable with its reason — it ships even when nothing failed
-- [ ] Both directions swept on the chat platform and email, not just inbound
+- [ ] Window correctly resolved from `outputs/state/.last-sweep`, with the first-run-of-day fallback applied when relevant
+- [ ] Coverage line present, naming what was swept and what was unavailable with its reason — it ships even when nothing failed, and both directions were swept on chat and email
 - [ ] Every verified-done item cites where the resolution was found
 - [ ] Lookup log appended as each lookup returned, and every evidence cell joined back to a query in it
 - [ ] Dedupe checked against currently open tracker items before proposing anything new, one noun per query, with every spaced zero re-run term by term
 - [ ] Questions shipped ahead of the table, and no item appears in two sections
 - [ ] Nothing was created or marked done without the reconciliation table being approved first
 - [ ] Outward-to-others items are drafts, not sent messages
-- [ ] `.last-sweep` only advanced after the run completed or was explicitly declined
+- [ ] `outputs/state/.last-sweep` only advanced after the run completed or was explicitly declined
 
 ## Formal Eval
 

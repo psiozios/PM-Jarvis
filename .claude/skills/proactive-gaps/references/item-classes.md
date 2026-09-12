@@ -34,6 +34,16 @@ Where the demand is moving, what a competitor's hiring implies, what a buyer's o
 
 Grade these as hypotheses, visibly. An outside-in item asserting itself as fact is worse than no item.
 
+## Three deliberate divergences from the evidence ledger
+
+`references/protocols/evidence-ledger.md` binds this scan — every candidate gets a row, and every cut is reported with its reason. Three of its defaults are overridden here on purpose, so nobody "fixes" them later:
+
+**Cut, not `UNPROVEN`.** The ledger's default is that an item you cannot close ships as a one-line question. Here an item that misses its class bar is **cut**, because the bar is the finding. A book item with no figure is not an unproven opportunity; it is an opportunity nobody has sized. It says exactly that in the Cut list, which is where the reader can overrule it.
+
+**The floor is a run check, not a quota.** Three upside items minimum does not license padding. Where the bars are not met, the honest output is a short list plus a Run Quality section — the same logic as the no-floor rule in `/create-tickets`. Neither skill manufactures content to hit a number; this one reports the shortfall.
+
+**The one-constraint cap is a gate, not a volume limit.** Elsewhere a cap that bites triggers a re-check rather than a truncation. Here a second qualifying constraint means the scan drifted into a defect list, so the second one goes to Cut naming the cap, and the tracker is where it belongs.
+
 ## Composition
 
 **At least one forward item survives, or the run says why not.** This is a composition rule, not a quota to pad toward. A run that ends with three book items and nothing forward has almost certainly read the money first and stopped — and where the business's real growth is gated on licensing or partnerships, that run has answered the wrong question competently. If nothing forward cleared its bar, the Run Quality section names what the forward read could not reach: no dated sources, no visibility into the partnership pipeline, no public filings.

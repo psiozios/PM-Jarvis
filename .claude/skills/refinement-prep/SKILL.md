@@ -24,13 +24,16 @@ disable-model-invocation: false
 
 Defers to `config/house-style.md` for voice and word choice. This skill carries no house voice rules of its own.
 
+**Capping the shortlist drops candidates, so `references/protocols/evidence-ledger.md` binds** — read it before the first lookup, not when the shortlist is being written. Every candidate that clears the theme filter gets a ledger row with its own targeted lookup, and everything below the cap is a reported cut with its reason. Being read-only exempts nothing: proposing no writes does not make it acceptable to be wrong about what was dropped (`references/protocols/skill-patterns.md` discipline #9).
+
 ## Context Routing
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Issue tracker | `<TASK_TRACKER>` | Full current board state, post-`backlog-groom` if it's been run recently |
 | Strategy | `context-library/strategy/` | Current priorities, for theme-fit ranking |
-| Prioritize method | `.claude/skills/prioritize/SKILL.md` (if present) | The LNO-style ranking method, if the user wants live priority scored consistently with how they prioritize elsewhere |
+| Prioritize method | `.claude/skills/prioritize/SKILL.md` (if present) | The LNO-style classification, if the user wants theme-fit tie-breaks consistent with how they prioritize elsewhere. **Take the classification, not its hours estimate** — this pass is read-only and does not size |
+| Ledger | `outputs/ledgers/refinement-prep-<date>.md` (this run's own) | The rows the cap re-check reads, written before the shortlist exists |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
@@ -53,7 +56,7 @@ Filter to items that plausibly fit the stated theme. Within that set, rank by li
 
 A refinement ceremony has limited time. Cap the shortlist to what the ceremony can realistically cover — don't hand over the whole filtered set.
 
-**A cap that bites is a re-check, not a truncation** (`references/protocols/skill-patterns.md` discipline #9). If more items clear the theme filter than the ceremony can hold, re-read the ledger for the merge or wrong-verdict cluster that inflated the count before cutting anything, and report the real number either way. Everything below the line goes into "Cut From Shortlist" with its reason — never dropped silently to hit a number.
+**A cap that bites is a re-check, not a truncation** (`references/protocols/evidence-ledger.md`; discipline #9 of `skill-patterns.md` is the pointer into it). If more items clear the theme filter than the ceremony can hold, re-read this run's ledger for the merge or wrong-verdict cluster that inflated the count before cutting anything, and report the real number either way. Everything below the line goes into "Cut From Shortlist" with its reason — never dropped silently to hit a number.
 
 ### 5. Draft each item's enrichment
 

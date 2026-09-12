@@ -23,15 +23,15 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 
 **The upside gate — every candidate passes it or does not ship.** If the reader acts on this item, does the business **make more money, move more volume, or gain advantage a competitor cannot copy?** One of the three, named explicitly. An item that only prevents something from getting worse has not passed.
 
+**Cutting candidates binds `references/protocols/evidence-ledger.md`** — read it before the first lookup. Every candidate gets a row; everything that misses a bar is a reported cut. Three deliberate divergences from that protocol's defaults — cut rather than `UNPROVEN`, a floor that is a run check rather than a quota, and a cap that is a gate rather than a volume limit — are set out with their reasons in `references/item-classes.md`.
+
 **Each class is held to its own bar. One bar for everything deletes a class.** Read `references/item-classes.md` before scoring any candidate — it carries the three classes, their bars, the ranking rule, and the output shape.
 
-- **Book** — money and volume in the business you already have. **Bar: a money or volume figure**, derivation shown, graded to evidence.
-- **Forward** — growth gated on a licence, a partnership, a market-structure shift, a dated event. **Bar: a date and a dependency**, both from a real source. A forward item is **not** required to carry a figure.
-- **Outside-in hypothesis** — a read on the market the workspace has no data for. **Bar: a named test and a falsifier.**
+- **Book** (money and volume already in the business) — **a figure**, derivation shown and graded to evidence.
+- **Forward** (growth gated on a licence, a partnership, a market shift, a dated event) — **a real date from a real source plus one named dependency**, and **no figure required**.
+- **Outside-in hypothesis** (a market read the workspace has no data for) — **a named test and a falsifier**.
 
-**Size-or-cut applies to the book class only.** Holding a forward item to a transaction-backed figure is how this scan becomes a back-book review: where growth is gated on licensing, partnerships, or market structure, there is no transaction history behind it yet, so a money-first bar deletes the entire class before it reaches the page.
-
-**A defect qualifies only once a number attaches.** Broken things are not alpha by default. A bug, a regression, a piece of debt, a normalized failure mode enters this scan only when a revenue or volume figure is attached to it — what it is costing, or what fixing it would release. Without the number it is a ticket, and it belongs in the tracker rather than here.
+**Size-or-cut applies to the book class only.** Holding a forward item to a transaction-backed figure is how this scan becomes a back-book review: growth gated on licensing, partnerships, or market structure has no transaction history behind it yet, so a money-first bar deletes the class before it reaches the page. **A defect qualifies only once a number attaches** — a bug, a regression, a piece of debt, a normalized failure mode enters this scan only with a revenue or volume figure on it, and without one it is a ticket that belongs in the tracker.
 
 **Three upside items minimum, at least one of them forward, one constraint item maximum.** The floor, the forward rule, and the cap are all hard. A run that produces four constraints and one opportunity has drifted back into being a defect list; a run that produces three book items and nothing forward has read the money first and stopped.
 
@@ -56,7 +56,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ## Workflow
 
-**The order is the method.** Reading the money first ends the scan before the forward class is written down: three sized book items arrive, the floor is met, nobody looks further. Forward first, money second, narrative last.
+**The order is the method.** Money first ends the scan before the forward class is written down — three sized book items arrive, the floor is met, nobody looks further. Forward first, money second, narrative last.
 
 ### 1. Leadership framing delta
 
@@ -96,11 +96,11 @@ Adopt a head-of-product/CEO-level vantage point when scanning — but every item
 
 ## Output
 
-Template, the three class bars, the ranking rule, and the composition check: `references/item-classes.md` — read before scoring the first candidate, not when the list is being written.
+Template, the three class bars, the ranking rule, the composition check, and the three deliberate divergences from the evidence ledger: `references/item-classes.md` — read before scoring the first candidate.
 
 ## Runs as a Routine
 
-A natural periodic routine — see `references/protocols/routines.md` and `setup/routine-setup.md`. Weekly or biweekly suits "where is the upside" better than daily; opportunities this size do not appear overnight.
+A periodic routine fits — `references/protocols/routines.md`, `setup/routine-setup.md`. Weekly or biweekly beats daily; opportunities this size do not appear overnight.
 
 ## Output Quality Self-Check
 

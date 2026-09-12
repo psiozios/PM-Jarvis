@@ -34,7 +34,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Chat platform | `<CHAT_PLATFORM>` | Threads matching the selected mode's scope |
 | Second brain | `context-library/second-brain/*/wiki/index.md` | Existing pages, to avoid re-ingesting the same content twice |
 | Stakeholder profiles | `context-library/second-brain/stakeholders/` | For `dm-threads` mode: mapping a DM partner to their existing profile |
-| Ingest state | `.last-ingest` (this skill's own state file) | Window start for the daily catch-all mode |
+| Ingest state | `outputs/state/.last-ingest` (this skill's own file) | Window start for the daily catch-all mode |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
@@ -43,7 +43,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ### 1. Resolve scope from mode
 
-- **Daily catch-all:** sweep since `.last-ingest`, all scoped channels.
+- **Daily catch-all:** sweep since `outputs/state/.last-ingest`, all scoped channels.
 - **Channel sweep:** full history of one named channel (bounded by a reasonable lookback if the channel is large).
 - **Topic search:** search across all scoped channels for the given term.
 - **Catch-up:** rank recent activity by signal so returning from time away starts with what matters, not chronological scroll.
@@ -67,7 +67,7 @@ Hand off confirmed threads to `second-brain`'s own `ingest` mode, one at a time 
 
 ### 6. Stamp
 
-After a daily catch-all run completes (or is explicitly declined), write `.last-ingest` to the current timestamp — **not before**, so a partial or aborted run re-reads the same window next time rather than skipping it forever. The marker goes on the confirmation, never on the work having been done.
+After a daily catch-all run completes (or is explicitly declined), write `outputs/state/.last-ingest` to the current timestamp — **not before**, so a partial or aborted run re-reads the same window next time rather than skipping it forever. The marker goes on the confirmation, never on the work having been done.
 
 ## Output Template
 
@@ -91,7 +91,7 @@ The daily catch-all mode is a natural routine candidate — see `references/prot
 - [ ] Every candidate shows its proposed focus-area routing and why
 - [ ] Nothing was ingested before the user confirmed
 - [ ] `dm-threads` mode correctly matched partners to existing stakeholder profiles where one exists
-- [ ] `.last-ingest` only advanced after the daily catch-all run completed or was declined
+- [ ] `outputs/state/.last-ingest` only advanced after the daily catch-all run completed or was declined
 
 ## Formal Eval
 

@@ -100,6 +100,8 @@ Every `evals.md` carries `eval-version` (an integer) and `last-updated` in its f
 | E15 | Ledger-derived list | A ledger exists in `outputs/ledgers/`, every proposed item has a `PROPOSE` row, killed rows are reported beside the proposals with their evidence, and no row was dropped to satisfy a volume cap |
 ```
 
+**E15 is not only an example — it is live in every skill that binds the ledger.** `action-sweep`, `loose-threads`, `chat-ingest`, `meeting-cleanup`, `voice-of-customer`, `feature-request-analysis`, `refinement-prep`, and `proactive-gaps` each carry a ledger check under their own next unused ID. A skill that invokes `references/protocols/evidence-ledger.md` and has no eval for it leaves that protocol with no enforcement surface anywhere, which is how it went unchecked for a full round.
+
 Bump `eval-version: 1` → `eval-version: 2`, set `last-updated` to the date of the change, and append the new category after Category 4 in that skill's `evals.md`. Do not renumber existing E-IDs — new checks always get the next unused number.
 
 ## Universal Checks (apply to ALL archetypes)

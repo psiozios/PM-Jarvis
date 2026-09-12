@@ -34,11 +34,19 @@ Once the user finalizes work from `outputs/`, they can move it to `context-libra
 | `outputs/win-loss/` | Win/loss analyses | `/win-loss-analysis` |
 | `outputs/content/` | Launch copy, changelogs, onboarding | `/content-marketing` |
 | `outputs/plans/` | Tracked execution plans | `/execution-plan` |
+| `outputs/daily-plans/` | Dated daily plans | `/daily-plan` |
 | `outputs/weekly-plans/` | Weekly priority plans | `/weekly-plan` |
 | `outputs/weekly-reviews/` | Weekly retrospectives | `/weekly-review` |
+| `outputs/launches/` | Launch checklists in progress | `/launch-checklist` |
+| `outputs/interview-guides/` | Research interview guides | `/interview-guide` |
+| `outputs/interview-feedback/` | PM job-interview debriefs | `/interview-feedback` |
+| `outputs/reviews/` | Adversarial document critiques | `/ralph-wiggum` |
 | `outputs/mcp-integration-logs/` | MCP connection logs | `/connect-mcps` |
 | `outputs/skill-test-results/` | Skill test output | testing |
-| `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | any skill under `references/protocols/evidence-ledger.md` |
+| `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | `/action-sweep`, `/loose-threads`, `/chat-ingest`, `/meeting-cleanup`, `/voice-of-customer`, `/feature-request-analysis`, `/refinement-prep`, `/proactive-gaps` |
+| `outputs/state/` | Skill run state: window markers and carried-item counters. One owner per file, named for its skill | any skill that reads "since last run" |
+
+**`outputs/state/` exists because a skill's state file needs a declared home.** A bare `.last-sweep` at the repo root breaks the rule above — the assistant writes under `outputs/` — and leaves nobody able to find it. Name the file for its owner: `outputs/state/.last-sweep`, `outputs/state/carried-loose-threads.json`. Routines are the exception and keep their state beside their own prompt, per `references/protocols/routines.md` discipline #2.
 
 ## Context Library Taxonomy
 

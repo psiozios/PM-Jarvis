@@ -45,13 +45,15 @@ Compute the target quarter's boundaries from `<CALENDAR>`. Identify the three mo
 
 For each month, check `<REVIEWS_STORE>` for a completed `monthly-review-fill` entry. If missing, that's the trigger to run `monthly-review-fill` for that month — **never** skip two tiers and re-derive the quarter from raw weeks or tickets.
 
+**This is a deliberate, marked exception to discipline #1 of `references/protocols/skill-patterns.md`**, which otherwise says a summary is never a substitute for the source. Here the tier below *is* the authority: a month's assessment is a judgment its own run made with the user, and re-deriving it from tickets would overwrite that judgment with activity data. The cost is real and worth stating — a wrong weekly entry propagates upward unchallenged. Two guards: a month whose entry looks internally inconsistent is sent back to `monthly-review-fill` rather than rolled up, and the rating always names how many tiers below it carried a figure.
+
 ### 3. Roll up and synthesize against strategy
 
 Read the three monthly entries and synthesize the quarter's assessment: trajectory across the three months, whether the quarter's OKRs (from `context-library/strategy/`) were actually advanced, and what the quarter's throughline was. Grade against stated intent, not just a list of what happened.
 
 ### 4. Create the period entry from template
 
-Set derivable fields: date range, links to all three month entries, links to prior/next quarter entries, and a rating computed from the months' own ratings and OKR progress.
+Set derivable fields: date range, links to all three month entries, links to prior/next quarter entries, and a rating computed from the months' own ratings and OKR progress. **Name the operation and its inputs** — which months carried a rating, how they combined, and how OKR progress weighed in. A third-tier rollup with undefined arithmetic is a number nobody can check or argue with.
 
 ### 5. Ask only genuine judgment questions
 

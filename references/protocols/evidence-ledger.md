@@ -61,7 +61,7 @@ Build the table by joining the log to the candidate list on the candidate key. *
 
 **Evidence arriving after the verdict re-runs the gate.** A lookup that comes back bearing on whether the item is done does not become a caveat on the existing row — the row goes back through the verdict test with that source read directly, and whatever comes out is the verdict. A `PROPOSE` row carrying a note that the item may already be handled is the worst of the three outcomes: it asserts the item is live while telling the reader it might not be.
 
-**A carried row gets a fresh row and a fresh lookup every run.** Last run's evidence cell is not evidence this run — reusing it is indistinguishable from never having looked. **Carried rows also age out on the record.** An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
+**A carried row gets a fresh row and a fresh lookup every run.** Last run's evidence cell is not evidence this run — reusing it is indistinguishable from never having looked. **Carried rows also age out on the record**, which needs a counter that survives the run. Keep one file per skill at `outputs/state/carried-<skill>.json`, mapping each item's key to how many consecutive runs it has been carried — the counter has to be persisted somewhere, and the dated ledgers are the wrong place to reconstruct it from. An item appearing in the same bucket for a third consecutive run has stopped being news. It earns one **park-or-drop** line — say which, and why — and then it leaves the list. Carrying it silently forever is how a list stops being read.
 
 ## Cross-References
 

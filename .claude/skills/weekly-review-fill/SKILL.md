@@ -41,9 +41,13 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 Compute the target week's start/end dates from `<CALENDAR>` in local time. Check `<REVIEWS_STORE>` for an existing entry for this week.
 
+**That check is a dedupe-before-write, not an already-ran guard.** It answers "does an entry exist to update" so the write stays surgical. It never answers "did this run already" — when this skill is wrapped as a routine, that question is answered from the routine's own confirmed-delivery marker and from nothing downstream (`references/protocols/routines.md` disciplines #2 and #3). Reading the store as an already-ran signal means a user who deletes an entry gets no rerun, and a store that fails auth gets a duplicate.
+
 ### 2. Create the period entry from template
 
-If no entry exists, create it from the store's standing template. Set every derivable field immediately: date range, links to the prior and next week entries, and a rating computed from the completed-work count against whatever baseline the store defines.
+If no entry exists, create it from the store's standing template. Set every derivable field immediately: date range, links to the prior and next week entries, and a rating.
+
+**The rating needs a stated arithmetic, and the store's baseline needs to be read, not assumed.** Read the baseline the store actually defines, write down which operation you applied, and put both in the auto-filled column — a rating that rolls up two more tiers cannot be audited if the base unit is undefined. Where the store defines no baseline, say so and leave the rating for the user rather than inventing a scale (`references/protocols/tracker-writes.md` §§1-2: the anchors are fixed and written down, and a computed field is never typed by hand).
 
 ### 3. Pull completed work
 

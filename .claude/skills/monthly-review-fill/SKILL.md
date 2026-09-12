@@ -51,7 +51,7 @@ Read the completed weekly entries and synthesize the month's assessment block fr
 
 ### 4. Create the period entry from template
 
-Set derivable fields immediately: date range, links to every week entry rolled up, links to the prior/next month entries, and a rating computed from the weeks' own ratings.
+Set derivable fields immediately: date range, links to every week entry rolled up, links to the prior/next month entries, and a rating computed from the weeks' own ratings. **Name the operation** — an unweighted mean of the weeks that have ratings, with unrated weeks excluded from the denominator rather than counted as zero (`references/protocols/tracker-writes.md` §4). State how many weeks the figure rests on.
 
 ### 5. Ask only genuine judgment questions
 

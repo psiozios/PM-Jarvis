@@ -46,6 +46,8 @@ A threaded reply by itself may not trigger a notification on every platform. A m
 
 A routine that pings more than once per period (e.g. a morning check and an afternoon follow-up on the same day) writes a **per-checkpoint marker** after each confirmed delivery — not just one marker for the whole period. This lets it notify multiple times in a period without either duplicating a checkpoint it already sent or skipping one it hasn't.
 
+The file is `routines/<name>/.last-checkpoint-<period>-<checkpoint>`, one per checkpoint, listed in the routine's own state-file table. A routine that pings once a period writes none and says so, so its absence reads as a decision.
+
 **The marker is written on the transport's confirmation and on nothing else.** Not when the body is composed, not when the output file lands, not when the send is issued — when the transport says it arrived, read defensively per item 2. Anything earlier means a run can die between the write and the delivery and answer already-ran forever, with silence as the only symptom (`references/protocols/routines.md` discipline #2).
 
 `.claude/skills/routine-responder/` is the worked instance: one marker class, one per thread, advanced only after the reply send is confirmed, left where it was on any failure.
