@@ -78,8 +78,9 @@ If any skill's output implies a write to the user's own systems (their own track
 
 ### 7. Deliver, in this order (see SENDING block below)
 
-1. **Write the dated output file** — the artifact the notification can point at, never the already-ran guard.
-2. **Render the digest in the conversation**, before the outbound call. A tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3). Then **post**.
+1. **Re-read every item the three sections list**, as it stands now, and carry each item's deep link into the digest body — combining three outputs is where links get cut (`references/protocols/surfacing.md`).
+2. **Write the dated output file** — the artifact the notification can point at, never the already-ran guard.
+3. **Render the digest in the conversation**, before the outbound call. A tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3). Then **post**.
 
 ### 8. Stamp
 
@@ -101,7 +102,7 @@ notifier.send(
   target     = <USER_ID>,               # the user's own surface — self-notification only
   thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 4
   body       = <sources swept, and any unavailable with its reason — discipline #9>
-             + <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections
+             + <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections; every item keeps its deep link
   notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 4>,
 )
 ```
@@ -110,11 +111,7 @@ Read the transport's success signal defensively from the raw response bytes befo
 
 ## THREADING
 
-<!--
-Anchor rotation: mint a fresh anchor at the first checkpoint of each period;
-later checkpoints in the same period reuse it. Daily → new anchor every day.
-Weekly/monthly/quarterly → new anchor every run (item 3).
--->
+<!-- Anchor rotation per notifications.md item 4: daily mints one anchor per period, other cadences one per run. -->
 
 ```
 if .thread-pointer.json has no entry for current period key:

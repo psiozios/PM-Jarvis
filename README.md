@@ -224,6 +224,8 @@ How a query is built is a property of the tool, verified rather than assumed. On
 
 A skill that reads a live source checks it before reading it. A connected source is not a working source — tokens expire, scopes get revoked, and an OAuth refresh needs a browser a scheduled run does not have — and in all three cases the tool answers with an empty result rather than an error. A `SessionStart` hook reports every registered source as live, bad, or missing before work starts, and a source that failed is named with its reason and never counted among the sources a run swept. See `references/protocols/source-preflight.md`.
 
+What a sweep shows you is checked again at the moment it is shown. Each listed thread's tail is re-read just before the list is composed, because an answer can land between discovery and delivery. Whose move it is comes from the user's own last message and any condition in it, never from who spoke last. A "since last run" window narrows discovery only, and every item keeps its deep link in every rendering, digests and notifications included. See `references/protocols/surfacing.md`.
+
 `references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep.
 
 ## Available Skills (87 Total)

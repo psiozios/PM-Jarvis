@@ -44,7 +44,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ### 1. Determine the window
 
-Read `outputs/state/.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed.
+Read `outputs/state/.last-sweep`. If present, sweep from that timestamp to now. If absent (first run, or first run of the day with no prior timestamp), fall back to yesterday + today so nothing from an unswept prior day is silently missed. The window narrows discovery only: every carried item is re-read every run, whatever the window says (`references/protocols/surfacing.md` §1).
 
 ### 2. Preflight, then sweep every source that answered, both directions
 
@@ -66,7 +66,7 @@ Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRAC
 
 ### 6. Deliver the questions, then the reconciliation table
 
-Send the questions the moment they exist — they are what the user, and only the user, can answer, and they should not wait on the verification still running (`references/protocols/skill-patterns.md` discipline #10). Then show proposed new tasks and verified-done items as one numbered table (see Output Template). Nothing is written until that table is approved.
+Send the questions the moment they exist — they are what the user, and only the user, can answer, and they should not wait on the verification still running (`references/protocols/skill-patterns.md` discipline #10). Then show proposed new tasks and verified-done items as one numbered table (see Output Template), after the render-time re-read and cross-check in `references/protocols/surfacing.md` §1, with a deep link on every row (§2). Nothing is written until that table is approved.
 
 ### 7. Execute on approval
 
@@ -88,20 +88,20 @@ After the reconciliation is applied (or explicitly declined), write `outputs/sta
 **Unavailable:** <source — state, reason, and what repairs it; "none" when every source answered>
 
 ## Questions (shipped first — each is one line, and the run is blocked on nothing else)
-- <the `UNPROVEN` item, as a question only the user can answer>
+- <the `UNPROVEN` item, as a question only the user can answer> — [<source>](<deep link>)
 
 ## Proposed New Tasks
 | # | Item | Source | Checked | Proposed Task |
 |---|---|---|---|---|
-| 1 | <what's owed> | <meeting notes / chat / email / call> | <cross-ref confirming it's still open> | <task title> |
+| 1 | <what's owed> | [<meeting notes / chat / email / call>](<deep link>) | <cross-ref confirming it's still open> | <task title> |
 
 ## Verified-Done (no longer open)
 | # | Item | Source | Resolved Via |
 |---|---|---|---|
-| 1 | <item> | <original source> | <where the resolution was found> |
+| 1 | <item> | [<original source>](<deep link>) | <where the resolution was found> |
 
 ## Drafts (outward-to-others — review before sending)
-- <draft 1, ready to copy/send manually or via confirm>
+- <draft 1, ready to copy/send manually or via confirm> — replying to [<source>](<deep link>)
 ```
 
 ## Runs as a Routine

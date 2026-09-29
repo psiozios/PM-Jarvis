@@ -73,6 +73,7 @@ Load only what the current task requires. Do not read everything upfront.
 | Absolute-rule lookup tables | `references/absolute-rules.md` |
 | Interaction persona | `config/persona.md` |
 | Whether a live source is actually reachable | `references/protocols/source-preflight.md` |
+| What a sweep may show the reader, and in what state | `references/protocols/surfacing.md` |
 | Scoring an item, or writing one into a tracker | `references/protocols/tracker-writes.md` |
 | Register: how a piece should sound | `references/protocols/register.md` |
 | Audience-specific writing | `context-library/writing-style-*.md` |

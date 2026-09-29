@@ -69,7 +69,7 @@ Apply the autonomy gate (discipline #7) to any proposed write:
 
 ### 7. Deliver
 
-In order: write the dated output, render the summary in the conversation, then post. Rendering before posting matters — the notification must not arrive before the thing it points at exists (`notifications.md` item 3). See SENDING / THREADING below.
+In order: re-read each listed item as it stands now, write the dated output, render the summary in the conversation with every item's deep link intact, then post (`references/protocols/surfacing.md`). Rendering before posting matters — the notification must not arrive before the thing it points at exists (`notifications.md` item 3). See SENDING / THREADING below.
 
 ### 8. Stamp
 

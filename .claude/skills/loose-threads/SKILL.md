@@ -51,7 +51,7 @@ Check the sources first (`references/protocols/source-preflight.md`) and hold wh
 
 ### 3. Classify whose court
 
-For each candidate: **yours** (the user owes the next move), **theirs** (someone else owes it), or **no owner** (ambiguous — flag as low-confidence rather than force a call).
+For each candidate: **yours** (the user owes the next move), **theirs** (someone else owes it), or **no owner** (ambiguous — flag as low-confidence rather than force a call). The last speaker does not decide it: read the user's own last message for a condition they are waiting on (`references/protocols/surfacing.md` §1).
 
 ### 4. Verify before flagging
 
@@ -69,7 +69,7 @@ If `action-sweep` already surfaced the same item as an action item, don't re-fla
 
 ### 7. Bucket by age
 
-Fresh (0-2 days) / This week (3-7 days) / Aging (8-13 days) / Stale (14+ days).
+Fresh (0-2 days) / This week (3-7 days) / Aging (8-13 days) / Stale (14+ days). Just before composing, re-read each listed thread's tail and cross-check meetings, sibling threads, and the tracker; every item keeps its deep link in every rendering (`references/protocols/surfacing.md`).
 
 ### 8. Propose follow-ups
 
@@ -99,7 +99,7 @@ For "yours" items only, propose a task in `<TASK_TRACKER>` as a numbered list aw
 ## Proposed Follow-Ups
 | Item | Next Move | Proposed Task |
 |---|---|---|
-| <thread> | Yours | <task title, ready on confirm> |
+| [<thread>](<deep link>) | Yours | <task title, ready on confirm> |
 ```
 
 ## Runs as a Routine

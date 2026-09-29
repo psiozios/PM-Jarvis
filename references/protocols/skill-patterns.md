@@ -26,7 +26,7 @@ Verification runs on a budget, so spend it in rank order: rank the candidates fi
 
 A skill that runs repeatedly over a rolling window (a radar, a periodic sweep) re-sweeps the **full** window every run. Prior-run state is used only to mark items new-vs-carried for the user's benefit — never to narrow the search or suppress items from being re-examined. Narrowing the sweep based on "we already looked at this" is how a radar quietly stops catching things that changed since the last pass.
 
-**Carry forward means re-check, not re-present.** A carried item re-runs its own lookups as if it had never been seen, and the bucket it sits in exempts it from nothing — every gate that applies to a new item applies to it. Where this run's evidence closes it, close it yourself: one line naming the quote that closed it, and the item leaves the list. Handing back a stale list for the user to adjudicate is the same defect as listing an unchecked item, only deferred onto them.
+**Carry forward means re-check, not re-present.** A carried item re-runs its own lookups as if it had never been seen, and the bucket it sits in exempts it from nothing — every gate that applies to a new item applies to it. Where this run's evidence closes it, close it yourself: one line naming the quote that closed it, and the item leaves the list. Handing back a stale list for the user to adjudicate is the same defect as listing an unchecked item, only deferred onto them. A skill whose window is "since the last run" is no exception: the window narrows discovery only (`references/protocols/surfacing.md` §1).
 
 ### 4. Surface, then propose, then create-on-approval
 
@@ -62,7 +62,7 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Pick each item's section by what the reader does with it**, not by which check produced it. Where a second section has a caveat about the same item, fold the caveat into the line carrying the action — **fold rather than delete**, so the caveat survives at the point of use.
 
-**Render the checkpoint before you post it anywhere.** Where a checkpoint also goes out through a notifier, an email, or a message, the reader's own copy has to exist first: a tool call finishes before your prose does, so posting first means the ping lands and the reader opens a session with nothing waiting in it. Order it per checkpoint — write, render, post — and see `references/protocols/notifications.md` item 3 for the outbound half.
+**Render the checkpoint before you post it anywhere.** Where a checkpoint also goes out through a notifier, an email, or a message, the reader's own copy has to exist first: a tool call finishes before your prose does, so posting first means the ping lands and the reader opens a session with nothing waiting in it. Order it per checkpoint — write, render, post — and see `references/protocols/notifications.md` item 3 for the outbound half. Before the render, re-read what the checkpoint lists (`references/protocols/surfacing.md` §1).
 
 **Fold a caveat; re-gate an answer.** The fold rule covers a caveat that qualifies an item without settling it — a low-confidence source, a partial window, an owner who may have moved. It does not cover evidence bearing on whether the item is **done**. That evidence sends the item back through its own gate with the source read directly, and the gate's new verdict is what ships. Folding it in as a caveat leaves a proposal standing next to a note saying it might already be handled, which is the shape that gets acted on and then found to have been closed a week ago.
 
@@ -72,7 +72,7 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Job:** Find stalled two-way loops the user may be dropping — across conversations they're a participant in and about work they own.
 
-**Mechanics:** Sweep both directions (inbound asks/mentions directed at the user, and the user's own outbound posts awaiting a reply) across a defined set of channels. Classify each open item by whose court the next move is in. Verify-before-flag with a `Checked:` line per item (discipline #2). Bucket results by age — fresh, this-week, aging, stale. Comprehensive, not delta (discipline #3): every run re-sweeps the full window. Frame findings non-accusatory — this is triage, not a scorecard. Attach one real deep link per item so the user can jump straight to it. Propose a follow-up task only for items where the next move is genuinely the user's — not for items sitting in someone else's court.
+**Mechanics:** Sweep both directions (inbound asks/mentions directed at the user, and the user's own outbound posts awaiting a reply) across a defined set of channels. Classify each open item by whose court the next move is in. Verify-before-flag with a `Checked:` line per item (discipline #2). Bucket results by age — fresh, this-week, aging, stale. Comprehensive, not delta (discipline #3): every run re-sweeps the full window. Frame findings non-accusatory — this is triage, not a scorecard. Attach one real deep link per item so the user can jump straight to it, and keep it in every rendering (`references/protocols/surfacing.md` §2). Propose a follow-up task only for items where the next move is genuinely the user's — not for items sitting in someone else's court.
 
 **Eval archetype:** Workflow-Orchestration.
 
