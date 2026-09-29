@@ -102,7 +102,7 @@ notifier.send(
   thread_key = "<period>|<anchor-id>",  # per-period anchor rotation — see notifications.md item 4
   body       = <sources swept, and any unavailable with its reason — discipline #9>
              + <meeting-prep summary> + <action-sweep summary> + <loose-threads summary>,  # one digest, three sections; every item keeps its deep link
-  notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 4>,
+  notify     = <true if any section has a material update / blocking ask, false only if all three were no-ops — item 5>,
 )
 ```
 
