@@ -2,7 +2,7 @@
 skill: second-brain
 archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: 2026-06-23
+last-updated: 2026-09-28
 ---
 
 # Evals: /second-brain
@@ -17,9 +17,9 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Wiki entry structured | Each entry follows a consistent structure: Title, Summary, Details, Sources, Related |
-| E2 | Topic correctly categorized | Entry placed in the right second-brain category (frameworks, people, processes, etc.) |
-| E3 | Output path correct | File saved to `context-library/second-brain/` with descriptive filename |
+| E1 | Wiki page structured | Every page written opens with the YAML frontmatter the skill defines (`title`, `created`, `last_updated`, `source_count`, `status`), then a one-paragraph summary, then the body |
+| E2 | Focus area correct | Each page lands in the focus area whose scope fits the source (a source may touch several), and that area's `wiki/index.md` lists it |
+| E3 | Output path correct | Pages saved to `context-library/second-brain/{focus}/wiki/` with descriptive kebab-case filenames, and the run's entry appended to that area's `wiki/log.md` |
 
 ### Quality & Voice
 
