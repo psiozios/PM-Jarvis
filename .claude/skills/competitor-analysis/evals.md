@@ -44,6 +44,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Strategic implications drawn | Analysis leads to specific 'so what' for product strategy — not just information |
 | E11 | Monitoring cadence suggested | Recommends what to track ongoing and how frequently to refresh the analysis |
 | E12 | Blind spots acknowledged | States what information was unavailable and how it limits the analysis |
+| E13 | Monitoring sees past the list | Ongoing Monitoring only (N/A for Deep Analysis): the run swept launches by incumbents already holding what entry requires and treated any counterparty's provider list as candidates; pages were checked oldest first, an unchanged one got a dated no-change line and kept its date, and no page was re-dated without a content change (`references/protocols/freshness-provenance.md` rule 4) |
 
 ## Scoring
 

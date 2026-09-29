@@ -2,7 +2,7 @@
 skill: routine-responder
 archetype: Workflow-Orchestration
 eval-version: 1
-last-updated: 2026-07-11
+last-updated: 2026-09-28
 ---
 
 # Evals: /routine-responder
@@ -44,6 +44,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Silent stop on no replies | If no thread had an actionable message, nothing was sent and nothing was written — no "nothing found" filler message |
 | E11 | Outward-draft-only | Any content destined for someone other than the user was produced as a draft, never sent automatically |
 | E12 | Marker advanced only after confirmed send | `.last-reply-processed` only moved forward once the reply's delivery was confirmed by the notifier, not optimistically before |
+| E13 | Reply answers the asks and stops | The reply answers each thing the user asked, in their order, with each item it mentions re-read first; extra findings are not appended, no trailing confirm-or-ignore line closes it, and a ruling in the reply was recorded through the routine's continuation or the reply says it was not recorded (`references/protocols/surfacing.md` §1, §5-6) |
 
 ## Scoring
 

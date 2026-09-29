@@ -2,7 +2,7 @@
 skill: proactive-gaps
 archetype: Analysis
 eval-version: 4
-last-updated: 2026-09-11
+last-updated: 2026-09-28
 ---
 
 # Evals: /proactive-gaps
@@ -58,6 +58,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E19 | Scan order held | Forward landscape read before book upside, and outside-in last. FAIL where the evidence shows the money was read first and the forward class filled in afterward |
 | E20 | Cut list populated | Every candidate that missed a bar appears in Cut with the bar it missed. An empty Cut list beside a full shortlist means the bars were not applied |
 | E21 | Ledger-derived list | A ledger exists at `outputs/ledgers/proactive-gaps-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
+| E22 | Forward read beyond the watched names | The forward landscape swept the launches of whoever already holds the gating capability (licence, integration, charter), not only named competitors, and Run Quality names any provider list it read or could not reach (`references/protocols/freshness-provenance.md` rule 4) |
 
 ## Scoring
 
