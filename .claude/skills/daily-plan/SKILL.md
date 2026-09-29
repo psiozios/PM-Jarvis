@@ -906,7 +906,7 @@ When today's calendar includes meetings or work on specific topics (a customer, 
 - **Stakeholder prep** — for every 1:1 or meeting with a named person, query `stakeholders` for their preferences, recent signals, open asks
 - **Topic briefing** — for every meeting with a clear topic, equivalent of `/second-brain prep "<topic>"` for a one-paragraph assembled context
 - **Open threads** — scan `decisions` for any decision with a revisit trigger that's fired
-- **Gap flags** — if the brain has nothing on a meeting topic, note it so the PM arrives expecting to learn rather than present
+- **Gap flags** — if the brain has nothing on a meeting topic, searched this run rather than carried from an earlier plan (`references/protocols/context-acquisition.md` §6), note it so the PM arrives expecting to learn rather than present
 
 Five minutes of brain-assisted prep at 8am beats forty minutes scrambling between meetings. If the brain is empty, fall back to `context-library/meetings/` and `stakeholder-template.md` as before.
 

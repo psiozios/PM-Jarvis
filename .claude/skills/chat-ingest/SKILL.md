@@ -32,7 +32,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Chat platform | `<CHAT_PLATFORM>` | Threads matching the selected mode's scope |
-| Second brain | `context-library/second-brain/*/wiki/index.md` | Existing pages, to avoid re-ingesting the same content twice |
+| Second brain | `context-library/second-brain/*/wiki/index.md` | Existing pages, to avoid re-ingesting the same content twice. An index miss is a lead: confirm on disk before calling a thread new (`references/protocols/context-acquisition.md` §6) |
 | Stakeholder profiles | `context-library/second-brain/stakeholders/` | For `dm-threads` mode: mapping a DM partner to their existing profile |
 | Ingest state | `outputs/state/.last-ingest` (this skill's own file) | Window start for the daily catch-all mode |
 

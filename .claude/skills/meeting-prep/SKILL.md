@@ -57,7 +57,7 @@ Read `outputs/weekly-plans/` and `context-library/strategy/` for what's currentl
 
 ### 5. Assemble real talking points
 
-Draft specific talking points, decisions worth pushing for, and risks worth naming — grounded in what steps 2-4 actually turned up. If a section has nothing to say, say so explicitly rather than filling it with a generic placeholder (see `references/protocols/skill-patterns.md` discipline #1 — verify and read to resolution before asserting).
+Draft specific talking points, decisions worth pushing for, and risks worth naming — grounded in what steps 2-4 actually turned up. If a section has nothing to say after a read aimed at it (`references/protocols/context-acquisition.md` §6), say so explicitly rather than filling it with a generic placeholder (see `references/protocols/skill-patterns.md` discipline #1 — verify and read to resolution before asserting).
 
 ## Output Template
 

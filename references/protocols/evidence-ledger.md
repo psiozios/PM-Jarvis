@@ -51,7 +51,7 @@ Build the table by joining the log to the candidate list on the candidate key. *
 
 ## 4. Verdicts
 
-**Absence of a trace neither closes an item nor proves it open.** People decide things in rooms, and no tool logs that. A lookup that returned nothing supports exactly one verdict.
+**Absence of a trace neither closes an item nor proves it open.** People decide things in rooms, and no tool logs that. A lookup that returned nothing supports exactly one verdict. An absence claim outside a ledger (no page, no ask, no record) meets its own bar in `references/protocols/context-acquisition.md` §6.
 
 **When a null result must be reported, and when it must be suppressed.** The tree legislates silence in both directions and the boundary is about *whose* silence:
 

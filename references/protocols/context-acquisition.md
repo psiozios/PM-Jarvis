@@ -36,6 +36,16 @@ If a source is empty or a file doesn't exist, note it and proceed with what you 
 
 When reporting status of anything (a metric, a decision, a task), verify against the current source. Don't rely on cached or remembered state.
 
+### 6. An absence claim needs its own read
+
+"No page exists", "nobody asked", and "never recorded" are assertions about a whole store. Each one needs a read aimed at the thing said to be missing, done this run: search the store on that thing's own nouns (`references/protocols/evidence-ledger.md` §1-2), and open the directory rather than the index. Only then write the claim.
+
+**A prior run's gap flag is a lead to re-check, never a finding.** One run repeated last week's missing-page flag about a page created the same day that flag was raised. The flag had been carried forward, and nobody had looked.
+
+**A partial read supports "I found X", never "there is no X".** An index, the first page of results, a search stopped once it had enough, a single export: each tells you what it holds, not what the store lacks. One artifact is one source. An absence claim resting on one file, thread, or index is scoped to what was read ("not in `wiki/index.md` as of `<DATE>`"), or it is not made.
+
+**Strike a wrong claim in place and name its cause.** The reader may already have acted on it, so it stays visible, struck through, with a dated line beside it saying what produced it (an index-only read, a stopped search, a carried flag) and what the fresh read found. A silent deletion hides the defect, and a quiet rewrite hides the fix. This is the dated-append correction of `references/protocols/freshness-provenance.md` rule 2, applied to a claim that was wrong rather than one that aged. It is not the ledger's strike rule, under which a claim about a lookup that never ran is removed before anything ships (`references/protocols/evidence-ledger.md` §1).
+
 ## Graceful Degradation
 
 - **Live source failed** (a credential expired, a scope was revoked, an OAuth refresh needs a browser the run doesn't have): fall back, and **report it unavailable by name with the reason it gave**. It does not appear in any list of sources the run covered. See `references/protocols/source-preflight.md` — a failed source and a source with nothing to say look identical in the data and mean opposite things.
@@ -52,3 +62,4 @@ When reporting status of anything (a metric, a decision, a task), verify against
 - Skipping context reads entirely and producing generic output (careless)
 - Reading files sequentially when parallel reads are possible (slow)
 - Listing a source as covered when it never answered (dishonest, and the defect is invisible from outside the run)
+- Saying a page, ask, or record is missing on the strength of an index, a stopped search, or last run's flag (§6)

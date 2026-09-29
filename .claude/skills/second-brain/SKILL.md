@@ -280,7 +280,7 @@ After scaffolding, print the next-steps summary and point the PM to `.claude/ski
    - If evidence is thin, say so. If the wiki has contradictions on this topic, surface them.
    - Render in the best format: prose, comparison table, briefing, Marp slide outline, decision matrix.
 5. **Offer to file back.** "Save this as `wiki/{suggested-name}.md` and update the index?" If yes, do it and append an `update` entry to the log.
-6. **Flag gaps.** If the question surfaced something the wiki doesn't cover well, suggest 1-3 sources that would fill the gap.
+6. **Flag gaps.** If the question surfaced something the wiki doesn't cover well, suggest 1-3 sources that would fill the gap. A gap is checked by searching the focus area's `wiki/` for it, not read off the index or the pages step 3 stopped at (`references/protocols/context-acquisition.md` §6).
 
 ---
 
@@ -321,7 +321,7 @@ Use when you've dropped many sources into `raw/` at once and want the LLM to pro
 - Contradictions between pages
 - Stale claims superseded by newer sources (check against `last_updated` and source dates)
 - Orphan pages with no inbound `[[links]]`
-- Important concepts mentioned across pages but never given their own page
+- Important concepts mentioned across pages but never given their own page (search `wiki/` for the concept before claiming it)
 - Missing cross-references (same entity named but not linked)
 - Claims without `[Source:]` citations
 
@@ -359,7 +359,7 @@ Report:
 - All focus areas under `context-library/second-brain/`
 - Per focus area: page count, raw source count, last-ingest date, top 5 most-linked pages (hubs), count of orphan pages, count of open contradictions flagged
 - Brains that haven't been touched in >30 days (stale)
-- Suggested next action per focus area ("lint overdue", "low source count", "big gap flagged in last query")
+- Suggested next action per focus area ("lint overdue", "low source count", "big gap flagged in last query", re-checked this run before it is repeated)
 
 ---
 
