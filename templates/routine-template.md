@@ -36,12 +36,13 @@ Orchestrates: `<SKILL_NAME>` (cite it — see discipline #1, thin wrapper. Do no
 | `routines/<ROUTINE_NAME>/.last-run-<period>` | Already-ran guard — written only on confirmed delivery |
 | `routines/<ROUTINE_NAME>/.last-checkpoint-<period>-<name>` | One per checkpoint, for a routine that pings more than once a period (`notifications.md` item 6). Omit the file if this routine pings once |
 | `routines/<ROUTINE_NAME>/.thread-pointer.json` | Notification thread anchor(s) — copy-only, pruned per `notifications.md` item 7 |
+| `routines/<ROUTINE_NAME>/.rulings.md` | The user's rulings from replies, one dated line each — read at bind-rules (`references/protocols/surfacing.md` §6) |
 
 ## Step Skeleton
 
 ### 1. Bind rules
 
-Read `references/protocols/routines.md`, `references/protocols/notifications.md`, `references/protocols/source-preflight.md`, and your notifier config (`config/notifier-example.md` or equivalent).
+Read `references/protocols/routines.md`, `references/protocols/notifications.md`, `references/protocols/source-preflight.md`, `references/protocols/surfacing.md`, and your notifier config (`config/notifier-example.md` or equivalent). Read this routine's `.rulings.md`: each ruling binds what this run lists.
 
 ### 2. Preflight
 
@@ -100,6 +101,10 @@ notifier.reply_in_thread(anchor.thread_id, body, notify=<see SENDING>)
 ```
 
 Self-heal on a missing anchor per `notifications.md` item 8: re-post, overwrite the pointer, retry once.
+
+## On-Reply Continuation
+
+`routine-responder` runs this section when the user replies in the thread. Re-read each item the reply touches, answer the asks in the user's order, and stop; extra findings wait for the next run. Write any ruling in the reply to `.rulings.md` as one dated line (`references/protocols/surfacing.md` §5-6).
 
 ## Fill These
 

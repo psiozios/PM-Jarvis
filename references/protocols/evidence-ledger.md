@@ -63,7 +63,7 @@ The test: report the empty **lookup**, suppress the empty **run**, and never rea
 
 **The error asymmetry, which runs against intuition.** A false proposal costs the reader one line they scan and dismiss. A false kill silently loses a real commitment — nobody ever learns it was dropped, because a killed item leaves no trace to notice. The costs are nowhere near symmetric, so the burden of proof sits entirely on the kill: **an unproven kill is not a kill.** Confidence that something is already handled is not evidence that it is.
 
-**`UNPROVEN` ships as a one-line question — never as a proposal, never as a silent drop.** A proposal asserts the item is live, and that is precisely what is unproven. A question puts the one fact the user holds and the tools do not where it costs them a line to answer.
+**`UNPROVEN` ships as a one-line question — never as a proposal, never as a silent drop.** A proposal asserts the item is live, and that is precisely what is unproven. A question puts the one fact the user holds and the tools do not where it costs them a line to answer. It still passes the clarification gate in `references/protocols/surfacing.md` §4.
 
 **Report the kills beside the proposals.** Every output carries its killed rows with their evidence, next to the list. This is the check the reader runs on the run itself — **a list with no kills beside it is unverified**, not clean, and should be read as a run that skipped this protocol.
 

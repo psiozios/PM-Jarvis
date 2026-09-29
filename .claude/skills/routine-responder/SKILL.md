@@ -65,6 +65,8 @@ Identify which routine owns the thread. Check that routine's `SKILL.md` for an o
 - **If the routine defines a continuation:** run it, treating the user's message as input to that continuation — not as a fresh invocation of the underlying skill from scratch. Re-read each item the reply touches before answering: the digest it replies to was stale when it landed (`references/protocols/surfacing.md` §1).
 - **If it's a plain question with no continuation defined:** answer conversationally, using full workspace and memory context, the same as any direct chat message would.
 
+Either way the reply answers the asks and stops. A ruling lands in the routine's `.rulings.md` through its continuation; where the routine defines none, the reply says the ruling was not recorded rather than writing a file this skill does not own (`references/protocols/surfacing.md` §5-6).
+
 Inherit the action rules from the routine's own autonomy gate (`references/protocols/routines.md` discipline #7): anything outward-to-others (a message to someone besides the user, an email, a ticket) is draft-only here too — never sent automatically. Anything that would write to the user's own systems runs end-to-end only with unambiguous approval already on record; if approval is ambiguous, ask back in-thread rather than guessing.
 
 ### 5. Post and mark

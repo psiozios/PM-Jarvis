@@ -44,7 +44,7 @@ Once the user finalizes work from `outputs/`, they can move it to `context-libra
 | `outputs/mcp-integration-logs/` | MCP connection logs | `/connect-mcps` |
 | `outputs/skill-test-results/` | Skill test output | testing |
 | `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | `/action-sweep`, `/loose-threads`, `/chat-ingest`, `/meeting-cleanup`, `/voice-of-customer`, `/feature-request-analysis`, `/refinement-prep`, `/proactive-gaps` |
-| `outputs/state/` | Skill run state: window markers and carried-item counters. One owner per file, named for its skill | any skill that reads "since last run" |
+| `outputs/state/` | Skill run state: window markers, carried-item counters, and the user's rulings (`rulings-<skill>.md`, `references/protocols/surfacing.md` §6). One owner per file, named for its skill | any skill that reads "since last run" |
 
 **`outputs/state/` exists because a skill's state file needs a declared home.** A bare `.last-sweep` at the repo root breaks the rule above — the assistant writes under `outputs/` — and leaves nobody able to find it. Name the file for its owner: `outputs/state/.last-sweep`, `outputs/state/carried-loose-threads.json`. Routines are the exception and keep their state beside their own prompt, per `references/protocols/routines.md` discipline #2.
 

@@ -21,6 +21,7 @@ Each routine owns its own state, and only its own state:
 - A dated output — the artifact the run produced. **Evidence the work happened. Never a guard.**
 - One or more `.last-*` markers — **the only thing that means "already ran"**
 - A thread pointer (where its notifications live — see `notifications.md`)
+- A `.rulings.md` run file — the user's in-session rulings, read at bind-rules so they bind the next run (`references/protocols/surfacing.md` §6)
 
 One owner per file. Never let two routines write the same state file.
 

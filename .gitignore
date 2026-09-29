@@ -12,6 +12,7 @@ __pycache__/
 # already-ran guard, so committing one ships somebody else's "already ran".
 routines/*/.last-*
 routines/*/.thread-pointer.json
+routines/*/.rulings.md
 routines/*/outputs/
 outputs/state/
 

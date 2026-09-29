@@ -35,7 +35,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Issue tracker | `<TASK_TRACKER>` | Current open tasks, for dedupe and mark-done matching |
 | Call-transcript source | `<CALL_TRANSCRIPT_SOURCE>` | Action items surfaced in calls not yet in meeting notes |
 | Sweep state | `outputs/state/.last-sweep` (this skill's own file) | Window start for "since last sweep" |
-| Carried-item counter | `outputs/state/carried-action-sweep.json` | How many consecutive runs each item has been carried, for the third-run park-or-drop (`references/protocols/evidence-ledger.md`) |
+| Carried-item counter | `outputs/state/carried-action-sweep.json` | How many consecutive runs each item has been carried, for the third-run park-or-drop (`references/protocols/evidence-ledger.md`). The user's rulings sit beside it in `outputs/state/rulings-action-sweep.md` |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
@@ -52,7 +52,7 @@ Check the sources before reading them (`references/protocols/source-preflight.md
 
 ### 3. Apply exclusions, on the record
 
-Open the log and the ledger now, before any candidate is dropped — one appended line per lookup as it returns, one ledger row per candidate carrying its own targeted lookup, verbatim evidence, and verdict (`references/protocols/evidence-ledger.md`). FYI-only mentions, items explicitly delegated away, and items closed out in the same thread are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a one-line question, since the run cannot show the item is live either.
+Open the log and the ledger now, before any candidate is dropped — one appended line per lookup as it returns, one ledger row per candidate carrying its own targeted lookup, verbatim evidence, and verdict (`references/protocols/evidence-ledger.md`). FYI-only mentions, items explicitly delegated away, items closed out in the same thread, and items the user has ruled out in `outputs/state/rulings-action-sweep.md` (`references/protocols/surfacing.md` §6) are `KILL` rows **with the evidence that killed them**. Anything you believe is excluded but cannot show is `UNPROVEN`, and an unproven kill is not a kill — it ships as a one-line question, since the run cannot show the item is live either.
 
 ### 4. Verify live state
 
@@ -66,7 +66,7 @@ Fuzzy-match each remaining candidate against currently open tasks in `<TASK_TRAC
 
 ### 6. Deliver the questions, then the reconciliation table
 
-Send the questions the moment they exist — they are what the user, and only the user, can answer, and they should not wait on the verification still running (`references/protocols/skill-patterns.md` discipline #10). Then show proposed new tasks and verified-done items as one numbered table (see Output Template), after the render-time re-read and cross-check in `references/protocols/surfacing.md` §1, with a deep link on every row (§2). Nothing is written until that table is approved.
+Send the questions the moment they exist, each one past the three tests in `references/protocols/surfacing.md` §4 — they are what the user, and only the user, can answer, and they should not wait on the verification still running (`references/protocols/skill-patterns.md` discipline #10). Then show proposed new tasks and verified-done items as one numbered table (see Output Template), after the render-time re-read and cross-check in `references/protocols/surfacing.md` §1, with a deep link on every row (§2). Nothing is written until that table is approved.
 
 ### 7. Execute on approval
 

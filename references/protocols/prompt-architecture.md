@@ -26,7 +26,7 @@
 | **1** | `references/protocols/tracker-writes.md` | Frozen scales, computed fields, body budgets, chat-vs-tracker | Before scoring an item or writing one into a tracker |
 | **1** | `references/protocols/freshness-provenance.md` | Dating and sourcing | When an artifact asserts point-in-time state |
 | **1** | `references/protocols/source-preflight.md` | Credential states, the check contract, coverage honesty | Before a run reads a live source, and at session start |
-| **1** | `references/protocols/surfacing.md` | Currency at render time, links in every rendering | Before composing anything a sweep puts in front of the reader |
+| **1** | `references/protocols/surfacing.md` | Currency at render time, links in every rendering, what earns a line, questions, closers, rulings | Before composing anything a sweep puts in front of the reader |
 | **1** | `references/mcp-routing.md` | Live-source routing | When a task wants live tool data |
 | **1** | `references/file-creation-rules.md` | Output taxonomy | Before writing any new file |
 | **1** | `references/skill-chains.md` | Multi-skill sequences | When chaining beyond one nudge |

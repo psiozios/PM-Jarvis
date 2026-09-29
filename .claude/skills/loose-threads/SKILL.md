@@ -34,6 +34,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Calendar | `<CALENDAR>` | Cross-check: did a loop resolve in a meeting instead of in-thread? |
 | Sibling sweep | `action-sweep` output | Dedupe — don't re-flag something `action-sweep` already surfaced as an action item |
 | Carried-item counter | `outputs/state/carried-loose-threads.json` (this skill's own file) | How many consecutive runs each item has been carried. Marks new-vs-carried, and triggers the third-run park-or-drop — **never narrows the sweep** |
+| User rulings | `outputs/state/rulings-loose-threads.md` (this skill's own file) | Rulings that decide whether an item earns a line — never whether it is swept (`references/protocols/surfacing.md` §6) |
 
 
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).

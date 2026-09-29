@@ -21,6 +21,7 @@ State files this routine owns (discipline #2 — one owner per file):
   routines/example-daily-digest/.last-run-<period>              (already-ran guard — confirmed delivery only)
   routines/example-daily-digest/.last-checkpoint-<period>-<name> (one per checkpoint; this digest pings once a day, so it writes none)
   routines/example-daily-digest/.thread-pointer.json             (notification thread, copy-only — prune per notifications.md item 7)
+  routines/example-daily-digest/.rulings.md                      (the user's rulings from replies — read at bind-rules, surfacing.md §6)
 -->
 
 ## What This Routine Does
@@ -45,7 +46,7 @@ Every run executes these steps in order. Do not reorder; do not skip the guard.
 
 ### 1. Bind rules
 
-Read `references/protocols/routines.md`, `references/protocols/notifications.md`, and `references/protocols/source-preflight.md` into context. Read `config/notifier-example.md` (or your real notifier config) for credentials and identity — never print secret values.
+Read `references/protocols/routines.md`, `references/protocols/notifications.md`, `references/protocols/source-preflight.md`, and `references/protocols/surfacing.md` into context. Read `.rulings.md`: a ruling there binds what all three sections list. Read `config/notifier-example.md` (or your real notifier config) for credentials and identity — never print secret values.
 
 ### 2. Preflight the sources (discipline #9)
 
@@ -64,9 +65,7 @@ Each of the three skills reads its own context per its own Context Routing Logic
 
 ### 5. Decide (run the chain in order)
 
-Run `meeting-prep` per its definition. Then run `action-sweep` per its definition. Then run `loose-threads` per its definition. Capture each skill's output section — this routine does not reimplement any of their internal logic, it just sequences them and combines what they produce into one digest body.
-
-If `meeting-prep` finds no upcoming meeting today, note that plainly and continue to `action-sweep` — a skipped section is not a failed run.
+Run `meeting-prep` per its definition. Then run `action-sweep` per its definition. Then run `loose-threads` per its definition. Capture each skill's output section — this routine does not reimplement any of their internal logic, it just sequences them and combines what they produce into one digest body. If `meeting-prep` finds no upcoming meeting today, note that plainly and continue to `action-sweep` — a skipped section is not a failed run.
 
 ### 6. Execute
 
@@ -124,6 +123,10 @@ notifier.reply_in_thread(anchor.thread_id, body, notify=<see SENDING>)
 ```
 
 If the anchor was deleted (thread/message not found on send), re-post per `notifications.md` item 8: mint a new anchor, overwrite the pointer, retry the reply once.
+
+## On-Reply Continuation
+
+`routine-responder` runs this section when the user replies under a digest. Re-read each item the reply touches, answer the asks in the user's order, and stop; extra findings wait for tomorrow's digest. A ruling in the reply ("not mine", "drop it until Friday") goes into `.rulings.md` as one dated line, so tomorrow's run applies it (`references/protocols/surfacing.md` §5-6).
 
 ## Formal Eval
 

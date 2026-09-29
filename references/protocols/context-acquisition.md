@@ -30,7 +30,7 @@ Combine what you found into a working context for the task. Note gaps and contra
 
 ### 4. Ask Only for What Tools Cannot Supply
 
-If a source is empty or a file doesn't exist, note it and proceed with what you have. Only ask the user for information that cannot be found in any file, MCP, or tool.
+If a source is empty or a file doesn't exist, note it and proceed with what you have. Only ask the user for information that cannot be found in any file, MCP, or tool. A question that does reach them passes the three tests in `references/protocols/surfacing.md` §4.
 
 ### 5. Verify Live State
 
