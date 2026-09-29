@@ -6,7 +6,7 @@ A routine turns an existing skill (or short chain of skills) into something that
 
 See `references/protocols/notifications.md` for the outbound-notification contract routines use to report back, `references/protocols/source-preflight.md` for the source check that runs before anything else, and `setup/routine-setup.md` for the guided walkthrough that turns this protocol into a working routine.
 
-## The Nine Disciplines
+## The Ten Disciplines
 
 ### 1. Thin wrapper
 
@@ -82,9 +82,17 @@ Run the registered checks per `references/protocols/source-preflight.md`. Then:
 - **An OAuth-only source is never retried unattended.** The refresh needs a browser and there isn't one. Report `reauth-interactive` once and move on; a retry loop against a consent screen burns the run and still ends with no data. Re-auth is the user's action, and the notification's job is to tell them it is waiting.
 - A run where **every** source failed still reports. A silent routine is indistinguishable from a routine that stopped firing, which is the failure mode discipline #2 exists to prevent.
 
+### 10. Cap the pre-send eval, and split it by reader
+
+**Before the send, one scoring agent, one remediation round, then the send.** The agent reads the composed body (one pass per send, not one loop per chained skill) and scores only the criteria the reader's rejections turn on: each item current, the user's to act on, and linked (`references/protocols/surfacing.md`); the coverage line true (discipline #9); and anything this reader has sent back before. The routine names those criteria in its own Formal Eval section. The universal writing checks (`references/protocols/skill-evals.md` E4-E7) join that pass only where this reader has rejected on them; otherwise they run after delivery with the bookkeeping. The run applies one round of fixes and sends. There is no re-score.
+
+**Bookkeeping checks run after delivery.** A check on an artifact the reader never opens (the ledger, the lookup log, state files, the eval results log, the marker) runs once the send is confirmed. A fail is reported in the next reply, which a pending fail makes non-empty, and never holds a send.
+
+**Why the cap.** The rule it replaces was "block the send until fixed", with no limit. In one routine that gate ran four passes and 35 minutes, 47% of a 74-minute run, and every defect it caught was one the run itself had created. The interactive loop in `references/protocols/skill-evals.md` is unchanged; a routine binds this cap as its own constraint on the skills it calls, the way any caller adds its own constraints (`references/protocols/prompt-architecture.md` rule 3).
+
 ## Worked Example
 
-`routines/example-daily-digest/SKILL.md` is a fully commented skeleton implementing all nine disciplines. Copy it as the starting point for a new routine — see `setup/routine-setup.md` for the guided walkthrough.
+`routines/example-daily-digest/SKILL.md` is a fully commented skeleton implementing all ten disciplines. Copy it as the starting point for a new routine — see `setup/routine-setup.md` for the guided walkthrough.
 
 ## Durable Enforcement
 

@@ -2,7 +2,7 @@
 
 **Principle: EVAL ON EVERY RUN.**
 
-Every skill invocation ends with a formal eval pass. A separate agent evaluates the output in a clean context window. Failures loop back for revision until the output passes all checks.
+Every skill invocation ends with a formal eval pass. A separate agent evaluates the output in a clean context window. Failures loop back for revision until the output passes all checks, except in a routine, where the loop is capped (`references/protocols/routines.md` discipline #10).
 
 **The loop is the backstop, not the mechanism.** `config/house-style.md` is applied *before* drafting — the cheapest slop to remove is the sentence never written. An eval that catches a banned word has already cost a rewrite the drafting agent could have avoided by reading the standard first. Treat a house-style FAIL as evidence the standard was not read, not as the standard working.
 
@@ -38,7 +38,7 @@ Each skill directory contains three files:
 4. Eval agent evaluates each criterion independently → PASS / FAIL / PARTIAL
 5. Eval agent returns a results table to the original agent
 6. **If any FAIL:** eval agent includes specific remediation instructions → original agent applies fixes → re-submits for eval
-7. **Loop until zero FAILs**
+7. **Loop until zero FAILs** — interactively. A routine's pre-send eval is capped at one scoring pass and one remediation round (`references/protocols/routines.md` discipline #10)
 8. Final results appended to the Eval Results Log in `evals.md` (keep last 5 runs) — see "Legible Eval Results Log" below for what the log entry must contain beyond pass/fail counts
 
 ### Scoring

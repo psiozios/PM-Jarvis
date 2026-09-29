@@ -12,7 +12,7 @@ identity and cron schedule are still workspace-specific). The three skills
 below are real, shipped skills — this routine is runnable as-is once your
 notifier config and tool placeholders in those skills are filled in.
 
-This skeleton implements all nine disciplines from
+This skeleton implements all ten disciplines from
 `references/protocols/routines.md`. Read that file first; the comments below
 point at which discipline each block satisfies but do not restate it.
 
@@ -77,7 +77,7 @@ If any skill's output implies a write to the user's own systems (their own track
 
 ### 7. Deliver, in this order (see SENDING block below)
 
-1. **Re-read every item the three sections list**, as it stands now, and carry each item's deep link into the digest body — combining three outputs is where links get cut (`references/protocols/surfacing.md`).
+1. **Re-read every item the three sections list**, as it stands now, and carry each item's deep link into the digest body — combining three outputs is where links get cut (`references/protocols/surfacing.md`). Then run the capped pre-send eval in Formal Eval below.
 2. **Write the dated output file** — the artifact the notification can point at, never the already-ran guard.
 3. **Render the digest in the conversation**, before the outbound call. A tool call finishes before your prose does, so posting first leaves the reader opening an empty session (`notifications.md` item 3). Then **post**.
 
@@ -130,7 +130,7 @@ If the anchor was deleted (thread/message not found on send), re-post per `notif
 
 ## Formal Eval
 
-This is a routine wrapper, not a skill — it has no `evals.md` of its own. Each orchestrated skill (`meeting-prep`, `action-sweep`, `loose-threads`) carries its own eval pass per `references/protocols/skill-evals.md`, run when that skill executes as part of this chain. The routine wrapper itself is not separately evaluated.
+This is a routine wrapper, not a skill — it has no `evals.md` of its own, and the chained skills' eval loops do not run to zero here. Before the send, one scoring agent reads the composed digest and scores only what this reader rejects on: each item current, the user's to act on, and linked, and the coverage line true. One remediation round, then send, no re-score. The chained skills' bookkeeping checks (ledgers, lookup logs, markers) run after delivery, and a fail goes in tomorrow's digest (`references/protocols/routines.md` discipline #10).
 
 ## Cross-Skill Links
 
