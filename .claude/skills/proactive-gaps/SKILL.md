@@ -66,7 +66,7 @@ Run this first because it tells you where to point the forward read. "No delta f
 
 ### 2. Forward landscape
 
-Find growth gated on something not yet in the book: a licence or approval opening a market, a partnership or channel changing who can be sold to, a competitor exiting, a platform opening, a regulation landing, a dated event the team could be first to. Hold each to the forward bar — a real date from a real source, and one named dependency someone could go and check.
+Find growth gated on something not yet in the book: a licence or approval opening a market, a partnership or channel changing who can be sold to, a competitor exiting, a platform opening, a regulation landing, a dated event the team could be first to. Hold each to the forward bar — a real date from a real source, and one named dependency someone could go and check. Sweep the launches of whoever already holds the gating capability, not only the names you watch (`references/protocols/freshness-provenance.md` rule 4).
 
 ### 3. Book upside
 

@@ -2,9 +2,9 @@
 
 **Principle: STATUS STALES FASTEST — NEVER BAKE A POINT-IN-TIME FACT INTO A STANDING DOCUMENT.**
 
-This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the three rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
+This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the four rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
 
-## Side A: The Three Rules
+## Side A: The Four Rules
 
 ### 1. Never hardcode point-in-time status
 
@@ -33,6 +33,14 @@ The local-to-shared boundary runs one way: content can move from local/private i
 
 **"Cannot verify" is a claim about the authoritative live source, never about your copy of it.** A local file derived from a live page — an extract, an analysis, a summary written last month — is research output, not the authority, and it starts dating the moment it is saved. Retrieve the live page first, and report cannot-verify only once the authoritative source has been asked and could not answer. `references/protocols/register.md` carries the outward-content instance: the brand system is read live, and any local mirror of it is a dated copy.
 
+### 4. A watch list is a snapshot too
+
+A monitor keyed on a list of names sees only those names. That is rule 1's defect in the shape of a list: the landscape on the day the list was drawn has become the boundary of what gets watched.
+
+**Sweep the holders of the gating capability, not only the names.** Where entry turns on something few actors hold (a licence, a charter, a platform integration, a data agreement), an incumbent that already holds it ships with nothing to file, and a per-name sweep of filings and announcements never sees it coming. Each run, sweep those holders' launches: product pages, release notes, changelogs. Treat any counterparty's list of providers (a partner directory, a marketplace listing, a regulator's register, a customer's vendor list) as candidates for the watch list, and name the lists that were read.
+
+**A quiet competitor's page reads as current.** A page untouched for six months looks the same as one checked yesterday and found unchanged, and only one of those is true. Each run, check the oldest working pages first, ordered by when their content last changed. Where nothing changed, write a dated no-change line ("checked `<DATE>`, no change") in the focus area's log, and leave the page's date alone. Re-date a page only when its content changes: `last_updated` says the content moved, and a check that moved nothing does not earn it.
+
 ## Side B: Eval Enforcement
 
 `references/protocols/skill-evals.md` already carries four universal checks (E4-E7: no AI slop, house style, human-sounding, context-grounded) that every skill's `evals.md` inherits verbatim. This protocol adds a **fifth universal check — durability** — for any skill whose output is a document meant to persist or be shared, not a one-off draft consumed once.
@@ -45,7 +53,7 @@ See `templates/skill-evals-template.md` for the exact wording as it appears wire
 
 ## Durable Enforcement (Optional Memory Mirror)
 
-Like the commitment-gate and routines protocols, these three rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
+Like the commitment-gate and routines protocols, these four rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
 
 This protocol seeds **no real `feedback_` entry** — asserting one before the user has a concrete document or workspace to apply it to would itself violate rule #1 (a hardcoded, unearned claim). When the user's first shared, living document goes into `context-library/` or `context-library/second-brain/`, propose the relevant mirror per the knowledge-capture protocol (propose, don't auto-write).
 
@@ -53,4 +61,4 @@ This protocol seeds **no real `feedback_` entry** — asserting one before the u
 
 - `references/protocols/skill-evals.md` — where the four base universal checks live; this protocol's durability check is the fifth
 - `references/protocols/knowledge-capture.md` — the propose-don't-auto-write discipline this protocol's memory mirror follows
-- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1 and #2 violations, since they're explicitly designed to compound over time
+- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1, #2, and #4 violations, since they're explicitly designed to compound over time

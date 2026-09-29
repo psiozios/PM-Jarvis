@@ -136,8 +136,8 @@ Based on your objective and existing context:
 1. **Monthly Check-in** - Search competitor mentions in user feedback
 2. **Feature Tracking** - Monitor features appearing in customer requests
 3. **Win/Loss Trends** - Track patterns via sales team
-4. **Update Matrix** - Keep feature comparison current
-5. **Alert on Major Moves** - Flag significant changes
+4. **Update Matrix** - Keep feature comparison current: check the oldest pages first, log a dated no-change line where nothing moved, and re-date a page only when its content changes
+5. **Alert on Major Moves** - Flag significant changes, including from actors not on your list: sweep the launches of whoever already holds the gating capability, and treat any counterparty's provider list as candidates (`references/protocols/freshness-provenance.md` rule 4)
 
 **Time:** 30 minutes/month
 
@@ -645,7 +645,7 @@ Always prefer high-confidence sources. Flag low-confidence claims explicitly so 
 
 ### ❌ Mistake 3: Ignoring Indirect Competitors
 **Bad:** Only tracking direct competitors
-**Good:** Watching for adjacent players who could pivot (like Figma launching FigJam to compete with Miro)
+**Good:** Watching for adjacent players who could pivot (like Figma launching FigJam to compete with Miro), and for incumbents that already hold what entry requires (`references/protocols/freshness-provenance.md` rule 4)
 
 ### ❌ Mistake 4: Static Document
 **Bad:** Beautiful analysis that lives in a deck, never updated

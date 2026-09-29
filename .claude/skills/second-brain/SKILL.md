@@ -107,7 +107,7 @@ Followed by a one-paragraph summary, then the body.
 
 **Index and log:**
 - `wiki/index.md` — catalog, updated on every ingest. Organize by category.
-- `wiki/log.md` — append-only. Format: `## [YYYY-MM-DD] {action} | {one-line description}` where action is `init | ingest | query | explore | lint | update`.
+- `wiki/log.md` — append-only. Format: `## [YYYY-MM-DD] {action} | {one-line description}` where action is `init | ingest | query | explore | lint | update | check`. A `check` line records a page re-read and found unchanged.
 
 ---
 
@@ -181,7 +181,7 @@ A personal knowledge base about {focus}. The human curates sources and asks ques
 
 ## Index and Log
 - wiki/index.md: catalog of every page with a one-line description, organized by category.
-- wiki/log.md: append-only. Format: `## [YYYY-MM-DD] action | Description`. Actions: init, ingest, query, explore, lint, update.
+- wiki/log.md: append-only. Format: `## [YYYY-MM-DD] action | Description`. Actions: init, ingest, query, explore, lint, update, check (a page re-read and found unchanged).
 
 ## Ingest Workflow (when a source lands in raw/)
 1. Read the full source.
@@ -256,7 +256,7 @@ After scaffolding, print the next-steps summary and point the PM to `.claude/ski
 5. **Write/update wiki:**
    - Create or update the relevant summary page in `wiki/`. Check `wiki/` on disk first: an existing page is read in full and updated as a delta, never rewritten as new, and its prior content survives the write (`references/protocols/knowledge-capture.md` §6).
    - Update `wiki/index.md` (new page entry + any category reorganization).
-   - Update ALL other pages where this source adds, confirms, or contradicts a claim.
+   - Update ALL other pages where this source adds, confirms, or contradicts a claim. A page whose content this run does not change keeps its `last_updated` (`references/protocols/freshness-provenance.md` rule 4).
    - Add backlinks from existing pages to new content.
    - On contradiction: flag explicitly with both citations, note recency.
 6. **Log.** Append `## [YYYY-MM-DD] ingest | {filename} — touched N pages` to `wiki/log.md`.
@@ -319,7 +319,7 @@ Use when you've dropped many sources into `raw/` at once and want the LLM to pro
 
 ### Checks
 - Contradictions between pages
-- Stale claims superseded by newer sources (check against `last_updated` and source dates)
+- Stale claims superseded by newer sources (check against `last_updated` and source dates, oldest content first)
 - Orphan pages with no inbound `[[links]]`, and links that resolve to no page on disk (skip code spans: logged old links are the record)
 - Important concepts mentioned across pages but never given their own page (search `wiki/` for the concept before claiming it)
 - Missing cross-references (same entity named but not linked)
