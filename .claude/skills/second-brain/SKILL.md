@@ -101,7 +101,7 @@ status: draft | working | stable
 Followed by a one-paragraph summary, then the body.
 
 **Cross-linking rules:**
-- Use `[[page-name]]` Obsidian-style links between pages. Link aggressively.
+- Use `[[page-name]]` Obsidian-style links between pages. Link aggressively, and only to a page that exists on disk or is created in the same pass.
 - Every factual claim cites its source inline: `[Source: filename.md]`
 - When a new source contradicts an existing claim: flag both, cite both, note which is more recent. Never silently overwrite.
 
@@ -175,7 +175,7 @@ A personal knowledge base about {focus}. The human curates sources and asks ques
 
 ## Wiki Conventions
 - Every page: its own .md file, YAML frontmatter (title, created, last_updated, source_count, status), one-paragraph summary.
-- [[page-name]] cross-links. Link aggressively.
+- [[page-name]] cross-links. Link aggressively, and only to pages that exist on disk or are created in the same pass.
 - Every factual claim cites source: [Source: filename.md].
 - On contradiction: flag both claims, cite both, note recency. Never silently overwrite.
 
@@ -186,7 +186,7 @@ A personal knowledge base about {focus}. The human curates sources and asks ques
 ## Ingest Workflow (when a source lands in raw/)
 1. Read the full source.
 2. Summarize key takeaways to the PM.
-3. Create or update a summary page in wiki/.
+3. Check wiki/ on disk for the page. Update an existing one as a delta; never rewrite it as new.
 4. Update wiki/index.md.
 5. Update ALL relevant existing pages — one source often touches many.
 6. Add backlinks from existing pages to new content.
@@ -254,13 +254,13 @@ After scaffolding, print the next-steps summary and point the PM to `.claude/ski
 3. **Read fully.** Don't skim.
 4. **Discuss takeaways.** Summarize the 3-5 key claims to the PM before writing anything. Let them redirect if they want a different angle.
 5. **Write/update wiki:**
-   - Create or update the relevant summary page in `wiki/`.
+   - Create or update the relevant summary page in `wiki/`. Check `wiki/` on disk first: an existing page is read in full and updated as a delta, never rewritten as new, and its prior content survives the write (`references/protocols/knowledge-capture.md` §6).
    - Update `wiki/index.md` (new page entry + any category reorganization).
    - Update ALL other pages where this source adds, confirms, or contradicts a claim.
    - Add backlinks from existing pages to new content.
    - On contradiction: flag explicitly with both citations, note recency.
 6. **Log.** Append `## [YYYY-MM-DD] ingest | {filename} — touched N pages` to `wiki/log.md`.
-7. **Report.** Tell the PM exactly which pages were created or updated so they can scan the diff.
+7. **Report.** Tell the PM exactly which pages were created or updated so they can scan the diff, and flag any page whose deletions exceed its insertions (`git diff --numstat`).
 
 **One source at a time produces better wikis than batch ingest.** Encourage the PM to ingest individually and discuss takeaways. Use `compile` only for bulk catch-up.
 
@@ -295,7 +295,7 @@ Use when you've dropped many sources into `raw/` at once and want the LLM to pro
 1. For each file in `raw/` not yet in the log as ingested:
    - Run the full ingest workflow.
 2. After the batch, show the updated `wiki/index.md` so the PM can see the shape of what was built.
-3. Append a batch entry to the log: `## [YYYY-MM-DD] compile | Processed N sources, touched M pages`.
+3. Append a batch entry to the log: `## [YYYY-MM-DD] compile | Processed N sources, touched M pages`. Then run `git diff --numstat` over the focus area and flag every page whose deletions exceed its insertions (`references/protocols/knowledge-capture.md` §6).
 
 ---
 
@@ -320,7 +320,7 @@ Use when you've dropped many sources into `raw/` at once and want the LLM to pro
 ### Checks
 - Contradictions between pages
 - Stale claims superseded by newer sources (check against `last_updated` and source dates)
-- Orphan pages with no inbound `[[links]]`
+- Orphan pages with no inbound `[[links]]`, and links that resolve to no page on disk (skip code spans: logged old links are the record)
 - Important concepts mentioned across pages but never given their own page (search `wiki/` for the concept before claiming it)
 - Missing cross-references (same entity named but not linked)
 - Claims without `[Source:]` citations

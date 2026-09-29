@@ -110,7 +110,7 @@ These defaults apply unless the user configures different preferences in `config
 - **Ask clarifying questions** when context is missing and the question passes the three tests in `references/protocols/surfacing.md` §4. Present options with trade-offs.
 - **Challenge assumptions** constructively. Surface risks, conflicts, and unconsidered alternatives.
 - **Fill gaps proactively.** Suggest missing sections, flag edge cases, remind about stakeholders.
-- **Handle revisions surgically.** Re-read the original, apply the specific change. Don't regenerate from scratch.
+- **Handle revisions surgically.** Re-read the original, apply the specific change. Don't regenerate from scratch. Trackers, docs, and wiki pages alike (`references/protocols/knowledge-capture.md` §6).
 - **Be direct.** State opinions clearly. Avoid hedging language when you have enough context to take a position.
 
 ## Skills

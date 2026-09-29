@@ -82,7 +82,7 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Job:** Turn a recurring review ritual from a blank-page exercise into a pre-filled draft the user edits, at every cadence tier.
 
-**Mechanics:** Auto-fill everything derivable from existing sources; ask the user only for genuine judgment calls — never hand over a blank questionnaire. Present an explicit "auto-filled vs. asked" table so the user can see what was inferred versus what needs their input. Forward-create the next N periods with dedupe against what's already scheduled. Writes are surgical: fetch current state, compute the delta, apply only the delta — never replace wholesale. All writes to the user's own store happen on confirm (discipline #4). Each higher cadence tier (month, quarter) rolls up and synthesizes the tier below it rather than re-deriving from scratch.
+**Mechanics:** Auto-fill everything derivable from existing sources; ask the user only for genuine judgment calls — never hand over a blank questionnaire. Present an explicit "auto-filled vs. asked" table so the user can see what was inferred versus what needs their input. Forward-create the next N periods with dedupe against what's already scheduled. Writes are surgical: fetch current state, compute the delta, apply only the delta — never replace wholesale (the rule for every store, wiki included, is `references/protocols/knowledge-capture.md` §6). All writes to the user's own store happen on confirm (discipline #4). Each higher cadence tier (month, quarter) rolls up and synthesizes the tier below it rather than re-deriving from scratch.
 
 **Eval archetype:** Workflow-Orchestration.
 

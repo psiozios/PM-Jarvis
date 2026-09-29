@@ -45,7 +45,7 @@ Or just run `/second-brain init` to bootstrap a focus area and get the starter p
 ## Core Rules (Enforced by Each Focus Area's CLAUDE.md)
 
 - `raw/` is immutable. Never modify source files once added.
-- `wiki/` is LLM-owned. The LLM creates, updates, and cross-links pages.
+- `wiki/` is LLM-owned. The LLM creates, updates, and cross-links pages, updating an existing page as a delta and linking only to pages that exist on disk (`references/protocols/knowledge-capture.md` §6).
 - Every factual claim in a wiki page cites its source: `[Source: filename.md]`.
 - Every wiki page starts with YAML frontmatter (title, created, last_updated, source_count, status).
 - Cross-reference aggressively with `[[page-name]]` Obsidian-style links.

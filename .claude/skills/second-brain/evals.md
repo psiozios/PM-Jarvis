@@ -34,7 +34,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | ID | Check | Criteria |
 |----|-------|----------|
 | E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
-| E8 | Compounding value | Entry connects to existing wiki entries via explicit cross-references |
+| E8 | Compounding value | Entry connects to existing wiki entries via explicit cross-references, each resolving to a page on disk |
 | E9 | Source attributed | States where the knowledge came from (meeting, article, experience, etc.) |
 
 ### Completeness & Context
@@ -44,6 +44,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Search-friendly | Entry uses clear keywords and tags that future searches would match |
 | E11 | Actionable framing | Knowledge framed as 'when to use this' not just 'what this is' |
 | E12 | Freshness date included | Entry has a date and optional review-by date for time-sensitive knowledge |
+| E13 | Surgical update | Every page that existed before the run was updated as a delta: its prior claims, citations, and dated lines survive, and no page shows more deletions than insertions without a stated reason |
 
 ## Scoring
 

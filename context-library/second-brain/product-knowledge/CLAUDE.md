@@ -5,7 +5,7 @@
 ## Rules
 
 - `raw/` is immutable. Never modify source files once added.
-- `wiki/` is LLM-owned. Create, update, and cross-link pages freely.
+- `wiki/` is LLM-owned. Create, update, and cross-link pages. An existing page is updated as a delta, never rewritten as new, and every link resolves to a page on disk (`references/protocols/knowledge-capture.md` §6).
 - Every factual claim in a wiki page cites its source: `[Source: filename.md]`.
 - Every wiki page starts with YAML frontmatter (title, created, last_updated, source_count, status).
 - Cross-reference aggressively with `[[page-name]]` links.
