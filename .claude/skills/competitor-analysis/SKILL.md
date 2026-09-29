@@ -718,7 +718,7 @@ If any check fails, fix it before delivering. The best competitive analysis driv
 
 **Before analyzing:** query the `competitive-intelligence` focus area. A fresh competitor-analysis run should **build on** what's in the brain, not restart from zero. Pull the current page for each competitor (positioning, pricing, ICP, recent moves, strengths, weaknesses) and treat this run as an update, not a first draft.
 
-In `--monitor` mode especially, the brain is the baseline against which you detect change.
+In Ongoing Monitoring mode especially, the brain is the baseline against which you detect change.
 
 **At the end of the run, offer: "File to Second Brain? (y/n)"**
 

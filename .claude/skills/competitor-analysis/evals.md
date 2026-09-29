@@ -2,7 +2,7 @@
 skill: competitor-analysis
 archetype: Research-Synthesis
 eval-version: 1
-last-updated: 2026-06-23
+last-updated: 2026-09-28
 ---
 
 # Evals: /competitor-analysis
@@ -19,7 +19,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E1 | Comparison matrix present | Feature/capability comparison matrix with consistent dimensions across all competitors |
 | E2 | Competitors profiled | Each competitor has: positioning, target market, pricing, key differentiators |
-| E3 | Output path correct | File saved to `outputs/analyses/` with market and date in filename |
+| E3 | Output path correct | Deep Analysis saved to `outputs/research-synthesis/competitor-analysis-[name]-[date].md`; Ongoing Monitoring to `outputs/research-synthesis/competitive-intel-[month].md` |
 
 ### Quality & Voice
 
