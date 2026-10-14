@@ -32,9 +32,11 @@ stakeholder communication guidance, and concrete next steps.
 
 Before generating a results analysis, verify the feature has actually shipped.
 
-**Check for launch signals:**
-- Does the PRD in `context-library/prds/` or `outputs/prds/` show status "Shipped" or "Launched"?
-- Does the PM mention actual results data (not projections)?
+**Check both launch claims, each on its own source** (`references/protocols/freshness-provenance.md` rule 5):
+- **Code is live:** the merged change and its handler, in the code host or codebase. A PRD marked "Shipped" or a Done ticket is intent, not evidence.
+- **Customers use it:** production records showing use in the last 30 days, from the analytics MCP or the warehouse.
+
+Name the claim that could not be verified at the top of the results doc. Zero production use on live code is a finding, not a launch.
 
 **If the feature hasn't launched yet:**
 ```

@@ -56,6 +56,13 @@ Trigger phrases: "how is feature X performing", "numbers for", "results of"
 
 - Check analytics MCP first, then `context-library/prds/` and `context-library/metrics/`
 
+### "Did It Ship?" --> Code Host + Production Data, Never the Tracker Alone
+
+Trigger phrases: "did X ship", "is X live", "already shipped", "launched"
+
+- Two lookups, two claims (`references/protocols/freshness-provenance.md` rule 5): the merged change and its handler from the code host or codebase, then production use over the last 30 days from the analytics MCP or the warehouse
+- **Fallback:** none for either claim. A tracker status is reported as tracker status, and the unreached claim is named unconfirmed
+
 ### Task / Ticket Queries --> PM MCPs (Linear, Jira)
 
 Trigger phrases: "open tasks", "status of epic", "create ticket", "update ticket"

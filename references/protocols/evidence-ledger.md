@@ -24,6 +24,8 @@ Any run that will drop, merge, or suppress candidates builds two artifacts befor
 
 **This corrects the earlier rule, which said to expand every noun into one query.** That rule assumed the tool would treat the variants as alternatives. One search tool here ANDs every term it is given and supports no OR at all, so a multi-variant query asks for a document containing all three spellings at once — which nothing does. It returns zero hits and no error. The zero is then indistinguishable from a real null, and three runs shipped items that had already been handled on the strength of exactly that. **A false zero is more expensive than a missed spelling, because it looks like evidence.**
 
+**An "already handled?" lookup filters on updated or resolved date, never created.** The question is whether the work closed inside the window, and work created before the window and closed inside it is exactly what a created-date filter drops. Whether it shipped is a separate question with its own two claims (`references/protocols/freshness-provenance.md` rule 5).
+
 **A zero-hit query containing a space is suspect until it has been re-run one term at a time.** Log the re-runs; the suspect zero is not a `Hits: 0` row until the single-term queries have also come back empty.
 
 Nothing here is in tension with `config/house-style.md` P9, which says to pick one noun and repeat it. That governs **prose**, where renaming a referent confuses the reader. This governs **retrieval**, where the tool's index and not the reader decides what matches. Vary the query; keep the writing consistent.

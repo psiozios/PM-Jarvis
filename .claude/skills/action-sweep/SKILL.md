@@ -55,7 +55,7 @@ Open the log and the ledger now, before any candidate is dropped — one appende
 
 ### 4. Verify live state
 
-For each remaining candidate, check whether it's already been handled since it arose — cross-reference the task tracker, later messages in the same thread, and calendar follow-ups. An item resolved after the fact is marked **verified-done**, not surfaced as still-open (see `skill-patterns.md` discipline #2 — verify before surfacing). An item with only chat silence behind it is checked for where it was settled (`references/protocols/evidence-ledger.md` §4): a meeting with that person on that topic that day, the same office, or a concession in the thread makes it `UNPROVEN`, a "still open?" question rather than a proposed task.
+For each remaining candidate, check whether it's already been handled since it arose — cross-reference the task tracker (filtered on updated or resolved date, never created), later messages in the same thread, and calendar follow-ups. An item resolved after the fact is marked **verified-done**, not surfaced as still-open (see `skill-patterns.md` discipline #2 — verify before surfacing). An item with only chat silence behind it is checked for where it was settled (`references/protocols/evidence-ledger.md` §4): a meeting with that person on that topic that day, the same office, or a concession in the thread makes it `UNPROVEN`, a "still open?" question rather than a proposed task.
 
 ### 5. Dedupe against the task tracker
 

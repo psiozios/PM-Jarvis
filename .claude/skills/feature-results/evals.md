@@ -1,8 +1,8 @@
 ---
 skill: feature-results
 archetype: Analysis
-eval-version: 1
-last-updated: 2026-06-23
+eval-version: 2
+last-updated: 2026-10-13
 ---
 
 # Evals: /feature-results
@@ -44,6 +44,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | Statistical confidence noted | States whether sample size is sufficient and if results are statistically significant |
 | E11 | Goal vs actual compared | Every pre-launch metric target compared against actual result |
 | E12 | Next steps concrete | States: iterate, scale, pivot, or kill — with specific reasoning |
+| E13 | Launch verified as two claims | The doc states, each on its own cited source, that the code is live (merged change and handler) and that customers use it (production records, last 30 days), or names which claim is unverified. FAIL where a PRD status, a Done ticket, or the user's say-so stands in for either (`references/protocols/freshness-provenance.md` rule 5) |
 
 ## Scoring
 

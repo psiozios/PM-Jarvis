@@ -377,7 +377,7 @@ quarter: Q[X] YYYY
 
 ### Shipped This Week
 
-[If anything launched]
+[If anything launched: code live and customers using it, each on its own source, never a Done ticket alone (`references/protocols/freshness-provenance.md` rule 5)]
 
 **[Feature Name]** (Launched [Day])
 

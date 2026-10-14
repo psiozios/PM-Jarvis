@@ -28,7 +28,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
-| Task tracker | `<TASK_TRACKER>` | Work shipped this week |
+| Task tracker | `<TASK_TRACKER>` | Work closed this week, filtered on resolved date. Closed is not shipped: a shipped claim needs the code host and production data (`references/protocols/freshness-provenance.md` rule 5) |
 | Decisions | `context-library/decisions/`, `outputs/decisions/` | Decisions made this week |
 | Metrics | `<METRICS_SOURCE>` | Movement worth reporting |
 | Meeting notes | `outputs/meeting-notes/` | Risks or blockers surfaced this week |

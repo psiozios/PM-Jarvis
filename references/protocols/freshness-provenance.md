@@ -2,9 +2,9 @@
 
 **Principle: STATUS STALES FASTEST — NEVER BAKE A POINT-IN-TIME FACT INTO A STANDING DOCUMENT.**
 
-This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the four rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
+This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the five rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
 
-## Side A: The Four Rules
+## Side A: The Five Rules
 
 ### 1. Never hardcode point-in-time status
 
@@ -41,6 +41,12 @@ A monitor keyed on a list of names sees only those names. That is rule 1's defec
 
 **A quiet competitor's page reads as current.** A page untouched for six months looks the same as one checked yesterday and found unchanged, and only one of those is true. Each run, check the oldest working pages first, ordered by when their content last changed. Where nothing changed, write a dated no-change line ("checked `<DATE>`, no change") in the focus area's log, and leave the page's date alone. Re-date a page only when its content changes: `last_updated` says the content moved, and a check that moved nothing does not earn it.
 
+### 5. "Did it ship?" is two claims, and the tracker proves neither
+
+**Code is live:** the merged change and the handler that serves it, read in the code host or the deployed build. A spec, a PRD status, or a design is intent, not code. **Customers use it:** production records showing use in the last 30 days, read from the metrics source or the warehouse. A Done ticket, a closed epic, or a "Shipped" field proves neither claim. One draft reply called a feature shipped on the strength of Done tickets while production showed zero use.
+
+State each claim on its own source, and name the one that is unverified rather than rounding up: "merged and deployed (link); no production use in 30 days" is a correct answer to "did it ship?". Where the code host or production data is unreachable, that claim is unconfirmed (rule 1), never inferred from the tracker.
+
 ## Side B: Eval Enforcement
 
 `references/protocols/skill-evals.md` already carries four universal checks (E4-E7: no AI slop, house style, human-sounding, context-grounded) that every skill's `evals.md` inherits verbatim. This protocol adds a **fifth universal check — durability** — for any skill whose output is a document meant to persist or be shared, not a one-off draft consumed once.
@@ -53,7 +59,7 @@ See `templates/skill-evals-template.md` for the exact wording as it appears wire
 
 ## Durable Enforcement (Optional Memory Mirror)
 
-Like the commitment-gate and routines protocols, these four rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
+Like the commitment-gate and routines protocols, these five rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
 
 This protocol seeds **no real `feedback_` entry** — asserting one before the user has a concrete document or workspace to apply it to would itself violate rule #1 (a hardcoded, unearned claim). When the user's first shared, living document goes into `context-library/` or `context-library/second-brain/`, propose the relevant mirror per the knowledge-capture protocol (propose, don't auto-write).
 
@@ -61,4 +67,4 @@ This protocol seeds **no real `feedback_` entry** — asserting one before the u
 
 - `references/protocols/skill-evals.md` — where the four base universal checks live; this protocol's durability check is the fifth
 - `references/protocols/knowledge-capture.md` — the propose-don't-auto-write discipline this protocol's memory mirror follows
-- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1, #2, and #4 violations, since they're explicitly designed to compound over time
+- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1, #2, #4, and #5 violations, since they're explicitly designed to compound over time

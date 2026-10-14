@@ -171,7 +171,7 @@ Here's your update:
 
 ## 🎯 Key Accomplishments
 
-**Shipped / Completed:**
+**Shipped / Completed:** (shipped means code live and customers using it, each sourced; a Done ticket alone is "completed" — `references/protocols/freshness-provenance.md` rule 5)
 - [Specific outcome with impact] - [Link]
 - [Specific outcome with impact] - [Link]
 

@@ -29,7 +29,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Reviews store | `<REVIEWS_STORE>` | This week's existing entry (if any), the prior week's entry for continuity |
-| Task tracker | `<TASK_TRACKER>` | Tasks completed within the week's date range, for candidate accomplishments |
+| Task tracker | `<TASK_TRACKER>` | Tasks resolved within the week's date range, filtered on resolved date and never created date, for candidate accomplishments |
 | Calendar | `<CALENDAR>` | Week boundaries, computed in local time |
 
 

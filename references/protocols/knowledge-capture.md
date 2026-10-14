@@ -56,6 +56,8 @@ When a skill produces something intended for others (a Slack message, a ticket, 
 
 **A reply carries new information, or it is not a reply.** Restating what they said, asking them to clarify, and handing their question back all carry nothing — each one moves the work back across the table. Retrieve what the question is about before drafting anything. If the retrieval leaves nothing to say that the reader does not already have, the deliverable is the retrieval — what was looked up and what it showed — rather than a drafted message.
 
+**A reply that says something shipped meets both claims first.** Code live and customers using it are separate, and a Done ticket proves neither (`references/protocols/freshness-provenance.md` rule 5).
+
 **Test the premise before answering it.** A senior stakeholder's question is not automatically the right question. Where retrieval shows the premise is off, saying so is new information, and it is usually the most useful thing the reply can carry.
 
 ### 6. Knowledge-Base Writes Are Surgical
