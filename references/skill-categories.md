@@ -2,7 +2,7 @@
 
 Extracted from the always-on core (`CLAUDE.md`) — a lookup table, not a rule. Read it when you need the shape of the library rather than a specific skill. For routing to one skill, the frontmatter `description` is the surface; for multi-skill sequences, see `references/skill-chains.md`.
 
-87 skills, in `.claude/skills/<name>/SKILL.md`.
+88 skills, in `.claude/skills/<name>/SKILL.md`.
 
 | Category | Count | Coverage |
 |----------|-------|----------|
@@ -13,7 +13,7 @@ Extracted from the always-on core (`CLAUDE.md`) — a lookup table, not a rule. 
 | Prototyping & Design | 6 | Design direction, prototypes, wireframes, feedback loops |
 | Competitive Intelligence | 2 | Competitor analysis, sales battlecards |
 | Development & Execution | 18 | Tickets, launches, sprints, code, execution plans, grooming, refinement |
-| Automation & Cadence | 8 | Action sweeps, radar, periodic-review cascade, read-aheads, routine replies |
+| Automation & Cadence | 9 | Action sweeps, radar, outside-in and warehouse upside scans, periodic-review cascade, read-aheads, routine replies |
 | Learning & Growth | 1 | Technical PM education |
 | Knowledge Management | 2 | Compounding second-brain wiki, chat ingestion |
 | Fun | 1 | Devil's advocate reviewer |

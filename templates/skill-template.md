@@ -1,6 +1,6 @@
 ---
 name: skill-name-in-kebab-case
-description: One sentence on what this does and when to reach for it. Carry the trigger vocabulary a user would actually say and any hard constraint that changes whether this is the right skill (read-only, preview-first, writes-on-confirm, draft-only, never-automated). Leave method out — it loads with the body. Ceiling 350 characters, target 200, because all 87 descriptions load into every session whether or not the skill runs.
+description: One sentence on what this does and when to reach for it. Carry the trigger vocabulary a user would actually say and any hard constraint that changes whether this is the right skill (read-only, preview-first, writes-on-confirm, draft-only, never-automated). Leave method out — it loads with the body. Ceiling 350 characters, target 200, because all 88 descriptions load into every session whether or not the skill runs.
 user-invocable: true
 disable-model-invocation: false
 ---

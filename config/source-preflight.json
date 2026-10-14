@@ -3,7 +3,7 @@
     "Registry for the source preflight. See references/protocols/source-preflight.md.",
     "One entry per source key — use the same <PLACEHOLDER> keys the skills already",
     "route on: <TASK_TRACKER>, <CALENDAR>, <CHAT_PLATFORM>, <EMAIL_SOURCE>,",
-    "<METRICS_SOURCE>, <DOCS_HUB>, <CALL_TRANSCRIPT_SOURCE>, <REVIEWS_STORE>.",
+    "<METRICS_SOURCE>, <WAREHOUSE>, <DOCS_HUB>, <CALL_TRANSCRIPT_SOURCE>, <REVIEWS_STORE>.",
     "",
     "  label   Human name for the table.",
     "  auth    'oauth' | 'token' | 'none'. Mark 'oauth' when the refresh needs a",

@@ -7,14 +7,14 @@ Your AI-powered copilot for modern product management. Built for Claude Code.
 Most PMs use AI the same way they use Google: one-off questions, zero context. This system works differently.
 
 - **Context over prompting.** AI is only as good as the context you give it. PM Jarvis organizes your company knowledge, writing styles, stakeholder profiles, and past decisions so every output sounds like it came from someone who actually works there.
-- **Workflows, not chat.** 87 slash commands cover the full PM loop: strategy, research, PRDs, metrics, meetings, launches, prototyping, design, code, knowledge management, retrospectives, and recurring cadence. Each one builds on the others.
+- **Workflows, not chat.** 88 slash commands cover the full PM loop: strategy, research, PRDs, metrics, meetings, launches, prototyping, design, code, knowledge management, retrospectives, and recurring cadence. Each one builds on the others.
 - **Automate the recurring stuff.** Any skill can be wrapped in a scheduled routine that fires on its own, checks its own state, and reports back through a notification. Weekly reviews, backlog grooming, action-item sweeps, and open-loop radar run without you kicking them off.
 - **Ship the draft, then iterate.** Documents are living artifacts. A 1-page PRD that ships Monday beats a 10-page spec that ships never.
 
 ## What You Get
 
 - **Pre-built context library** with templates for company info, writing styles, stakeholder profiles, and strategic frameworks (7 Powers, JTBD, PLG Iceberg, Growth Loops, and more)
-- **87 slash commands** for recurring PM tasks, from PRDs and meeting notes to pricing analysis, design direction, code reviews, and a compounding second-brain wiki
+- **88 slash commands** for recurring PM tasks, from PRDs and meeting notes to pricing analysis, design direction, code reviews, and a compounding second-brain wiki
 - **An automation layer** — routines that run skills on a schedule and report back through provider-agnostic notifiers, so recurring work happens without you
 - **7 sub-agents** for multi-perspective reviews (engineer, designer, executive, legal, UX researcher, skeptic, customer voice)
 - **Persistent memory** that carries facts, feedback, and project state across sessions via a per-turn injection hook
@@ -102,7 +102,7 @@ pm-jarvis/
 ├── LICENSE.md                      # MIT License
 │
 ├── .claude/
-│   └── skills/                     # 87 registered slash commands
+│   └── skills/                     # 88 registered slash commands
 │                                   #   (each has SKILL.md + evals.md + skill-memory.md)
 │
 ├── config/                         # User-configurable settings
@@ -192,7 +192,7 @@ Unlike ChatGPT or regular Claude:
 ### Layers of Context
 
 1. **Project Knowledge** (`context-library/`) - Company info, writing styles, stakeholder profiles, strategy frameworks, and past decisions that apply across all your work
-2. **Skills** (`.claude/skills/`) - 87 registered slash commands for recurring tasks, each with built-in context routing and cross-skill integration
+2. **Skills** (`.claude/skills/`) - 88 registered slash commands for recurring tasks, each with built-in context routing and cross-skill integration
 3. **Sub-Agents** (`sub-agents/`) - 7 specialized reviewers for multi-perspective feedback
 4. **Memory** (`memory/`) - Persistent facts, feedback, and project state carried across sessions, injected each turn via a hook
 5. **Routines** (`routines/`) - Schedules that fire skills on their own and report back through notifiers
@@ -231,7 +231,7 @@ What a sweep shows you is checked again at the moment it is shown. Each listed t
 
 `references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep.
 
-## Available Skills (87 Total)
+## Available Skills (88 Total)
 
 Type `/` in Claude Code to see the autocomplete menu with all commands.
 
@@ -349,7 +349,7 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | `/second-brain` | Build and maintain a compounding PM knowledge base (Karpathy's LLM Wiki pattern); modes: `init`, `ingest`, `query`, `compile`, `explore`, `lint`, `prep`, `status` |
 | `/chat-ingest` | Pull high-signal chat threads into the second-brain knowledge base (channel sweep, topic search, catch-up) |
 
-### Automation and Cadence (8)
+### Automation and Cadence (9)
 
 These skills are built to run on a schedule as **routines** (see below), though each also works on demand.
 
@@ -357,7 +357,8 @@ These skills are built to run on a schedule as **routines** (see below), though 
 |---------|-------------|
 | `/action-sweep` | Sweep every connected source for open action items, reconcile against the tracker, execute or propose each |
 | `/loose-threads` | Open-loop radar — surface stalled two-way conversations you may be dropping |
-| `/proactive-gaps` | Where is the upside — forward landscape first, then the money, then the outside-in reads, each on its own bar |
+| `/proactive-gaps` | Where is the upside, read from outside — problems other institutions wrote down, joined to assets you already own, each with a test and a falsifier |
+| `/warehouse-brief` | Weekly inside-out brief — 3 to 5 insights computed from your warehouse, each landed on a live decision and its owner, reconciled a second way |
 | `/weekly-readahead` | Draft and publish a weekly read-ahead for a recurring cross-team meeting |
 | `/weekly-review-fill` | Base tier of the periodic-review cascade — pre-fills the week's review from completed work |
 | `/monthly-review-fill` | Rolls up the month's weekly reviews into a synthesized monthly assessment |
@@ -407,7 +408,7 @@ Monday `/weekly-plan` → daily workflow → Friday `/weekly-review` → `/statu
 weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the weeks) → quarterly `/quarterly-review-fill` (rolls up the months)
 
 **Stay-on-top Radar (run as routines):**
-`/action-sweep` (open items across sources) + `/loose-threads` (dropped conversations) + `/proactive-gaps` (where the upside is) — schedule these so they land in your notifier without you asking
+`/action-sweep` (open items across sources) + `/loose-threads` (dropped conversations) + `/proactive-gaps` (upside from outside) + `/warehouse-brief` (upside in your own data) — schedule these so they land in your notifier without you asking
 
 ## Pro Tips
 

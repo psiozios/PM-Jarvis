@@ -43,6 +43,12 @@ Then probe punctuation: the closed, hyphenated, and spaced spellings of one noun
 
 ## Query Routing Rules
 
+### Warehouse Queries --> `<WAREHOUSE>` (BigQuery, Snowflake, Postgres, Redshift), Read-Only
+
+Trigger phrases: "join", "cohort split", "query the warehouse", `/warehouse-brief`. Read `context-library/metrics/warehouse-map.md` before the first query, `SELECT` only, inside its cost limits.
+
+- **Fallback:** none. No warehouse, no brief; dashboards and exports are what the user already sees
+
 ### Analytics Queries --> Analytics MCPs (Amplitude, Mixpanel, Posthog, Pendo)
 
 Trigger phrases: "metrics on", "funnel for", "retention for", "conversion rate", "DAU", "MAU"

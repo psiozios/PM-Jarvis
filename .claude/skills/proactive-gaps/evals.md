@@ -1,8 +1,8 @@
 ---
 skill: proactive-gaps
 archetype: Analysis
-eval-version: 4
-last-updated: 2026-09-28
+eval-version: 5
+last-updated: 2026-10-13
 ---
 
 # Evals: /proactive-gaps
@@ -17,8 +17,8 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Class-separated structure | Output carries a Framing Delta, then Forward Upside, Book Upside, Outside-In Hypotheses, the Contrarian Read, and a Cut list — not a merged list |
-| E2 | Ranked on two stated factors | Size × claimability where both exist; window × claimability for an unsized forward item. Both factors stated per item, never ranked on one |
+| E1 | Scan structure | Output carries a Framing Delta, then Hypotheses, the Contrarian Read, a Cut list, and Run Quality where required. No Book or Constraint section: those findings are `/warehouse-brief`'s |
+| E2 | Ranked on two stated factors | Window × claimability, both stated per item, never ranked on one |
 | E3 | "Your lane" stated per item | Every item explicitly states what the user can do with it |
 
 ### Quality & Voice
@@ -35,7 +35,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E7 | Context-grounded | Specific over generic, per `CLAUDE.md` Output Philosophy — real names, numbers, and quotes from context, not placeholder language. **Spot-check the claims against the cited sources**; where a source cannot be reached, score N/A and name it rather than passing on plausibility |
 | E8 | Durability | Evidence cited for each item is either dated or points to a live source, never asserted as an unchanging fact. See `references/protocols/freshness-provenance.md`. |
-| E9 | Evidence-backed, and graded to its class | Book and forward items cite a real source. An outside-in item is allowed to run ahead of the data and is graded visibly as a hypothesis. FAIL on inference presented as fact; do **not** fail a forward or outside-in item for lacking workspace transaction data — that is what its own bar exists for |
+| E9 | Evidence-backed, graded as hypothesis | Every item is graded visibly as a hypothesis. FAIL on inference presented as fact; do **not** fail an item for lacking workspace transaction data, which this scan does not use |
 
 ### Completeness & Context
 
@@ -45,20 +45,22 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E11 | Contrarian pass grounded | The over-indexing claim is backed by actual recent-meeting evidence, not a generic assertion |
 | E12 | Surface-only honored | No task was created, no message drafted for sending, nothing written beyond the scan output itself |
 
-### Category 5: Class Bars and Scan Order
+### Category 5: The Hypothesis Bar and Scan Order
 
 | ID | Check | Criteria |
 |----|-------|----------|
 | E13 | Upside gate named per item | Every item states which gate it passed — more money, more volume, or advantage a competitor cannot copy. FAIL on any item that only prevents deterioration |
-| E14 | Each item held to its own class bar | Book: a money or volume figure with derivation and grade. Forward: a real date from a real source plus one named dependency. Outside-in: a named test and a falsifier. **FAIL on a forward item cut for being unsized** — the money bar does not apply to it |
-| E15 | Floor, forward rule, and cap held | At least three upside items, **at least one of them forward**, at most one constraint carrying a revenue or volume number |
-| E16 | Not a defect list, and not a back-book review | No defect without a number. Constraints were not used to pad toward the floor. And the run did not stop at three sized book items without reaching the forward class |
-| E17 | Empty run reported honestly | Where a bar went unmet — and always where no forward item survived — Run Quality says what the scan could not reach and frames it as a fact about the run, not about the business |
+| E14 | Three-part bar held | Every item carries (1) a problem quoted verbatim from another institution's primary text, dated and linked, (2) a named asset the org already owns, (3) a named test and a falsifier. A dated window adds its date and one dependency. FAIL on a paraphrase, on secondary text standing alone, and on a dated item cut for being unsized |
+| E15 | Floor held as a run check | At least three hypotheses, or fewer with Run Quality saying what the scan could not reach. No padding toward the floor |
+| E16 | Not a defect list, and not a back-book review | No defect and no figure computed from the org's own data ships as an item; each is cut with its reason ("a defect", "inside-out") |
+| E17 | Empty run reported honestly | Where the bar went unmet, Run Quality says what the scan could not reach and frames it as a fact about the run, not about the business |
 | E18 | Framing delta ran first, on dated quotes | The output opens on the internal-vs-external comparison, each side carrying a dated quote from a named source. "No delta" is acceptable only when it names the two sources compared and their dates |
-| E19 | Scan order held | Forward landscape read before book upside, and outside-in last. FAIL where the evidence shows the money was read first and the forward class filled in afterward |
-| E20 | Cut list populated | Every candidate that missed a bar appears in Cut with the bar it missed. An empty Cut list beside a full shortlist means the bars were not applied |
+| E19 | Scan order held | Dated primary texts read before undated ones, after the framing delta. FAIL where the evidence shows the dated read was filled in afterward |
+| E20 | Cut list populated | Every candidate that missed the bar appears in Cut with the bar it missed. An empty Cut list beside a full shortlist means the bar was not applied |
 | E21 | Ledger-derived list | A ledger exists at `outputs/ledgers/proactive-gaps-<date>.md`, written before the list. Every surfaced item has a row, every dropped candidate has a row with the evidence that dropped it, those rows are reported beside the list, and no row was dropped to satisfy a cap. **A list with no cuts beside it is unverified, not clean** (`references/protocols/evidence-ledger.md`) |
 | E22 | Forward read beyond the watched names | The forward landscape swept the launches of whoever already holds the gating capability (licence, integration, charter), not only named competitors, and Run Quality names any provider list it read or could not reach (`references/protocols/freshness-provenance.md` rule 4) |
+| E23 | Kills what the user already sees | Every item was checked against the user's plan, OKRs, tracker, recent meetings, the last two scans and warehouse briefs, and their rulings, and every match is a `KILL` row naming where the user sees it (`references/protocols/skill-patterns.md` Pattern 4) |
+| E24 | Four-part item | Each item is written as numbered facts (each quoted and sourced), logic, falsifiers, and next steps in the user's lane |
 
 ## Scoring
 

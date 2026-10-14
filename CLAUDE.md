@@ -122,7 +122,7 @@ Both fire on every turn, skill or no skill: most misses of either kind happened 
 
 ## Skills
 
-87 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Each skill's frontmatter `description` says what it does and when to reach for it — that is the routing surface. For the category breakdown, see `references/skill-categories.md`.
+88 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Each skill's frontmatter `description` says what it does and when to reach for it — that is the routing surface. For the category breakdown, see `references/skill-categories.md`.
 
 **Skill chaining:** When a skill completes, read its `## Cross-Skill Links` section and **actively offer** the next step whose trigger condition the current run just met. Offer one nudge; do not auto-run. For multi-skill sequences, see `references/skill-chains.md`.
 

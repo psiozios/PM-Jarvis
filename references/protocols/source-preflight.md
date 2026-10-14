@@ -22,7 +22,7 @@ A token credential either works or returns a 401 you can read. An OAuth credenti
 
 ## 3. The check contract
 
-Every source that can fail gets **one check, registered under its own key** — the placeholder key the skills already use (`<TASK_TRACKER>`, `<CALENDAR>`, `<CHAT_PLATFORM>`, `<METRICS_SOURCE>`, and the rest). Registration lives in `config/source-preflight.json`; copy the example and fill in your own.
+Every source that can fail gets **one check, registered under its own key** — the placeholder key the skills already use (`<TASK_TRACKER>`, `<CALENDAR>`, `<CHAT_PLATFORM>`, `<METRICS_SOURCE>`, `<WAREHOUSE>`, and the rest). Registration lives in `config/source-preflight.json`; copy the example and fill in your own.
 
 A check satisfies this contract when it:
 

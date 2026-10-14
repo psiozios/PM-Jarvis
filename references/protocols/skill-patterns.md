@@ -2,7 +2,7 @@
 
 **Principle: THE CATALOG IS THE SHAPE; THE EXAMPLE SKILLS ARE THE HOW.**
 
-This is a catalog of reusable skill archetypes the template ships as worked, production skills, plus the disciplines every retrieval-and-writeback skill shares regardless of which archetype it follows. The skills named under each pattern below are concrete implementations of Patterns 1-3 — read this file for the shape, read those skills for a filled-in instance.
+This is a catalog of reusable skill archetypes the template ships as worked, production skills, plus the disciplines every retrieval-and-writeback skill shares regardless of which archetype it follows. The skills named under each pattern below are concrete implementations of Patterns 1-5 — read this file for the shape, read those skills for a filled-in instance.
 
 These are worked examples of a broader class, not the only class. If a new task doesn't fit any named pattern, that's fine — the cross-cutting disciplines still apply.
 
@@ -102,21 +102,23 @@ Both passes are strictly read-only (discipline #8) and both establish priority l
 
 **Shipped implementation:** `.claude/skills/backlog-groom/` (hygiene pass) paired with `.claude/skills/refinement-prep/` (slate-for-ceremony pass) — the two skills this pattern describes as a pair.
 
-### Pattern 4 — Multi-Horizon "Alpha Engine" Scan
+### Pattern 4 — Outside-In Hypothesis Scan
 
-**Job:** Answer "where is the upside?" across more than one horizon at once — advantage available next, money and volume available now, and the outside-in reads the workspace has no data for — plus a contrarian pass on what the team is currently over-indexing on.
+**Job:** Answer "where is the upside?" from outside the workspace: problems other institutions have written down that the org already owns an answer to, plus a contrarian pass on what the team is over-indexing on.
 
-**Mechanics:** Run from a deliberately elevated posture (zoom out further than the user's day-to-day view would), but land every single item back in the user's actual lane — a horizon-scan that doesn't connect to something the user can act on is not useful, it's just anxiety. Surface-only: this pattern proposes nothing and writes nothing, it only reports.
+**Mechanics:** Run from an elevated posture, but land every item in the user's actual lane; surface-only, it writes nothing. Every item is a hypothesis: a problem quoted from another institution's primary text, joined to an asset the org already owns, with a named test and a falsifier. Where the text dates a window, the item adds the date and one dependency, and owes no figure. Money computed from the org's own data is Pattern 5's. **The order decides what the scan can find:** open on a framing delta — what leadership says internally against what the company says externally, each on a dated quote — because it tells you where to point the read. Then the dated primary texts, then the rest.
 
-**The order decides what the scan can find.** Read the forward landscape first, the money second, the narrative reads last. Money-first is not a neutral sequence: three sized items arrive, the floor is met, and the scan ends before the forward class is written down. Open on a framing delta — what leadership says internally against what the company says externally, each on a dated quote — because that is what tells you where to point the forward read.
+**Gate the horizon, or it decays into a defect list.** Broken things are the easiest thing to find in any workspace and feel like insight. The gate: if the reader acts, does the business make more money, move more volume, or gain advantage a competitor cannot copy? A defect has no primary text behind it and goes to the tracker. Everything that misses the bar goes to a cut list with the bar it missed (discipline #9). When nothing clears, that is a finding about the run, never about the business.
 
-**One bar deletes a class; give each class its own.** A money-or-cut bar works where growth comes out of the existing book, and silently removes every opportunity gated on licensing, partnerships, or market structure, because none of those has transaction history behind it yet. Book items owe a figure. Forward items owe a real date and a named dependency, and owe no figure. An outside-in hypothesis owes a named test and a falsifier. Compose so at least one forward item survives, or say what the forward read could not reach.
+**Kill what the user already sees, and write each item in four parts (Patterns 4 and 5).** Before an item ships, check it against what the user already sees: their plan and OKRs, the tracker, their dashboards, recent meetings, the last two scans and briefs, their rulings. A match is a `KILL` row naming where they see it, since a list of things the reader knows teaches them to skip the next one. Each survivor is written as numbered facts, each sourced; the logic from those facts to the claim; the falsifiers; and next steps in the user's lane.
 
-**Gate the horizon, or it decays into a defect list.** The pattern's other characteristic failure, and it is gradual: broken things are the easiest thing to find in any workspace, they feel like insight, and a scan with no gate fills up with them until it is a bug list with a strategic preamble. The gate: if the reader acts, does the business make more money, move more volume, or gain advantage a competitor cannot copy? A defect passes only with a revenue or volume number attached. Enforce a floor of upside items against a hard cap of one constraint item, and rank on two stated factors rather than size alone. Everything that misses its bar goes to a cut list with the bar it missed (discipline #9). When nothing clears, that is a finding about the run — thin sources, no metrics access, no dated filings — and never a conclusion about the business.
+**Eval archetype:** Analysis or Research-Synthesis, depending on framing. **Shipped implementation:** `.claude/skills/proactive-gaps/`
 
-**Eval archetype:** Analysis or Research-Synthesis, depending on framing.
+### Pattern 5 — Inside-Out Warehouse Brief
 
-**Shipped implementation:** `.claude/skills/proactive-gaps/`
+**Job and mechanics:** Weekly and read-only, three to five insights computed from the org's own warehouse, each landed on a live decision and its owner. Read the warehouse map of tables and traps before the first query; no warehouse, no brief. Each insight is a join, a cohort split, or a trend nobody has run, never a number already on a dashboard. It is reconciled a second way before it ships, and its query goes in an appendix. Pattern 4's kill and four-part item apply.
+
+**Eval archetype:** Analysis. **Shipped implementation:** `.claude/skills/warehouse-brief/`
 
 ## Cross-References
 

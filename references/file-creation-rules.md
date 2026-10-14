@@ -18,6 +18,7 @@ Once the user finalizes work from `outputs/`, they can move it to `context-libra
 | `outputs/prds/` | PRDs being drafted | `/prd-draft`, `/prd-lite` |
 | `outputs/meeting-notes/` | Processed meeting notes | `/meeting-notes`, `/meeting-cleanup` |
 | `outputs/status-updates/` | Stakeholder updates | `/status-update` |
+| `outputs/briefs/` | Outside-in upside scans and inside-out warehouse briefs | `/proactive-gaps`, `/warehouse-brief` |
 | `outputs/analyses/` | Impact sizing, feature analysis | `/impact-sizing`, `/feature-results`, `/activation-analysis`, `/retention-analysis` |
 | `outputs/research-synthesis/` | Interview synthesis, research | `/user-research-synthesis`, `/user-interview` |
 | `outputs/decisions/` | Decision docs in progress | `/decision-doc` |
@@ -43,7 +44,7 @@ Once the user finalizes work from `outputs/`, they can move it to `context-libra
 | `outputs/reviews/` | Adversarial document critiques | `/ralph-wiggum` |
 | `outputs/mcp-integration-logs/` | MCP connection logs | `/connect-mcps` |
 | `outputs/skill-test-results/` | Skill test output | testing |
-| `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | `/action-sweep`, `/loose-threads`, `/chat-ingest`, `/meeting-cleanup`, `/voice-of-customer`, `/feature-request-analysis`, `/refinement-prep`, `/proactive-gaps` |
+| `outputs/ledgers/` | Per-candidate dedup ledgers and their lookup logs, written **before** any proposal list | `/action-sweep`, `/loose-threads`, `/chat-ingest`, `/meeting-cleanup`, `/voice-of-customer`, `/feature-request-analysis`, `/refinement-prep`, `/proactive-gaps`, `/warehouse-brief` |
 | `outputs/state/` | Skill run state: window markers, carried-item counters, and the user's rulings (`rulings-<skill>.md`, `references/protocols/surfacing.md` §6). One owner per file, named for its skill | any skill that reads "since last run" |
 
 **`outputs/state/` exists because a skill's state file needs a declared home.** A bare `.last-sweep` at the repo root breaks the rule above — the assistant writes under `outputs/` — and leaves nobody able to find it. Name the file for its owner: `outputs/state/.last-sweep`, `outputs/state/carried-loose-threads.json`. Routines are the exception and keep their state beside their own prompt, per `references/protocols/routines.md` discipline #2.
@@ -59,7 +60,7 @@ These folders store finalized, user-curated reference material:
 | `context-library/research/` | User research, competitive analysis, personas |
 | `context-library/decisions/` | Decision logs, trade-off docs, RFCs |
 | `context-library/launches/` | Launch plans, release notes, go-live checklists |
-| `context-library/metrics/` | Analytics reports, A/B test results, dashboard exports |
+| `context-library/metrics/` | Analytics reports, A/B test results, dashboard exports, and `warehouse-map.md` (tables, grains, traps; read before any warehouse query) |
 | `context-library/meetings/` | Meeting notes, retros, syncs, 1:1s |
 | `context-library/example-prds/` | Reference PRD examples |
 | `context-library/second-brain/` | LLM-maintained wikis by focus area |

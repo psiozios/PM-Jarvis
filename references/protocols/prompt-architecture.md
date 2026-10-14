@@ -1,6 +1,6 @@
 # Prompt Architecture
 
-**Why this exists.** This workspace holds no source code. These markdown files *are* the codebase: an always-on core, a protocol layer, 87 skills, and the routine prompts. A design principle nobody can read is a principle the agent cannot follow, so the shape rules are written down here rather than left to convention.
+**Why this exists.** This workspace holds no source code. These markdown files *are* the codebase: an always-on core, a protocol layer, 88 skills, and the routine prompts. A design principle nobody can read is a principle the agent cannot follow, so the shape rules are written down here rather than left to convention.
 
 ## 1. The layer map
 
@@ -85,7 +85,7 @@
 
 **Deriving the core's budget — from what is irreducible in it.** Each absolute rule needs its statement, its stakes, and its attribution **inline**, because the whole point of the core is that it fires *before* drafting rather than after a pointer is followed. Those lines do not move. What moves out is the lookup tables behind the rules — substitution lists, watch lists, evidence-grade vocabularies — to `references/absolute-rules.md`. The budget above is set from the rules plus routing that must stay, not from a number borrowed elsewhere.
 
-**Frontmatter descriptions are the largest always-on cost here** — all 87 load every session regardless of which skill runs. Method belongs in the body; the description carries triggers and hard constraints only. Note the trade: right-sizing them for routing accuracy *raises* this cost, and that is the correct call, but it is a cost.
+**Frontmatter descriptions are the largest always-on cost here** — all 88 load every session regardless of which skill runs. Method belongs in the body; the description carries triggers and hard constraints only. Note the trade: right-sizing them for routing accuracy *raises* this cost, and that is the correct call, but it is a cost.
 
 ## 4. Canonical section names
 
@@ -110,13 +110,13 @@
 
 Concepts that **keep their own heading** because they are real and skill-specific: mode definitions (`## Mode: --<name>`), framework sections a skill owns and teaches, and worked examples the skill is the home of.
 
-**`## Overview` and `## Purpose` are retired as spellings of the purpose paragraph, not as permission to leave a content intro unnamed.** Six skills used `## Overview` mid-file for something else entirely — a framework intro, a tools-and-timing block — which reads as a violation to any audit and tells the reader nothing. Name such a section for what it holds (`## The Three Timeframes`, `## Tools and Timing`). A heading inside a fenced output template is scaffolding and exempt; two skills' `## Purpose` and `## Overview` hits are exactly that and stay. A **specialized absolute-rule block** keeps its heading where rule 6 protects it — but as a bold lead-in rather than a `##`, so it stops occupying an outline slot in eighty-seven files.
+**`## Overview` and `## Purpose` are retired as spellings of the purpose paragraph, not as permission to leave a content intro unnamed.** Six skills used `## Overview` mid-file for something else entirely — a framework intro, a tools-and-timing block — which reads as a violation to any audit and tells the reader nothing. Name such a section for what it holds (`## The Three Timeframes`, `## Tools and Timing`). A heading inside a fenced output template is scaffolding and exempt; two skills' `## Purpose` and `## Overview` hits are exactly that and stay. A **specialized absolute-rule block** keeps its heading where rule 6 protects it — but as a bold lead-in rather than a `##`, so it stops occupying an outline slot in eighty-eight files.
 
 **Chaining sub-rule.** Every chaining line names a skill **and** the condition that triggers it: `- /skill-name -> <trigger condition>`. The Before / After / Related sub-structure is **optional** — forcing three buckets manufactures content. A skill may omit the block entirely **only if it states why in one line**, so absence reads as a decision rather than an oversight.
 
 ## 5. Checking conformance
 
-Ten check classes, each runnable with Grep, Glob, and Read alone. **There is no skill for this, on purpose:** an 88th skill auditing the other 87 would violate rule 1.
+Ten check classes, each runnable with Grep, Glob, and Read alone. **There is no skill for this, on purpose:** an 89th skill auditing the other 88 would violate rule 1.
 
 | ID | Check | Method |
 |----|-------|--------|
@@ -141,7 +141,7 @@ Every audit report carries a **"Not findings"** section naming what was checked 
 - **Editing a skill:** run C1, C2, C3, C6 against that file before committing.
 - **After a batch:** run all ten and confirm the finding count fell.
 
-**Where draft-time triggers live, and why not in the skills.** Some rules have to fire *before* an agent writes, so they cannot live in a `SKILL.md` tail. They belong on the always-on surfaces: `CLAUDE.md`, and the optional `UserPromptSubmit` hook (`hooks/inject_memory.py`, installed from `config/settings-template.json`) as the second. Adding the same pointer to 87 skill files would be exactly the duplication this standard exists to prevent — and it would still sit below the point where drafting begins.
+**Where draft-time triggers live, and why not in the skills.** Some rules have to fire *before* an agent writes, so they cannot live in a `SKILL.md` tail. They belong on the always-on surfaces: `CLAUDE.md`, and the optional `UserPromptSubmit` hook (`hooks/inject_memory.py`, installed from `config/settings-template.json`) as the second. Adding the same pointer to 88 skill files would be exactly the duplication this standard exists to prevent — and it would still sit below the point where drafting begins.
 
 If a skill genuinely needs a draft-time rule the global surfaces do not cover, it goes **at the top of that skill, above the workflow** — never in the self-check.
 
