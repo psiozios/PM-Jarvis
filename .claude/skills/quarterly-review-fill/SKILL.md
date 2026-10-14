@@ -59,9 +59,9 @@ Set derivable fields: date range, links to all three month entries, links to pri
 
 Only quarterly-scale calls the months themselves don't resolve — a strategic read, a call on next quarter's focus.
 
-### 6. Auto-vs-asked table, preview-first, surgical write, forward-create
+### 6. Write mode, in-place draft, forward-create, linked reply
 
-Same discipline as the two tiers below: table before the draft, nothing written until confirmed, delta-only write, next N quarters forward-created with dedupe.
+Same discipline as `weekly-review-fill` steps 5-8: the store's mode from `config/write-surfaces.md`, only empty fields filled on a live fetch, goal, project, and status changes kept as proposals, next N quarters forward-created with dedupe, and a reply that opens with the link.
 
 ## Output Template
 

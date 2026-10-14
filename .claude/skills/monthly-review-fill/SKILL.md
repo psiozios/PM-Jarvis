@@ -14,7 +14,7 @@ disable-model-invocation: false
 /monthly-review-fill --month 2026-07  → target a specific month
 ```
 
-**What you get:** A pre-filled monthly entry whose assessment is synthesized from the month's `weekly-review-fill` entries — not re-derived from raw tickets. Same auto-vs-asked discipline, same preview-first, same forward-create with dedupe as the weekly tier.
+**What you get:** A pre-filled monthly entry whose assessment is synthesized from the month's `weekly-review-fill` entries — not re-derived from raw tickets. Same auto-vs-asked discipline, same in-place draft under the store's write mode, same forward-create with dedupe as the weekly tier.
 
 **Time:** A couple minutes to review; the rollup itself is automatic once the weeks exist.
 
@@ -57,9 +57,9 @@ Set derivable fields immediately: date range, links to every week entry rolled u
 
 Everything derivable from the rolled-up weeks is auto-filled. Only ask what the weeks themselves don't answer — a monthly-scale judgment the weekly entries wouldn't have surfaced individually.
 
-### 6. Auto-vs-asked table, preview-first, surgical write, forward-create
+### 6. Write mode, in-place draft, forward-create, linked reply
 
-Same discipline as `weekly-review-fill` steps 5-8: table before the draft, nothing written until confirmed, delta-only write, next N months forward-created with dedupe.
+Same discipline as `weekly-review-fill` steps 5-8: the store's mode from `config/write-surfaces.md`, only empty fields filled on a live fetch, goal, project, and status changes kept as proposals, next N months forward-created with dedupe, and a reply that opens with the link.
 
 ## Output Template
 

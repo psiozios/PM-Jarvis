@@ -30,11 +30,11 @@ A skill that runs repeatedly over a rolling window (a radar, a periodic sweep) r
 
 ### 4. Surface, then propose, then create-on-approval
 
-Reading is free — do it liberally. A durable write to the user's own store (their tracker, their notes, their calendar) is proposed as a numbered list and only executed on explicit approval. Anything outward-to-others (a message, an email, a comment visible to someone else) is draft-only, always — see `references/protocols/knowledge-capture.md`.
+Reading is free — do it liberally. A durable write to the user's own store (their tracker, their notes, their calendar) is proposed as a numbered list and only executed on explicit approval, unless `config/write-surfaces.md` sets that surface to `draft-in-place`. Anything outward-to-others (a message, an email, a comment visible to someone else) is draft-only, always — see `references/protocols/knowledge-capture.md`.
 
 ### 5. Preview-first for write-heavy skills
 
-If a skill's main output is a batch of writes, dry-run by default. Show what would be written; write nothing until an explicit go-ahead.
+If a skill's main output is a batch of writes, dry-run by default. Show what would be written; write nothing until an explicit go-ahead. The per-surface exception is the user's own entries on a `draft-in-place` surface (`config/write-surfaces.md`).
 
 ### 6. Dedupe against sibling skills' outputs
 
@@ -82,7 +82,7 @@ The full process — the log's fields, the join that builds the evidence table, 
 
 **Job:** Turn a recurring review ritual from a blank-page exercise into a pre-filled draft the user edits, at every cadence tier.
 
-**Mechanics:** Auto-fill everything derivable from existing sources; ask the user only for genuine judgment calls — never hand over a blank questionnaire. Present an explicit "auto-filled vs. asked" table so the user can see what was inferred versus what needs their input. Forward-create the next N periods with dedupe against what's already scheduled. Writes are surgical: fetch current state, compute the delta, apply only the delta — never replace wholesale (the rule for every store, wiki included, is `references/protocols/knowledge-capture.md` §6). All writes to the user's own store happen on confirm (discipline #4). Each higher cadence tier (month, quarter) rolls up and synthesizes the tier below it rather than re-deriving from scratch.
+**Mechanics:** Auto-fill everything derivable from existing sources; ask the user only for genuine judgment calls — never hand over a blank questionnaire. Present an explicit "auto-filled vs. asked" table so the user can see what was inferred versus what needs their input. Forward-create the next N periods with dedupe against what's already scheduled. Writes are surgical: fetch current state, compute the delta, apply only the delta — never replace wholesale (the rule for every store, wiki included, is `references/protocols/knowledge-capture.md` §6). The draft goes straight into the user's own entry where `config/write-surfaces.md` sets the reviews store to `draft-in-place`, filling only empty fields and linking the page; goal, project, and status changes stay proposals. Each higher cadence tier (month, quarter) rolls up and synthesizes the tier below it rather than re-deriving from scratch.
 
 **Eval archetype:** Workflow-Orchestration.
 

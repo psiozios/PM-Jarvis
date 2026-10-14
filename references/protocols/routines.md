@@ -62,7 +62,7 @@ Always verify the scheduler's **computed next-run time**, not the human-readable
 
 Headless (unattended) routines get broad read access and local shell access by default. Write-to-others tools — messages to anyone but the user, email sends, ticket creation, edits to shared docs, calendar invites — are **not** on the unattended autonomy allowlist. Calling one blocks and prompts, every time, run headless or not.
 
-The only permitted outbound action for an unattended routine is its own self-notification (see `notifications.md`). Writes to the user's own systems (their own task list, their own draft folder) run end-to-end only when the user has given explicit standing approval for that specific routine. Absent that approval, an unattended run lists the proposed writes and stops — it does not guess that silence means yes.
+The only permitted outbound action for an unattended routine is its own self-notification (see `notifications.md`). Writes to the user's own systems (their own task list, their own draft folder) run end-to-end only when the user has given explicit standing approval for that specific routine, or the surface is set to `draft-in-place` in `config/write-surfaces.md`, within that row's limits. Absent that approval, an unattended run lists the proposed writes and stops — it does not guess that silence means yes.
 
 This is enforced at the tool layer, not by the routine's prompt. A routine prompt that says "don't message anyone" is a suggestion; a tool-layer allowlist is a guarantee.
 

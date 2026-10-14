@@ -50,6 +50,8 @@ Propose the write-back as a one-tap action. Do not write until the user confirms
 - Second-brain wiki pages
 - Any file outside `outputs/`
 
+**One exception, set per surface.** A store the user owns that `config/write-surfaces.md` sets to `draft-in-place` takes the draft written straight into the user's entry, within that row's limits, with a link in the reply.
+
 ### 5. Outward Actions Are Draft-First
 
 When a skill produces something intended for others (a Slack message, a ticket, an email), always produce a draft in `outputs/` first. Never send, post, or publish without explicit confirmation.
@@ -75,7 +77,7 @@ The surgical-edit rule covers every store the assistant writes to: a tracker ent
 **READ FREELY, WRITE ON CONFIRM.**
 
 - Reading files, MCPs, and tools: do it proactively, in parallel, without asking.
-- Writing to context-library, memory, or external systems: always propose, never auto-execute.
+- Writing to context-library, memory, or external systems: always propose, never auto-execute, except a surface `config/write-surfaces.md` sets to `draft-in-place`.
 - Writing to `outputs/`: permitted (this is the active workspace).
 
 ## Anti-Patterns

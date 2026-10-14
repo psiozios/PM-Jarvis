@@ -109,6 +109,7 @@ pm-jarvis/
 │   ├── house-style.md              # Writing voice rules (configure me)
 │   ├── persona.md                  # Interaction style (configure me)
 │   ├── source-preflight.json       # Per-source credential checks (configure me)
+│   ├── write-surfaces.md           # Per-surface write mode: propose or draft in place
 │   ├── notifier-example.md         # Notifier adapter reference (routines report back)
 │   └── settings-template.json      # Hook wiring (copy to .claude/settings.json)
 │

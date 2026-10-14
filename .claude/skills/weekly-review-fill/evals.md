@@ -1,8 +1,8 @@
 ---
 skill: weekly-review-fill
 archetype: Workflow-Orchestration
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-10-13
 ---
 
 # Evals: /weekly-review-fill
@@ -42,8 +42,8 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | ID | Check | Criteria |
 |----|-------|----------|
 | E10 | Forward-create-with-dedupe | Forward-created weeks were checked against existing shells before creation |
-| E11 | Surgical write | The write to the reviews store was a delta against current state, not a full replace |
-| E12 | Preview-first | Nothing was written until the draft (including judgment-question answers) was confirmed |
+| E11 | Surgical write | The write to the reviews store filled only fields that were empty on a live fetch, never replaced the entry, and never overwrote a field the user had filled |
+| E12 | Write mode honored | The write followed the store's row in `config/write-surfaces.md`: drafted in place and linked under `draft-in-place`, previewed and written on confirm under `propose`. Goal, project, and status changes were proposed, never written. FAIL on a chat preview under `draft-in-place` |
 
 ## Scoring
 

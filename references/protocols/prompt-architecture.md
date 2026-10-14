@@ -10,6 +10,7 @@
 | **0** | `hooks/inject_memory.py` (optional) | Memory index injection | Every turn, if the hook is installed |
 | **1** | `config/house-style.md` | Anti-slop writing standard | Before drafting any prose |
 | **1** | `config/persona.md` | Interaction style | When interaction defaults are in question |
+| **1** | `config/write-surfaces.md` | Per-surface write mode: `propose` or `draft-in-place` | Before writing to a store the user owns |
 | **1** | `references/protocols/register.md` | The two register axes; rank is neither | Before choosing how a piece should sound |
 | **1** | `references/<subject>-corpus.md` (user-created) | Dated evidence a voice rule rests on | Before writing or revising any voice rule |
 | **1** | `references/protocols/prompt-architecture.md` | This file — file shape and conformance | When creating or editing a skill or protocol |

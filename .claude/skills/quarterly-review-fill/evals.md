@@ -1,8 +1,8 @@
 ---
 skill: quarterly-review-fill
 archetype: Workflow-Orchestration
-eval-version: 1
-last-updated: 2026-07-11
+eval-version: 2
+last-updated: 2026-10-13
 ---
 
 # Evals: /quarterly-review-fill
@@ -42,8 +42,9 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | ID | Check | Criteria |
 |----|-------|----------|
 | E10 | Missing-month handling correct | Any month without a completed entry triggered `monthly-review-fill` rather than being skipped or backfilled from a lower tier |
-| E11 | Surgical write | The write to the reviews store was a delta, not a full replace |
+| E11 | Surgical write | The write to the reviews store filled only fields that were empty on a live fetch, never replaced the entry, and never overwrote a field the user had filled |
 | E12 | Forward-create-with-dedupe | Forward-created quarters were checked against existing shells before creation |
+| E13 | Write mode honored | The write followed the store's row in `config/write-surfaces.md`: drafted in place and linked under `draft-in-place`, previewed and written on confirm under `propose`. Goal, project, and status changes were proposed, never written. FAIL on a chat preview under `draft-in-place` |
 
 ## Scoring
 

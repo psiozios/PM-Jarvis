@@ -133,6 +133,7 @@ Fill out these files to personalize the system for your company and preferences:
 |------|---------|
 | `config/house-style.md` | Writing voice rules (word choice, punctuation, tone) |
 | `config/persona.md` | Interaction style (directness, challenge level, verbosity) |
+| `config/write-surfaces.md` | Which of your own stores take a draft written in place, and which stay propose-first |
 | `context-library/business-info-template.md` | Your product, market, and company details |
 | `context-library/stakeholder-template.md` | Key people, their priorities, communication preferences |
 | `context-library/writing-style-*.md` | Audience-specific writing conventions |

@@ -14,7 +14,7 @@ disable-model-invocation: false
 /weekly-review-fill --week 2026-W15  → target a specific week
 ```
 
-**What you get:** A pre-filled draft of the week's review with an explicit auto-filled-vs-asked table, ready for a single edit pass — never a blank template. On confirm, the next N weeks get forward-created shells (deduped), and the delta is written to the reviews store.
+**What you get:** The week's entry drafted straight into your reviews store, with only its empty fields filled, the next N week shells created (deduped), and a reply that links the page, shows the auto-filled-vs-asked table, and asks only the judgment questions. The write mode is a per-surface setting in `config/write-surfaces.md`; set the store to `propose` and you get a preview first instead.
 
 **Time:** A couple minutes to review the draft; the fill itself is automatic.
 
@@ -57,26 +57,26 @@ Query `<TASK_TRACKER>` for everything completed within the week's date range. Th
 
 Everything derivable from step 2-3 is auto-filled. The only questions asked are things no source can answer: how the week actually felt, what should change, what's the honest read on a stalled item. Never leave a derivable field blank waiting on the user, and never guess at a judgment call.
 
-### 5. Present the auto-vs-asked table, then the draft
+### 5. Read the surface's write mode
 
-Show exactly what was inferred versus what needs input (see Output Format) before the full draft — so the user's one edit pass is informed, not a cold read.
+Read the `<REVIEWS_STORE>` row in `config/write-surfaces.md`. Under `draft-in-place`, steps 6-7 run now and step 8 reports them. Under `propose`, step 8's table and draft come first, and steps 6-7 run on confirm.
 
-### 6. Preview-first, write on confirm
+### 6. Write the draft into the entry
 
-Nothing is written to `<REVIEWS_STORE>` until the user confirms the draft (including their answers to the judgment questions).
+Fetch the entry live immediately before writing and fill **only the fields that are empty**. A field with anything in it is the user's: never overwrite it, and put a different derivation in the reply as a proposal. Never replace the whole entry. Goal, project, and status changes are proposals in the reply, never writes. The user's answers to the judgment questions go into their fields as given.
 
-### 7. Surgical write
+### 7. Forward-create next N periods
 
-Fetch the entry's current state in `<REVIEWS_STORE>` immediately before writing, compute the delta against the confirmed draft, and write only that delta. Never replace the whole entry — a user's own prior edits to this week's entry survive.
+Create shells for the next N weeks in `<REVIEWS_STORE>`, deduped against the live store immediately before each create.
 
-### 8. Forward-create next N periods
+### 8. Reply with the link, the table, and the questions
 
-Create shells for the next N weeks in `<REVIEWS_STORE>`, deduped against anything already scheduled there. This also runs only on confirm.
+Open with the link to the entry. Then the auto-vs-asked table (see Output Template), what was filled and what was left alone, any proposals, and the judgment questions.
 
 ## Output Template
 
 ```markdown
-# Week <YYYY-Www> Review Draft
+# Week <YYYY-Www> Review — [open the entry](<link>)
 
 ## Auto-Filled vs. Asked
 | Item | Source | Auto-filled or Asked |
@@ -87,8 +87,14 @@ Create shells for the next N weeks in `<REVIEWS_STORE>`, deduped against anythin
 | How the week felt | — | Asked |
 | What to change next week | — | Asked |
 
-## Draft Entry
-<pre-filled sections with judgment-question answers inserted where provided>
+## Written in Place
+<fields filled, each one previously empty> · **Left alone:** <fields that already had content>
+
+## Proposals
+<goal, project, or status changes, and any different derivation for a filled field; omit when none>
+
+## Questions
+<the judgment questions only the user can answer>
 
 ## Forward-Created
 - Week <N+1> shell created in `<REVIEWS_STORE>`
@@ -104,7 +110,7 @@ A natural weekly-cadence routine — fire at the start (or end) of each week to 
 - [ ] Nothing genuinely judgment-based was auto-filled with a guess
 - [ ] The write was a delta against current state, not a wholesale replace
 - [ ] Forward-created weeks were deduped against existing entries
-- [ ] Nothing was written before the draft was confirmed
+- [ ] Writes followed the store's mode in `config/write-surfaces.md`: only empty fields filled, the page linked, goals, projects, and statuses only proposed
 
 ## Formal Eval
 
@@ -128,7 +134,7 @@ See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
-- Handing over a blank entry instead of a pre-filled draft
+- Handing over a blank entry instead of a pre-filled draft, or a preview in chat when the store is set to `draft-in-place`
 - Guessing at a judgment question instead of asking
-- Replacing the whole entry instead of writing only the delta
+- Replacing the whole entry, or overwriting a field the user already filled
 - Forward-creating a week that already has a shell, producing a duplicate
