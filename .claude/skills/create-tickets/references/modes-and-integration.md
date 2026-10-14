@@ -66,6 +66,8 @@ Ask for: the feature or epic, the user types involved, and the job they are tryi
 
 Create tickets only after the commitment gate has run and the user has approved the batch. Creation is a write to a shared system other people act on.
 
+Priority factors go on the children only. The parent carries none and takes its score from the tracker's rollup (`references/protocols/tracker-writes.md` §11).
+
 **Linear.** Create the parent issue first, then children with `parentId` set. Carry the type as a label so the section set on the page matches the type in the tracker.
 
 **Jira.** Create the epic first, then stories with `epic_link` set. Map the four types to the project's own issue types rather than assuming Story/Task/Bug exist as named.

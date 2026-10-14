@@ -21,6 +21,6 @@ Bulk reference for `/feature-request-analysis`. Read at Step 2, before scoring a
 
 Flag anything scoring above 4.0 as P0 consideration.
 
-Where the tracker can hold these, **write the four factors into their own fields and let it compute the score.** Never type the computed value: it goes stale the moment a factor moves, and it goes stale without telling anyone.
+Where the tracker can hold these, **write the four factors into their own fields and let it compute the score.** Never type the computed value: it goes stale the moment a factor moves, and it goes stale without telling anyone. Where a cluster lands in the tracker as an epic, the factors go on its stories and the epic takes the rollup (`references/protocols/tracker-writes.md` §11).
 
 ---

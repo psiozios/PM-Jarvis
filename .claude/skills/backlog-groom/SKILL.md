@@ -46,7 +46,7 @@ For every item, check each triage dimension:
 - **Stale** — no activity in a long window, not just "old"
 - **Duplicate** — genuinely overlapping scope with another open item
 - **Ready-to-close** — already resolved, superseded, or no longer relevant
-- **Mis-prioritized / mis-ordered** — priority or position doesn't match current reality
+- **Mis-prioritized / mis-ordered** — priority or position doesn't match current reality. Judged leaf against leaf and parent against parent, never an epic against a story; a parent with typed factors instead of a rollup is itself the finding (`references/protocols/tracker-writes.md` §11)
 - **Wrong-sprint** — assigned to a sprint that's already closed, or clearly doesn't fit the current one
 - **Orphan / mis-parented** — missing an epic/parent it should have, or parented under the wrong one
 - **Thin epic** — an epic with no meaningfully scoped children

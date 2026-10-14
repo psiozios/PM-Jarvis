@@ -22,7 +22,7 @@ If the tracker has no formula field, **the score does not go into the tracker at
 
 ## 3. Score at creation
 
-**Nothing is born unscored.** An unscored item is missing from every ranked view, which makes it invisible to the exact process that would have surfaced it. Scoring at creation costs the seconds the factors take. A later scoring pass is a second backlog, and it does not happen.
+**Nothing is born unscored.** An unscored item is missing from every ranked view, which makes it invisible to the exact process that would have surfaced it. Scoring at creation costs the seconds the factors take. A later scoring pass is a second backlog, and it does not happen. This binds the items that carry factors, the leaves; a parent is born with its rollup instead (§11).
 
 ## 4. Empty is neutral — and say so in the field
 
@@ -90,6 +90,16 @@ The test: **delete it where the artifact is a menu, name it where the reader is 
 The PM owns the factors that describe **value** — how many are affected, what it is worth, how it fits the current strategy, how badly it hurts today. Engineering owns **effort**, and that does not change because a formula has a slot for it.
 
 A prioritization score may take an effort factor **only where engineering supplied it.** Otherwise that factor stays empty, which reads as neutral per §4. None of this licenses a PM-supplied estimate: see the no-estimating rule in `.claude/skills/create-tickets/SKILL.md`, which stands.
+
+## 11. Score leaves, roll up parents
+
+**Prioritization factors live on stories, tasks, and bugs only.** An epic's score is the tracker's automated sum of its children's, and a milestone's is the sum of its epics'. A parent carries no factors of its own, and its score is never typed (§2). Where the tracker cannot roll up, the parent shows no score.
+
+**Never rank a parent against a child.** A sum and one of its terms are not on one scale, and an epic beside its own story ranks the same work twice. Rank leaves against leaves, and parents against parents.
+
+**Compare parents of similar size.** The sum rewards splitting: the same work cut into eight stories outscores it cut into three. Before two epics are ranked against each other, check their child counts and engineering's effort are in the same band, and say so where they are not.
+
+**Work above the top effort band gets split into scored children.** Where engineering's estimate (§10) lands above the team's top band, the item becomes a parent, and each child is scored at creation (§3).
 
 ## Cross-References
 

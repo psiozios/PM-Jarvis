@@ -153,7 +153,7 @@ A ticket is ready to pull when it meets these criteria:
 **Acceptance criteria (if missing or vague):**
 - [ ] [Specific, verifiable condition]
 - [ ] [Specific, verifiable condition]
-**Estimate:** [S = <1 day / M = 2-3 days / L = 4-5 days / XL = >5 days (break it down)]
+**Estimate:** [S = <1 day / M = 2-3 days / L = 4-5 days / XL = >5 days (split into scored children, `references/protocols/tracker-writes.md` §11)]
 **Dependencies:** [None / Requires: ticket X]
 **Ready to pull:** Yes / No — [what's needed to make it ready]
 **Questions for engineering:** [Any unclear technical decisions]
