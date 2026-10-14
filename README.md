@@ -130,7 +130,8 @@ pm-jarvis/
 │   ├── protocols/                  # Global protocols: context-acquisition, knowledge-capture,
 │   │                               #   routines, notifications, skill-evals, skill-patterns,
 │   │                               #   evidence-ledger, commitment-gate, freshness-provenance,
-│   │                               #   register, prompt-architecture
+│   │                               #   register, prompt-architecture, source-preflight,
+│   │                               #   surfacing, tracker-writes, skill-memory
 │   ├── skill-chains.md             # Multi-skill workflow sequences
 │   ├── mcp-routing.md              # Tool routing rules
 │   ├── file-creation-rules.md      # Output directory taxonomy
@@ -150,11 +151,11 @@ pm-jarvis/
 │   ├── second-brain/               # LLM-maintained wikis (6 focus areas scaffolded)
 │   ├── decisions/                  # Decision logs
 │   ├── launches/                   # Launch plans, release notes
-│   ├── metrics/                    # Analytics reports, A/B tests
+│   ├── metrics/                    # Analytics reports, A/B tests, warehouse-map.md
 │   ├── meetings/                   # Meeting notes
 │   └── example-prds/              # Reference PRD examples
 │
-├── templates/                      # Empty templates (7 templates)
+├── templates/                      # Empty templates (11 templates)
 │   └── knowledge/                  # PM knowledge assets (survey questions,
 │                                   #   interview libraries, canvas templates,
 │                                   #   AI prompt references)
@@ -219,9 +220,9 @@ See `references/protocols/routines.md` and `setup/routine-setup.md` to build one
 
 Every skill ships as three files: `SKILL.md` (the method), `evals.md` (pass/fail criteria that run each invocation), and `skill-memory.md` (a living improvement journal). Reusable archetypes for radar, periodic-review, and grooming skills live in `references/protocols/skill-patterns.md`.
 
-Any skill that drops, merges, or suppresses candidates works off a written record rather than recall. It appends one line per lookup as the lookup returns, keeps one ledger row per candidate, and builds its evidence table by joining the two — a cell with no logged query behind it stays empty. A verdict of `UNPROVEN` ships as a one-line question rather than a proposal, because a search that found nothing is not proof the item is dead or alive. See `references/protocols/evidence-ledger.md`.
+Any skill that drops, merges, or suppresses candidates works off a written record rather than recall. It appends one line per lookup as the lookup returns, keeps one ledger row per candidate, and builds its evidence table by joining the two — a cell with no logged query behind it stays empty. A verdict of `UNPROVEN` ships as a one-line question rather than a proposal, because a search that found nothing is not proof the item is dead or alive. Chat silence alone never makes an item open: if you met the person on that topic that day, if they sit in your office, or if the thread concedes the point, the item comes back as "still open?" instead. See `references/protocols/evidence-ledger.md`.
 
-Scores and bodies belong to the tool, not the conversation. Scales are anchored to fixed, external definitions so a number compares across the whole backlog rather than one sitting; the factors go into the tracker's own fields and the tracker computes the score, because a hand-typed computed field goes stale silently. Items are scored at creation, an unassessed factor reads as neutral rather than as zero, bodies get a length budget measured off your own corpus, and an empty section is deleted with its header instead of padded. The chat gets a table to approve from and then one line per item — never the body. See `references/protocols/tracker-writes.md`.
+Scores and bodies belong to the tool, not the conversation. Scales are anchored to fixed, external definitions so a number compares across the whole backlog rather than one sitting; the factors go into the tracker's own fields and the tracker computes the score, because a hand-typed computed field goes stale silently. Items are scored at creation, an unassessed factor reads as neutral rather than as zero, bodies get a length budget measured off your own corpus, and an empty section is deleted with its header instead of padded. The chat gets a table to approve from and then one line per item — never the body. Factors go on stories, tasks, and bugs only; an epic's score is the tracker's sum of its children, so a parent is never ranked against a child, and work too big for the top effort band is split into scored children. See `references/protocols/tracker-writes.md`.
 
 How a query is built is a property of the tool, verified rather than assumed. One search tool will AND every term you give it and support no `OR`, so a boolean comes back with zero hits and no error — and that false zero reads exactly like a real one. The rule is one distinctive noun per query, punctuation variants as separate queries, and any zero-hit query containing a space treated as suspect until it has been re-run one term at a time. What each tool actually does gets probed at connect time and recorded, dated, in the Search Dialects table in `references/mcp-routing.md`.
 
@@ -229,7 +230,13 @@ A skill that reads a live source checks it before reading it. A connected source
 
 What a sweep shows you is checked again at the moment it is shown. Each listed thread's tail is re-read just before the list is composed, because an answer can land between discovery and delivery. Whose move it is comes from the user's own last message and any condition in it, never from who spoke last. A "since last run" window narrows discovery only, and every item keeps its deep link in every rendering, digests and notifications included. An item is listed only when you own a move on it or it is a current focus, a question ships only when nothing the run read can answer it, no owner or recency settles it, and the answer would change what happens next, and a ruling you give in session is written down so the next run applies it instead of asking again. See `references/protocols/surfacing.md`.
 
-`references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep.
+Some values never come from the agent's memory. "Did it ship?" gets two answers, each from its own source: the code is live (the merged change and its handler), and customers use it (production records from the last 30 days). A Done ticket proves neither, and an "already handled?" lookup filters on resolved date, not created date. Timestamps come from the clock in the command that writes them, counts from a script whose summary line is quoted, and links from a fetch. `scripts/check_links.py` exits nonzero on a broken link, and a second-brain ingest isn't finished until it passes. See `references/protocols/freshness-provenance.md`.
+
+Writes to your own stores are set per surface in `config/write-surfaces.md`. Your review entries are `draft-in-place`: the periodic reviews write the draft straight into the entry, fill only fields that are still empty, skip anything that already exists, and reply with the link. Goal, project, and status changes stay proposals. Every other surface proposes first and writes on your approval.
+
+Two rules in `CLAUDE.md` fire on every turn, skill or no skill. Before answering a question or writing a brief, a strategy, or an explanation, the reply opens with three lines: what the deliverable is and isn't, what's already settled and where that's written down, and the angle it takes. An edit to a section you name changes that section only, as one verbatim replacement, and any other ideas wait unapplied below it.
+
+`references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep. A file over its size ceiling keeps every rule and moves its incident history to a sibling rationale file that runs never load and editors read first, so a later simplification can't bring back a failure that was already fixed.
 
 ## Available Skills (88 Total)
 
@@ -360,7 +367,7 @@ These skills are built to run on a schedule as **routines** (see below), though 
 | `/proactive-gaps` | Where is the upside, read from outside — problems other institutions wrote down, joined to assets you already own, each with a test and a falsifier |
 | `/warehouse-brief` | Weekly inside-out brief — 3 to 5 insights computed from your warehouse, each landed on a live decision and its owner, reconciled a second way |
 | `/weekly-readahead` | Draft and publish a weekly read-ahead for a recurring cross-team meeting |
-| `/weekly-review-fill` | Base tier of the periodic-review cascade — pre-fills the week's review from completed work |
+| `/weekly-review-fill` | Base tier of the periodic-review cascade — drafts the week's review straight into your review entry from completed work |
 | `/monthly-review-fill` | Rolls up the month's weekly reviews into a synthesized monthly assessment |
 | `/quarterly-review-fill` | Rolls up the quarter's monthly reviews into a synthesized quarterly assessment |
 | `/routine-responder` | Turn a routine's notification thread into a two-way conversation and continue the underlying skill |
@@ -442,6 +449,8 @@ weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the we
 - [ ] Configure your voice (`config/house-style.md`) and interaction style (`config/persona.md`)
 - [ ] Install the hooks: copy `config/settings-template.json` to `.claude/settings.json`
 - [ ] Connect your tools with `/connect-mcps connect to [tool]`
+- [ ] Before your first `/warehouse-brief`, fill in `context-library/metrics/warehouse-map.md` (tables, grains, traps)
+- [ ] Check `config/write-surfaces.md`: which of your own stores take a draft in place
 - [ ] Try `/daily-plan` or `/prd-draft` for your first command
 - [ ] Upload existing PRDs, strategy docs, and research to `context-library/`
 
