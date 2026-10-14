@@ -39,12 +39,13 @@
 | **2a** | `.claude/skills/<name>/references/*.md` | That skill's bulk reference | On pointer, inside the skill |
 | **2** | `.claude/skills/<name>/evals.md` | That skill's scored checks | By the eval agent, post-output |
 | **3** | `routines/<name>/SKILL.md` | A schedule wrapped around a skill | On schedule |
+| **—** | `<name>.rationale.md`, `routines/<name>/rationale.md` | Incident history behind a file's rules (rule 10) | Never in a run; editors read it before changing that file |
 
 **Path convention.** Two directories in this repo are called `references/`. Inside a `SKILL.md`, a bare `references/<file>.md` means **that skill's own** directory. A path starting `references/protocols/` or `references/<file>.md` written from the repo root means the **layer-1** protocol layer. A skill needing both in one file writes the layer-1 path in full from the repo root.
 
 **The layer-1 split is historical.** Fifteen files sit under `references/protocols/` and eight directly under `references/`. The table above is the index. **Do not move these files to tidy the split** — they are referenced by path from routine prompts, from `CLAUDE.md`, and from every skill, and a move breaks all of them silently.
 
-## 2. The nine rules
+## 2. The ten rules
 
 **1. One home per rule.** Every rule lives in exactly one file; everything else carries a pointer. *Test:* if you are about to paste text you could grep for elsewhere, write the pointer instead.
 
@@ -62,7 +63,9 @@
 
 **8. Outline hygiene.** `##` headings describe the skill. Template bodies, example output, and sample artifacts get fenced or extracted. *Test:* if `grep '^## '` on a `SKILL.md` does not read like a table of contents, the file is broken.
 
-**9. Reachable, not resident.** Content that must exist but is not needed on every invocation goes behind a pointer. Content nothing points to gets **deleted, not archived**.
+**9. Reachable, not resident.** Content that must exist but is not needed on every invocation goes behind a pointer. Content nothing points to gets **deleted, not archived**. A rationale file is not orphaned: its editor pointer (rule 10) reaches it.
+
+**10. Rules stay, history moves.** A file over its ceiling keeps every rule and moves its incident history (the dated failures, the runs that broke, the counts behind a rule) to a sibling rationale file. Runs never load it; editors read it first, so a simplification cannot reintroduce a failure the history records. One routine fit its 70-line ceiling from 130 lines this way, with no rule lost. The sibling is `<name>.rationale.md` beside a layer-1 file, `rationale.md` in a routine's directory, and `skill-memory.md` (already the skill's why-journal) beside a `SKILL.md`. The rule file's first line is the one pointer: `<!-- Editors: read <rationale file> before changing this file. Runs do not load it. -->`.
 
 ## 3. Size budgets
 
@@ -76,6 +79,8 @@
 | `evals.md` | 70 | 90 | Consolidate checks; do not drop coverage |
 | Routine prompt | 100 | 140 | Push method back into the skill it wraps |
 | Frontmatter `description` | 200 chars | 350 chars | Cut method, keep triggers and constraints |
+
+**Over ceiling, rule 10 runs first:** move the incident history to the rationale file, then apply the last column to whatever is still over.
 
 **Deriving the `SKILL.md` ceiling — from this repo, not by analogy.** The fourteen automation-layer skills are the newest and most operationally precise in the tree. **Line counts below are a snapshot as of 2026-07-26** and several have since grown toward the ceiling; they are the evidence the budget was derived from, not a current census: `weekly-readahead` 101, `sync-doc` 102, `proactive-gaps` 110, `iterate-document` 113, `refinement-prep` 114, `chat-ingest` 115, `meeting-prep` 119, `monthly-review-fill` 122, `quarterly-review-fill` 124, `backlog-groom` 125, `weekly-review-fill` 125, `routine-responder` 127, `action-sweep` 130, `loose-threads` 131. They span 101-131 with a mean of 118 and carry more operational precision than any legacy skill at five times the length. Target 120 sits at that mean; ceiling 150 leaves headroom above the observed maximum without licensing a return to 400.
 
@@ -138,6 +143,7 @@ Every audit report carries a **"Not findings"** section naming what was checked 
 ## 6. Enforcement
 
 - **Creating a skill:** copy the three templates (`templates/skill-template.md`, `templates/skill-evals-template.md`, `templates/skill-memory-template.md`). Procedure in `references/protocols/skill-evals.md`.
+- **Editing any rule file:** read its rationale file first where one exists (rule 10), and check the change does not reopen a failure it records.
 - **Editing a skill:** run C1, C2, C3, C6 against that file before committing.
 - **After a batch:** run all ten and confirm the finding count fell.
 

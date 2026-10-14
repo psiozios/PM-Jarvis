@@ -19,6 +19,7 @@ At the end of a skill run, if a durable learning about the skill itself was disc
 - Edge cases the skill handles poorly and workarounds
 - Context sources that proved especially valuable or misleading
 - Structural improvements that worked well
+- Incident history moved out of an over-ceiling `SKILL.md`, so editors read it before simplifying (`references/protocols/prompt-architecture.md` rule 10)
 
 **What does NOT belong:**
 - Eval pass/fail results (those go in `evals.md` results log)
