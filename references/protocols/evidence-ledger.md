@@ -53,6 +53,14 @@ Build the table by joining the log to the candidate list on the candidate key. *
 
 **Absence of a trace neither closes an item nor proves it open.** People decide things in rooms, and no tool logs that. A lookup that returned nothing supports exactly one verdict. An absence claim outside a ledger (no page, no ask, no record) meets its own bar in `references/protocols/context-acquisition.md` §6.
 
+**Check where it was settled before calling an item open on chat silence.** Any one of three signals makes the verdict `UNPROVEN`, however quiet the thread is:
+
+- **The user met the person on that topic that day.** A calendar event on the day the thread went quiet, or since, with that person on it and the topic in its title, agenda, or notes.
+- **The person sits in the user's office.** Their Office column in `context-library/stakeholder-template.md` (Communication Matrix) matches the user's own in `context-library/personal-context-working-preferences.md`.
+- **The thread concedes it.** A later message that accepts the point or moves it off chat: "fair, go ahead", "let's grab five minutes", a thumbs-up on the ask.
+
+Each signal is a lookup and goes into the log as it returns. A row carrying one ships as a one-line **"still open?"** question naming the signal, never as a proposal. One run had three of four proposals rejected as already handled, and every one had been settled off chat. **This check runs at every gate an item passes:** the discovery verdict, the render-time re-read (`references/protocols/surfacing.md` §1), and each carried row's fresh lookup.
+
 **When a null result must be reported, and when it must be suppressed.** The tree legislates silence in both directions and the boundary is about *whose* silence:
 
 - **A lookup that came back empty is always reported** — as a `Hits: 0` row, and as `UNPROVEN` on the candidate it was for. That silence is about one item, and suppressing it loses the item.

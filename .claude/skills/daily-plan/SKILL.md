@@ -466,7 +466,7 @@ mcps_used: [Calendar, Gmail, Linear, Analytics]
 - **Back-to-back meetings 9am-12pm** - No break, may run over
 - **P0 task "[Task]" has no time blocked** - Risk of not completing
 - **Metrics for [Feature] trending down** - May need discussion in [Meeting]
-- **Waiting on [Stakeholder] decision for [PRD]** - Follow up if not addressed
+- **Waiting on [Stakeholder] decision for [PRD]** - Still open? Check where it was settled before chasing (`references/protocols/evidence-ledger.md` §4)
 - **[Person] expects [Deliverable] today** - Currently not in Top 3
 
 **Recommendations:**

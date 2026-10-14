@@ -45,7 +45,7 @@ Read `<CALENDAR>` for the next upcoming meeting, or match the named meeting if o
 
 ### 2. Pull per-attendee context
 
-For each attendee: their stakeholder profile (priorities, communication style, pet peeves), the last time the user met with them (date, topic, what was discussed), and any open asks in either direction.
+For each attendee: their stakeholder profile (priorities, communication style, pet peeves), the last time the user met with them (date, topic, what was discussed), and any open asks in either direction. An ask that looks open only because the thread went quiet is checked for where it was settled first (`references/protocols/evidence-ledger.md` §4), and one carrying a settlement signal goes in the prep as "still open?", not as owed.
 
 ### 3. Mine recent calls, not just 1:1s
 

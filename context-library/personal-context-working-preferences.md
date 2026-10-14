@@ -26,6 +26,7 @@
 - Start: [Time and timezone]
 - End: [Time and timezone]
 - Time zone: [Your timezone]
+- Office: [City or site you work from, and your in-office days]
 
 **Deep work blocks:**
 - [Day/time blocks you protect for focused work]

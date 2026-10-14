@@ -1,8 +1,8 @@
 ---
 skill: action-sweep
 archetype: Workflow-Orchestration
-eval-version: 4
-last-updated: 2026-09-28
+eval-version: 5
+last-updated: 2026-10-13
 ---
 
 # Evals: /action-sweep
@@ -59,6 +59,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 |----|-------|----------|
 | E16 | Current at render, linked everywhere | Each listed item's source was re-read just before composing, with meetings, sibling threads, and the tracker cross-checked, and that re-read is in the lookup log. Every item carries a deep link in every rendering, the dated file and any digest or chat summary alike. FAIL on an item listed as open whose source shows it answered before the render (`references/protocols/surfacing.md` §1-2) |
 | E17 | Every line earned | Every item is the user's move or a current focus, each question passed the three tests, no trailing confirm-or-ignore line closes the output, and every ruling in `outputs/state/rulings-action-sweep.md` was applied to inclusion without narrowing the sweep (`references/protocols/surfacing.md` §3-6) |
+| E18 | Settlement checked before silence counts | No item is listed or proposed as open on chat silence alone. Each such item's lookup log shows the three settlement checks: a meeting with that person on that topic that day or since, the same office, a concession in the thread. FAIL on a proposal whose item carries any of the three; it ships as a "still open?" question (`references/protocols/evidence-ledger.md` §4) |
 
 ## Scoring
 

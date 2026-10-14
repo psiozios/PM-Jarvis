@@ -18,7 +18,7 @@ A match from a search (a keyword hit, a title match, a snippet) tells you where 
 
 ### 2. Verify before surfacing
 
-Cross-check each candidate against orthogonal sources — a calendar, a tracker, an issue board, an email thread, a sibling skill's output — and emit a per-item `Checked:` line naming what was cross-referenced. Silence in one channel is not proof of anything; the absence of a follow-up in Slack doesn't mean the loop closed, it might mean the reply happened somewhere else entirely.
+Cross-check each candidate against orthogonal sources — a calendar, a tracker, an issue board, an email thread, a sibling skill's output — and emit a per-item `Checked:` line naming what was cross-referenced. Silence in one channel is not proof of anything; the absence of a follow-up in Slack doesn't mean the loop closed, it might mean the reply happened somewhere else entirely. Before an item is called open on chat silence, check the three places it may have been settled (`references/protocols/evidence-ledger.md` §4).
 
 Verification runs on a budget, so spend it in rank order: rank the candidates first, gate the top N, and state the ungated count rather than implying the whole list was checked. What that gate may cost — one inline batch by default, a spawned agent only where a false positive is expensive — is in `references/capabilities.md`.
 

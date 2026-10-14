@@ -404,6 +404,7 @@ and existing customers.
 Based on your situation, I'll automatically:
 
 **If following up on overdue items:**
+- Check where it was settled before calling it overdue (`references/protocols/evidence-ledger.md` §4): a meeting with them on it that day, the same office, or a concession in the thread turns the chase into a one-line "still open?"
 - Check how long overdue
 - Suggest escalation path if >1 week
 - Restate the original ask, since the reader has lost the thread

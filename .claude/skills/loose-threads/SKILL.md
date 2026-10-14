@@ -36,7 +36,6 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Carried-item counter | `outputs/state/carried-loose-threads.json` (this skill's own file) | How many consecutive runs each item has been carried. Marks new-vs-carried, and triggers the third-run park-or-drop — **never narrows the sweep** |
 | User rulings | `outputs/state/rulings-loose-threads.md` (this skill's own file) | Rulings that decide whether an item earns a line — never whether it is swept (`references/protocols/surfacing.md` §6) |
 
-
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
@@ -56,7 +55,7 @@ For each candidate: **yours** (the user owes the next move), **theirs** (someone
 
 ### 4. Verify before flagging
 
-Open every candidate and read to resolution — a search hit is a pointer, not an answer (discipline #1). Cross-check the task tracker, calendar, and other threads: a thread with no in-channel reply but a resolved ticket, or a decision made live in a meeting, is not stalled. Emit a `Checked:` line per item naming what was cross-referenced (discipline #2). That line is a join, not a summary: it names a query the lookup log already carries, and where the log holds nothing for this item the line stands empty rather than being written from recall (`references/protocols/evidence-ledger.md`).
+Open every candidate and read to resolution — a search hit is a pointer, not an answer (discipline #1). Cross-check the task tracker, calendar, and other threads: a thread with no in-channel reply but a resolved ticket, or a decision made live in a meeting, is not stalled. Before calling any thread open on its silence, check where it was settled (`references/protocols/evidence-ledger.md` §4): a meeting with that person on that topic that day, the same office, or a concession in the thread makes it `UNPROVEN`, and it ships as a "still open?" line. Emit a `Checked:` line per item naming what was cross-referenced (discipline #2). That line is a join, not a summary: it names a query the lookup log already carries, and where the log holds nothing for this item the line stands empty rather than being written from recall (`references/protocols/evidence-ledger.md`).
 
 **One noun per query here too.** A thread looks stalled when the cross-check for its resolution returns nothing, and an AND-only search returns nothing for any query with a space in it. Send one distinctive noun, punctuation variants separately, and re-run a spaced zero term by term before it counts (`references/protocols/evidence-ledger.md`).
 
@@ -83,7 +82,7 @@ For "yours" items only, propose a task in `<TASK_TRACKER>` as a numbered list aw
 
 **Swept:** <the sources that answered>
 **Unavailable:** <source — state, reason, and what repairs it; "none" when every source answered>
-
+**Still open?** [<thread>](<deep link>) — <the settlement signal found> (one line each, shipped first; omit when none)
 ## Fresh (0-2 days)
 - **[<thread title>](<deep link>)** — <whose court>: <one line on what's owed>
   Checked: <cross-reference>
@@ -143,7 +142,7 @@ See `references/protocols/skill-evals.md`.
 
 ## Common Mistakes
 
-- Flagging a thread as stalled without cross-checking whether it resolved elsewhere
+- Flagging a thread as stalled without cross-checking whether it resolved elsewhere, or without checking the meeting, office, and concession signals
 - Treating a dead source's silence as evidence a loop is open, or listing that source as swept
 - Narrowing the sweep window based on what a previous run already found
 - Auto-creating follow-up tasks instead of proposing them

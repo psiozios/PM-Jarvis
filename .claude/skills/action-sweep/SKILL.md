@@ -37,7 +37,6 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 | Sweep state | `outputs/state/.last-sweep` (this skill's own file) | Window start for "since last sweep" |
 | Carried-item counter | `outputs/state/carried-action-sweep.json` | How many consecutive runs each item has been carried, for the third-run park-or-drop (`references/protocols/evidence-ledger.md`). The user's rulings sit beside it in `outputs/state/rulings-action-sweep.md` |
 
-
 For live tool data (task tracker, chat platform, issue tracker, metrics source), route through `references/mcp-routing.md` — read it when the task wants data no local file holds. All sources degrade to the files above when a tool is not connected. A source that is connected but fails — an expired credential, a revoked scope, an OAuth refresh with no browser — is reported unavailable by name with its reason and never listed among the sources swept (`references/protocols/source-preflight.md`).
 
 ## Workflow
@@ -56,7 +55,7 @@ Open the log and the ledger now, before any candidate is dropped — one appende
 
 ### 4. Verify live state
 
-For each remaining candidate, check whether it's already been handled since it arose — cross-reference the task tracker, later messages in the same thread, and calendar follow-ups. An item resolved after the fact is marked **verified-done**, not surfaced as still-open (see `skill-patterns.md` discipline #2 — verify before surfacing).
+For each remaining candidate, check whether it's already been handled since it arose — cross-reference the task tracker, later messages in the same thread, and calendar follow-ups. An item resolved after the fact is marked **verified-done**, not surfaced as still-open (see `skill-patterns.md` discipline #2 — verify before surfacing). An item with only chat silence behind it is checked for where it was settled (`references/protocols/evidence-ledger.md` §4): a meeting with that person on that topic that day, the same office, or a concession in the thread makes it `UNPROVEN`, a "still open?" question rather than a proposed task.
 
 ### 5. Dedupe against the task tracker
 
@@ -88,7 +87,7 @@ After the reconciliation is applied (or explicitly declined), write `outputs/sta
 **Unavailable:** <source — state, reason, and what repairs it; "none" when every source answered>
 
 ## Questions (shipped first — each is one line, and the run is blocked on nothing else)
-- <the `UNPROVEN` item, as a question only the user can answer> — [<source>](<deep link>)
+- <the `UNPROVEN` item, as a question only the user can answer; "Still open? <item> — <signal>" where a settlement signal made it unproven> — [<source>](<deep link>)
 
 ## Proposed New Tasks
 | # | Item | Source | Checked | Proposed Task |

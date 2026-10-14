@@ -160,15 +160,17 @@
 
 ## Communication Matrix
 
-| Stakeholder | Frequency | Format | Content Type |
-|-------------|-----------|--------|--------------|
-| [CEO Name] | [Frequency] | [Format] | [What you share] |
-| [Manager Name] | [Frequency] | [Format] | [What you share] |
-| [VP Eng Name] | [Frequency] | [Format] | [What you share] |
-| [Design Lead] | [Frequency] | [Format] | [What you share] |
-| [Sales Lead] | [Frequency] | [Format] | [What you share] |
-| [CS Lead] | [Frequency] | [Format] | [What you share] |
-| [Marketing Lead] | [Frequency] | [Format] | [What you share] |
+The Office column is read before an item is called open on chat silence: someone who sits where you do may have settled it in person (`references/protocols/evidence-ledger.md` §4).
+
+| Stakeholder | Frequency | Format | Content Type | Office |
+|-------------|-----------|--------|--------------|--------|
+| [CEO Name] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [Manager Name] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [VP Eng Name] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [Design Lead] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [Sales Lead] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [CS Lead] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
+| [Marketing Lead] | [Frequency] | [Format] | [What you share] | [City or site, and in-office days] |
 
 ---
 

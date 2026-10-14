@@ -188,7 +188,7 @@ Example: "[HIGH] D30 Retention -- discussed in 3/4 meetings this week, CPO escal
 - [Feature] has conflicting timelines: Meeting 2 said "end of sprint" but Meeting 4 said "next quarter"
 
 ### Missing Follow-Ups
-[Check previous weeks' meeting notes for action items that should have been discussed today but weren't]
+[Check previous weeks' meeting notes for action items that should have been discussed today but weren't. Before listing one, check where it may have been settled off the record (`references/protocols/evidence-ledger.md` §4)]
 - From [Date]: "[Action item]" assigned to [Name] -- not mentioned in today's meetings. Still open?
 
 ### Decisions Summary
