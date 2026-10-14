@@ -161,7 +161,7 @@ Output one row per defect: the quoted text, its tier and ID (`config/house-style
 
 Apply `config/house-style.md` in full before and during every mode — it owns banned words, padding, prose patterns, and formatting, and this skill re-lists none of them.
 
-**This skill is almost always §7 Case A** (editing a human's draft): protect the voice in the draft, note three to five signals first, and make the minimum effective edit. Over-editing is the failure mode here — which is why `--tighten` keeps a soft-tier word when the keep-test says keep, rather than cutting on sight.
+**This skill is almost always §7 Case A** (editing a human's draft): protect the voice in the draft, note three to five signals first, and make the minimum effective edit. Over-editing is the failure mode here — which is why `--tighten` keeps a soft-tier word when the keep-test says keep, rather than cutting on sight. Where the user names the unit (a section, a paragraph, a slide), `CLAUDE.md` Scope before editing governs: one verbatim replacement of that unit, and every other improvement goes below it in the parking lot, unapplied.
 
 ---
 

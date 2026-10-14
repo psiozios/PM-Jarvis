@@ -51,7 +51,7 @@ Before restating any number (a metric, a date, a target), check it against `<MET
 
 ### 4. Apply a surgical delta
 
-Edit only the affected sections. Preserve everything else exactly as it was — structure, phrasing the user has already refined, sections unrelated to this update. This is not a regenerate-from-scratch pass.
+Edit only the affected sections. Where the user named the unit to change, `CLAUDE.md` Scope before editing governs: one verbatim replacement of that unit, other ideas parked unapplied. Preserve everything else exactly as it was — structure, phrasing the user has already refined, sections unrelated to this update. This is not a regenerate-from-scratch pass.
 
 ### 5. Honor the doc's own rules
 

@@ -438,6 +438,8 @@ weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the we
 - [ ] Fill out `context-library/business-info-template.md` with your product details
 - [ ] Add your writing styles to `context-library/writing-style-*.md`
 - [ ] Add stakeholder profiles to `context-library/stakeholder-template.md`
+- [ ] Configure your voice (`config/house-style.md`) and interaction style (`config/persona.md`)
+- [ ] Install the hooks: copy `config/settings-template.json` to `.claude/settings.json`
 - [ ] Connect your tools with `/connect-mcps connect to [tool]`
 - [ ] Try `/daily-plan` or `/prd-draft` for your first command
 - [ ] Upload existing PRDs, strategy docs, and research to `context-library/`

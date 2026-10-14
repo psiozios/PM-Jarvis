@@ -113,6 +113,13 @@ These defaults apply unless the user configures different preferences in `config
 - **Handle revisions surgically.** Re-read the original, apply the specific change. Don't regenerate from scratch. Trackers, docs, and wiki pages alike (`references/protocols/knowledge-capture.md` §6).
 - **Be direct.** State opinions clearly. Avoid hedging language when you have enough context to take a position.
 
+## Lens Before Generating, Scope Before Editing
+
+Both fire on every turn, skill or no skill: most misses of either kind happened with no skill loaded.
+
+- **Lens before generating.** An answer to a question, a brief, a strategy, or an explanation opens with three derived lines. **Deliverable:** what this is, and what it is not. **Settled:** what is already decided, each item with its source. **Angle:** the lens this piece takes. Derive them from the request and context rather than asking; a wrong lens caught on line three costs a line, and caught at the end it costs the piece.
+- **Scope before editing.** An edit to a named unit (a section, a paragraph, a slide, a line) changes that unit only, as one verbatim replacement: the old text quoted, the new text whole. Every other idea the edit turned up goes below it in a parking lot, unapplied, until the user picks one.
+
 ## Skills
 
 87 skills available as slash commands in `.claude/skills/<name>/SKILL.md`. Each skill's frontmatter `description` says what it does and when to reach for it — that is the routing surface. For the category breakdown, see `references/skill-categories.md`.
@@ -159,11 +166,4 @@ See `references/capabilities.md` for parallel execution, plan mode, web search, 
 
 ## Getting Started
 
-See `setup/installation-guide.md` for installation and `setup/first-session-checklist.md` for your first session.
-
-1. Fill out context templates (`context-library/business-info-template.md`, `stakeholder-template.md`)
-2. Configure your voice (`config/house-style.md`) and interaction style (`config/persona.md`)
-3. Set up audience writing styles (`context-library/writing-style-*.md`)
-4. Install the memory hook (copy `config/settings-template.json` to `.claude/settings.json`)
-5. Try `/daily-plan` or `/prd-draft`
-6. Optionally connect your tools with `/connect-mcps connect to [tool]`
+See `setup/installation-guide.md` for installation and the context templates to fill, `setup/first-session-checklist.md` for your first session, and the Getting Started checklist in `README.md`.
