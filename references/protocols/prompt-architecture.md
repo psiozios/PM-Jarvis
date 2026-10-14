@@ -145,4 +145,6 @@ Every audit report carries a **"Not findings"** section naming what was checked 
 
 If a skill genuinely needs a draft-time rule the global surfaces do not cover, it goes **at the top of that skill, above the workflow** — never in the self-check.
 
+**A rule broken three times becomes part of the command.** When the same rule fails a third time after its fixes, stop rewording it and move it into the script, hook, or command that does the step, so the step cannot run without it. `references/protocols/freshness-provenance.md` rule 6 is the worked case: times, counts, and links that kept being typed wrong now come from `date`, `scripts/count_rows.py`, and `scripts/check_links.py`.
+
 **Auditor's caveat.** Reading a `SKILL.md` in isolation makes these rules look absent. Check the core and any always-on layer before reporting a draft-time rule as unreachable.

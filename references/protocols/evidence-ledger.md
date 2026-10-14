@@ -10,7 +10,7 @@ Any run that will drop, merge, or suppress candidates builds two artifacts befor
 
 | Field | Holds |
 |-------|-------|
-| Timestamp | When the lookup returned |
+| Timestamp | When the lookup returned, from `date` in the command that appends the line (`references/protocols/freshness-provenance.md` rule 6) |
 | Tool | The tool or source queried |
 | Query | The query string **verbatim**, as sent |
 | Hits | How many results came back, zero included |
@@ -49,7 +49,7 @@ Written to `outputs/ledgers/<skill>-<date>.md` before any candidate is dropped �
 
 Build the table by joining the log to the candidate list on the candidate key. **A cell carries only a query that appears in the log; otherwise it stands empty.** An empty cell is a fact about the run — that lookup did not happen — and it ships empty. Filling it to make the table look complete is the fabrication class this whole protocol exists to close.
 
-**Counts come off the file**, never off recall: to say "eleven items", count eleven rows. **No `PROPOSE` row, no proposal** — nothing reaches the user that does not have a row.
+**Counts come off the file by a command**, never off recall: to say "eleven items", quote the summary line of `python3 scripts/count_rows.py <ledger> --by Verdict` (`references/protocols/freshness-provenance.md` rule 6). **No `PROPOSE` row, no proposal** — nothing reaches the user that does not have a row.
 
 ## 4. Verdicts
 

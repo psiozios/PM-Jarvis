@@ -113,6 +113,8 @@ pm-jarvis/
 │   ├── notifier-example.md         # Notifier adapter reference (routines report back)
 │   └── settings-template.json      # Hook wiring (copy to .claude/settings.json)
 │
+├── scripts/                        # check_links.py (exits nonzero on a broken link), count_rows.py
+│
 ├── hooks/                          # Claude Code hook scripts
 │   ├── inject_memory.py            # Memory injection (UserPromptSubmit)
 │   └── preflight_sources.py        # Source credential check (SessionStart)

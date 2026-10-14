@@ -98,6 +98,8 @@ status: draft | working | stable
 ---
 ```
 
+Both dates come from `date +%F` in the command that writes the page, and `source_count` from counting the page's `[Source: ...]` citations with `grep -o`, never typed (`references/protocols/freshness-provenance.md` rule 6).
+
 Followed by a one-paragraph summary, then the body.
 
 **Cross-linking rules:**
@@ -259,8 +261,9 @@ After scaffolding, print the next-steps summary and point the PM to `.claude/ski
    - Update ALL other pages where this source adds, confirms, or contradicts a claim. A page whose content this run does not change keeps its `last_updated` (`references/protocols/freshness-provenance.md` rule 4).
    - Add backlinks from existing pages to new content.
    - On contradiction: flag explicitly with both citations, note recency.
-6. **Log.** Append `## [YYYY-MM-DD] ingest | {filename} — touched N pages` to `wiki/log.md`.
-7. **Report.** Tell the PM exactly which pages were created or updated so they can scan the diff, and flag any page whose deletions exceed its insertions (`git diff --numstat`).
+6. **Gate on the link check.** Run `python3 scripts/check_links.py <every page this pass touched>`. A nonzero exit means the ingest is not done: fix each break, or create the page in this pass, and re-run until it exits 0.
+7. **Log.** Append `## [YYYY-MM-DD] ingest | {filename} — touched N pages` to `wiki/log.md` in one command: the date from `date +%F`, N from `git diff --numstat -- <focus area> | wc -l` (`references/protocols/freshness-provenance.md` rule 6).
+8. **Report.** Tell the PM exactly which pages were created or updated so they can scan the diff, quote the link check's summary line, and flag any page whose deletions exceed its insertions (`git diff --numstat`).
 
 **One source at a time produces better wikis than batch ingest.** Encourage the PM to ingest individually and discuss takeaways. Use `compile` only for bulk catch-up.
 
@@ -295,7 +298,7 @@ Use when you've dropped many sources into `raw/` at once and want the LLM to pro
 1. For each file in `raw/` not yet in the log as ingested:
    - Run the full ingest workflow.
 2. After the batch, show the updated `wiki/index.md` so the PM can see the shape of what was built.
-3. Append a batch entry to the log: `## [YYYY-MM-DD] compile | Processed N sources, touched M pages`. Then run `git diff --numstat` over the focus area and flag every page whose deletions exceed its insertions (`references/protocols/knowledge-capture.md` §6).
+3. Run the link check over the focus area (`python3 scripts/check_links.py <focus area>/wiki`) and fix until it exits 0. Append a batch entry to the log: `## [YYYY-MM-DD] compile | Processed N sources, touched M pages`, the date and both counts from commands, never typed (`references/protocols/freshness-provenance.md` rule 6). Then run `git diff --numstat` over the focus area and flag every page whose deletions exceed its insertions (`references/protocols/knowledge-capture.md` §6).
 
 ---
 

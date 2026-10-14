@@ -76,7 +76,7 @@ Send the questions the moment they exist, each one past the three tests in `refe
 
 ### 8. Stamp
 
-After the reconciliation is applied (or explicitly declined), write `outputs/state/.last-sweep` to the current timestamp — not before, so a partial or aborted run retries the same window next time.
+After the reconciliation is applied (or explicitly declined), write `outputs/state/.last-sweep` with `date` in the writing command, never a typed time — not before, so a partial or aborted run retries the same window next time.
 
 ## Output Template
 

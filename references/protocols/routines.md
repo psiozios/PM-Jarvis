@@ -27,7 +27,7 @@ One owner per file. Never let two routines write the same state file.
 
 **The marker goes on the transport's own confirmation of delivery, and on nothing else.** The dated output is written when the work is finished, which is before the send — so it proves the work happened, not that anyone saw it. Treating its existence as the already-ran signal costs a run the moment one dies in between: the file is on disk, the notification never landed, and every later wake reads the file and answers already-ran, forever. Nobody finds out, because the symptom is silence.
 
-So: write the output, render it, post it, and stamp the marker only once the transport says the message is delivered (`references/protocols/notifications.md` item 2). A missed stamp then means exactly one thing — this period is still owed — and the next wake retries it rather than going quietly dark. A cleared state directory produces a fresh run for the same reason: nothing local claims otherwise.
+So: write the output, render it, post it, and stamp the marker only once the transport says the message is delivered (`references/protocols/notifications.md` item 2), with the time taken from `date` in the command that writes it (`references/protocols/freshness-provenance.md` rule 6). A missed stamp then means exactly one thing — this period is still owed — and the next wake retries it rather than going quietly dark. A cleared state directory produces a fresh run for the same reason: nothing local claims otherwise.
 
 The mirror-image rule holds too. The notification surface is output and never input to the guard (discipline #3), and neither is the output file.
 

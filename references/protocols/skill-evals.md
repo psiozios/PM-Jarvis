@@ -39,7 +39,7 @@ Each skill directory contains three files:
 5. Eval agent returns a results table to the original agent
 6. **If any FAIL:** eval agent includes specific remediation instructions → original agent applies fixes → re-submits for eval
 7. **Loop until zero FAILs** — interactively. A routine's pre-send eval is capped at one scoring pass and one remediation round (`references/protocols/routines.md` discipline #10)
-8. Final results appended to the Eval Results Log in `evals.md` (keep last 5 runs) — see "Legible Eval Results Log" below for what the log entry must contain beyond pass/fail counts
+8. Final results appended to the Eval Results Log in `evals.md` (keep last 5 runs), the row's date from `date +%F` in the appending command and its counts from a command over the eval table (`references/protocols/freshness-provenance.md` rule 6) — see "Legible Eval Results Log" below for what the log entry must contain beyond pass/fail counts
 
 ### Scoring
 

@@ -2,9 +2,9 @@
 
 **Principle: STATUS STALES FASTEST — NEVER BAKE A POINT-IN-TIME FACT INTO A STANDING DOCUMENT.**
 
-This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the five rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
+This protocol is generic governance, not a personal voice rule — it applies to any workspace, any user. It has two halves: Side A is the six rules themselves (documented here, optionally mirrored into memory as `feedback_` entries). Side B is how these rules get enforced automatically, via a fifth universal eval check.
 
-## Side A: The Five Rules
+## Side A: The Six Rules
 
 ### 1. Never hardcode point-in-time status
 
@@ -47,6 +47,15 @@ A monitor keyed on a list of names sees only those names. That is rule 1's defec
 
 State each claim on its own source, and name the one that is unverified rather than rounding up: "merged and deployed (link); no production use in 30 days" is a correct answer to "did it ship?". Where the code host or production data is unreachable, that claim is unconfirmed (rule 1), never inferred from the tracker.
 
+### 6. Times, counts, and links come from a command
+
+A mechanical value is never typed. Each one has a source that is not the agent's recall:
+
+- **A time comes from the clock in the command that writes the file.** The stamp and the line it stamps leave together, `printf '%s | %s\n' "$(date '+%Y-%m-%dT%H:%M%z')" "<entry>" >> <log>`, so the time is the moment of writing, in local time (`references/protocols/routines.md` discipline #8). This covers lookup-log lines, run markers, run-log and eval-log rows, and a page's `created` and `last_updated`. A hand-typed future timestamp recurred after three carried fixes.
+- **A count comes from a script, and its summary line is quoted.** `python3 scripts/count_rows.py <file> --by <column>` for a ledger or any table, `git diff --numstat` for pages touched, `wc -l` or `grep -c` for the rest. The output quotes the command's line verbatim. Self-graded link counts were overstated twice.
+- **A link comes from a fetch before writing.** A URL is copied from the tool response that returned the item, never rebuilt from an ID or remembered. A local link is checked by `python3 scripts/check_links.py <files>`, which prints a summary line and exits nonzero on any break.
+- **A gate reads the exit code.** Ingest is not done until the link check over every page it touched exits 0 (`references/protocols/knowledge-capture.md` §6). A run-log check failed nine runs in a row while the value it checked was typed by hand.
+
 ## Side B: Eval Enforcement
 
 `references/protocols/skill-evals.md` already carries four universal checks (E4-E7: no AI slop, house style, human-sounding, context-grounded) that every skill's `evals.md` inherits verbatim. This protocol adds a **fifth universal check — durability** — for any skill whose output is a document meant to persist or be shared, not a one-off draft consumed once.
@@ -59,7 +68,7 @@ See `templates/skill-evals-template.md` for the exact wording as it appears wire
 
 ## Durable Enforcement (Optional Memory Mirror)
 
-Like the commitment-gate and routines protocols, these five rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
+Like the commitment-gate and routines protocols, these six rules can be mirrored as `feedback_` memory entries via the format in `memory/feedback_example.md`, so the per-turn hook reinforces them even outside a session actively producing a shared document.
 
 This protocol seeds **no real `feedback_` entry** — asserting one before the user has a concrete document or workspace to apply it to would itself violate rule #1 (a hardcoded, unearned claim). When the user's first shared, living document goes into `context-library/` or `context-library/second-brain/`, propose the relevant mirror per the knowledge-capture protocol (propose, don't auto-write).
 
@@ -67,4 +76,4 @@ This protocol seeds **no real `feedback_` entry** — asserting one before the u
 
 - `references/protocols/skill-evals.md` — where the four base universal checks live; this protocol's durability check is the fifth
 - `references/protocols/knowledge-capture.md` — the propose-don't-auto-write discipline this protocol's memory mirror follows
-- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1, #2, #4, and #5 violations, since they're explicitly designed to compound over time
+- `context-library/second-brain/` — the second-brain wikis are the highest-risk surface for rule #1, #2, #4, #5, and #6 violations, since they're explicitly designed to compound over time
