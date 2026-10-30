@@ -24,6 +24,7 @@ disable-model-invocation: false
 /prd-draft [paste your feature idea]      → I'll skip questions you already answered
 /prd-draft --stage "team kickoff"         → Set the PRD stage upfront
 /prd-draft --ai                           → Include AI behavior specification sections
+/prd-draft --retro [product]              → Retro PRD for a product already shipped
 ```
 
 **What you get:** A 1-2 page PRD in themes: overview, problem, business metrics and goals, legal and risk constraints, solution, rollout plan, open questions, and a collapsible appendix. Saved to `outputs/prds/[feature-name-kebab-case]-[stage].md`. Based on `templates/prd-template.md`.
@@ -783,6 +784,17 @@ Fold these into the standard themes for AI features: the behavior specification,
 - User satisfaction < ___%
 - Escalation rate > ___%
 ```
+
+---
+
+## Mode: --retro
+
+A PRD for a product already shipped. **Read `references/retro-mode.md` when the run is `--retro`** — it carries the method and the shape. The rules:
+
+- **Intended behavior comes from the user; the code is what gets checked.** Ask what it was meant to do before reading anything.
+- **The core is a four-way cross-check:** code, contract, sales and ops material, ticket acceptance criteria. Every disagreement is a gap under Current implementation gaps, with an owner in Open questions.
+- **Same themes, past tense. No rollout plan. A review trigger instead of kill criteria**, which evals score N/A, never PASS.
+- **Status is date-stamped or linked live**, and "shipped" is two claims (`references/protocols/freshness-provenance.md` rule 5).
 
 ---
 

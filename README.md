@@ -246,7 +246,7 @@ Type `/` in Claude Code to see the autocomplete menu with all commands.
 | Command | What it does |
 |---------|-------------|
 | `/connect-mcps` | Connect MCPs for real-time tool integration |
-| `/prd-draft` | Create modern PRDs (supports `--brief` for one-pagers) |
+| `/prd-draft` | Write PRDs in themes rather than teams, on graded evidence; `--retro` for a product already shipped |
 | `/prd-lite` | Lightweight feature proposals for prioritization decisions |
 | `/prd-review-panel` | Multi-agent PRD review from 7 perspectives |
 | `/daily-plan` | Generate PM daily plan with context |
