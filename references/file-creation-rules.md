@@ -68,6 +68,6 @@ These folders store finalized, user-curated reference material:
 
 ## Naming Conventions
 
-- Use kebab-case for file names: `voice-task-capture-team-kickoff.md`
+- Use kebab-case for file names: `voice-task-capture.md`
 - Include dates where relevant: `2025-03-15-stakeholder-sync.md`
-- Include stage for PRDs: `[feature]-[stage].md` (e.g., `dark-mode-team-kickoff.md`)
+- One file per artifact, revised in place: a PRD is `[feature].md` with its stage in the header, never a file per stage or a `-v2` copy (`references/protocols/knowledge-capture.md` §6)

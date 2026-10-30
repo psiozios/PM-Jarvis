@@ -302,8 +302,8 @@ Please:
 1. Create initial PRD
 2. Review it from an engineering perspective
 3. Review it from a UX perspective
-4. Create a final version incorporating both reviews
-5. Save the final PRD as 'dark-mode-prd.md'
+4. Revise the PRD in place, incorporating both reviews
+5. Keep it as the one file, 'dark-mode-prd.md'
 "
 ```
 

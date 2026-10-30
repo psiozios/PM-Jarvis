@@ -60,12 +60,15 @@ When a skill produces something intended for others (a Slack message, a ticket, 
 
 **A reply that says something shipped meets both claims first.** Code live and customers using it are separate, and a Done ticket proves neither (`references/protocols/freshness-provenance.md` rule 5).
 
-**Test the premise before answering it.** A senior stakeholder's question is not automatically the right question. Where retrieval shows the premise is off, saying so is new information, and it is usually the most useful thing the reply can carry.
+**A draft in a shared doc tool stays quiet until the user says it is ready.** It carries no user mentions: names are plain text, an owner is written "Owner: Priya Shah", never as an @-mention. After writing, read the page back and confirm it holds no mention, because a mention pulls the person into an unfinished page and the tool's default is to notify. This overrides that default. Mentions go in only when the user says the draft is ready, and only for people who need to act.
+
+**Test the premise before answering it. A senior stakeholder's question is not automatically the right question. Where retrieval shows the premise is off, saying so is new information, and it is usually the most useful thing the reply can carry.
 
 ### 6. Knowledge-Base Writes Are Surgical
 
 The surgical-edit rule covers every store the assistant writes to: a tracker entry, a source-of-truth doc, a wiki page, a context-library file. It used to name the tracker (the periodic-review cascade in `references/protocols/skill-patterns.md`) and never the wiki, and an ingest fell into the gap: it wrote two existing pages as new and erased their history.
 
+- **One source-of-truth file per artifact.** A revision overwrites it in place (dated changelog line where the artifact keeps one), never a second file named `-v2`, `-r2`, `-final`, or by stage. Git and the changelog hold the history; a sibling copy splits the truth in two.
 - **Read before writing.** Check on disk whether the target exists, in the directory and not the index. If it does, read it in full and apply only the delta. Never write the page back whole from memory of what it said.
 - **Confirm prior content survives.** Re-read the page after the write. Every earlier claim, citation, and dated line is still there, or was struck on purpose with a dated note (`references/protocols/freshness-provenance.md` rule 2).
 - **Flag net deletions after a multi-page pass.** Run `git diff --numstat` over what the pass touched and list every file whose deletions exceed its insertions, each with its reason or a restore. An ingest adds; a page that shrank is where history went missing.

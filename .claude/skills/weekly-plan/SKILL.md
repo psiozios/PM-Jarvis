@@ -45,7 +45,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 2. **Check if week already planned:**
    - Look for `outputs/weekly-plans/YYYY-WXX-weekly-plan.md`
-   - If exists: Ask "Week already planned. Update it or create new version?"
+   - If exists: Update it in place (`references/protocols/knowledge-capture.md` §6), never a second copy
 
 ---
 

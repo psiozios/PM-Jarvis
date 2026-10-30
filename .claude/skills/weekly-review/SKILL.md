@@ -57,7 +57,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 2. **Check if review already exists:**
    - Look for `outputs/weekly-reviews/YYYY-WXX-weekly-review.md`
-   - If exists: Ask "Update existing review or create new version?"
+   - If exists: Update it in place (`references/protocols/knowledge-capture.md` §6), never a second copy
 
 ---
 

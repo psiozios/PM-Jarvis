@@ -81,7 +81,7 @@ Before I draft anything, I need to understand the initiative. Don't worry about 
 5. Is this an A/B test or full launch?
 6. What are the non-goals? (What are we explicitly NOT doing?)
 7. What are the success metrics? (How will we know this worked?)
-8. Who are the key stakeholders? (@ mention them if you have profiles in `context-library/stakeholder-template.md` or similar)
+8. Who are the key stakeholders? (I'll write them as plain names, not @-mentions, until you say the draft is ready)
 
 **AI-specific (if applicable):**
 9. What are example prompts or user inputs?
@@ -125,7 +125,7 @@ Great, I have enough to draft a first version. This will be:
 - Using your [AUDIENCE] writing style
 - Based on templates/prd-template.md
 
-I'll create it now and save it to `outputs/prds/[feature-name-kebab-case]-[stage].md`.
+I'll create it now and save it to `outputs/prds/[feature-name-kebab-case].md`.
 
 After you review, we can iterate or get multi-perspective feedback.
 ```
@@ -212,7 +212,7 @@ Create a [component type] for [product context].
 After generating the draft, offer:
 
 ```
-First draft created! Saved to `outputs/prds/[feature-name]-[stage].md`.
+First draft created! Saved to `outputs/prds/[feature-name].md`.
 
 Want me to review this from multiple perspectives?
 - Engineer (technical feasibility, implementation concerns)

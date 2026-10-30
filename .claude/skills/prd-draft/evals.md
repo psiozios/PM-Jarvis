@@ -17,7 +17,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E1 | Filename convention | File saved as `outputs/prds/[feature-kebab]-[stage].md` |
+| E1 | One quiet file | Saved as `outputs/prds/[feature-kebab].md`, the single file for this PRD revised in place, never a stage or `-v2` copy. The draft carries no @-mentions; owners are plain names |
 | E2 | Stage-appropriate length | Body word count, appendix excluded, against the stage target in the SKILL's length table: up to 250 words over the top of the range is PASS, 251-500 over is PARTIAL, more is FAIL. FAIL as well if the user's own text was cut to hit the number |
 | E3 | Themes, in order, every stage | Overview, Problem (hypothesis, current implementation gaps), Business metrics and goals, Legal compliance and risk constraints, Solution (approach, high-level design), Rollout plan, Open questions, collapsible Appendix with the design-decisions table. No section named for a team. Business metrics and constraints present at every stage, as "None identified" plus what was checked where empty |
 

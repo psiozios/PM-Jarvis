@@ -19,11 +19,11 @@ The spec engineering builds from, written so every claim carries its evidence an
 /prd-draft --retro [product]              → Retro PRD for a product already shipped
 ```
 
-**What you get:** A 1-2 page PRD in themes: overview, problem, business metrics and goals, legal and risk constraints, solution, rollout plan, open questions, and a collapsible appendix. Saved to `outputs/prds/[feature-name-kebab-case]-[stage].md` (e.g., `voice-task-capture-team-kickoff.md`). Based on `templates/prd-template.md`. 10-20 minutes for a first draft.
+**What you get:** A 1-2 page PRD in themes: overview, problem, business metrics and goals, legal and risk constraints, solution, rollout plan, open questions, and a collapsible appendix. Saved to `outputs/prds/[feature-name-kebab-case].md` (e.g., `voice-task-capture.md`), one file for its whole life: the stage lives in the header, and a new stage overwrites the same file. Based on `templates/prd-template.md`. 10-20 minutes for a first draft.
 
 ## Binding Rules
 
-Defers to `config/house-style.md` for voice and word choice, and writes in the PM's own style from `context-library/writing-style-*.md`.
+Defers to `config/house-style.md` for voice and word choice, and writes in the PM's own style from `context-library/writing-style-*.md`. **A draft stays quiet and singular** (`references/protocols/knowledge-capture.md` §5-6): no @-mentions until the user says it is ready, owners written as plain names, and every revision overwrites the one PRD file.
 
 **Commitment gate:** When a PRD moves past proposal into committed scope, run the five checks in `references/protocols/commitment-gate.md`.
 
@@ -85,7 +85,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 ## Output Quality Self-Check
 
-- [ ] Saved to `outputs/prds/` as `[feature-name-kebab-case]-[stage].md`
+- [ ] Saved to `outputs/prds/[feature-name-kebab-case].md`, the one file, revised in place; no @-mentions, owners as plain names, read back to confirm
 - [ ] Themes in order at every stage, metrics and constraints present even as "None identified" plus what was checked
 - [ ] Body within 250 words of the stage target, appendix excluded, the user's own text untouched
 - [ ] Current implementation gaps read from the code, each graded "inferred from the code" with its confirming engineer owning an open question

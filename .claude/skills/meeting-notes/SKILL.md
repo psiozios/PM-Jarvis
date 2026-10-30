@@ -224,9 +224,9 @@ Processing now...
 
 | Task | Owner | Due Date | Priority | Status |
 |------|-------|----------|----------|--------|
-| [Specific action item] | @[Name] | [Date] | High | 🔴 Not Started |
-| [Specific action item] | @[Name] | [Date] | Medium | 🟡 In Progress |
-| [Specific action item] | @[Name] | [Date] | Low | 🟢 Complete |
+| [Specific action item] | [Name] | [Date] | High | 🔴 Not Started |
+| [Specific action item] | [Name] | [Date] | Medium | 🟡 In Progress |
+| [Specific action item] | [Name] | [Date] | Low | 🟢 Complete |
 
 **Notes:**
 - Items marked with 🔴 are blocking other work
@@ -252,9 +252,9 @@ Processing now...
 
 ## Open Questions
 
-- [ ] [Question that needs answering] - **Owner:** @[Name] - **By:** [Date]
-- [ ] [Question that needs answering] - **Owner:** @[Name] - **By:** [Date]
-- [ ] [Question that needs answering] - **Owner:** @[Name] - **By:** [Date]
+- [ ] [Question that needs answering] - **Owner:** [Name] - **By:** [Date]
+- [ ] [Question that needs answering] - **Owner:** [Name] - **By:** [Date]
+- [ ] [Question that needs answering] - **Owner:** [Name] - **By:** [Date]
 
 ---
 
@@ -403,8 +403,8 @@ If you don't specify who owns an action item, I'll:
 Example:
 ```
 **Action:** Update pricing page with new tier
-**Suggested Owner:** @Maria (Design) - She owns the marketing site redesign
-**Needs Confirmation:** Check if this should be @Jake (Eng) if it requires backend changes
+**Suggested Owner:** Maria (Design) - She owns the marketing site redesign
+**Needs Confirmation:** Check if this should be Jake (Eng) if it requires backend changes
 ```
 
 ### Context Linking
@@ -422,7 +422,7 @@ Example:
 **Context:** This aligns with our [Q2 Strategy] of de-risking launches. 
 Also see: [Voice Task PRD] which used similar rollout approach successfully.
 
-**Stakeholder Note:** @VP-Engineering prefers A/B tests for all AI features 
+**Stakeholder Note:** The VP of Engineering prefers A/B tests for all AI features 
 (per stakeholder profile: "Always wants data before full launch")
 ```
 
@@ -565,8 +565,8 @@ Would you like me to:
 **Main Outcome:** [One sentence]
 
 **Action Items:**
-- [ ] [Task] - @Owner - [Date]
-- [ ] [Task] - @Owner - [Date]
+- [ ] [Task] - Owner - [Date]
+- [ ] [Task] - Owner - [Date]
 
 **Key Quote:**
 "[Most important thing said]"
@@ -599,11 +599,11 @@ Optimized for pasting into Slack:
 • [Decision 2]
 
 *Action items:*
-✅ [Task] - @Owner - Due [Date]
-✅ [Task] - @Owner - Due [Date]
+✅ [Task] - Owner - Due [Date]
+✅ [Task] - Owner - Due [Date]
 
 *Open questions:*
-❓ [Question] - @Owner to resolve
+❓ [Question] - Owner to resolve
 
 *Next meeting:* [Date] to discuss [Topic]
 
@@ -807,9 +807,9 @@ instantly without manual structuring, so I don't lose track of commitments.
 
 ## Action Items
 
-- [ ] Add Marcus quote to Voice Task PRD - @You - Tomorrow
-- [ ] Schedule follow-up to test prototype - @You - This week
-- [ ] Ask Marcus for intro to other Spotify PMs - @You - This week
+- [ ] Add Marcus quote to Voice Task PRD - You - Tomorrow
+- [ ] Schedule follow-up to test prototype - You - This week
+- [ ] Ask Marcus for intro to other Spotify PMs - You - This week
 
 ---
 
@@ -896,9 +896,9 @@ mandatory legal review before launch due to voice data processing.
 
 | Task | Owner | Due Date | Priority | Blocker |
 |------|-------|----------|----------|---------|
-| Schedule legal review of voice feature | @You | This week | 🔴 High | Blocks beta |
-| Set up week 1 beta checkpoint meeting | @You | Before beta | 🟡 Medium | - |
-| Confirm edit rate tracking is instrumented | @Engineering | Before beta | 🔴 High | Blocks launch |
+| Schedule legal review of voice feature | You | This week | 🔴 High | Blocks beta |
+| Set up week 1 beta checkpoint meeting | You | Before beta | 🟡 Medium | - |
+| Confirm edit rate tracking is instrumented | Engineering | Before beta | 🔴 High | Blocks launch |
 
 ---
 
@@ -930,8 +930,8 @@ mandatory legal review before launch due to voice data processing.
 
 ## Open Questions
 
-- [ ] What specifically does Legal need to review? - @You to ask Legal - This week
-- [ ] Do we need consent flow for voice processing? - @Design + Legal - This week
+- [ ] What specifically does Legal need to review? - You to ask Legal - This week
+- [ ] Do we need consent flow for voice processing? - Design + Legal - This week
 
 ---
 

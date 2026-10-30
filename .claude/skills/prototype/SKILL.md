@@ -378,7 +378,7 @@ Build the prototype directly in the conversation.
 - Footer/secondary actions
 ```
 
-Save the code to: `outputs/prototypes/[feature-name]-artifacts-v[N].md`
+Save the code to: `outputs/prototypes/[feature-name]-artifacts.md`, revised in place each round
 
 ---
 
@@ -477,7 +477,7 @@ Prototype ready! Saved to outputs/prototypes/[filename].
 **Next steps:**
 1. **Test it:** [Instructions specific to type -- paste into v0, open in Lovable, etc.]
 2. **Get feedback:** Run `/prototype-feedback` for structured review
-3. **Iterate:** Come back with feedback and I'll generate v2
+3. **Iterate:** Come back with feedback and I'll revise it in place
 4. **Share:** [How to share with stakeholders]
 
 **Want me to also:**
@@ -495,10 +495,10 @@ When the PM comes back with feedback:
 
 1. **Read previous prototype:** Check `outputs/prototypes/[feature]-*` for history
 2. **Understand feedback:** What worked? What didn't? What changed?
-3. **Generate updated version:** Increment version number
+3. **Revise in place:** Overwrite the same file and add a dated changelog line
 4. **Track changes:** Note what changed between versions
 
-**Version naming:** `[feature-name]-[type]-v[N].md`
+**File naming:** `[feature-name]-[type].md`, one file per prototype (`references/protocols/knowledge-capture.md` §6). Rounds are changelog lines inside it, not new files:
 - v1: Initial prototype
 - v2: After first round of feedback
 - v3: After stakeholder review
@@ -574,7 +574,7 @@ Before presenting the prototype or prompt, verify:
 - [ ] Primary user flow is complete from start to finish
 - [ ] Prompt is specific enough that two different AI tools would produce similar results
 - [ ] Edge cases from user research are addressed (if research exists)
-- [ ] File saved with correct naming convention: `[feature-name]-[type]-v[N].md`
+- [ ] File saved as `[feature-name]-[type].md` and revised in place, never a `-v[N]` copy
 - [ ] Requirements verification checklist included (PRD requirements mapped to prototype coverage with reasons for any gaps)
 - [ ] Next steps are clear (how to test, how to iterate, how to get feedback)
 - [ ] Design direction applied -- If a design direction file exists, parameters and anti-patterns are reflected in the prototype prompt

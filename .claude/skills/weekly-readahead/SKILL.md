@@ -55,7 +55,7 @@ Every section leads with why it matters to this specific audience, not a bare li
 
 ### 4. Draft, then publish on confirm
 
-Show the drafted read-ahead. Publish to `<DOCS_HUB>` only after confirmation — this is content visible to others, so it follows the outward-draft-first discipline even though the destination is a shared doc rather than a message.
+Show the drafted read-ahead. Publish to `<DOCS_HUB>` only after confirmation — this is content visible to others, so it follows the outward-draft-first discipline even though the destination is a shared doc rather than a message. The published draft carries no @-mentions until the user says it is ready: plain names, "Owner: name", read back to confirm (`references/protocols/knowledge-capture.md` §5).
 
 ## Output Template
 

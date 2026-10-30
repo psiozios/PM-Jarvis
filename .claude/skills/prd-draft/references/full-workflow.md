@@ -134,7 +134,7 @@ Questions? Drop them in [Slack channel].
 ## Where Files Go
 
 **PRD documents:**
-- Active work: `outputs/prds/[feature-name]-[stage].md`
+- Active work: `outputs/prds/[feature-name].md`, one file, revised in place as the stage moves
 - When finalized: Move to `context-library/prds/[feature-name].md` for historical reference
 - Evolve through stages: Team Kickoff → Planning Review → XFN Kickoff → Solution Review → Launch → Impact
 
