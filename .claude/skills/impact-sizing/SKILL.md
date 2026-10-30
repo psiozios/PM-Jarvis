@@ -227,7 +227,7 @@ Feature: [Name]
 
 **Impact sizing analysis:**
 - Active work: `outputs/analyses/impact-sizing-[feature-name]-[date].md`
-- When finalized: Reference in PRD in `Strategic Fit` section
+- When finalized: Reference in the PRD's `Business metrics and goals` section, with the detail in its appendix
 - Archive: Move to `context-library/prds/` as historical reference when feature ships
 
 ---
@@ -246,7 +246,7 @@ After sizing impact:
 
 - `/opportunity-sizing` -> when the question is whether the market is worth entering, not what one feature is worth
 - `/user-research-synthesis` -> when the addressable-user assumption has no qualitative evidence
-- `/prd-draft` -> when the sizing goes into the PRD's Strategic Fit section
+- `/prd-draft` -> when the sizing goes into the PRD's Business metrics and goals section
 - `/feature-metrics` -> when usage estimates determine what the success metric can detect
 - `/experiment-decision` -> when the effect size determines test duration and sample size
 - `/write-prod-strategy` -> when feature impact should shape strategic pillar priorities

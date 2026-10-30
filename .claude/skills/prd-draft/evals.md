@@ -1,8 +1,8 @@
 ---
 skill: prd-draft
 archetype: Document-Writer
-eval-version: 1
-last-updated: 2026-06-23
+eval-version: 2
+last-updated: 2026-10-30
 ---
 
 # Evals: /prd-draft
@@ -18,8 +18,8 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | ID | Check | Criteria |
 |----|-------|----------|
 | E1 | Filename convention | File saved as `outputs/prds/[feature-kebab]-[stage].md` |
-| E2 | Stage-appropriate length | Word count falls within stage guidance (Team Kickoff: 300-500, Engineering Handoff: 800-1500) |
-| E3 | Required sections present | All sections mandated for the chosen PRD stage are present and non-empty |
+| E2 | Stage-appropriate length | Body word count, appendix excluded, against the stage target in the SKILL's length table: up to 250 words over the top of the range is PASS, 251-500 over is PARTIAL, more is FAIL. FAIL as well if the user's own text was cut to hit the number |
+| E3 | Themes, in order, every stage | Overview, Problem (hypothesis, current implementation gaps), Business metrics and goals, Legal compliance and risk constraints, Solution (approach, high-level design), Rollout plan, Open questions, collapsible Appendix with the design-decisions table. No section named for a team. Business metrics and constraints present at every stage, as "None identified" plus what was checked where empty |
 
 ### Quality & Voice
 
@@ -41,7 +41,7 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 
 | ID | Check | Criteria |
 |----|-------|----------|
-| E10 | Non-goals with rationale | Each non-goal states WHY it's excluded, not just what it is |
+| E10 | "What it is not" with rationale | Each non-goal in the Overview states WHY it's excluded, not just what it is |
 | E11 | Kill criteria actionable | Kill criteria specify a threshold the team would act on, with a named owner |
 | E12 | Open questions assigned | Every open question has a named stakeholder owner |
 

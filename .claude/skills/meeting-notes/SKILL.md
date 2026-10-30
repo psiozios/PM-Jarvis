@@ -622,9 +622,9 @@ After meeting notes, you might:
 These insights from the customer interview should go into a PRD.
 
 Use `/prd-draft` and I'll auto-populate:
-- User quotes → Hypothesis section
+- User quotes → Problem section (hypothesis evidence)
 - Pain points → Problem statement
-- Decisions made → Non-goals and trade-offs
+- Decisions made → the design-decisions table in the appendix, and the Overview's "what it is not"
 - Action items → Open questions
 ```
 

@@ -57,7 +57,7 @@ Defers to `config/house-style.md` for voice and word choice. This skill carries 
 
 | Source | Location | What to extract |
 |--------|----------|-----------------|
-| Source spec | The named PRD, `context-library/prds/` | Requirements, non-goals, open questions, and the section IDs to cite as sources |
+| Source spec | The named PRD, `context-library/prds/` | Solution (approach and high-level design), the Overview's "what it is not", open questions, and the section IDs to cite as sources |
 | Ticket corpus | `references/tickets-corpus.md` | The team's real ticket shape, and the **median body length** that sets the budget |
 | Existing tracker state | `<TASK_TRACKER>` | Open epics and project structure; existing tickets covering the same domain change |
 | Related in-flight work | `context-library/prds/`, `outputs/prds/` | Domain changes elsewhere that this one depends on or duplicates |

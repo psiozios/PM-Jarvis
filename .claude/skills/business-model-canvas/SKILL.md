@@ -331,7 +331,7 @@ List the 3-5 most critical assumptions in this canvas that, if wrong, would inva
 - `/survey-builder` -> when the revenue-streams or pricing block is the weakest assumption (Van Westendorp)
 - `/interview-guide` -> when the customer-segments block is guesswork and needs discovery interviews
 - `/impact-sizing` -> when revenue streams and cost structure need numbers behind them
-- `/prd-draft` -> when the canvas feeds a feature's Strategic Fit section
+- `/prd-draft` -> when the canvas feeds a feature's Business metrics and goals section
 
 ## Output Quality Self-Check
 

@@ -1,5 +1,7 @@
 # Group Order Feature for Blinkit
 
+> **Section layout note:** this example predates the current PRD themes (`templates/prd-template.md`). Read it for the quality of its content; take the section order from the template.
+
 **Stage:** Solution Review
 **Last Updated:** January 7, 2026
 **Owner:** Product Team

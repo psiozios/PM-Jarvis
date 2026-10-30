@@ -46,7 +46,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 **Read the PRD:**
 - Feature scope and complexity
-- Success metrics (for post-launch monitoring)
+- Business metrics and goals (for post-launch monitoring)
 - Rollout plan (A/B test, % rollout, full launch)
 - Target launch date
 - Stakeholders involved

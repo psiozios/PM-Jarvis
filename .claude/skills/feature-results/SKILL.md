@@ -371,7 +371,7 @@ When the PM uses `/feature-results`, I automatically:
 - **How I use it:** Add context like "This compares to our pricing redesign which saw 12% improvement"
 
 ### 4. Extract Guardrail Metrics
-**Source:** `context-library/metrics/`, PRD success metrics section
+**Source:** `context-library/metrics/`, the PRD's Business metrics and goals section
 - **What I look for:** Metrics that must not decline (retention, NPS, etc.)
 - **How I use it:** Pre-populate guardrail metrics table with relevant metrics
 

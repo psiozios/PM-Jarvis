@@ -1,6 +1,6 @@
 ---
 name: prd-draft
-description: Write the full PRD for a feature — hypothesis, strategic fit, non-goals, success metrics, rollout plan, optional AI behavior specs — through guided clarifying questions, with an offer to run the multi-agent review panel afterward. The spec engineering builds from; use prd-lite for a quick proposal before a feature is slated.
+description: Write the full PRD for a feature — overview, problem and hypothesis, business metrics, constraints, solution, rollout, open questions, in themes rather than teams — through guided clarifying questions, with an offer to run the multi-agent review panel afterward. The spec engineering builds from; use prd-lite for a quick proposal before a feature is slated.
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -18,7 +18,7 @@ disable-model-invocation: false
 /prd-draft --ai                           → Include AI behavior specification sections
 ```
 
-**What you get:** A 1-2 page modern PRD with hypothesis, strategic fit, non-goals, success metrics, rollout plan, and optional behavior examples. Saved to `outputs/prds/[feature-name-kebab-case]-[stage].md`. Based on `templates/prd-template.md`.
+**What you get:** A 1-2 page PRD in themes: overview, problem, business metrics and goals, legal and risk constraints, solution, rollout plan, open questions, and a collapsible appendix. Saved to `outputs/prds/[feature-name-kebab-case]-[stage].md`. Based on `templates/prd-template.md`.
 
 **Time:** 10-20 minutes for first draft. Then iterate.
 
@@ -106,7 +106,7 @@ Flag this and suggest `/write-prod-strategy` or `/strategy-sprint` first.
 1. **Problem Validation:** Is this problem validated with real users, or hypothesis?
 2. **Strategic Clarity:** Do you know how this fits into your Q# roadmap?
 3. **Scope Clarity:** Is this a small v1 or full-featured release?
-4. **Success Metrics:** Do you know what success looks like?
+4. **Business Metrics:** Do you know what success looks like?
 5. **Execution Readiness:** Do engineering and design understand the scope?
 
 ---
@@ -202,177 +202,9 @@ After you review, we can iterate or get multi-perspective feedback.
 
 ### PRD Structure
 
-**Reference the full template at `templates/prd-template.md`.** Include only sections relevant to the current stage. Use this structure:
+**Sections are themes, never teams.** Use `templates/prd-template.md` and this order, at every stage: 1. Overview (what it is, what it is not, why now) · 2. Problem (hypothesis; current implementation gaps) · 3. Business metrics and goals · 4. Legal, compliance and risk constraints · 5. Solution (approach; high-level design) · 6. Rollout plan · 7. Open questions with owners · a collapsible appendix holding the design-decisions table. No section is named for a team ("Engineering", "Legal", "Design").
 
-```markdown
-# [Feature Name]
-
-**Stage:** [Team Kickoff / Planning Review / XFN Kickoff / Solution Review / Launch Readiness / Impact Review]
-**Last Updated:** [Date]
-**Owner:** [PM Name]
-**Status:** [Draft / In Review / Approved]
-
----
-
-## Hypothesis
-
-[Problem Statement - What user pain are we solving?]
-
-**If we** [build X],
-**then** [Y will happen],
-**because** [Z assumption about user behavior].
-
-**Supporting Evidence:**
-- [Data point or user quote]
-- [Data point or user quote]
-
----
-
-## Strategic Fit
-
-**Why this? Why now?**
-
-This supports our [Q# Goal/Strategy] by [specific connection].
-
-**Impact Sizing:**
-
-> Use the 4-step framework: Estimate Usage → Calculate Impact → Identify Risks → Define Takeaways
-
-**Step 1: Estimate Usage (Funnel)**
-| Stage | Users | Drop-off Reason |
-|-------|-------|-----------------|
-| Total users who see feature | [number] | - |
-| Users eligible for feature | [number] | [reason for ineligibility] |
-| Users who engage | [number] | [why they don't engage] |
-| Users who complete action | [number] | [friction points] |
-
-**Step 2: Calculate Impact**
-- *Engagement Impact:* [DAU/MAU/Retention change]
-- *Top-Line Impact:* [Revenue/GMV change]
-- *Bottom-Line Impact:* [Contribution margin/profit change]
-
-**Step 3: Confidence Assessment**
-| Assumption | Confidence | Risk Level | De-risking Action |
-|------------|------------|------------|-------------------|
-| [Key assumption 1] | High/Med/Low | [risk] | [action to validate] |
-| [Key assumption 2] | High/Med/Low | [risk] | [action to validate] |
-
-**Summary:**
-- Users affected: [number or %]
-- Revenue impact: [estimate with confidence level]
-- Strategic value: [High/Medium/Low]
-
-**Alternatives Considered:**
-- [Alternative A] - Not doing because [reason]
-- [Alternative B] - Not doing because [reason]
-
----
-
-## Non-Goals
-
-What we are explicitly NOT doing in v1:
-- [Non-goal 1] - [Why it's out of scope]
-- [Non-goal 2] - [Why it's out of scope]
-
-**Trade-offs Made:**
-- [Trade-off] - [Rationale]
-
----
-
-## Success Metrics
-
-> **📚 Tip:** For help choosing the right metrics, see `.claude/skills/define-north-star/` (align to North Star) and `.claude/skills/experiment-metrics/` (STEDII framework for trustworthy metrics).
-
-**Primary Metric:** [Metric name]
-- Current: [baseline]
-- Target: [goal]
-- Timeline: [when we expect to see impact]
-
-**Guardrail Metrics:** (Must not harm)
-- [Metric 1]: [acceptable range]
-- [Metric 2]: [acceptable range]
-
-**Kill Criteria:**
-If [specific condition], we will [rollback plan].
-
----
-
-## Rollout Plan
-
-**Approach:** [A/B Test / Phased Rollout / Full Launch]
-
-**Phase 1:** [Who gets it first, when]
-- Passing criteria: [What has to be true to move to Phase 2]
-
-**Phase 2:** [Expand to, when]
-- Passing criteria: [What has to be true to move to Phase 3]
-
-**Rollback Plan:**
-If [scenario], we will [specific action].
-
----
-
-## AI Behavior Contract (AI features only)
-
-> Include for AI/ML features. Delete for non-AI features. See `templates/prd-template.md` Section 3 for the full contract format.
-
-| Dimension | Specification |
-|-----------|--------------|
-| **Primary Task(s)** | summarize / extract / classify / generate / route |
-| **Inputs Available** | [fields, context, tools, RAG sources] |
-| **Constraints** | [brand, privacy, compliance] |
-| **Disallowed** | [PII echo, policy violations, jailbreak classes] |
-| **Latency Budget** | P50: [X]ms / P95: [Y]ms |
-
-**Behavior Examples:**
-
-| Scenario | User Input | Expected Output | Rejection Criteria |
-|----------|------------|-----------------|-------------------|
-| Happy path | [Example 1] | [What should happen] | N/A |
-| Edge case | [Example 2] | [Graceful handling] | N/A |
-| Should reject | [Example 3] | [Error/refusal] | [Why rejected] |
-
----
-
-## Solution Overview (non-AI features only)
-
-> Include for non-AI features. Delete for AI features (use Behavior Contract above).
-
-**User Flow:**
-1. [Step 1: User does X]
-2. [Step 2: System responds with Y]
-3. [Step 3: User completes Z]
-
-**Key Interactions:**
-- [Interaction]: [What happens and why]
-
-**Edge Cases:**
-- [Edge case]: [How we handle it]
-
-**Mockup/Prototype:** [Link or embed]
-
----
-
-## Risks and Recovery
-
-| Risk | Detection | Fallback | Kill Switch |
-|------|-----------|----------|-------------|
-| [Risk 1] | [signal/threshold] | [fallback plan] | [who owns] |
-| [Risk 2] | [signal/threshold] | [fallback plan] | [who owns] |
-
----
-
-## Open Questions
-
-- [ ] [Question 1] - @[stakeholder]
-- [ ] [Question 2] - @[stakeholder]
-
----
-
-## Appendix
-
-[Supporting context, research data, impact sizing detail, alternatives considered, changelog]
-```
+**Every stage carries every theme.** A short stage keeps a theme to one line. Business metrics and constraints never drop out: where none apply yet, the section says "None identified" and names what was checked.
 
 ### Writing Guidelines for the Draft
 
@@ -529,7 +361,7 @@ The PM will likely want to refine sections. Common requests:
 **"Add more behavior examples"**
 → Create the Good/Bad/Reject table with real scenarios
 
-**"The non-goals aren't clear"**
+**"The 'what it is not' line isn't clear"**
 → Make them more specific, add rationale for each
 
 **"This needs to be shorter"**
@@ -542,30 +374,30 @@ The PM will likely want to refine sections. Common requests:
 
 ## Stage-Specific Length Guidance
 
-Match document length to stage. Shorter is always better -- expand only as the initiative matures.
+Word ranges are targets for the body. The appendix does not count.
 
-| Stage | Word Count | Focus | What to Skip |
-|-------|-----------|-------|--------------|
-| Team Kickoff | 300-500 words | Problem, hypothesis, high-level approach | Detailed metrics, rollout plan |
-| Planning Review | 500-800 words | Strategic fit, impact sizing, alternatives | Detailed behavior examples |
-| XFN Kickoff | 800-1200 words | Aligned solution, initial data, mockups | Deep edge cases |
-| Solution Review | 1000-1500 words | In-depth justification, edge cases, behavior | Nothing -- this is the full spec |
-| Launch Readiness | 1500-2000 words | Final details, rollback, kill criteria, go/no-go | Problem exploration (decided already) |
-| Impact Review | 500-800 words | Results vs. targets, learnings, next steps | Future roadmap detail |
+| Stage | Target words | Focus |
+|-------|--------------|-------|
+| Team Kickoff | 300-500 | Overview, problem, one line per other theme |
+| Planning Review | 500-800 | Business metrics and goals, alternatives in the design-decisions table |
+| XFN Kickoff | 800-1200 | Solution approach and high-level design, mockups, constraints with sources |
+| Solution Review | 1000-1500 | Edge cases, behavior, rollout plan |
+| Launch Readiness | 1500-2000 | Kill criteria, rollback, comms, go/no-go |
+| Impact Review | 500-800 | Actuals against targets, what we would do differently |
 
-**Rule of thumb:** If the PRD exceeds the word count for its stage, move supporting details to the Appendix.
+**Scoring against the target:** up to 250 words over the top of the range passes, 251-500 over is PARTIAL, more fails. The remedy is moving the run's own detail into the appendix. **The user's own text is never cut to hit a number**; where it alone keeps the count over, say so and leave it.
 
 ---
 
 ## Stage-Specific Adjustments
 
 ### Team Kickoff Stage
-- Focus on: Problem, hypothesis, high-level approach
-- Skip: Detailed metrics, rollout plan
+- Focus on: Overview, problem, hypothesis
+- Keep to one line: business metrics, constraints, solution, rollout
 - Include: Lots of open questions
 
 ### Planning Review Stage
-- Focus on: Strategic fit, impact sizing, alternatives considered
+- Focus on: Business metrics and goals, impact sizing, alternatives in the design-decisions table
 - Include: Rough success metrics, estimated effort
 - Skip: Detailed behavior examples
 
@@ -618,7 +450,7 @@ Customize the template for your company. Add sections that matter to your team.
 
 ❌ **Too long** - If it's over 2 pages, move details to Appendix
 ❌ **Too generic** - Use specific data, quotes, and stakeholders
-❌ **No non-goals** - Always clarify what you're NOT doing
+❌ **No "what it is not"** - Always clarify what you're NOT doing
 ❌ **Vague metrics** - "Increase engagement" is not specific enough
 ❌ **No rollout plan** - A/B test vs full launch matters
 ❌ **Missing kill criteria** - How will you know if this failed?
@@ -670,9 +502,9 @@ After creating PRD:
 
 - `/prd-lite` -> when the feature is not yet slated; write the short proposal first and escalate here
 - `/user-research-synthesis` -> when the user problem is asserted rather than evidenced
-- `/impact-sizing` -> when Strategic Fit has no numbers behind it
-- `/feature-metrics` -> when the success-metrics section needs a primary metric, guardrails, and kill criteria
-- `/write-prod-strategy` -> when strategic fit is unclear and there is no pillar to point at
+- `/impact-sizing` -> when Business metrics and goals has no numbers behind it
+- `/feature-metrics` -> when Business metrics and goals needs a primary metric, guardrails, and kill criteria
+- `/write-prod-strategy` -> when the goal it serves is unclear and there is no pillar to point at
 - `/second-brain` -> before drafting, to pull cited background from `product-knowledge` and `customer-insights`
 - `/prd-review-panel` -> after drafting, for seven-perspective review before stakeholders see it
 - `/create-tickets` -> after approval, to break the spec into engineering work
@@ -684,13 +516,14 @@ Before presenting the PRD draft to the PM, verify:
 
 - [ ] **Filename follows convention:** `[feature-name-kebab-case]-[stage].md` (e.g., `voice-task-capture-team-kickoff.md`)
 - [ ] **Saved to correct location:** `outputs/prds/` (NOT `context-library/prds/`)
-- [ ] **Word count matches stage:** Check against the Stage-Specific Length Guidance table
+- [ ] **Word count matches stage:** body within 250 words of the stage target, appendix excluded, the user's own text untouched
+- [ ] **Themes, in order, at every stage:** overview, problem, business metrics and goals, constraints, solution, rollout, open questions, collapsible appendix — and metrics and constraints present even as "None identified" plus what was checked
 - [ ] **Hypothesis is testable:** Contains a clear "If we... then... because..." statement
-- [ ] **Strategic fit references actual strategy:** Cites specific goals from `context-library/strategy/`, not generic strategy language
-- [ ] **Non-goals are specific:** Each non-goal explains WHY it's excluded, not just what it is
+- [ ] **Business goals reference actual strategy:** Cites specific goals from `context-library/strategy/`, not generic strategy language
+- [ ] **"What it is not" is specific:** Each non-goal explains WHY it's excluded, not just what it is
 - [ ] **Success metrics have baselines and targets:** Not just "increase X" but "X from [current] to [target] by [date]"
 - [ ] **Kill criteria are realistic:** Would the team actually pull the plug at this threshold?
-- [ ] **Behavior Examples vs Solution Overview:** AI features have the behavior table; non-AI features have the solution overview
+- [ ] **High-level design fits the feature:** AI features carry the behavior contract and example table; non-AI features the user flow and edge cases
 - [ ] **Reads naturally:** Read it aloud — varied cadence, natural contractions, no formulaic openings (`config/house-style.md` §5 P11, §7). Name the defect, never the author.
 - [ ] **User quotes included:** If user research exists in `context-library/research/`, at least one real quote is referenced
 - [ ] **Open questions have owners:** Every open question has a @stakeholder assigned
@@ -740,7 +573,7 @@ Use the conversational workflow in Step 1-3 above to generate your first draft.
 
 ### Workflow Step 3: Enhance Each Section (30-60 min)
 
-**Problem Statement:**
+**Problem:**
 - [ ] Add specific customer quotes
 - [ ] Include quantitative data
 - [ ] Connect to company strategy
@@ -750,7 +583,7 @@ Use the conversational workflow in Step 1-3 above to generate your first draft.
 - [ ] Detail alternatives considered
 - [ ] Call out tradeoffs made
 
-**Success Metrics:**
+**Business metrics and goals:**
 - [ ] Define leading AND lagging indicators
 - [ ] Set specific targets
 - [ ] Define success criteria
@@ -907,7 +740,7 @@ Create a table with three categories:
 
 ## AI PRD Template Addition
 
-Add this to the standard PRD for AI features:
+Fold these into the standard themes for AI features: the behavior specification, AI constraints, and degradation path under 5. High-level design, safety and compliance under 4, and the AI kill criteria under 3:
 
 ```markdown
 ## AI Behavior Specification
@@ -951,14 +784,14 @@ Alias for `/prd-lite`, which owns the pre-commitment feature brief. Run `/prd-li
 
 ### Second Brain
 
-Before drafting, query the second brain for the **Background / Context** section. A good PRD starts with evidence, not assumptions. Pull from:
+Before drafting, query the second brain for the **Overview** and **Problem** sections. A good PRD starts with evidence, not assumptions. Pull from:
 
 - **`product-knowledge`** — what we already know about this product area, constraints, dependencies
 - **`customer-insights`** — the customer pain, jobs-to-be-done, verbatim quotes from prior research
 - **`competitive-intelligence`** — how competitors solve this today, positioning gaps
 - **`decisions`** — past decisions in this area that constrain or inform the current one
 
-Equivalent of `/second-brain query "background context for <feature>" --focus=<each>`. Pull facts with `[Source:]` citations directly into the PRD's Context section so stakeholders can click through to the evidence.
+Equivalent of `/second-brain query "background context for <feature>" --focus=<each>`. Pull facts with `[Source:]` citations directly into the PRD's Overview and Problem sections so stakeholders can click through to the evidence.
 
 If the brain is thin on this topic, flag it at the top of the PRD ("evidence gap: we don't yet have wiki pages for X, Y"). That's a research task, not a blocker — but it should be visible.
 

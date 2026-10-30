@@ -372,7 +372,7 @@ Before you launch an experiment, verify:
 ## Cross-Skill Links
 
 - `/experiment-decision` -> when the open question is whether to test at all, not what to measure
-- `/feature-metrics` -> when the metric is going into a PRD's success-metrics section
+- `/feature-metrics` -> when the metric is going into a PRD's Business metrics and goals section
 - `/analytics-instrumentation` -> when the chosen metric is not currently being captured
 - `/metrics-framework` -> when the metric needs a place in the leading/lagging hierarchy
 - `/define-north-star` -> when the metric must ladder to the North Star

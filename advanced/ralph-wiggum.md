@@ -131,7 +131,7 @@ Step 3: Address all critical feedback and iterate
 
 Success criteria:
 - PRD is 1-2 pages (not 10)
-- All 6 key sections included (Hypothesis, Strategic Fit, Non-Goals, Metrics, Rollout, Behavior Examples)
+- All themes included, in order (Overview, Problem, Business metrics and goals, Constraints, Solution, Rollout plan, Open questions, Appendix)
 - All 7 sub-agent reviews completed
 - Critical issues addressed
 - No major blockers remaining

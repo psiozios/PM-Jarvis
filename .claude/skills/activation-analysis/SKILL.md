@@ -483,7 +483,7 @@ Use this with your team:
 **Onboarding Improvements:**
 - Create PRD in `context-library/prds/` for each onboarding change
 - Link this activation analysis as context
-- Track changes in the PRD's success metrics section
+- Track changes in the PRD's Business metrics and goals section
 
 **Activation Metrics:**
 - Update `context-library/metrics/` with your Setup, Aha, Habit definitions and rates

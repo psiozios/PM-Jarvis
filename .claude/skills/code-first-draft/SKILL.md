@@ -77,9 +77,9 @@ tree -L 2 -I 'node_modules|__pycache__|.git'
 
 **Read PRD and extract:**
 - User stories → Features to build
-- Success metrics → Analytics to instrument
+- Business metrics and goals → Analytics to instrument
 - Edge cases → Error handling needed
-- Non-goals → What NOT to build
+- "What it is not" (Overview) → What NOT to build
 
 **Map to code:**
 - Which files need modification?

@@ -1,13 +1,13 @@
 ---
 name: feature-metrics
-description: Define the success-metrics section of a PRD — one primary metric with a real baseline and target, guardrails protecting what you must not break, and explicit kill criteria — laddered up to the North Star. Screens candidates against STEDII rather than teaching it; use experiment-metrics for the framework itself.
+description: Define the business-metrics section of a PRD — one primary metric with a real baseline and target, guardrails protecting what you must not break, and explicit kill criteria — laddered up to the North Star. Screens candidates against STEDII rather than teaching it; use experiment-metrics for the framework itself.
 user-invocable: true
 disable-model-invocation: false
 ---
 
 # /feature-metrics - Define Success Metrics
 
-Define a feature's success-metric section for a PRD: one primary metric, its guardrails, and its kill criteria. Candidates are screened against STEDII, which `/experiment-metrics` owns.
+Define a feature's metrics for the PRD's Business metrics and goals section: one primary metric, its guardrails, and its kill criteria. Candidates are screened against STEDII, which `/experiment-metrics` owns.
 
 ## Context Routing
 
@@ -188,7 +188,7 @@ If any of these occur, immediately rollback:
 ## Where Files Go
 
 **Feature metrics definitions:**
-- Active work: Add to PRD in `Strategic Fit` section
+- Active work: Add to the PRD's `Business metrics and goals` section
 - When finalized: Reference in `/experiment-decision` for A/B testing approach
 - Archive: Store final metrics in `context-library/metrics/[feature-name]-baseline.md` for historical reference
 

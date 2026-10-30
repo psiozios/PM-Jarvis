@@ -577,7 +577,7 @@ What would you like to do first?
 
 When you use `/prd-draft` after synthesis, I'll automatically:
 - Pull user quotes into the "Hypothesis" section
-- Add frequency data to "Strategic Fit"
+- Add frequency data to "Problem" as graded evidence
 - Suggest success metrics based on pain points
 - Flag non-goals from lower-priority themes
 

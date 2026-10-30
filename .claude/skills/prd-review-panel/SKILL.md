@@ -59,7 +59,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 3. **Read the full PRD:**
    - Load complete content
-   - Note the current stage (Team Kickoff / Planning Review / XFN Kickoff / Solution Review / Launch Readiness)
+   - Note the current stage (Team Kickoff / Planning Review / XFN Kickoff / Solution Review / Launch Readiness / Impact Review)
    - Identify sections present (some PRDs may be incomplete)
 
 ---
@@ -67,20 +67,18 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 ### Step 2: Review Preparation
 
 **Extract key elements from PRD:**
-- **Problem statement** - What user pain are we solving?
-- **Hypothesis** - If we build X, then Y will happen because Z
-- **Strategic fit** - Why this vs other things?
-- **Non-goals** - What's explicitly out of scope?
-- **Success metrics** - How we measure success
+- **Overview** - What it is, what it is not, why now
+- **Problem** - The hypothesis, and the current implementation gaps
+- **Business metrics and goals** - The goal it serves, primary metric, guardrails, kill criteria
+- **Legal, compliance and risk constraints** - What binds, from which source and version
+- **Solution** - Approach and high-level design: mockups, flows, behavior examples
 - **Rollout plan** - A/B test or full launch?
-- **Technical approach** - How we'll build it (if specified)
-- **UX design** - Mockups, flows, behavior examples
-- **Stakeholders** - Who needs to approve/support
-- **Risks** - Known concerns or open questions
+- **Open questions** - Each with its owner
+- **Appendix** - The design-decisions table
 
 **Determine review focus based on stage:**
 
-- **Team Kickoff stage:** Focus on problem definition, strategic fit
+- **Team Kickoff stage:** Focus on problem definition, the goal it serves
 - **Planning Review stage:** Focus on scope, estimates, prioritization
 - **XFN Kickoff stage:** Focus on cross-functional alignment, dependencies
 - **Solution Review stage:** Focus on technical approach, UX design, edge cases
@@ -617,7 +615,7 @@ agents: [engineer, designer, executive, legal, uxr, skeptic, customer]
 - [Strategic recommendations]
 
 **Business Impact:** [High/Medium/Low]
-**Strategic Fit:** [Strong/Moderate/Weak]
+**Business goals fit:** [Strong/Moderate/Weak]
 
 ---
 
@@ -793,7 +791,7 @@ Before presenting output to the PM, verify:
 - [ ] **Each reviewer has specific, actionable feedback:** Every reviewer section contains at least one concrete, actionable item (not generic praise like "looks good" or vague concerns like "needs more detail")
 - [ ] **Conflicting perspectives between reviewers explicitly flagged:** Any disagreements between agents (e.g., Engineering wants simplicity while Design wants richness) are called out in the "Conflicting Perspectives" section with both positions stated
 - [ ] **Synthesis section prioritizes feedback items:** The TL;DR and summary sections rank issues by severity (Critical Blockers > Important Gaps > Enhancements) with a clear recommended next step
-- [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 5" not "the rollout approach")
+- [ ] **Feedback references specific PRD sections:** Each piece of feedback points to the exact section, requirement, or design element it applies to (e.g., "the rollout plan in Section 6" not "the rollout approach")
 - [ ] **Every blocker confirmed against the PRD itself:** Each Critical Blocker and Important Gap was checked by reopening the PRD at the named section — not accepted from the reviewer's report, quote included
 - [ ] **A zero-blocker panel with heavy rewording was re-gated:** Not reported as a clean pass on the strength of the kill count alone
 
