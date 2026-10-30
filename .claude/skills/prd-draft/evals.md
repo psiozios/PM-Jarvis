@@ -1,7 +1,7 @@
 ---
 skill: prd-draft
 archetype: Document-Writer
-eval-version: 2
+eval-version: 3
 last-updated: 2026-10-30
 ---
 
@@ -44,6 +44,15 @@ Runs automatically on every skill invocation, per `references/protocols/skill-ev
 | E10 | "What it is not" with rationale | Each non-goal in the Overview states WHY it's excluded, not just what it is |
 | E11 | Kill criteria actionable | Kill criteria specify a threshold the team would act on, with a named owner |
 | E12 | Open questions assigned | Every open question has a named stakeholder owner |
+
+### Category 5: Graded Evidence
+
+| ID | Check | Criteria |
+|----|-------|----------|
+| E13 | Code read before drafting | With a codebase connected, Current implementation gaps names the file or function each gap was read from, graded "inferred from the code" with its confirming engineer in Open questions. N/A with the reason where no codebase is connected |
+| E14 | Why now is external | Why now cites a market, competitor, regulation, or client-research source. FAIL where it rests on an internal metric, which belongs under Business metrics and goals |
+| E15 | Versions and comments | Every contract, policy, or spec cited names its version, and the run shows its comments were read, resolved ones included |
+| E16 | Summaries keep the grade | No overview, TL;DR, or announcement line states as fact what its section grades as inferred, estimated, or unsourced, and none speaks in the first person for the user |
 
 ## Scoring
 

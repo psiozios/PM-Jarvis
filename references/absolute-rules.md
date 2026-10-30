@@ -21,6 +21,7 @@ Every quantitative claim carries an evidence grade. Ungraded numbers are the fai
 | Measured | Read from a live source this run | `12.4% (metrics source, 2026-07-26)` |
 | Reported | A person or document stated it | `12.4% (per the Q2 review doc)` |
 | Estimated | Derived, with the derivation shown | `~12% (est. from 1.4k of 11.8k accounts)` |
+| Inferred from the code | Read from the code path, not yet confirmed by its engineer | `waiver covers annual plans only (inferred from the code, billing/waivers.py; confirm: <engineer>)` |
 | Unsourced | Believed but unverified | `12% [unsourced]` |
 | Unknown | No basis at all | `[needs check]` — never a number |
 

@@ -7,6 +7,14 @@ disable-model-invocation: false
 
 **Commitment gate:** When a PRD moves past proposal into committed scope, run the five checks in `references/protocols/commitment-gate.md`.
 
+**The brief rests on graded evidence.** These hold for every draft, before a line is written:
+
+- **Read the current code path first, read-only, when a codebase is connected** (`/explore-codebase` does the read). Name where today's system falls short under Problem → Current implementation gaps, each gap pointing at the file or function it was read from and graded **"inferred from the code"** until its engineer confirms. That engineer goes in Open questions as the owner of the confirmation.
+- **Why now is external and sourced:** a market shift, a competitor move, a regulation, client research, each with its source. Internal metrics belong under Business metrics and goals, not in why-now.
+- **Name the version of every contract, policy, or spec read, and read its comments, resolved ones included.** On one run, two rulings that bound the design lived only in resolved comments.
+- **Summary lines keep the body's grade, in a neutral voice.** The overview, any TL;DR, and the announcement carry the same grades as the sections they summarize, because the doc ships under the user's name. One run's TL;DR stated code inferences as fact.
+- Grades follow `references/absolute-rules.md` (measured, reported, estimated, inferred from the code, unsourced, unknown).
+
 ## Quick Start
 
 **What to provide:** A feature idea, problem statement, or rough brief. Can be detailed or rough.
@@ -43,6 +51,8 @@ When this skill is invoked, immediately check:
 | Business Model | `context-library/business-info-template.md` | pricing, revenue, metrics | Revenue impact, North Star alignment |
 | Competitor Analysis | `context-library/research/competitive-*.md` | feature name | Competitive positioning if relevant |
 | Stakeholder Context | Stakeholder profiles | key stakeholders for this feature | Who to involve, communication style |
+| Current code path | the connected codebase, read-only (via `/explore-codebase`) | the feature's entry points and handlers | Where today's system falls short, graded "inferred from the code" |
+| Contracts, policies, specs | `<DOCS_HUB>`, `context-library/` | the clauses the feature touches | The version read, and every comment, resolved ones included |
 
 **Context Priority:**
 1. Strategic fit and related PRDs FIRST
