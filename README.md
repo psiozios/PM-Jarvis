@@ -235,6 +235,12 @@ Some values never come from the agent's memory. "Did it ship?" gets two answers,
 
 Writes to your own stores are set per surface in `config/write-surfaces.md`. Your review entries are `draft-in-place`: the periodic reviews write the draft straight into the entry, fill only fields that are still empty, skip anything that already exists, and reply with the link. Goal, project, and status changes stay proposals. Every other surface proposes first and writes on your approval.
 
+Drafts in a shared doc tool stay quiet until you say they're ready. They carry no @-mentions, owners are written as plain names, and the page is read back to confirm, because a mention pulls someone into an unfinished page. Each artifact is one file, revised in place: a PRD keeps its stage in the header rather than spawning a file per stage, and there's never an `-r2` copy.
+
+PRDs are organized by theme, never by team, in a fixed order: overview, problem, business metrics and goals, legal and risk constraints, solution, rollout plan, open questions, and a collapsible appendix of design decisions. Metrics and constraints appear at every stage, even if only as "none identified" plus what was checked. Each stage has a word target, and the user's own text is never cut to meet it. Gaps read from the code are graded "inferred from the code" until the engineer confirms them, why-now is sourced from outside the company, and summary lines keep the grade of the section they summarize. `/prd-draft --retro` documents a product already shipped by cross-checking its code, contract, sales and ops material, and ticket acceptance criteria. Each disagreement becomes a gap with an owner.
+
+Sequencing puts strategic weight ahead of the score. Go-live adjacency, partnership value, or a dependency decides where an item goes, and the prioritization score orders what's left. Every placement names its driver, and every open epic-level workstream is listed before anything gets ranked. Product mockups match the shipping UI: they trace tokens, type, components, and icons from the front-end code listed in `context-library/design-system.md`, and label anything new as proposed. The brand guide governs marketing only. MVP scope, launch and done definitions, and product goals come from your operating-principles doc (`{{OPERATING_PRINCIPLES_DOC}}`); while it's a working draft, it's applied but never presented as settled process.
+
 Two rules in `CLAUDE.md` fire on every turn, skill or no skill. Before answering a question or writing a brief, a strategy, or an explanation, the reply opens with three lines: what the deliverable is and isn't, what's already settled and where that's written down, and the angle it takes. An edit to a section you name changes that section only, as one verbatim replacement, and any other ideas wait unapplied below it.
 
 `references/protocols/prompt-architecture.md` holds the file-shape standard these files answer to: size budgets, canonical section names, and ten conformance checks you can run with grep. A file over its size ceiling keeps every rule and moves its incident history to a sibling rationale file that runs never load and editors read first, so a later simplification can't bring back a failure that was already fixed.
@@ -453,6 +459,7 @@ weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the we
 - [ ] Before your first product mockup, fill in `context-library/design-system.md` (where your front end keeps tokens, type, components, icons)
 - [ ] Before your first `/warehouse-brief`, fill in `context-library/metrics/warehouse-map.md` (tables, grains, traps)
 - [ ] Check `config/write-surfaces.md`: which of your own stores take a draft in place
+- [ ] Point `{{OPERATING_PRINCIPLES_DOC}}` at your operating-principles doc, if you keep one
 - [ ] Try `/daily-plan` or `/prd-draft` for your first command
 - [ ] Upload existing PRDs, strategy docs, and research to `context-library/`
 
