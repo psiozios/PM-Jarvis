@@ -59,6 +59,7 @@ Up to 250 words over the top of the range passes, 251-500 over is PARTIAL, more 
 | Source | Location | What to Extract |
 |--------|----------|-----------------|
 | Strategy docs | `context-library/strategy/*.md` | The goal or pillar it serves |
+| Operating principles | `{{OPERATING_PRINCIPLES_DOC}}` | MVP scope, what counts as launched and done, product goals. A working draft is applied, never cited as settled process |
 | Related PRDs | `context-library/prds/*.md`, `outputs/prds/` | Dependencies, cross-functional impact |
 | User research | `context-library/research/*.md` | Pain points, verbatim quotes, frequency |
 | Business model | `context-library/business-info-template.md` | Revenue impact, North Star alignment |

@@ -375,6 +375,8 @@
 
 ### Product Principles
 
+If your team keeps a fuller operating-principles doc (MVP scope, what counts as launched and done, product goals), point `{{OPERATING_PRINCIPLES_DOC}}` at it; skills read that doc for those definitions, and this list stays the short version.
+
 1. **[Principle 1]** - [Brief description]
 2. **[Principle 2]** - [Brief description]
 3. **[Principle 3]** - [Brief description]

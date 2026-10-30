@@ -40,6 +40,7 @@ Output: outputs/prds/prd-lite-[feature]-[date].md
 |--------|---------------|--------------|-----------------|
 | North Star | `context-library/strategy/*.md` | north star, NSM, primary metric | Alignment check |
 | Strategy | `context-library/strategy/*.md` | OKR, priority, pillar | Strategic fit |
+| Operating principles | `{{OPERATING_PRINCIPLES_DOC}}` | MVP, scope, done, product goals | How small the first version is allowed to be. A working draft is applied, never cited as settled process |
 | Research | `context-library/research/*.md` | user pain, problem, segment | Evidence for the claim |
 | PRDs | `context-library/prds/*.md` | similar feature, related | Prior work to reference |
 | Metrics | `context-library/metrics/*.md` | baseline, current rate | Numbers for the business case |

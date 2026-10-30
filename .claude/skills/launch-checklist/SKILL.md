@@ -35,6 +35,7 @@ Generate comprehensive launch checklist ensuring nothing falls through the crack
 3. `context-library/strategy/` - GTM approach, stakeholders
 4. `context-library/stakeholder-*.md` - Who needs to be involved
 5. `templates/launch-checklist-template.md` - Base template (if exists)
+6. `{{OPERATING_PRINCIPLES_DOC}}` - What counts as launched and done here. While it is a working draft, apply it, but never present it as settled process
 
 ---
 

@@ -41,6 +41,7 @@ When this skill is invoked, immediately check:
 | North Star | `context-library/strategy/*.md` | "north star", "NSM", "primary metric" | Current North Star definition |
 | Existing OKRs | `context-library/strategy/*.md` | "OKR", "objective", "key result", "Q1", "Q2" | Previous quarter OKRs for continuity |
 | Business Goals | `context-library/business-info-template.md` | goals, priorities, revenue target, growth | Company-level goals OKRs should ladder to |
+| Operating principles | `{{OPERATING_PRINCIPLES_DOC}}` | product goals, MVP, done | Product goals and the definitions KRs should use. A working draft is applied, never cited as settled process |
 | Strategy | `context-library/strategy/*.md` | "priority", "pillar", "strategic bet" | Strategic pillars to align OKRs to |
 | PRD Pipeline | `context-library/prds/*.md` | upcoming features, initiatives | Product work that should be reflected in OKRs |
 | Metrics | `context-library/metrics/*.md` | "baseline", "current", "benchmark" | Current metric baselines for Key Results |

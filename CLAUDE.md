@@ -67,6 +67,7 @@ Load only what the current task requires. Do not read everything upfront.
 | Need | Source |
 |------|--------|
 | Company and product context | `context-library/business-info-template.md` |
+| MVP scope, launch and done definitions, product goals | `{{OPERATING_PRINCIPLES_DOC}}`. While it is a working draft, apply it, but never present it as settled process |
 | House style (anti-slop standard) | `config/house-style.md` |
 | Evidence behind a voice rule | `references/<subject>-corpus.md` (start one from `templates/corpus-template.md`) |
 | File shape and conformance checks | `references/protocols/prompt-architecture.md` |
