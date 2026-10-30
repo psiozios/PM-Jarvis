@@ -101,6 +101,14 @@ A prioritization score may take an effort factor **only where engineering suppli
 
 **Work above the top effort band gets split into scored children.** Where engineering's estimate (§10) lands above the team's top band, the item becomes a parent, and each child is scored at creation (§3).
 
+## 12. Strategic weight first, the score within it
+
+**List every open epic-level workstream before ranking anything.** A ticket-level rank shows only what was ticketed, and one once hid five open workstreams that had no ticket near the top. Read the parents first, from the tracker and from the plans that name them, and say which ones the ranking covers.
+
+**Sequence by strategic weight, then by score.** Strategic weight is a named reason the work has to land in a given place: it is adjacent to a go-live, it carries a partnership's value, or something else depends on it. Work with strategic weight is placed by that reason; the prioritization score (§2, §11) orders the work within each band and orders everything that has none. A score never overrides a go-live.
+
+**Name each placement's driver.** Every ranked line says what put it there: "go-live adjacency: <launch>", "partnership: <partner>", "dependency: unblocks <item>", or "score: <value>". A placement with no named driver is a placement nobody can argue with, and nobody can check.
+
 ## Cross-References
 
 - `config/house-style.md` §9 — corpus first: the median in §5 comes from mined evidence, not recall

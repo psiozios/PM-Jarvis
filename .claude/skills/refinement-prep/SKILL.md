@@ -50,7 +50,7 @@ Pull the current board state from `<TASK_TRACKER>`. Strictly read-only, same as 
 
 ### 3. Rank by theme-fit, then live priority, then readiness
 
-Filter to items that plausibly fit the stated theme. Within that set, rank by live priority — read from the board's own fields against fixed anchors, never re-scored relative to today's shortlist (`references/protocols/tracker-writes.md` §1) — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, read live this run — the values the board offers and the way the user's recent items use them, never a prior note about either. Rank leaves against leaves; an epic on the shortlist is compared only with epics of similar size, never with a story (`references/protocols/tracker-writes.md` §11). Break remaining ties by readiness (how close the item already is to refinement-ready).
+List every open epic-level workstream first, so the shortlist can say which ones it covers. Filter to items that plausibly fit the stated theme. Within that set, place anything with strategic weight (go-live adjacency, partnership value, a dependency) by that reason first (`references/protocols/tracker-writes.md` §12), then rank the rest by live priority — read from the board's own fields against fixed anchors, never re-scored relative to today's shortlist (`references/protocols/tracker-writes.md` §1) — using the `prioritize` skill's method if it's present in the workspace, so ranking stays consistent with how the user prioritizes elsewhere; otherwise rank by the tracker's own priority field, read live this run — the values the board offers and the way the user's recent items use them, never a prior note about either. Rank leaves against leaves; an epic on the shortlist is compared only with epics of similar size, never with a story (`references/protocols/tracker-writes.md` §11). Break remaining ties by readiness (how close the item already is to refinement-ready).
 
 ### 4. Cap the shortlist
 
@@ -75,7 +75,7 @@ For each shortlisted item, identify the 1-2 genuine unknowns that would cause re
 **Theme:** <stated theme>
 
 ## Shortlist (ranked)
-1. **[<item>](<link>)** — theme-fit: <why> | priority: <live rank> | readiness: <ready / needs enrichment>
+1. **[<item>](<link>)** — driver: <go-live / partnership / dependency / score> | theme-fit: <why> | priority: <live rank> | readiness: <ready / needs enrichment>
    **Enrichment drafted:** <description / AC / scope boundary, ready to paste — no sizing note>
    **Unknowns that would cause rework:** <1-2 items, or "none identified">
 

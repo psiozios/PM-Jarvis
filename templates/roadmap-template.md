@@ -62,8 +62,8 @@ Your strategic communication tool for aligning teams and stakeholders.
 **Theme 1: [Strategic Theme]**
 *Why: [Business rationale]*
 
-**Top Priorities:**
-1. [Initiative]: [Description and expected impact]
+**Top Priorities:** (sequenced by strategic weight first, then score; each names its driver)
+1. [Initiative]: [Description and expected impact] — driver: [go-live / partnership / dependency / score]
 2. [Initiative]: [Description and expected impact]
 3. [Initiative]: [Description and expected impact]
 

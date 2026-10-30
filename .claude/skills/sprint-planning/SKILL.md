@@ -83,7 +83,9 @@ If you can't write a one-sentence goal, the sprint lacks focus. Identify the sin
 
 ### Step 3: Prioritize and Sequence
 
-Use these criteria to stack-rank tickets:
+**List every open epic-level workstream first, then sequence by strategic weight, and rank by score only within it** (`references/protocols/tracker-writes.md` §12): go-live adjacency, partnership value, or a dependency places an item; the score orders the rest. Name each placement's driver in the Notes column.
+
+Use these criteria to stack-rank tickets within each band:
 
 | Criterion | Questions |
 |-----------|-----------|
@@ -108,8 +110,8 @@ Use these criteria to stack-rank tickets:
 
 | Ticket | Owner | Estimate | Priority | Notes |
 |--------|-------|----------|----------|-------|
-| [Ticket] | [Engineer] | [S/M/L] | P0 | [dependency] |
-| [Ticket] | [Engineer] | [S/M/L] | P1 | |
+| [Ticket] | [Engineer] | [S/M/L] | P0 | driver: dependency, unblocks [item] |
+| [Ticket] | [Engineer] | [S/M/L] | P1 | driver: score [value] |
 
 **Total committed:** [N] person-days / [N] available — [X%] loaded
 
