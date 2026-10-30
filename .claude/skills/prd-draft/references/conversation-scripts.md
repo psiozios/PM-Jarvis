@@ -188,7 +188,7 @@ Create a [component type] for [product context].
 - When user [action], [result]
 - When user [action], [result]
 
-**Style:** [Modern/minimal/playful] with [brand colors if known]
+**Style:** the product's own tokens, type, and components, traced from the front-end code (`context-library/design-system.md`); anything new labeled proposed
 
 **Edge Cases:**
 - Empty state: [what to show]

@@ -34,7 +34,8 @@ Give structured, credible design feedback on existing products, competitor UIs, 
 
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
-| Brand system (authority) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Guidelines, tokens, components, visual identity. Audit against this, not against a local copy |
+| Shipping UI (authority for product UI) | The front-end code at the paths in `context-library/design-system.md` | Tokens, type, components, icons. Audit product UI against this (`references/protocols/register.md`, UI Authority) |
+| Brand system (authority for marketing) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Guidelines and visual identity for marketing surfaces. Audit those against this, not against a local copy |
 | Brand mirror (fallback) | `context-library/business-info-template.md` or any local brand file | Used **only** when the live system is unreachable, and any finding drawn from it says which snapshot it came from — see `references/protocols/register.md` |
 | Design Direction | `outputs/prototypes/*-design-direction.md` | Target parameters if direction was already set |
 | Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | Design requirements, acceptance criteria |
@@ -45,7 +46,7 @@ Give structured, credible design feedback on existing products, competitor UIs, 
 
 **Context Priority:**
 1. The UI being audited FIRST (screenshot, URL, or description)
-2. Brand guidelines and design direction SECOND (what it should match)
+2. The shipping UI from the front-end code SECOND for product screens (the brand guide for marketing pages), then design direction
 3. User context and research THIRD (who uses this and what they expect)
 4. Competitor benchmarks FOURTH (how others solve this)
 

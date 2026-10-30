@@ -565,7 +565,7 @@ Before creating any wireframe, check these sources:
 | Active PRD | `context-library/prds/*.md`, `outputs/prds/*.md` | UI requirements, user flows, feature scope, non-goals (what NOT to design) |
 | User Research | `context-library/research/*.md` | Pain points to solve, user quotes about current UX frustrations |
 | Stakeholder Profiles | `context-library/stakeholder-template.md` | Designer preferences (e.g., Lisa wants accessibility-first), exec priorities |
-| Design System | Any design docs or style references in workspace | Colors, component patterns, layout conventions to follow |
+| Shipping UI | the front-end code at the paths in `context-library/design-system.md`, or a browser capture of the live product | Components, patterns, and layout conventions the product ships; anything new is labeled proposed (`references/protocols/register.md`, UI Authority) |
 | Past Prototypes | `outputs/prototypes/*.md` | Existing wireframes for consistency, decisions already made |
 | Business Context | `context-library/business-info-template.md` | Product type, user personas, platform (web/mobile/both) |
 

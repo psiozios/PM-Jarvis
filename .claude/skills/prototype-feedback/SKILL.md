@@ -30,7 +30,7 @@ Rapidly iterate on prototypes using AI-powered building and automated feedback c
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
 | PRD | `outputs/prds/`, `context-library/prds/` | Requirements, acceptance criteria, success metrics |
-| Design System | `outputs/prototypes/*-design-direction.md`, design docs | Colors, typography, component patterns to match |
+| Shipping UI | the front-end code at the paths in `context-library/design-system.md` | Tokens, type, components, icons the prototype must match; flag any component that is neither in the code nor labeled proposed (`references/protocols/register.md`, UI Authority) |
 | Stakeholder Profiles | `context-library/stakeholder-*.md` | Who reviews this, their priorities and concerns |
 | User Research | `context-library/research/` | User pain points, quotes, behavior patterns |
 | Past Prototypes | `outputs/prototypes/` | Previous feedback rounds, resolved issues |

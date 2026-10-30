@@ -153,6 +153,7 @@ pm-jarvis/
 │   ├── launches/                   # Launch plans, release notes
 │   ├── metrics/                    # Analytics reports, A/B tests, warehouse-map.md
 │   ├── meetings/                   # Meeting notes
+│   ├── design-system.md            # Pointer to the front-end code product mockups must match
 │   └── example-prds/              # Reference PRD examples
 │
 ├── templates/                      # Empty templates (11 templates)
@@ -449,6 +450,7 @@ weekly `/weekly-review-fill` → monthly `/monthly-review-fill` (rolls up the we
 - [ ] Configure your voice (`config/house-style.md`) and interaction style (`config/persona.md`)
 - [ ] Install the hooks: copy `config/settings-template.json` to `.claude/settings.json`
 - [ ] Connect your tools with `/connect-mcps connect to [tool]`
+- [ ] Before your first product mockup, fill in `context-library/design-system.md` (where your front end keeps tokens, type, components, icons)
 - [ ] Before your first `/warehouse-brief`, fill in `context-library/metrics/warehouse-map.md` (tables, grains, traps)
 - [ ] Check `config/write-surfaces.md`: which of your own stores take a draft in place
 - [ ] Try `/daily-plan` or `/prd-draft` for your first command

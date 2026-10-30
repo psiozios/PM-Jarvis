@@ -41,7 +41,8 @@ Help PMs articulate "how it should feel" and communicate that direction to desig
 
 | Source | Files/Folders | What to Extract |
 |--------|---------------|-----------------|
-| Brand system (authority) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Colors, typography, tokens, components, product personality. This is the authority; read it before drafting |
+| Shipping UI (authority for product UI) | The front-end code at the paths in `context-library/design-system.md` | Tokens, type, components, icons the product already ships. A direction for product UI starts here; anything new is labeled proposed (`references/protocols/register.md`, UI Authority) |
+| Brand system (authority for marketing) | The connected design or brand system, read live — route via `references/mcp-routing.md` | Visual identity and personality for marketing surfaces. Never the source of product UI |
 | Brand mirror (fallback) | `context-library/business-info-template.md` or any local brand file | Used **only** when the live system is unreachable. A dated snapshot, never the authority — see `references/protocols/register.md` |
 | Active PRDs | `outputs/prds/*.md`, `context-library/prds/*.md` | Feature requirements, target users, success metrics |
 | User Research | `context-library/research/*.md` | User expectations, audience demographics, accessibility needs |
@@ -51,7 +52,7 @@ Help PMs articulate "how it should feel" and communicate that direction to desig
 | Second Brain | `context-library/second-brain/` | Product knowledge, customer insights relevant to visual direction |
 
 **Context Priority:**
-1. Brand guidelines and existing visual identity FIRST (constraints to work within)
+1. The shipping UI from the front-end code FIRST for product work; the brand guide FIRST only for marketing surfaces
 2. Target user and audience SECOND (who are we designing for)
 3. PRD requirements THIRD (what problem are we solving)
 4. Competitor landscape FOURTH (how do we differentiate visually)

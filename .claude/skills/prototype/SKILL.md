@@ -50,7 +50,8 @@ When this skill is invoked, immediately check:
 | User Research | `context-library/research/*.md` | user pain, problem | User quotes, pain points, workflows to design for |
 | Napkin Sketches | `outputs/prototypes/*-napkin*.md` | feature name | ASCII wireframes to convert to prototype |
 | Stakeholder Profiles | Stakeholder templates | design reviewers | Who will review this and what they care about |
-| Brand system (authority) | The connected design or brand system, read live — route via `references/mcp-routing.md` | brand, tokens | Colors, typography, components. Read before building, not after |
+| Shipping UI (authority) | The front-end code at the paths in `context-library/design-system.md` | tokens, components, icons | Tokens, type, components, icons, traced from the code. Read before building; anything new is labeled proposed (`references/protocols/register.md`, UI Authority) |
+| Brand system (marketing only) | The connected design or brand system, read live — route via `references/mcp-routing.md` | brand | Voice and product naming for copy. Never the source of product UI |
 | Business Info (fallback) | `context-library/business-info-template.md` | brand, product | Product context, and brand only as a dated mirror when the live system is unreachable — see `references/protocols/register.md` |
 | Competitor Analysis | `context-library/research/competitive-*.md` | feature name | Competitor implementations for reference |
 | Design Direction | `outputs/prototypes/*-design-direction.md` | feature name | Variance, motion, density parameters, style preset, anti-patterns |
@@ -230,8 +231,9 @@ Create a [component/page type] for [product context].
 
 **Style:**
 - [Modern/minimal/playful/enterprise]
-- Color palette: [Primary, secondary, accent] or [brand colors from business-info]
-- Typography: [Clean sans-serif / specific font]
+- Color palette: [tokens traced from the front-end code, per `context-library/design-system.md`]
+- Typography: [the product's own type scale, from the code]
+- Components: [the product's existing components; anything new marked PROPOSED]
 - Spacing: [Generous/compact]
 
 **Responsive:**
@@ -433,7 +435,7 @@ Generate a detailed design spec that a designer can implement in Figma.
 - Screen reader labels
 
 ## Design Tokens to Use
-[Reference existing design system tokens if known]
+[Tokens, type, components, and icons traced from the front-end code (`context-library/design-system.md`); anything new labeled proposed]
 
 ## References
 - [Competitor screenshot/URL]

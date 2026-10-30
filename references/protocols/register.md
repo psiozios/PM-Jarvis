@@ -48,6 +48,12 @@ The advice survives only when it is **restated onto a real axis**, and it usuall
 
 **Positioning is not tone of voice.** Competitive positioning, messaging frameworks, category claims, and differentiation language answer *what we say about where we sit*. Register answers *how this sentence sounds*. They are different questions, they are usually owned by different people, and a positioning doc **never inherits the register authority** no matter how much voice-adjacent language it contains. Take claims from positioning; take voice from the brand system.
 
+## UI Authority for Product Mockups
+
+**A product mockup matches the shipping UI.** Any mockup, prototype, wireframe, or design of the product traces its tokens, type, components, and icons from the front-end code, at the paths in `context-library/design-system.md`. Only the flow changes. Anything the code does not already have is labeled **proposed** on the mockup itself, so nobody builds it thinking it exists.
+
+**The brand guide governs marketing, never product UI.** The brand system above is the authority for outward *content* and for marketing surfaces; it never stands in for the product's own components. One design was rejected because it sat on the brand stylesheet with invented components. Where the pointer file is unfilled or the code is unreachable, say so on the mockup and label every visual choice proposed, rather than falling back to the brand guide or a generic kit.
+
 ## Propagating a Rule Change
 
 A register rule reversing — a new brand authority replacing an old one, or a house rule in `config/house-style.md` flipping to its opposite — is not a one-line edit. Two obligations:

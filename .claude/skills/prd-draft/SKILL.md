@@ -79,7 +79,7 @@ For live tool data (task tracker, chat platform, issue tracker, metrics source),
 
 1. **Read context, then ask only the gaps.** Read the sources above and the code path, then summarize what you have and ask only what is missing: the problem, the hypothesis, the goal it serves, the stage, what it is not, the metric. Never ask about implementation details, exhaustive edge cases, or final copy and UI.
 2. **Draft.** Fill `templates/prd-template.md` in theme order at the stage's length, every claim graded. Save to `outputs/prds/`.
-3. **Offer a prototype** (optional): a napkin sketch, a tool prompt, or a flow, per the scripts file.
+3. **Offer a prototype** (optional): a napkin sketch, a tool prompt, or a flow, per the scripts file, matching the shipping UI with anything new labeled proposed (`references/protocols/register.md`, UI Authority).
 4. **Offer review:** `/prd-review-panel` runs seven perspectives in parallel.
 5. **Iterate surgically.** **Read `references/iteration.md` when the PM asks for a revision.** For the end-to-end process around the draft, per-stage adjustments, the second-brain query, and where the PRD goes next, **read `references/full-workflow.md`.** A finished PRD moves to `context-library/prds/` only when the user moves it.
 

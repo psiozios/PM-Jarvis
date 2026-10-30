@@ -55,7 +55,8 @@ Create optimized prompts for AI prototyping tools (v0.dev, Lovable, Bolt.new) to
 | Source | Location | What to Extract |
 |--------|----------|------------------|
 | Source PRD | the named PRD, `outputs/prds/`, `context-library/prds/` | Requirements, non-goals, the states the prototype has to cover |
-| Design direction | `context-library/` brand or design files, a design-system tool if connected | Visual vocabulary, component names, product naming |
+| Shipping UI | the front-end code at the paths in `context-library/design-system.md` | Tokens, type, components, icons the product ships; the prompt names them, and anything new is labeled proposed (`references/protocols/register.md`, UI Authority) |
+| Design direction | a design-system tool if connected, `outputs/prototypes/*-design-direction.md` | Visual vocabulary and product naming. The brand guide governs marketing, never product UI |
 | User research | `context-library/research/` | Who this is for and what they are trying to do |
 | Prior prototypes | `outputs/prototypes/` | What was already tried, so the prompt does not repeat it |
 
@@ -135,9 +136,9 @@ Build a [feature name] interface with the following requirements:
 
 ## Design Specifications
 - **Style:** [Modern, minimal, professional, etc.]
-- **Colors:** [Primary: #hex, Secondary: #hex, or "use default shadcn palette"]
+- **Colors:** [the product's tokens, traced from the front-end code; a generic palette only when no front end exists, and then labeled proposed]
 - **Layout:** [Desktop-first, mobile-first, responsive]
-- **Components:** Use shadcn/ui components
+- **Components:** The product's own components, by name; anything new labeled PROPOSED. A generic kit only when no front end exists
 
 ## Key Interactions
 - [Interaction 1: e.g., "Click 'Add Item' opens modal"]
