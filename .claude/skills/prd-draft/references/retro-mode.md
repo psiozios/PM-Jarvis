@@ -38,7 +38,7 @@ The same themes as a forward PRD, in the past tense, with two changes:
 - **No rollout plan.** The section is omitted; the rollout already happened. Where its history matters, it goes in the appendix.
 - **A review trigger instead of kill criteria.** Under Business metrics and goals: "Review trigger: if [threshold], [owner] reopens this document." Evals score kill criteria N/A for a retro, never PASS.
 
-Target length: 800-1500 words in the body, scored like any stage (`SKILL.md`, Stage-Specific Length Guidance). Save to `outputs/prds/[product-name]-retro.md`.
+Target length: 800-1500 words in the body, scored like any stage (the length table in `SKILL.md`, Binding Rules). Save to `outputs/prds/[product-name]-retro.md`.
 
 ```markdown
 ## Current implementation gaps

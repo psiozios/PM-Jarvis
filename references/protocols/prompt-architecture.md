@@ -59,7 +59,7 @@
 
 **6. Specialize, do not restate.** Naming a global rule and adding what it means **for this skill's output** is correct and stays. Naming it and re-listing the same substitutions is duplication and goes. *Test:* does the block name a failure mode specific to this skill? If yes, keep. If no, cut to a pointer.
 
-**7. One name per concept.** Use the canonical table in §4. Add a new concept to that table **before** using it in a second file. *Selection rule for future entries:* the shortest spelling that is still unambiguous.
+**7. One name per concept.** Use the canonical table in §4. Add a new concept to that table **before** using it in a second file. *Selection rule for future entries:* the shortest spelling that is still unambiguous. **A rename sweeps the tree in the same commit:** renaming a section that other files cite greps every skill, protocol, and template for the old name and fixes each citation before the commit lands.
 
 **8. Outline hygiene.** `##` headings describe the skill. Template bodies, example output, and sample artifacts get fenced or extracted. *Test:* if `grep '^## '` on a `SKILL.md` does not read like a table of contents, the file is broken.
 
